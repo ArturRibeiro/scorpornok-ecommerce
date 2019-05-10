@@ -1,1 +1,1 @@
-# snoop-commerce
+# scorponok-ecommerce
