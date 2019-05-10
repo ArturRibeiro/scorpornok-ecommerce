@@ -9588,8 +9588,8 @@
     },
     "Shared.Code/1.0.0": {
       "type": "project",
-      "path": "../Shared/Gateway.Payment.Shared.Code/Shared.Code.csproj",
-      "msbuildProject": "../Shared/Gateway.Payment.Shared.Code/Shared.Code.csproj"
+      "path": "../Shared/Shared.Code/Shared.Code.csproj",
+      "msbuildProject": "../Shared/Shared.Code/Shared.Code.csproj"
     }
   },
   "projectFileDependencyGroups": {

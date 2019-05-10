@@ -68,6 +68,12 @@ C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Gateway.Payment.We
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Gateway.Payment.Web.Api\bin\Debug\netcoreapp3.0\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Gateway.Payment.Web.Api\bin\Debug\netcoreapp3.0\Gateway.Payment.Data.dll
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Gateway.Payment.Web.Api\bin\Debug\netcoreapp3.0\Gateway.Payment.Data.pdb
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.csproj.CoreCompileInputs.cache
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.RazorAssemblyInfo.cache
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.RazorAssemblyInfo.cs
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.AssemblyInfoInputs.cache
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.AssemblyInfo.cs
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.csprojAssemblyReference.cache
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\bin\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.exe
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\bin\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.deps.json
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\bin\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.runtimeconfig.json
@@ -128,12 +134,6 @@ C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.P
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\bin\Debug\netcoreapp3.0\Shared.Code.pdb
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\bin\Debug\netcoreapp3.0\Gateway.Payment.Cross.Bus.pdb
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\bin\Debug\netcoreapp3.0\Gateway.Payment.Data.pdb
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.csprojAssemblyReference.cache
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.csproj.CoreCompileInputs.cache
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.RazorAssemblyInfo.cache
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.RazorAssemblyInfo.cs
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.AssemblyInfoInputs.cache
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.AssemblyInfo.cs
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.RazorTargetAssemblyInfo.cache
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.csproj.CopyComplete
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Payments\Gateway.Payment.Web.Api\obj\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.dll

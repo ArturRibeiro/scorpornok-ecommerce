@@ -1,12 +1,4 @@
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Order\Order.Domain\bin\Debug\netcoreapp3.0\Order.Domain.deps.json
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Order\Order.Domain\bin\Debug\netcoreapp3.0\Order.Domain.dll
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Order\Order.Domain\bin\Debug\netcoreapp3.0\Order.Domain.pdb
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Order\Order.Domain\bin\Debug\netcoreapp3.0\Shared.Code.dll
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Order\Order.Domain\bin\Debug\netcoreapp3.0\Shared.Code.pdb
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Order\Order.Domain\obj\Debug\netcoreapp3.0\Order.Domain.csprojAssemblyReference.cache
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Order\Order.Domain\obj\Debug\netcoreapp3.0\Order.Domain.csproj.CoreCompileInputs.cache
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Order\Order.Domain\obj\Debug\netcoreapp3.0\Order.Domain.AssemblyInfoInputs.cache
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Order\Order.Domain\obj\Debug\netcoreapp3.0\Order.Domain.AssemblyInfo.cs
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Order\Order.Domain\obj\Debug\netcoreapp3.0\Order.Domain.csproj.CopyComplete
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Order\Order.Domain\obj\Debug\netcoreapp3.0\Order.Domain.dll
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Order\Order.Domain\obj\Debug\netcoreapp3.0\Order.Domain.pdb
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Order\Order.Domain\obj\Debug\netcoreapp3.0\Order.Domain.csprojAssemblyReference.cache

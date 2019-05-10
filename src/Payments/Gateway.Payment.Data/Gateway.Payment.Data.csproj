@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Gateway.Payment.Shared.Code\Shared.Code.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Code\Shared.Code.csproj" />
   </ItemGroup>
 
 </Project>
