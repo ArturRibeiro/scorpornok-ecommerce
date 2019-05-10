@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v3.0",
-    "signature": "99ddae6ce2cb28d8abb805348ccd7a70111909cb"
+    "signature": "b7a376ded8eba31aec132d4b58659d68136126db"
   },
   "compilationOptions": {
     "defines": [
@@ -319,6 +319,17 @@
         },
         "compile": {
           "Ecommerce.Integration.Tests.dll": {}
+        }
+      },
+      "Bogus/27.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/Bogus.dll": {
+            "assemblyVersion": "27.0.1.0",
+            "fileVersion": "27.0.1.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Bogus.dll": {}
         }
       },
       "FluentAssertions/5.6.0": {
@@ -2817,10 +2828,23 @@
           "ref/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
+      "Catalog.Queries/1.0.0": {
+        "dependencies": {
+          "Bogus": "27.0.1"
+        },
+        "runtime": {
+          "Catalog.Queries.dll": {}
+        },
+        "compile": {
+          "Catalog.Queries.dll": {}
+        }
+      },
       "Catalog.Web.Api/1.0.0": {
         "dependencies": {
+          "Catalog.Queries": "1.0.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.0.0-preview3-19153-02",
-          "Microsoft.Extensions.DependencyInjection": "2.2.0"
+          "Microsoft.Extensions.DependencyInjection": "2.2.0",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.2.3"
         },
         "runtime": {
           "Catalog.Web.Api.dll": {}
@@ -4563,6 +4587,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Bogus/27.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+Sz/jbEvGUYkhISItjoismJXVzA+gXYtuAo1xvyA1QMohS5zWd0lkN+OTnyk63FyZcSX66vgQ2DM9u97VJ+fJQ==",
+      "path": "bogus/27.0.1",
+      "hashPath": "bogus.27.0.1.nupkg.sha512"
+    },
     "FluentAssertions/5.6.0": {
       "type": "package",
       "serviceable": true,
@@ -5850,6 +5881,11 @@
       "sha512": "sha512-A/uxsWi/Ifzkmd4ArTLISMbfFs6XpRPsXZonrIqyTY70xi8t+mDtvSM5Os0RqyRDobjMBwIDHDL4NOIbkDwf7A==",
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
+    },
+    "Catalog.Queries/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Catalog.Web.Api/1.0.0": {
       "type": "project",

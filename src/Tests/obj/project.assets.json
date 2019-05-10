@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.0": {
+      "Bogus/27.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Bogus.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Bogus.dll": {}
+        }
+      },
       "FluentAssertions/5.6.0": {
         "type": "package",
         "dependencies": {
@@ -3023,12 +3032,27 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
+      "Catalog.Queries/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "dependencies": {
+          "Bogus": "27.0.1"
+        },
+        "compile": {
+          "bin/placeholder/Catalog.Queries.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Catalog.Queries.dll": {}
+        }
+      },
       "Catalog.Web.Api/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
+          "Catalog.Queries": "1.0.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.0.0-preview3-19153-02",
-          "Microsoft.Extensions.DependencyInjection": "2.2.0"
+          "Microsoft.Extensions.DependencyInjection": "2.2.0",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.2.3"
         },
         "compile": {
           "bin/placeholder/Catalog.Web.Api.dll": {}
@@ -3120,6 +3144,26 @@
     }
   },
   "libraries": {
+    "Bogus/27.0.1": {
+      "sha512": "+Sz/jbEvGUYkhISItjoismJXVzA+gXYtuAo1xvyA1QMohS5zWd0lkN+OTnyk63FyZcSX66vgQ2DM9u97VJ+fJQ==",
+      "type": "package",
+      "path": "bogus/27.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bogus.27.0.1.nupkg.sha512",
+        "bogus.nuspec",
+        "lib/net40/Bogus.dll",
+        "lib/net40/Bogus.pdb",
+        "lib/net40/Bogus.xml",
+        "lib/netstandard1.3/Bogus.dll",
+        "lib/netstandard1.3/Bogus.pdb",
+        "lib/netstandard1.3/Bogus.xml",
+        "lib/netstandard2.0/Bogus.dll",
+        "lib/netstandard2.0/Bogus.pdb",
+        "lib/netstandard2.0/Bogus.xml"
+      ]
+    },
     "FluentAssertions/5.6.0": {
       "sha512": "f4dbuhV21i1Icv0vRnOI62fvNVpVR4s238ezEgwajL1HyITWZUQnMMW0UgpV4P/kqL31fSrplAm8pLSxFtzhIg==",
       "type": "package",
@@ -9560,6 +9604,11 @@
         "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "Catalog.Queries/1.0.0": {
+      "type": "project",
+      "path": "../Catalog/Catalog.Queries/Catalog.Queries.csproj",
+      "msbuildProject": "../Catalog/Catalog.Queries/Catalog.Queries.csproj"
     },
     "Catalog.Web.Api/1.0.0": {
       "type": "project",

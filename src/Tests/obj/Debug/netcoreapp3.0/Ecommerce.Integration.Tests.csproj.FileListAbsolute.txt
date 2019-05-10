@@ -5,8 +5,6 @@ C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\obj\Debug\ne
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\obj\Debug\netcoreapp3.0\Ecommerce.Integration.Tests.AssemblyInfoInputs.cache
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\obj\Debug\netcoreapp3.0\Ecommerce.Integration.Tests.AssemblyInfo.cs
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Catalog.Web.Api.exe
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Order.Web.Api.exe
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.exe
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\NUnit3.TestAdapter.dll
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\NUnit3.TestAdapter.pdb
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\nunit.engine.netstandard.dll
@@ -182,3 +180,6 @@ C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\obj\Debug\ne
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\obj\Debug\netcoreapp3.0\Ecommerce.Integration.Tests.csproj.CopyComplete
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\obj\Debug\netcoreapp3.0\Ecommerce.Integration.Tests.dll
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\obj\Debug\netcoreapp3.0\Ecommerce.Integration.Tests.pdb
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Catalog.Queries.dll
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Catalog.Queries.pdb
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Bogus.dll

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Catalog.Queries.Products.Queries;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace Catalog.Web.Api.App
@@ -13,7 +14,12 @@ namespace Catalog.Web.Api.App
 
         public static void RegisterServices(IServiceCollection services)
         {
+            RegisterQueries(services);
+        }
 
+        public static void RegisterQueries(IServiceCollection services)
+        {
+            services.AddScoped<IProductQueries, ProductQueries>();
         }
 
 

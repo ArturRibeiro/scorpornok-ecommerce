@@ -4,14 +4,14 @@
     "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Web.Api\\Catalog.Web.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Web.Api\\Catalog.Web.Api.csproj": {
+    "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Queries\\Catalog.Queries.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Web.Api\\Catalog.Web.Api.csproj",
-        "projectName": "Catalog.Web.Api",
-        "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Web.Api\\Catalog.Web.Api.csproj",
+        "projectUniqueName": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Queries\\Catalog.Queries.csproj",
+        "projectName": "Catalog.Queries",
+        "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Queries\\Catalog.Queries.csproj",
         "packagesPath": "C:\\Users\\arthur.ribeiro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Web.Api\\obj\\",
+        "outputPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Queries\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -49,6 +49,81 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[27.0.1, )"
+            },
+            "Microsoft.NETCore.Platforms": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.0.0-preview3.19128.7, )",
+              "autoReferenced": true
+            },
+            "Microsoft.WindowsDesktop.App": {
+              "include": "None",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.0.0-preview3-27504-2, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Web.Api\\Catalog.Web.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Web.Api\\Catalog.Web.Api.csproj",
+        "projectName": "Catalog.Web.Api",
+        "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Web.Api\\Catalog.Web.Api.csproj",
+        "packagesPath": "C:\\Users\\arthur.ribeiro\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Web.Api\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\arthur.ribeiro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\nuget": {},
+          "\\\\BRRJSRV34\\Publico\\Epimed\\TI\\RepositorioNuget": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {
+              "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Queries\\Catalog.Queries.csproj": {
+                "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Queries\\Catalog.Queries.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "dependencies": {
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
               "version": "[3.0.0-preview3-19153-02, )"
@@ -62,6 +137,10 @@
               "target": "Package",
               "version": "[3.0.0-preview3.19128.7, )",
               "autoReferenced": true
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[2.2.3, )"
             },
             "Microsoft.WindowsDesktop.App": {
               "include": "None",

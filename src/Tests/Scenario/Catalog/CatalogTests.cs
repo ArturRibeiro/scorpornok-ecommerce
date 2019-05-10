@@ -25,5 +25,12 @@ namespace Ecommerce.Integration.Tests.Scenario.Catalog
             var result = await _client.GetAsync("values");
             result.IsSuccessStatusCode.Should().BeTrue();
         }
+
+        [Test]
+        public async Task GetAllProducts()
+        {
+            var result = await _client.GetAsync("Product/GetAllProducts");
+            result.IsSuccessStatusCode.Should().BeTrue();
+        }
     }
 }
