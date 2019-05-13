@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Frameworker\Frameworker.Scorponok.AspNet\Frameworker.Scorponok.AspNet.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Code\Shared.Code.csproj" />
     <ProjectReference Include="..\Catalog.Queries\Catalog.Queries.csproj" />
   </ItemGroup>
 

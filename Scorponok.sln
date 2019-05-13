@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Tests", "3 - Tests", "{6FB82150-E00E-4D73-854E-8FF67E87A914}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Tests", "4 - Tests", "{6FB82150-E00E-4D73-854E-8FF67E87A914}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Services", "1 - Services", "{8C5EF9BC-4667-47F1-91B3-2B4BC276C8E2}"
 EndProject
@@ -45,7 +45,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Code", "src\Shared\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Integration.Tests", "src\Tests\Ecommerce.Integration.Tests.csproj", "{126FF1AC-8773-4DEC-B949-BA6654598482}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Queries", "src\Catalog\Catalog.Queries\Catalog.Queries.csproj", "{C840BEAD-52AC-4941-9660-0DF7FF737C3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Queries", "src\Catalog\Catalog.Queries\Catalog.Queries.csproj", "{C840BEAD-52AC-4941-9660-0DF7FF737C3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Frameworker", "3 - Frameworker", "{DE629601-B37C-4424-9327-5E7D24EC65F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frameworker.Scorponok.AspNet", "src\Frameworker\Frameworker.Scorponok.AspNet\Frameworker.Scorponok.AspNet.csproj", "{C2CCD9FB-AE59-4413-AF03-5AC5C5655C44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +93,10 @@ Global
 		{C840BEAD-52AC-4941-9660-0DF7FF737C3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C840BEAD-52AC-4941-9660-0DF7FF737C3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C840BEAD-52AC-4941-9660-0DF7FF737C3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2CCD9FB-AE59-4413-AF03-5AC5C5655C44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2CCD9FB-AE59-4413-AF03-5AC5C5655C44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2CCD9FB-AE59-4413-AF03-5AC5C5655C44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2CCD9FB-AE59-4413-AF03-5AC5C5655C44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +121,7 @@ Global
 		{095EE9AB-D5E6-40C2-83BF-8FE2B0C295A6} = {9DE7EFCE-F7A5-46AD-88B3-B0951022090E}
 		{126FF1AC-8773-4DEC-B949-BA6654598482} = {6FB82150-E00E-4D73-854E-8FF67E87A914}
 		{C840BEAD-52AC-4941-9660-0DF7FF737C3B} = {955B170B-1CC6-4940-86E2-06DFD7DFF228}
+		{C2CCD9FB-AE59-4413-AF03-5AC5C5655C44} = {DE629601-B37C-4424-9327-5E7D24EC65F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E91BD82A-F2FA-4028-80CE-2541351E47AA}

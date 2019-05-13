@@ -1,0 +1,8 @@
+http://dsc.inf.furb.br/arquivos/tccs/apresentacoes/2016_1_leonardo-rossetti_apresentacao.pdf
+https://www.princeton.edu/~rcurtis/ultradev/ecommdatabase.html
+https://www.userede.com.br/novo/e-rede
+https://www.userede.com.br/desenvolvedores/pt/?option=com_users&view=login&return=aHR0cHM6Ly93d3cudXNlcmVkZS5jb20uYnIvZGVzZW52b2x2ZWRvcmVzL3B0L2xvamEvYXBwbGljYXRpb24vdmlldy9mNjQyNjY2MS0wY2NkLTQ2MzUtOWFhYi0wNWQ4ODg3MDY1NDQ%2FYXBpLW1hbmFnZXI9MQ%3D%3D
+https://www.userede.com.br/desenvolvedores/pt/apitester?option=com_apiportal&view=apitester&usage=api&tab=tests&apiName=e.Rede&apiId=1ad25388-a390-4ad6-99e3-5fc0bf4f7243&managerId=1&apiVersion=1.0#!/transactions/transa%C3%A7%C3%A3o
+
+https://www.userede.com.br/desenvolvedores/pt/produto/e-Rede#documentacao-autorizacao
+https://www.ecommercebrasil.com.br/artigos/como-escolher-uma-integracao-para-pagamentos-online/

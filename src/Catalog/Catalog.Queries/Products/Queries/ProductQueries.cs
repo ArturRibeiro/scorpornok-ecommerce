@@ -8,7 +8,7 @@ namespace Catalog.Queries.Products.Queries
     {
         public async Task<ProductItemMessageResponse[]> GetAllProducts()
         {
-            Faker<ProductItemMessageResponse> productItemFaker = new Faker<ProductItemMessageResponse>()
+            var productItemFaker = new Faker<ProductItemMessageResponse>()
                 .RuleFor(o => o.Id, f => f.IndexVariable++)
                 .RuleFor(o => o.Name, f => f.Commerce.ProductName())
                 .RuleFor(o => o.Description, f => f.Commerce.ProductAdjective())
@@ -16,7 +16,7 @@ namespace Catalog.Queries.Products.Queries
 
             ProductItemMessageResponse SeededOrder(int seed) => productItemFaker.UseSeed(seed).Generate(); 
 
-            var orders = Enumerable.Range(1, 5)
+            var orders = Enumerable.Range(1, 20)
                .Select(SeededOrder)
                .ToList();
 

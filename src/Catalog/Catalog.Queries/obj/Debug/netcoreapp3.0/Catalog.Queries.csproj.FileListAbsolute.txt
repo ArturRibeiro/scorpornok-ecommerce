@@ -6,4 +6,3 @@ C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Catalog\Catalog.Qu
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Catalog\Catalog.Queries\obj\Debug\netcoreapp3.0\Catalog.Queries.AssemblyInfo.cs
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Catalog\Catalog.Queries\obj\Debug\netcoreapp3.0\Catalog.Queries.dll
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Catalog\Catalog.Queries\obj\Debug\netcoreapp3.0\Catalog.Queries.pdb
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Catalog\Catalog.Queries\obj\Debug\netcoreapp3.0\Catalog.Queries.csprojAssemblyReference.cache

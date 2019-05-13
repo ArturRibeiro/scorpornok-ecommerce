@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Web.Api.App;
+using Catalog.Web.Api.Filters;
+using Frameworker.Scorponok.AspNet.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -42,9 +44,11 @@ namespace Catalog.Web.Api
         {
             try
             {
-                services.AddMvc()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                    .AddNewtonsoftJson();
+                services.AddMvc(options =>
+                {
+                    options.AddNotificationAsyncResultFilter<NotificationAsyncResultFilter>(Configuration);
+                }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                  .AddNewtonsoftJson();
 
                 services.AddHttpContextAccessor();
 

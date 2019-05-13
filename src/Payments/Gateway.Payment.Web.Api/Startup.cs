@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.PlatformAbstractions;
 using MediatR;
-using Gateway.Payment.Web.Api.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Code.Bus;
+using Frameworker.Scorponok.AspNet.Mvc;
+using Gateway.Payment.Web.Api.Middlewares;
 
 namespace Gateway.Payment.Web.Api
 {
@@ -44,7 +44,7 @@ namespace Gateway.Payment.Web.Api
             {
                 services.AddMvc(options =>
                     {
-                        options.ConfigureFilters(Configuration);
+                        options.AddNotificationAsyncResultFilter<NotificationAsyncResultFilter>(Configuration);
                     }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                     .AddNewtonsoftJson();
 

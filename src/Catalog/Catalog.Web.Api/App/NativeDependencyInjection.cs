@@ -1,5 +1,7 @@
 ﻿using Catalog.Queries.Products.Queries;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Code.Notifications;
 using System;
 
 namespace Catalog.Web.Api.App
@@ -15,6 +17,7 @@ namespace Catalog.Web.Api.App
         public static void RegisterServices(IServiceCollection services)
         {
             RegisterQueries(services);
+            RegisterDomainEvents(services);
         }
 
         public static void RegisterQueries(IServiceCollection services)
@@ -22,6 +25,10 @@ namespace Catalog.Web.Api.App
             services.AddScoped<IProductQueries, ProductQueries>();
         }
 
+        private static void RegisterDomainEvents(IServiceCollection services)
+        {
+            services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
+        }
 
     }
 }

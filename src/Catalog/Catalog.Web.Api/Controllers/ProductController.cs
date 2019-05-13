@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Threading.Tasks;
+using Catalog.Queries.Products;
+using Frameworker.Scorponok.AspNet.Mvc.Filters;
+//using Catalog.Web.Api.Controllers;
 
 namespace Catalog.Web.Api.Controllers
 {
@@ -10,15 +13,14 @@ namespace Catalog.Web.Api.Controllers
     {
         private readonly IProductQueries _productQueries;
 
-        public ProductController(IProductQueries productQueries)
-        {
-            this._productQueries = productQueries;
-        }
+        public ProductController(IProductQueries productQueries) => this._productQueries = productQueries;
 
         [HttpGet, Route("GetAllProducts")]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
-        public async Task<IActionResult> GetAllProducts() => Ok(await _productQueries.GetAllProducts());
+        [ProducesStatusCodeResponseType(HttpStatusCode.NotFound)]
+        [ProducesStatusCodeResponseType(HttpStatusCode.InternalServerError)]
+        [ProducesStatusCodeResponseType(HttpStatusCode.Unauthorized)]
+        [ProducesStatusCodeResponseType(typeof(ProductItemMessageResponse[]),  HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAllProducts() 
+            => this.Ok2<ProductItemMessageResponse[]>(await _productQueries.GetAllProducts());
     }
 }
