@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.TestHost;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
+using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Integration.Tests.Helpers
 {
+
     public abstract class BaseHttpServiceClient
     {
         private readonly HttpClient _client;
@@ -35,6 +37,16 @@ namespace Ecommerce.Integration.Tests.Helpers
         public async Task<HttpResponseMessage> GetAsync(string route)
             => await _client
             .SendAsync(CreateRequestMessage(HttpMethod.Get, $"http://localhost:{this._port}/api/v1/{route}"));
+
+        public async Task<ResultMessageResponseTest<TResult>> GetAsync<TResult>(string route)
+        {
+            var result = await _client
+                 .SendAsync(CreateRequestMessage(HttpMethod.Get, $"http://localhost:{this._port}/api/v1/{route}"));
+
+            var container = JsonConvert.DeserializeObject<ResultMessageResponseTest<TResult>>(result.Content.ReadAsStringAsync().Result);
+            return container;
+
+        }
 
         private static StringContent CreateStringContent(object messageRequest)
             => new StringContent(JsonConvert.SerializeObject(messageRequest), Encoding.UTF8, "application/json");

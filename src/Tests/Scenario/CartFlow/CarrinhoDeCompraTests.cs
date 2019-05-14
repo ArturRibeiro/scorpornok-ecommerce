@@ -1,4 +1,5 @@
-﻿using Ecommerce.Integration.Tests.Helpers;
+﻿using Catalog.Queries.Products;
+using Ecommerce.Integration.Tests.Helpers;
 using FluentAssertions;
 using NUnit.Framework;
 using System;
@@ -11,11 +12,11 @@ namespace Ecommerce.Integration.Tests.Scenario.CartFlow
     [TestFixture]
     public class CarrinhoDeCompraTests
     {
-        private readonly BaseHttpServiceClient _catalogoServiceClient;
+        private readonly HttpServiceClientCatalog _catalogoServiceClient;
 
         public CarrinhoDeCompraTests()
         {
-            _catalogoServiceClient = NativeInjectorBootStrapper.GetInstanceHttpServiceClient<HttpServiceClientCatalog>();
+            _catalogoServiceClient = (HttpServiceClientCatalog)NativeInjectorBootStrapper.GetInstanceHttpServiceClient<HttpServiceClientCatalog>();
         }
 
         /// <summary>
@@ -28,10 +29,22 @@ namespace Ecommerce.Integration.Tests.Scenario.CartFlow
         [Test]
         public async Task Executar()
         {
-            var result = await _catalogoServiceClient.GetAsync("Product/GetAllProducts");
+            Func<int, ProductItemMessageResponse> PassoEscolherProduto = (int arg) =>
+            {
+                var result = _catalogoServiceClient.GetAllProducts();
+                result.Wait();
+                return result.Result.Data.ElementAt(arg);
+            };
 
+            var produtoSelecionado = PassoEscolherProduto(RandomNumber(1, 20));
 
-            result.IsSuccessStatusCode.Should().BeTrue();
+            //result.IsSuccessStatusCode.Should().BeTrue();
+        }
+
+        public int RandomNumber(int min, int max)
+        {
+            Random random = new Random();
+            return random.Next(min, max);
         }
 
     }
