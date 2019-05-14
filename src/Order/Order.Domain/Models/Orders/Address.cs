@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Gateway.Payment.Shared.Domain.Models.Orders
+namespace Order.Domain.Models.Orders
 {
     public class Address : ValueObject
     {
