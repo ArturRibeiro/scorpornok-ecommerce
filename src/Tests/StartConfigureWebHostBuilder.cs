@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using Frameworker.Scorponok.Tests.WebHost.Extensions;
 using PaymentStartup = Gateway.Payment.Web.Api.Startup;
 using OrderStartup = Order.Web.Api.Startup;
 using CatalogStartup = Catalog.Web.Api.Startup;

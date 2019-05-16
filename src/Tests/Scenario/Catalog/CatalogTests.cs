@@ -16,7 +16,7 @@ namespace Ecommerce.Integration.Tests.Scenario.Catalog
 
         public CatalogTests()
         {
-            _client = NativeInjectorBootStrapper.GetInstanceHttpServiceClient<HttpServiceClientCatalog>();
+            _client = NativeInjectorBootStrapper.GetInstance<HttpServiceClientCatalog>();
         }
 
         [Test]

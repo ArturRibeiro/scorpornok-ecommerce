@@ -13,8 +13,10 @@ namespace Ecommerce.Integration.Tests
         [OneTimeSetUp]
         public void Setup()
         {
-            this.ConfigureWebHostBuilder()
-                .ConfigureHttpServiceClient();
+            this
+                .ConfigureWebHostBuilder()
+                .CreateDependencyInjection()
+                .MigrationDataBase();
         }
     }
 }

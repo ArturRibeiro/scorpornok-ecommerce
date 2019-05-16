@@ -16,7 +16,7 @@ namespace Ecommerce.Integration.Tests.Scenario.Orders
 
         public OrderTests()
         {
-            _client = NativeInjectorBootStrapper.GetInstanceHttpServiceClient<HttpServiceClientOrder>();
+            _client = NativeInjectorBootStrapper.GetInstance<HttpServiceClientOrder>();
         }
 
         [Test]

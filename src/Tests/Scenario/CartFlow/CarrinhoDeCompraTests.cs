@@ -16,7 +16,7 @@ namespace Ecommerce.Integration.Tests.Scenario.CartFlow
 
         public CarrinhoDeCompraTests()
         {
-            _catalogoServiceClient = (HttpServiceClientCatalog)NativeInjectorBootStrapper.GetInstanceHttpServiceClient<HttpServiceClientCatalog>();
+            _catalogoServiceClient = (HttpServiceClientCatalog)NativeInjectorBootStrapper.GetInstance<HttpServiceClientCatalog>();
         }
 
         /// <summary>

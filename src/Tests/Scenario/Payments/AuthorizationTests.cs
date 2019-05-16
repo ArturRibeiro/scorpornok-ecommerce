@@ -14,7 +14,7 @@ namespace Ecommerce.Integration.Tests.Scenario.Payments
 
         public AuthorizationTests(CardOperator @operator)
         {
-            client = NativeInjectorBootStrapper.GetInstanceHttpServiceClient<HttpServiceClientPayment>();
+            client = NativeInjectorBootStrapper.GetInstance<HttpServiceClientPayment>();
             client.AddHeader("CardOperator", @operator);
         }
 

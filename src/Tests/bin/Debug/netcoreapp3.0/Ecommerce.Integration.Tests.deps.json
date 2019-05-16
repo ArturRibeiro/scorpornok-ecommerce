@@ -26,6 +26,7 @@
         "dependencies": {
           "Catalog.Web.Api": "1.0.0",
           "FluentAssertions": "5.6.0",
+          "Frameworker.Scorponok.Tests": "1.0.0",
           "Gateway.Payment.Web.Api": "1.0.0",
           "Microsoft.AspNetCore.Hosting": "2.2.0",
           "Microsoft.AspNetCore.Hosting.Abstractions": "2.2.0",
@@ -3469,6 +3470,20 @@
           "Frameworker.Scorponok.AspNet.dll": {}
         }
       },
+      "Frameworker.Scorponok.Tests/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Hosting": "2.2.0",
+          "Microsoft.EntityFrameworkCore": "2.2.4",
+          "Microsoft.EntityFrameworkCore.Relational": "2.2.4",
+          "Microsoft.Extensions.DependencyInjection": "2.2.0"
+        },
+        "runtime": {
+          "Frameworker.Scorponok.Tests.dll": {}
+        },
+        "compile": {
+          "Frameworker.Scorponok.Tests.dll": {}
+        }
+      },
       "Gateway.Payment.Cross.Bus/1.0.0": {
         "dependencies": {
           "MediatR": "7.0.0",
@@ -6910,6 +6925,11 @@
       "sha512": ""
     },
     "Frameworker.Scorponok.AspNet/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Frameworker.Scorponok.Tests/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

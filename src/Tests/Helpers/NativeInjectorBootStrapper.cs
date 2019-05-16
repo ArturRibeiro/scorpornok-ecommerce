@@ -9,27 +9,36 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Integration.Tests.Helpers
 {
-    public class NativeInjectorBootStrapper
+    public class NativeInjectorBootStrapper 
     {
-        private static IServiceProvider _container;
-        private static ServiceCollection _serviceCollection = new ServiceCollection();
 
-        public static BaseHttpServiceClient GetInstanceHttpServiceClient<T>() where T : BaseHttpServiceClient
+        private static ServiceCollection _serviceCollection = new ServiceCollection();
+        internal static IServiceProvider _container => _serviceCollection.BuildServiceProvider();
+
+        public static T GetInstance<T>()
         {
-            var instance = _container.GetServices<T>();
-            return instance.ElementAt(0);
+            var instance = (T)_container.GetService(typeof(T));
+            return instance;
         }
 
-        internal static void CreateDependencyInjectionServiceClientOrder(TestServer server)
-            => _serviceCollection.AddSingleton(new HttpServiceClientOrder(server));
 
-        internal static void CreateDependencyInjectionServiceClientPayment(TestServer server)
-            => _serviceCollection.AddSingleton(new HttpServiceClientPayment(server));
 
-        internal static void CreateDependencyInjectionServiceClientCatalog(TestServer server)
-            => _serviceCollection.AddSingleton(new HttpServiceClientCatalog(server));
+        public static ServiceCollection RegisterAll()
+        {
+            //DbContext
+            _serviceCollection.AddScoped<Order.Infrastructure.OrderContext>();
 
-        internal static void BuildService()
-            => _container = _serviceCollection.BuildServiceProvider();
+            
+            return _serviceCollection;
+        }
+
+        //}
+
+
+
+
+
+        //internal static void BuildService()
+        //    => _container = _serviceCollection.BuildServiceProvider();
     }
 }

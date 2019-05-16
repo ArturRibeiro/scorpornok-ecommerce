@@ -221,7 +221,6 @@ C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\ne
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.1\System.Security.Cryptography.Pkcs.dll
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.dll
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.pdb
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Order.Web.Api.exe
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\System.Data.SqlClient.dll
@@ -237,3 +236,5 @@ C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\ne
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Order.Domain.pdb
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Order.Infrastructure.pdb
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Frameworker.Scorponok.Tests.dll
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Frameworker.Scorponok.Tests.pdb
