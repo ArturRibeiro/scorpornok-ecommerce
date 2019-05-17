@@ -12,9 +12,15 @@ namespace Order.Domain.Models.Orders
 
         #region Properties
 
-        public Guid CustomerId => _customerId;
+        public Guid CustomerId { get; private set; }
 
-        public Address Address { get; private set; }
+        public ShippingAddress Address { get; private set; }
+
+        public string OrderNumber { get; private set; }
+
+        public DateTime OrderDate { get; private set; }
+
+        public int PaymentId { get; private set; }
 
         #endregion
     }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Order.Domain.Models.Orders
 {
-    public class Address : ValueObject
+    public class ShippingAddress : ValueObject
     {
     }
 }

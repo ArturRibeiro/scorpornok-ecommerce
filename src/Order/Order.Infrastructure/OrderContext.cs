@@ -11,7 +11,7 @@ namespace Order.Infrastructure
     {
         public DbSet<Domain.Models.Orders.Order> Orders { get; set; }
         public DbSet<Domain.Models.Orders.OrderItem> OrderItems { get; set; }
-        public DbSet<Domain.Models.Orders.Address> Address { get; set; }
+        public DbSet<Domain.Models.Orders.ShippingAddress> Address { get; set; }
 
         public OrderContext(DbContextOptions<OrderContext> options) : base(options) { }
 
@@ -24,7 +24,7 @@ namespace Order.Infrastructure
         {
 
             modelBuilder.Ignore(typeof(Domain.Models.Orders.OrderItem));
-            modelBuilder.Ignore(typeof(Domain.Models.Orders.Address));
+            modelBuilder.Ignore(typeof(Domain.Models.Orders.ShippingAddress));
             modelBuilder.ApplyConfiguration(new OrderConfigurations());
         }
 

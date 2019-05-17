@@ -6,3 +6,4 @@ C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Frameworker\Framew
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Frameworker\Frameworker.Scorponok.AspNet\bin\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.pdb
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.dll
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.pdb
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.csprojAssemblyReference.cache
