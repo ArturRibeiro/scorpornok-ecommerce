@@ -11,7 +11,7 @@ namespace Order.Domain.Models.Orders
         #region Properties
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
 
-        public ShippingAddress Address { get; private set; }
+        public OrderAddress Address { get; private set; }
         #endregion
     }
 }

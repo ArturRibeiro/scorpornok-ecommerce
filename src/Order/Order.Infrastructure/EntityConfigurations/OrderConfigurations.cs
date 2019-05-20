@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
+
 
 namespace Order.Infrastructure.EntityConfigurations
 {
@@ -10,8 +10,31 @@ namespace Order.Infrastructure.EntityConfigurations
         {
             builder.HasKey(cr => cr.Id)
                 .HasName("OrderId");
-            //builder.Property(cr => cr.Name).IsRequired();
-            //builder.Property(cr => cr.Time).IsRequired();
+
+            builder.Property(x => x.CustomerId)
+                .HasColumnName("CustomerId")
+                .IsRequired();
+
+            builder.Property(x => x.OrderNumber)
+                .HasColumnName("OrderNumber")
+                .IsRequired();
+
+            builder.Property(x => x.OrderDate)
+                .HasColumnName("OrderDate")
+                .IsRequired();
+
+            builder.Property(x => x.PaymentId)
+                .HasColumnName("PaymentId")
+                .IsRequired();
+
+            //Address Value Object
+            //https://docs.microsoft.com/pt-br/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
+            builder.OwnsOne(o => o.Address);
+
+            //builder.HasOne<Domain.Models.Orders.OrderAddress>()
+            //    .WithMany()
+            //    .IsRequired()
+            //    .HasForeignKey("AddressId");
         }
     }
 }

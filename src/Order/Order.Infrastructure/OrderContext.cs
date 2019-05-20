@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Order.Domain.SeedWork;
 using Order.Infrastructure.EntityConfigurations;
+using Shared.Code.Models;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +11,7 @@ namespace Order.Infrastructure
     {
         public DbSet<Domain.Models.Orders.Order> Orders { get; set; }
         public DbSet<Domain.Models.Orders.OrderItem> OrderItems { get; set; }
-        public DbSet<Domain.Models.Orders.ShippingAddress> Address { get; set; }
+        public DbSet<Domain.Models.Orders.OrderAddress> Address { get; set; }
 
         public OrderContext(DbContextOptions<OrderContext> options) : base(options) { }
 
@@ -23,8 +23,8 @@ namespace Order.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Ignore(typeof(Domain.Models.Orders.OrderItem));
-            modelBuilder.Ignore(typeof(Domain.Models.Orders.ShippingAddress));
+            //modelBuilder.ApplyConfiguration(new OrderAddressConfigurations());
+            modelBuilder.ApplyConfiguration(new OrderItemConfigurations());
             modelBuilder.ApplyConfiguration(new OrderConfigurations());
         }
 

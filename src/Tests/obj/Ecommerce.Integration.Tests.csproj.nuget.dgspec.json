@@ -527,6 +527,9 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
+              "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Frameworker\\Frameworker.Scorponok.AspNet\\Frameworker.Scorponok.AspNet.csproj": {
+                "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Frameworker\\Frameworker.Scorponok.AspNet\\Frameworker.Scorponok.AspNet.csproj"
+              },
               "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Order\\Order.Infrastructure\\Order.Infrastructure.csproj": {
                 "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Order\\Order.Infrastructure\\Order.Infrastructure.csproj"
               }
@@ -542,6 +545,10 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
               "version": "[3.0.0-preview3-19153-02, )"
