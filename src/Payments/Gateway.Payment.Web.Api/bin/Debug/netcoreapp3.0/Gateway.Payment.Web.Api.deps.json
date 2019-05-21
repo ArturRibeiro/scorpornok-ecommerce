@@ -25,7 +25,6 @@
       "Gateway.Payment.Web.Api/1.0.0": {
         "dependencies": {
           "Frameworker.Scorponok.AspNet": "1.0.0",
-          "Gateway.Payment.Cross.Bus": "1.0.0",
           "Gateway.Payment.Data": "1.0.0",
           "JetBrains.Annotations": "2019.1.1",
           "MediatR": "7.0.0",
@@ -36,6 +35,7 @@
           "Microsoft.NETCore.Platforms": "3.0.0-preview3.19128.7",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.2.3",
           "Microsoft.WindowsDesktop.App": "3.0.0-preview3-27504-2",
+          "Shared.Bus": "1.0.0",
           "Shared.Code": "1.0.0",
           "runtime.win-x64.Microsoft.NETCore.DotNetAppHost": "3.0.0-preview3-27503-5",
           "Microsoft.AspNetCore.Antiforgery.Reference": "3.0.0.0",
@@ -2788,18 +2788,6 @@
           "Frameworker.Scorponok.AspNet.dll": {}
         }
       },
-      "Gateway.Payment.Cross.Bus/1.0.0": {
-        "dependencies": {
-          "MediatR": "7.0.0",
-          "Shared.Code": "1.0.0"
-        },
-        "runtime": {
-          "Gateway.Payment.Cross.Bus.dll": {}
-        },
-        "compile": {
-          "Gateway.Payment.Cross.Bus.dll": {}
-        }
-      },
       "Gateway.Payment.Data/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "2.2.4",
@@ -2812,6 +2800,18 @@
         },
         "compile": {
           "Gateway.Payment.Data.dll": {}
+        }
+      },
+      "Shared.Bus/1.0.0": {
+        "dependencies": {
+          "MediatR": "7.0.0",
+          "Shared.Code": "1.0.0"
+        },
+        "runtime": {
+          "Shared.Bus.dll": {}
+        },
+        "compile": {
+          "Shared.Bus.dll": {}
         }
       },
       "Shared.Code/1.0.0": {
@@ -5888,12 +5888,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Gateway.Payment.Cross.Bus/1.0.0": {
+    "Gateway.Payment.Data/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Gateway.Payment.Data/1.0.0": {
+    "Shared.Bus/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

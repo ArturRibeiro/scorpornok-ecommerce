@@ -14,6 +14,15 @@
           "lib/netstandard2.0/FluentValidation.dll": {}
         }
       },
+      "JetBrains.Annotations/2019.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {}
+        }
+      },
       "MediatR/7.0.0": {
         "type": "package",
         "compile": {
@@ -21,6 +30,19 @@
         },
         "runtime": {
           "lib/netstandard2.0/MediatR.dll": {}
+        }
+      },
+      "MediatR.Extensions.Microsoft.DependencyInjection/7.0.0": {
+        "type": "package",
+        "dependencies": {
+          "MediatR": "7.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/2.2.0": {
@@ -2817,6 +2839,20 @@
           "bin/placeholder/Order.Infrastructure.dll": {}
         }
       },
+      "Shared.Bus/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "dependencies": {
+          "MediatR": "7.0.0",
+          "Shared.Code": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Shared.Bus.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Shared.Bus.dll": {}
+        }
+      },
       "Shared.Code/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
@@ -2853,6 +2889,27 @@
         "lib/netstandard2.0/FluentValidation.xml"
       ]
     },
+    "JetBrains.Annotations/2019.1.1": {
+      "sha512": "y4RFn+HZ7BekqIx+uXuVAvh80quYNiu86oRG2QztmFXQ2mm1lprb7xNawZdFfLxBAh8BQUkSQdO0Itanal8DbQ==",
+      "type": "package",
+      "path": "jetbrains.annotations/2019.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "jetbrains.annotations.2019.1.1.nupkg.sha512",
+        "jetbrains.annotations.nuspec",
+        "lib/net20/JetBrains.Annotations.dll",
+        "lib/net20/JetBrains.Annotations.xml",
+        "lib/netstandard1.0/JetBrains.Annotations.deps.json",
+        "lib/netstandard1.0/JetBrains.Annotations.dll",
+        "lib/netstandard1.0/JetBrains.Annotations.xml",
+        "lib/netstandard2.0/JetBrains.Annotations.deps.json",
+        "lib/netstandard2.0/JetBrains.Annotations.dll",
+        "lib/netstandard2.0/JetBrains.Annotations.xml",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.dll",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.xml"
+      ]
+    },
     "MediatR/7.0.0": {
       "sha512": "sgfHxkBsmMlHOD564SnLqTvSbAuGlFiZfc6ybxBSI1wYV/2u+Y5TXtFoIhCISFg5/s/6aMvB338QC2JseHsjTA==",
       "type": "package",
@@ -2864,6 +2921,18 @@
         "lib/netstandard2.0/MediatR.dll",
         "mediatr.7.0.0.nupkg.sha512",
         "mediatr.nuspec"
+      ]
+    },
+    "MediatR.Extensions.Microsoft.DependencyInjection/7.0.0": {
+      "sha512": "DRf8jBnjBg84da1L1L0YmwqkhCV+UJTg7bTBHOhleWrLfrtSK5h5aNeE1HOofs1Afisq03B6H2C10NmS47gmqA==",
+      "type": "package",
+      "path": "mediatr.extensions.microsoft.dependencyinjection/7.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll",
+        "mediatr.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",
+        "mediatr.extensions.microsoft.dependencyinjection.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Antiforgery/2.2.0": {
@@ -8544,6 +8613,11 @@
       "path": "../Order.Infrastructure/Order.Infrastructure.csproj",
       "msbuildProject": "../Order.Infrastructure/Order.Infrastructure.csproj"
     },
+    "Shared.Bus/1.0.0": {
+      "type": "project",
+      "path": "../../Shared/Shared.Bus/Shared.Bus.csproj",
+      "msbuildProject": "../../Shared/Shared.Bus/Shared.Bus.csproj"
+    },
     "Shared.Code/1.0.0": {
       "type": "project",
       "path": "../../Shared/Shared.Code/Shared.Code.csproj",
@@ -8553,7 +8627,9 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
       "Frameworker.Scorponok.AspNet >= 1.0.0",
+      "JetBrains.Annotations >= 2019.1.1",
       "MediatR >= 7.0.0",
+      "MediatR.Extensions.Microsoft.DependencyInjection >= 7.0.0",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 3.0.0-preview3-19153-02",
       "Microsoft.EntityFrameworkCore >= 2.2.4",
       "Microsoft.EntityFrameworkCore.Design >= 2.2.4",
@@ -8563,6 +8639,7 @@
       "Microsoft.NETCore.Platforms >= 3.0.0-preview3.19128.7",
       "Microsoft.WindowsDesktop.App >= 3.0.0-preview3-27504-2",
       "Order.Infrastructure >= 1.0.0",
+      "Shared.Bus >= 1.0.0",
       "runtime.win-x64.Microsoft.NETCore.DotNetAppHost >= 3.0.0-preview3-27503-5"
     ]
   },
@@ -8609,6 +8686,9 @@
             },
             "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Order\\Order.Infrastructure\\Order.Infrastructure.csproj": {
               "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Order\\Order.Infrastructure\\Order.Infrastructure.csproj"
+            },
+            "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Shared\\Shared.Bus\\Shared.Bus.csproj": {
+              "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Shared\\Shared.Bus\\Shared.Bus.csproj"
             }
           }
         }
@@ -8622,7 +8702,15 @@
     "frameworks": {
       "netcoreapp3.0": {
         "dependencies": {
+          "JetBrains.Annotations": {
+            "target": "Package",
+            "version": "[2019.1.1, )"
+          },
           "MediatR": {
+            "target": "Package",
+            "version": "[7.0.0, )"
+          },
+          "MediatR.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[7.0.0, )"
           },

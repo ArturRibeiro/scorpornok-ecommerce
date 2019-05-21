@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using Gateway.Payment.Cross.Bus;
 using Gateway.Payment.Dependency.Injection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Code.Bus;
 using Frameworker.Scorponok.AspNet.Mvc;
 using Gateway.Payment.Web.Api.Middlewares;
 
@@ -51,9 +49,6 @@ namespace Gateway.Payment.Web.Api
                 services.AddMediatR(typeof(Startup).Assembly);
 
                 services.AddHttpContextAccessor();
-
-                // Domain Bus (Mediator)
-                services.AddScoped<IMediatorHandler, InMemoryBus>();
 
                 NativeDependencyInjection.RegisterServices(services);
 

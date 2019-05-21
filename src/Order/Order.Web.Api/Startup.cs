@@ -9,6 +9,9 @@ using Microsoft.Extensions.Hosting;
 using Order.Infrastructure;
 using Order.Web.Api.App;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
+using Order.Web.Api.Middlewares;
+using Frameworker.Scorponok.AspNet.Mvc;
 
 namespace Order.Web.Api
 {
@@ -39,9 +42,13 @@ namespace Order.Web.Api
         {
             try
             {
-                services.AddMvc()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                services.AddMvc(options =>
+                {
+                    options.AddNotificationAsyncResultFilter<NotificationAsyncResultFilter>(Configuration);
+                }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                     .AddNewtonsoftJson();
+
+                services.AddMediatR(typeof(Startup).Assembly);
 
                 services.AddHttpContextAccessor();
 

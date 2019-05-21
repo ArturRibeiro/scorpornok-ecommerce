@@ -3977,20 +3977,6 @@
           "bin/placeholder/Frameworker.Scorponok.Tests.dll": {}
         }
       },
-      "Gateway.Payment.Cross.Bus/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.0",
-        "dependencies": {
-          "MediatR": "7.0.0",
-          "Shared.Code": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Gateway.Payment.Cross.Bus.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Gateway.Payment.Cross.Bus.dll": {}
-        }
-      },
       "Gateway.Payment.Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
@@ -4012,7 +3998,6 @@
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
           "Frameworker.Scorponok.AspNet": "1.0.0",
-          "Gateway.Payment.Cross.Bus": "1.0.0",
           "Gateway.Payment.Data": "1.0.0",
           "JetBrains.Annotations": "2019.1.1",
           "MediatR": "7.0.0",
@@ -4021,6 +4006,7 @@
           "Microsoft.Extensions.DependencyInjection": "2.2.0",
           "Microsoft.Extensions.PlatformAbstractions": "1.1.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.2.3",
+          "Shared.Bus": "1.0.0",
           "Shared.Code": "1.0.0"
         },
         "compile": {
@@ -4066,19 +4052,36 @@
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
           "Frameworker.Scorponok.AspNet": "1.0.0",
+          "JetBrains.Annotations": "2019.1.1",
           "MediatR": "7.0.0",
+          "MediatR.Extensions.Microsoft.DependencyInjection": "7.0.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.0.0-preview3-19153-02",
           "Microsoft.EntityFrameworkCore": "2.2.4",
           "Microsoft.EntityFrameworkCore.Design": "2.2.4",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.2.4",
           "Microsoft.Extensions.DependencyInjection": "2.2.0",
-          "Order.Infrastructure": "1.0.0"
+          "Order.Infrastructure": "1.0.0",
+          "Shared.Bus": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Order.Web.Api.dll": {}
         },
         "runtime": {
           "bin/placeholder/Order.Web.Api.dll": {}
+        }
+      },
+      "Shared.Bus/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "dependencies": {
+          "MediatR": "7.0.0",
+          "Shared.Code": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Shared.Bus.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Shared.Bus.dll": {}
         }
       },
       "Shared.Code/1.0.0": {
@@ -11843,11 +11846,6 @@
       "path": "../Frameworker/Frameworker.Scorponok.Tests/Frameworker.Scorponok.Tests.csproj",
       "msbuildProject": "../Frameworker/Frameworker.Scorponok.Tests/Frameworker.Scorponok.Tests.csproj"
     },
-    "Gateway.Payment.Cross.Bus/1.0.0": {
-      "type": "project",
-      "path": "../Payments/Gateway.Payment.Cross.Bus/Gateway.Payment.Cross.Bus.csproj",
-      "msbuildProject": "../Payments/Gateway.Payment.Cross.Bus/Gateway.Payment.Cross.Bus.csproj"
-    },
     "Gateway.Payment.Data/1.0.0": {
       "type": "project",
       "path": "../Payments/Gateway.Payment.Data/Gateway.Payment.Data.csproj",
@@ -11872,6 +11870,11 @@
       "type": "project",
       "path": "../Order/Order.Web.Api/Order.Web.Api.csproj",
       "msbuildProject": "../Order/Order.Web.Api/Order.Web.Api.csproj"
+    },
+    "Shared.Bus/1.0.0": {
+      "type": "project",
+      "path": "../Shared/Shared.Bus/Shared.Bus.csproj",
+      "msbuildProject": "../Shared/Shared.Bus/Shared.Bus.csproj"
     },
     "Shared.Code/1.0.0": {
       "type": "project",

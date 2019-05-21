@@ -2986,20 +2986,6 @@
           "bin/placeholder/Frameworker.Scorponok.AspNet.dll": {}
         }
       },
-      "Gateway.Payment.Cross.Bus/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.0",
-        "dependencies": {
-          "MediatR": "7.0.0",
-          "Shared.Code": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Gateway.Payment.Cross.Bus.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Gateway.Payment.Cross.Bus.dll": {}
-        }
-      },
       "Gateway.Payment.Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
@@ -3014,6 +3000,20 @@
         },
         "runtime": {
           "bin/placeholder/Gateway.Payment.Data.dll": {}
+        }
+      },
+      "Shared.Bus/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "dependencies": {
+          "MediatR": "7.0.0",
+          "Shared.Code": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Shared.Bus.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Shared.Bus.dll": {}
         }
       },
       "Shared.Code/1.0.0": {
@@ -9118,15 +9118,15 @@
       "path": "../../Frameworker/Frameworker.Scorponok.AspNet/Frameworker.Scorponok.AspNet.csproj",
       "msbuildProject": "../../Frameworker/Frameworker.Scorponok.AspNet/Frameworker.Scorponok.AspNet.csproj"
     },
-    "Gateway.Payment.Cross.Bus/1.0.0": {
-      "type": "project",
-      "path": "../Gateway.Payment.Cross.Bus/Gateway.Payment.Cross.Bus.csproj",
-      "msbuildProject": "../Gateway.Payment.Cross.Bus/Gateway.Payment.Cross.Bus.csproj"
-    },
     "Gateway.Payment.Data/1.0.0": {
       "type": "project",
       "path": "../Gateway.Payment.Data/Gateway.Payment.Data.csproj",
       "msbuildProject": "../Gateway.Payment.Data/Gateway.Payment.Data.csproj"
+    },
+    "Shared.Bus/1.0.0": {
+      "type": "project",
+      "path": "../../Shared/Shared.Bus/Shared.Bus.csproj",
+      "msbuildProject": "../../Shared/Shared.Bus/Shared.Bus.csproj"
     },
     "Shared.Code/1.0.0": {
       "type": "project",
@@ -9137,7 +9137,6 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
       "Frameworker.Scorponok.AspNet >= 1.0.0",
-      "Gateway.Payment.Cross.Bus >= 1.0.0",
       "Gateway.Payment.Data >= 1.0.0",
       "JetBrains.Annotations >= 2019.1.1",
       "MediatR >= 7.0.0",
@@ -9148,6 +9147,7 @@
       "Microsoft.NETCore.Platforms >= 3.0.0-preview3.19128.7",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.2.3",
       "Microsoft.WindowsDesktop.App >= 3.0.0-preview3-27504-2",
+      "Shared.Bus >= 1.0.0",
       "Shared.Code >= 1.0.0",
       "runtime.win-x64.Microsoft.NETCore.DotNetAppHost >= 3.0.0-preview3-27503-5"
     ]
@@ -9193,11 +9193,11 @@
             "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Frameworker\\Frameworker.Scorponok.AspNet\\Frameworker.Scorponok.AspNet.csproj": {
               "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Frameworker\\Frameworker.Scorponok.AspNet\\Frameworker.Scorponok.AspNet.csproj"
             },
-            "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Payments\\Gateway.Payment.Cross.Bus\\Gateway.Payment.Cross.Bus.csproj": {
-              "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Payments\\Gateway.Payment.Cross.Bus\\Gateway.Payment.Cross.Bus.csproj"
-            },
             "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Payments\\Gateway.Payment.Data\\Gateway.Payment.Data.csproj": {
               "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Payments\\Gateway.Payment.Data\\Gateway.Payment.Data.csproj"
+            },
+            "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Shared\\Shared.Bus\\Shared.Bus.csproj": {
+              "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Shared\\Shared.Bus\\Shared.Bus.csproj"
             },
             "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Shared\\Shared.Code\\Shared.Code.csproj": {
               "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Shared\\Shared.Code\\Shared.Code.csproj"

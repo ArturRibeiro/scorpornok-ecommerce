@@ -30,7 +30,7 @@ namespace Ecommerce.Integration.Tests.Helpers
             _client.DefaultRequestHeaders.Add(name, value.ToString());
         }
 
-        public async Task<HttpResponseMessage> PostAsync(object messageRequest, string route)
+        public virtual async Task<HttpResponseMessage> PostAsync(object messageRequest, string route)
             => await _client
             .PostAsync($"http://localhost:{this._port}/api/v1/{ route }", CreateStringContent(messageRequest));
 

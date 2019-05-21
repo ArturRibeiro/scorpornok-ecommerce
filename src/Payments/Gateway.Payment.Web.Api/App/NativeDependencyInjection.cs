@@ -9,6 +9,8 @@ using Gateway.Payment.Web.Api.App.eRede.Commands;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Shared.Code.Bus;
+using Shared.Bus;
 
 namespace Gateway.Payment.Dependency.Injection
 {
@@ -22,6 +24,9 @@ namespace Gateway.Payment.Dependency.Injection
 
         public static void RegisterServices(IServiceCollection services)
         {
+            // Domain Bus (Mediator)
+            services.AddScoped<IMediatorHandler, InMemoryBus>();
+
             RegisterCommandHandler(services);
             RegisterDomainEvents(services);
             RegisterEventSourcing(services);
