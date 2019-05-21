@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Order.Infrastructure.EntityConfigurations
 {
-    public class OrderItemConfigurations : IEntityTypeConfiguration<OrderItem>
+    class OrderItemConfigurations : IEntityTypeConfiguration<OrderItem>
     {
         public void Configure(EntityTypeBuilder<OrderItem> orderItemConfiguration)
         {

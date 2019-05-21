@@ -8,7 +8,7 @@ namespace Frameworker.Scorponok.Tests.WebHost.Extensions
 {
     public static class IWebHostExtension
     {
-        public static IWebHost ErasureDatabase<TContext>(this IWebHost webHost, Action<TContext, IServiceProvider> seeder) 
+        public static IWebHost ErasureDatabase<TContext>(this IWebHost webHost) 
             where TContext : DbContext
         {
             using (var scope = webHost.Services.CreateScope())
@@ -42,6 +42,8 @@ namespace Frameworker.Scorponok.Tests.WebHost.Extensions
                 {
                     var context = services.GetService<TContext>();
                     context.Database.Migrate();
+                    logger.LogInformation($"Migrated database associated with context {typeof(TContext).Name}");
+                    seeder(context, services);
                     logger.LogInformation($"Migrated database associated with context {typeof(TContext).Name}");
                 }
                 catch (Exception ex)

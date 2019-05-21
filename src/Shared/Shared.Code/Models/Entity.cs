@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Shared.Code.Models
 {
-    public abstract class Entity
+    public abstract class Entity<T>
     {
         private int? _requestedHashCode;
 
-        public virtual int Id
+        public virtual T Id
         {
             get;
             protected set;
@@ -18,7 +18,7 @@ namespace Shared.Code.Models
 
         public override bool Equals(object obj)
         {
-            if (obj == null || !(obj is Entity))
+            if (obj == null || !(obj is Entity<T>))
                 return false;
 
             if (Object.ReferenceEquals(this, obj))
@@ -27,12 +27,12 @@ namespace Shared.Code.Models
             if (this.GetType() != obj.GetType())
                 return false;
 
-            Entity item = (Entity)obj;
-
+            Entity<T> item = (Entity<T>)obj;
+            
             if (item.IsTransient || this.IsTransient)
                 return false;
             else
-                return item.Id == this.Id;
+                return item.Id.Equals(this.Id);
         }
 
         public override int GetHashCode()

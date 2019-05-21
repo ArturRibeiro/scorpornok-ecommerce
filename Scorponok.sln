@@ -49,11 +49,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Queries", "src\Cata
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Frameworker", "3 - Frameworker", "{DE629601-B37C-4424-9327-5E7D24EC65F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frameworker.Scorponok.AspNet", "src\Frameworker\Frameworker.Scorponok.AspNet\Frameworker.Scorponok.AspNet.csproj", "{C2CCD9FB-AE59-4413-AF03-5AC5C5655C44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frameworker.Scorponok.AspNet", "src\Frameworker\Frameworker.Scorponok.AspNet\Frameworker.Scorponok.AspNet.csproj", "{C2CCD9FB-AE59-4413-AF03-5AC5C5655C44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order.Infrastructure", "src\Order\Order.Infrastructure\Order.Infrastructure.csproj", "{AFF4C739-923B-4AFB-B0DA-A9FC75FA4144}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.Infrastructure", "src\Order\Order.Infrastructure\Order.Infrastructure.csproj", "{AFF4C739-923B-4AFB-B0DA-A9FC75FA4144}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frameworker.Scorponok.Tests", "src\Frameworker\Frameworker.Scorponok.Tests\Frameworker.Scorponok.Tests.csproj", "{26C234B9-4D05-4193-A354-27520CDC02A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frameworker.Scorponok.Tests", "src\Frameworker\Frameworker.Scorponok.Tests\Frameworker.Scorponok.Tests.csproj", "{26C234B9-4D05-4193-A354-27520CDC02A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infra", "3 - Infra", "{4DF4722E-E256-49C9-AD88-4F1AEBC61108}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Infrastructure", "src\Catalog\Catalog.Infrastructure\Catalog.Infrastructure.csproj", "{C4D80751-5C31-4335-8439-C577D8E03670}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Domain", "2 - Domain", "{6791575D-CB72-4B8D-8975-669D18A00BEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Domain", "src\Catalog\Catalog.Domain\Catalog.Domain.csproj", "{288D44A8-F967-49ED-874B-C297807EB493}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +117,14 @@ Global
 		{26C234B9-4D05-4193-A354-27520CDC02A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26C234B9-4D05-4193-A354-27520CDC02A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26C234B9-4D05-4193-A354-27520CDC02A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4D80751-5C31-4335-8439-C577D8E03670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D80751-5C31-4335-8439-C577D8E03670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D80751-5C31-4335-8439-C577D8E03670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D80751-5C31-4335-8439-C577D8E03670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{288D44A8-F967-49ED-874B-C297807EB493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{288D44A8-F967-49ED-874B-C297807EB493}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{288D44A8-F967-49ED-874B-C297807EB493}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{288D44A8-F967-49ED-874B-C297807EB493}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -136,6 +152,10 @@ Global
 		{C2CCD9FB-AE59-4413-AF03-5AC5C5655C44} = {DE629601-B37C-4424-9327-5E7D24EC65F4}
 		{AFF4C739-923B-4AFB-B0DA-A9FC75FA4144} = {B466C4BD-F1AE-44F5-95F7-1381FEC2A9BC}
 		{26C234B9-4D05-4193-A354-27520CDC02A8} = {DE629601-B37C-4424-9327-5E7D24EC65F4}
+		{4DF4722E-E256-49C9-AD88-4F1AEBC61108} = {E304C5B0-A8B9-4C4F-BBB5-AC9EA7CB69DF}
+		{C4D80751-5C31-4335-8439-C577D8E03670} = {4DF4722E-E256-49C9-AD88-4F1AEBC61108}
+		{6791575D-CB72-4B8D-8975-669D18A00BEF} = {E304C5B0-A8B9-4C4F-BBB5-AC9EA7CB69DF}
+		{288D44A8-F967-49ED-874B-C297807EB493} = {6791575D-CB72-4B8D-8975-669D18A00BEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E91BD82A-F2FA-4028-80CE-2541351E47AA}

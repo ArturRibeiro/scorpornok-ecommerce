@@ -24,6 +24,8 @@
     ".NETCoreApp,Version=v3.0": {
       "Ecommerce.Integration.Tests/1.0.0": {
         "dependencies": {
+          "Bogus": "27.0.1",
+          "Catalog.Infrastructure": "1.0.0",
           "Catalog.Web.Api": "1.0.0",
           "FluentAssertions": "5.6.0",
           "Frameworker.Scorponok.Tests": "1.0.0",
@@ -3432,6 +3434,33 @@
           "ref/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
+      "Catalog.Domain/1.0.0": {
+        "dependencies": {
+          "Shared.Code": "1.0.0"
+        },
+        "runtime": {
+          "Catalog.Domain.dll": {}
+        },
+        "compile": {
+          "Catalog.Domain.dll": {}
+        }
+      },
+      "Catalog.Infrastructure/1.0.0": {
+        "dependencies": {
+          "Catalog.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "2.2.4",
+          "Microsoft.EntityFrameworkCore.Design": "2.2.4",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.4",
+          "Microsoft.Extensions.Configuration.Json": "2.2.0",
+          "Microsoft.NETCore.App": "2.2.5"
+        },
+        "runtime": {
+          "Catalog.Infrastructure.dll": {}
+        },
+        "compile": {
+          "Catalog.Infrastructure.dll": {}
+        }
+      },
       "Catalog.Queries/1.0.0": {
         "dependencies": {
           "Bogus": "27.0.1"
@@ -3445,11 +3474,14 @@
       },
       "Catalog.Web.Api/1.0.0": {
         "dependencies": {
+          "Catalog.Infrastructure": "1.0.0",
           "Catalog.Queries": "1.0.0",
           "Frameworker.Scorponok.AspNet": "1.0.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.0.0-preview3-19153-02",
+          "Microsoft.EntityFrameworkCore": "2.2.4",
+          "Microsoft.EntityFrameworkCore.Design": "2.2.4",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.4",
           "Microsoft.Extensions.DependencyInjection": "2.2.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.2.3",
           "Shared.Code": "1.0.0"
         },
         "runtime": {
@@ -6915,6 +6947,16 @@
       "sha512": "sha512-A/uxsWi/Ifzkmd4ArTLISMbfFs6XpRPsXZonrIqyTY70xi8t+mDtvSM5Os0RqyRDobjMBwIDHDL4NOIbkDwf7A==",
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
+    },
+    "Catalog.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Catalog.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Catalog.Queries/1.0.0": {
       "type": "project",

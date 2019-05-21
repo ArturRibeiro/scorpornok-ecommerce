@@ -8,7 +8,7 @@ namespace Order.Domain.Models.Orders
     /// <summary>
     /// Pedido
     /// </summary>
-    public class Order : Entity, IAggregateRoot
+    public class Order : Entity<int>, IAggregateRoot
     {
         private readonly IList<OrderItem> _items = new List<OrderItem>();
 

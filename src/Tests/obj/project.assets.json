@@ -3871,6 +3871,37 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
+      "Catalog.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "dependencies": {
+          "Shared.Code": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Catalog.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Catalog.Domain.dll": {}
+        }
+      },
+      "Catalog.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "dependencies": {
+          "Catalog.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "2.2.4",
+          "Microsoft.EntityFrameworkCore.Design": "2.2.4",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.4",
+          "Microsoft.Extensions.Configuration.Json": "2.2.0",
+          "Microsoft.NETCore.App": "2.2.5"
+        },
+        "compile": {
+          "bin/placeholder/Catalog.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Catalog.Infrastructure.dll": {}
+        }
+      },
       "Catalog.Queries/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
@@ -3888,11 +3919,14 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
+          "Catalog.Infrastructure": "1.0.0",
           "Catalog.Queries": "1.0.0",
           "Frameworker.Scorponok.AspNet": "1.0.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.0.0-preview3-19153-02",
+          "Microsoft.EntityFrameworkCore": "2.2.4",
+          "Microsoft.EntityFrameworkCore.Design": "2.2.4",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.4",
           "Microsoft.Extensions.DependencyInjection": "2.2.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.2.3",
           "Shared.Code": "1.0.0"
         },
         "compile": {
@@ -11740,6 +11774,16 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
+    "Catalog.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Catalog/Catalog.Domain/Catalog.Domain.csproj",
+      "msbuildProject": "../Catalog/Catalog.Domain/Catalog.Domain.csproj"
+    },
+    "Catalog.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../Catalog/Catalog.Infrastructure/Catalog.Infrastructure.csproj",
+      "msbuildProject": "../Catalog/Catalog.Infrastructure/Catalog.Infrastructure.csproj"
+    },
     "Catalog.Queries/1.0.0": {
       "type": "project",
       "path": "../Catalog/Catalog.Queries/Catalog.Queries.csproj",
@@ -11798,6 +11842,8 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
+      "Bogus >= 27.0.1",
+      "Catalog.Infrastructure >= 1.0.0",
       "Catalog.Web.Api >= 1.0.0",
       "FluentAssertions >= 5.6.0",
       "Frameworker.Scorponok.Tests >= 1.0.0",
@@ -11852,6 +11898,9 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
+            "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Infrastructure\\Catalog.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Infrastructure\\Catalog.Infrastructure.csproj"
+            },
             "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Web.Api\\Catalog.Web.Api.csproj": {
               "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Catalog\\Catalog.Web.Api\\Catalog.Web.Api.csproj"
             },
@@ -11876,6 +11925,10 @@
     "frameworks": {
       "netcoreapp3.0": {
         "dependencies": {
+          "Bogus": {
+            "target": "Package",
+            "version": "[27.0.1, )"
+          },
           "FluentAssertions": {
             "target": "Package",
             "version": "[5.6.0, )"

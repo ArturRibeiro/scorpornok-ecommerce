@@ -1,19 +1,16 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using Catalog.Infrastructure;
 using Catalog.Web.Api.App;
 using Catalog.Web.Api.Filters;
 using Frameworker.Scorponok.AspNet.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Catalog.Web.Api
 {
@@ -53,6 +50,9 @@ namespace Catalog.Web.Api
                 services.AddHttpContextAccessor();
 
                 NativeDependencyInjection.RegisterServices(services);
+
+                services.AddDbContext<CatalogContext>(options
+                    => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             }
             catch (Exception ex)

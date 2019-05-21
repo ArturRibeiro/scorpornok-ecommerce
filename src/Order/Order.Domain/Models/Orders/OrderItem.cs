@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Order.Domain.Models.Orders
 {
-    public class OrderItem : Entity
+    public class OrderItem : Entity<int>
     {
 
     }

@@ -1,4 +1,6 @@
-﻿Inicia o migration:
+﻿1º Set as StartUp Project "Web-api"
+
+Inicia o migration:
 	add-migration InitialCreate -verbose
 
 Criação:
