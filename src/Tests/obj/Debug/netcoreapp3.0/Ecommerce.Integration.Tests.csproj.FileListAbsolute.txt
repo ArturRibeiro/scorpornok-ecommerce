@@ -239,3 +239,5 @@ C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\ne
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Frameworker.Scorponok.Tests.dll
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Frameworker.Scorponok.Tests.pdb
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Order.Web.Api.exe
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Catalog.Web.Api.exe
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Gateway.Payment.Web.Api.exe

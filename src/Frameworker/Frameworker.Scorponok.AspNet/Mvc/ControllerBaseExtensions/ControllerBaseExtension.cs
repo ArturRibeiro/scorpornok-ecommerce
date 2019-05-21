@@ -1,12 +1,7 @@
 ﻿using Frameworker.Scorponok.AspNet.Mvc.Result;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 
-namespace Catalog.Web.Api.Controllers
+namespace Frameworker.Scorponok.AspNet.Mvc.ControllerBaseExtensions
 {
     public static class ControllerBaseExtension
     {

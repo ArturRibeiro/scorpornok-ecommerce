@@ -4,7 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Catalog.Queries.Products;
 using Frameworker.Scorponok.AspNet.Mvc.Filters;
-//using Catalog.Web.Api.Controllers;
+using Frameworker.Scorponok.AspNet.Mvc.ControllerBaseExtensions;
 
 namespace Catalog.Web.Api.Controllers
 {
