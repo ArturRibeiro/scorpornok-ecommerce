@@ -1,26 +1,32 @@
-﻿using Bogus;
-using System.Linq;
+﻿using Dapper;
+using Shared.Code.Provider;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace Catalog.Queries.Products.Queries
 {
     public class ProductQueries : IProductQueries
     {
-        public async Task<ProductItemMessageResponse[]> GetAllProducts()
+        private readonly IDataConfigurationProvider _provider;
+
+        public ProductQueries(IDataConfigurationProvider provider)
+            => _provider = provider;
+
+        public async Task<IEnumerable<ProductItemMessageResponse>> GetAllProducts()
         {
-            var productItemFaker = new Faker<ProductItemMessageResponse>()
-                .RuleFor(o => o.Id, f => f.IndexVariable++)
-                .RuleFor(o => o.Name, f => f.Commerce.ProductName())
-                .RuleFor(o => o.Description, f => f.Commerce.ProductAdjective())
-                .RuleFor(o => o.Price, f => f.Commerce.Price());
+            using (var connection = new SqlConnection(_provider.ConnectionString))
+            {
+                connection.Open();
 
-            ProductItemMessageResponse SeededOrder(int seed) => productItemFaker.UseSeed(seed).Generate(); 
-
-            var orders = Enumerable.Range(1, 20)
-               .Select(SeededOrder)
-               .ToList();
-
-            return orders.ToArray();
+                return await connection.QueryAsync<ProductItemMessageResponse>(@"SELECT [CatalogId]
+                                                                                      ,[Name]
+                                                                                      ,[Sku]
+                                                                                      ,[PictureUri]
+                                                                                      ,[Price]
+                                                                                      ,[Description]
+                                                                                 FROM [dbo].[Products] ORDER BY [Name]");
+            }
         }
     }
 }

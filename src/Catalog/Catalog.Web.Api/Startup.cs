@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shared.Code.Provider;
 
 namespace Catalog.Web.Api
 {
@@ -53,6 +54,8 @@ namespace Catalog.Web.Api
 
                 services.AddDbContext<CatalogContext>(options
                     => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+                services.AddSingleton<IDataConfigurationProvider>(_ => new DataConfigurationProvider(Configuration.GetConnectionString("DefaultConnection")));
 
             }
             catch (Exception ex)

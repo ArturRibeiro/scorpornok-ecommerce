@@ -9,15 +9,21 @@ namespace Catalog.Queries.Products
     public class ProductItemMessageResponse
     {
         [DataMember]
-        public int Id { get; set; }
+        public Guid CatalogId { get; set; }
 
         [DataMember]
         public string Name { get; set; }
 
         [DataMember]
+        public string Sku { get; set; }
+
+        [DataMember]
+        public string PictureUri { get; set; }
+
+        [DataMember]
         public string Description { get; set; }
 
         [DataMember]
-        public string Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

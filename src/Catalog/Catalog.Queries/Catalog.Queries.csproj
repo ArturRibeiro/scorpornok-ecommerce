@@ -6,6 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="Bogus" Version="27.0.1" />
+    <PackageReference Include="Dapper" Version="1.60.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Shared.Code\Shared.Code.csproj" />
   </ItemGroup>
 
 </Project>

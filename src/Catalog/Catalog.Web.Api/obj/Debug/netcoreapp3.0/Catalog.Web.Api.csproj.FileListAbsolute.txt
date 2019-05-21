@@ -118,3 +118,4 @@ C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Catalog\Catalog.We
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Catalog\Catalog.Web.Api\bin\Debug\netcoreapp3.0\Catalog.Infrastructure.dll
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Catalog\Catalog.Web.Api\bin\Debug\netcoreapp3.0\Catalog.Infrastructure.pdb
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Catalog\Catalog.Web.Api\bin\Debug\netcoreapp3.0\Catalog.Domain.pdb
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Catalog\Catalog.Web.Api\bin\Debug\netcoreapp3.0\Dapper.dll

@@ -205,7 +205,11 @@
         },
         "frameworks": {
           "netcoreapp3.0": {
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Shared\\Shared.Code\\Shared.Code.csproj": {
+                "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Shared\\Shared.Code\\Shared.Code.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -220,6 +224,10 @@
             "Bogus": {
               "target": "Package",
               "version": "[27.0.1, )"
+            },
+            "Dapper": {
+              "target": "Package",
+              "version": "[1.60.6, )"
             },
             "Microsoft.NETCore.Platforms": {
               "suppressParent": "All",

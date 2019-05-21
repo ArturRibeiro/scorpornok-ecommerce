@@ -17,8 +17,6 @@ namespace Ecommerce.Integration.Tests.Helpers
         }
 
         public async Task<ResultMessageResponseTest<ProductItemMessageResponse[]>> GetAllProducts()
-        {
-            return await this.GetAsync<ProductItemMessageResponse[]>("Product/GetAllProducts");
-        }
+            => await this.GetAsync<ProductItemMessageResponse[]>("Product/GetAllProducts");
     }
 }

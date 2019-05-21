@@ -43,6 +43,8 @@ namespace Ecommerce.Integration.Tests.Helpers
             var result = await _client
                  .SendAsync(CreateRequestMessage(HttpMethod.Get, $"http://localhost:{this._port}/api/v1/{route}"));
 
+            result.StatusCode.Should().Be(HttpStatusCode.OK, "Ocorreu algum problema no end point");
+
             var container = JsonConvert.DeserializeObject<ResultMessageResponseTest<TResult>>(result.Content.ReadAsStringAsync().Result);
             return container;
 

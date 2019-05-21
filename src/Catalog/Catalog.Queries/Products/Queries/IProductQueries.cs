@@ -7,6 +7,6 @@ namespace Catalog.Queries.Products.Queries
 {
     public interface IProductQueries
     {
-        Task<ProductItemMessageResponse[]> GetAllProducts();
+        Task<IEnumerable<ProductItemMessageResponse>> GetAllProducts();
     }
 }
