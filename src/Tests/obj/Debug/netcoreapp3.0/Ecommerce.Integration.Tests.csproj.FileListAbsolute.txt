@@ -244,3 +244,12 @@ C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\ne
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Shared.Bus.dll
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Shared.Bus.pdb
 C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Order.Web.Api.exe
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.StaticFiles.dll
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\Microsoft.Extensions.FileProviders.Embedded.dll
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\NJsonSchema.dll
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\NSwag.Annotations.dll
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\NSwag.AspNetCore.dll
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\NSwag.Core.dll
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\NSwag.SwaggerGeneration.dll
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\NSwag.SwaggerGeneration.AspNetCore.dll
+C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Tests\bin\Debug\netcoreapp3.0\NSwag.SwaggerGeneration.WebApi.dll

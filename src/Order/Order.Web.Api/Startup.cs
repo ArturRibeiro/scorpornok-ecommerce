@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Order.Web.Api.Middlewares;
 using Frameworker.Scorponok.AspNet.Mvc;
-using Frameworker.Scorponok.AspNet.Mvc.Filters;
+using Order.Web.Api.Extensions.Service;
 
 namespace Order.Web.Api
 {
@@ -58,6 +58,9 @@ namespace Order.Web.Api
                 services.AddDbContext<OrderContext>(options
                     => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+                // Register the Swagger services
+                services.AddSettingSwaggerDocument();
+
             }
             catch (Exception ex)
             {
@@ -79,6 +82,9 @@ namespace Order.Web.Api
             });
 
             app.UseAuthorization();
+            // Register the Swagger generator and the Swagger UI middlewares
+            app.UseSwagger();
+            app.UseSwaggerUi3();
         }
 
         private void Log(Exception e) => File.AppendAllText($"Log\\Log{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.txt", e.ToString());
