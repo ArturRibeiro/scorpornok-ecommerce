@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Order.Web.Api.Middlewares;
 using Frameworker.Scorponok.AspNet.Mvc;
+using Frameworker.Scorponok.AspNet.Mvc.Filters;
 
 namespace Order.Web.Api
 {

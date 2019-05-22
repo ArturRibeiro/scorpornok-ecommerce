@@ -3892,7 +3892,10 @@
         },
         "runtime": {
           "bin/placeholder/Catalog.Domain.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Catalog.Infrastructure/1.0.0": {
         "type": "project",
@@ -3910,7 +3913,10 @@
         },
         "runtime": {
           "bin/placeholder/Catalog.Infrastructure.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Catalog.Queries/1.0.0": {
         "type": "project",
@@ -3925,7 +3931,10 @@
         },
         "runtime": {
           "bin/placeholder/Catalog.Queries.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Catalog.Web.Api/1.0.0": {
         "type": "project",
@@ -3946,7 +3955,11 @@
         },
         "runtime": {
           "bin/placeholder/Catalog.Web.Api.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App",
+          "Microsoft.NETCore.App"
+        ]
       },
       "Frameworker.Scorponok.AspNet/1.0.0": {
         "type": "project",
@@ -3959,7 +3972,10 @@
         },
         "runtime": {
           "bin/placeholder/Frameworker.Scorponok.AspNet.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Frameworker.Scorponok.Tests/1.0.0": {
         "type": "project",
@@ -3975,7 +3991,10 @@
         },
         "runtime": {
           "bin/placeholder/Frameworker.Scorponok.Tests.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Gateway.Payment.Data/1.0.0": {
         "type": "project",
@@ -3991,7 +4010,10 @@
         },
         "runtime": {
           "bin/placeholder/Gateway.Payment.Data.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Gateway.Payment.Web.Api/1.0.0": {
         "type": "project",
@@ -4014,7 +4036,11 @@
         },
         "runtime": {
           "bin/placeholder/Gateway.Payment.Web.Api.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App",
+          "Microsoft.NETCore.App"
+        ]
       },
       "Order.Domain/1.0.0": {
         "type": "project",
@@ -4027,7 +4053,10 @@
         },
         "runtime": {
           "bin/placeholder/Order.Domain.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Order.Infrastructure/1.0.0": {
         "type": "project",
@@ -4045,7 +4074,10 @@
         },
         "runtime": {
           "bin/placeholder/Order.Infrastructure.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Order.Web.Api/1.0.0": {
         "type": "project",
@@ -4068,7 +4100,11 @@
         },
         "runtime": {
           "bin/placeholder/Order.Web.Api.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App",
+          "Microsoft.NETCore.App"
+        ]
       },
       "Shared.Bus/1.0.0": {
         "type": "project",
@@ -4082,7 +4118,10 @@
         },
         "runtime": {
           "bin/placeholder/Shared.Bus.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Shared.Code/1.0.0": {
         "type": "project",
@@ -4096,7 +4135,10 @@
         },
         "runtime": {
           "bin/placeholder/Shared.Code.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       }
     }
   },
@@ -12024,7 +12066,11 @@
           "net461"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App",
+          "Microsoft.NETCore.App"
+        ]
       }
     }
   }

@@ -11,7 +11,8 @@ using JetBrains.Annotations;
 namespace Order.Web.Api.App.CommandHandlers
 {
     public class OrdersCommandHandler : CommandHandler,
-        IRequestHandler<CreateOrderCommand>
+        IRequestHandler<CreateOrderCommand>,
+        IRequestHandler<OrderAddressCommand>
     {
 
         public OrdersCommandHandler(IMediatorHandler mediator, INotificationHandler<DomainNotification> notificationHandler)
@@ -20,6 +21,11 @@ namespace Order.Web.Api.App.CommandHandlers
         }
 
         public async Task<Unit> Handle([NotNull] CreateOrderCommand message, CancellationToken cancellationToken)
+        {
+            return Unit.Value;
+        }
+
+        public async Task<Unit> Handle([NotNull] OrderAddressCommand request, CancellationToken cancellationToken)
         {
             return Unit.Value;
         }

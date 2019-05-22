@@ -2806,7 +2806,10 @@
         },
         "runtime": {
           "bin/placeholder/Frameworker.Scorponok.AspNet.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Order.Domain/1.0.0": {
         "type": "project",
@@ -2819,7 +2822,10 @@
         },
         "runtime": {
           "bin/placeholder/Order.Domain.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Order.Infrastructure/1.0.0": {
         "type": "project",
@@ -2837,7 +2843,10 @@
         },
         "runtime": {
           "bin/placeholder/Order.Infrastructure.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Shared.Bus/1.0.0": {
         "type": "project",
@@ -2851,7 +2860,10 @@
         },
         "runtime": {
           "bin/placeholder/Shared.Bus.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Shared.Code/1.0.0": {
         "type": "project",
@@ -2865,7 +2877,10 @@
         },
         "runtime": {
           "bin/placeholder/Shared.Code.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       }
     }
   },
@@ -8765,7 +8780,11 @@
           "net461"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App",
+          "Microsoft.NETCore.App"
+        ]
       }
     }
   }

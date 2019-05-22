@@ -1,6 +1,7 @@
 ﻿using System;
 using Shared.Code.Commands;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Order.Web.Api.App.Commands
 {
@@ -9,8 +10,5 @@ namespace Order.Web.Api.App.Commands
     {
         [DataMember]
         public Guid UserId { get; set; }
-
-        [DataMember]
-        public AddOrderAddressCommand Address { get; set; }
     }
 }

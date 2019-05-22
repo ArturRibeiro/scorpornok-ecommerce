@@ -2803,7 +2803,10 @@
         },
         "runtime": {
           "bin/placeholder/Catalog.Domain.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Catalog.Infrastructure/1.0.0": {
         "type": "project",
@@ -2821,7 +2824,10 @@
         },
         "runtime": {
           "bin/placeholder/Catalog.Infrastructure.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Catalog.Queries/1.0.0": {
         "type": "project",
@@ -2836,7 +2842,10 @@
         },
         "runtime": {
           "bin/placeholder/Catalog.Queries.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Frameworker.Scorponok.AspNet/1.0.0": {
         "type": "project",
@@ -2849,7 +2858,10 @@
         },
         "runtime": {
           "bin/placeholder/Frameworker.Scorponok.AspNet.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       },
       "Shared.Code/1.0.0": {
         "type": "project",
@@ -2863,7 +2875,10 @@
         },
         "runtime": {
           "bin/placeholder/Shared.Code.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.NETCore.App"
+        ]
       }
     }
   },
@@ -8766,7 +8781,11 @@
           "net461"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App",
+          "Microsoft.NETCore.App"
+        ]
       }
     }
   }

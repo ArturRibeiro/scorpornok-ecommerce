@@ -18,16 +18,27 @@ namespace Order.Web.Api.Controllers
         private readonly IMediatorHandler _mediator;
 
         public OrdersController(IMediatorHandler mediator)
-        {
-            _mediator = mediator;
-        }
+            => _mediator = mediator;
 
-        [HttpPost, Route("createOrder")]
+        [HttpPost, Route("create")]
         [ProducesStatusCodeResponseType(HttpStatusCode.NotFound)]
         [ProducesStatusCodeResponseType(HttpStatusCode.InternalServerError)]
         [ProducesStatusCodeResponseType(HttpStatusCode.Unauthorized)]
         [ProducesStatusCodeResponseType(typeof(CreateOrderCommand), HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAllProducts(CreateOrderCommand command)
+        public async Task<IActionResult> AddOrder(CreateOrderCommand command)
+        {
+            await _mediator.Send(command);
+
+            return this.Ok();
+        }
+
+
+        [HttpPost, Route("addAddress")]
+        [ProducesStatusCodeResponseType(HttpStatusCode.NotFound)]
+        [ProducesStatusCodeResponseType(HttpStatusCode.InternalServerError)]
+        [ProducesStatusCodeResponseType(HttpStatusCode.Unauthorized)]
+        [ProducesStatusCodeResponseType(typeof(OrderAddressCommand), HttpStatusCode.OK)]
+        public async Task<IActionResult> AddAddress(OrderAddressCommand command)
         {
             await _mediator.Send(command);
 
