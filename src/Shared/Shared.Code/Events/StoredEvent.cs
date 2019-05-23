@@ -10,8 +10,8 @@ namespace Shared.Code.Events
         public StoredEvent(Event theEvent, string data, string user)
         {
             Id = Guid.NewGuid();
-            AggregateId = theEvent.AggregateId;
-            MessageType = theEvent.MessageType;
+            //AggregateId = theEvent.AggregateId;
+            //MessageType = theEvent.MessageType;
             Data = data;
             User = user;
         }

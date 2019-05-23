@@ -28,7 +28,9 @@ namespace Order.Web.Api.Middlewares
                 context.HttpContext.Response.ContentType = "application/json";
 
                 var notifications = JsonConvert.SerializeObject(
-                    _domainNotification.GetNotifications().Select(GetMessageNotifications).ToArray());
+                    _domainNotification.GetNotifications()
+                    .Select(GetMessageNotifications)
+                    .ToArray());
 
                 await context.HttpContext.Response.WriteAsync(notifications);
 

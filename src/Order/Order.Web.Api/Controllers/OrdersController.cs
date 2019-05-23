@@ -23,6 +23,7 @@ namespace Order.Web.Api.Controllers
         [HttpPost, Route("create")]
         [ProducesStatusCodeResponseType(HttpStatusCode.NotFound)]
         [ProducesStatusCodeResponseType(HttpStatusCode.InternalServerError)]
+        [ProducesStatusCodeResponseType(HttpStatusCode.BadRequest)]
         [ProducesStatusCodeResponseType(HttpStatusCode.Unauthorized)]
         [ProducesStatusCodeResponseType(typeof(CreateOrderCommand), HttpStatusCode.OK)]
         public async Task<IActionResult> AddOrder(CreateOrderCommand command)
@@ -37,6 +38,7 @@ namespace Order.Web.Api.Controllers
         [ProducesStatusCodeResponseType(HttpStatusCode.NotFound)]
         [ProducesStatusCodeResponseType(HttpStatusCode.InternalServerError)]
         [ProducesStatusCodeResponseType(HttpStatusCode.Unauthorized)]
+        [ProducesStatusCodeResponseType(HttpStatusCode.BadRequest)]
         [ProducesStatusCodeResponseType(typeof(OrderAddressCommand), HttpStatusCode.OK)]
         public async Task<IActionResult> AddAddress(OrderAddressCommand command)
         {
