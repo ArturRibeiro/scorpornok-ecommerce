@@ -1,0 +1,17 @@
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\bin\Debug\netcoreapp2.2\Programming.Functional.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\obj\Debug\netcoreapp2.2\Programming.Functional.Tests.csprojAssemblyReference.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\obj\Debug\netcoreapp2.2\Programming.Functional.Tests.csproj.CoreCompileInputs.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\obj\Debug\netcoreapp2.2\Programming.Functional.Tests.AssemblyInfoInputs.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\obj\Debug\netcoreapp2.2\Programming.Functional.Tests.AssemblyInfo.cs
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\bin\Debug\netcoreapp2.2\NUnit3.TestAdapter.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\bin\Debug\netcoreapp2.2\NUnit3.TestAdapter.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\bin\Debug\netcoreapp2.2\nunit.engine.netstandard.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\bin\Debug\netcoreapp2.2\Programming.Functional.Tests.deps.json
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\bin\Debug\netcoreapp2.2\Programming.Functional.Tests.runtimeconfig.json
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\bin\Debug\netcoreapp2.2\Programming.Functional.Tests.runtimeconfig.dev.json
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\bin\Debug\netcoreapp2.2\Programming.Functional.Tests.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\bin\Debug\netcoreapp2.2\Programming.Functional.Tests.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\bin\Debug\netcoreapp2.2\Programming.Functional.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\obj\Debug\netcoreapp2.2\Programming.Functional.Tests.csproj.CopyComplete
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\obj\Debug\netcoreapp2.2\Programming.Functional.Tests.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional.Tests\Programming.Functional.Tests\obj\Debug\netcoreapp2.2\Programming.Functional.Tests.pdb
