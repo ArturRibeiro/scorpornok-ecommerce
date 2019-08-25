@@ -50,11 +50,13 @@ namespace Programming.Functional.Tests.Options
         {
             var v = Option<int>.Some(v1);
 
-            var result = v.Map(x => x * v2);
+            var optionResult = v.Map(x => x * v2);
+            double result = optionResult.Match(value => value, () => 0);
 
-            result.IsNone.Should().BeFalse();
-            result.IsSome.Should().BeTrue();
-            result.Value.Should().Be(v1 * v2);
+            optionResult.IsNone.Should().BeFalse();
+            optionResult.IsSome.Should().BeTrue();
+            result.Should().Be(v1 * v2);
+
         }
     }
 }

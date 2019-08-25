@@ -1,24 +1,23 @@
-using System;
+﻿using System;
 using System.IO;
+using Frameworker.Scorponok.AspNet.Mvc;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Order.Infrastructure;
 using Order.Web.Api.App;
-using Microsoft.EntityFrameworkCore;
-using MediatR;
-using Order.Web.Api.Middlewares;
-using Frameworker.Scorponok.AspNet.Mvc;
 using Order.Web.Api.Extensions.Service;
+using Order.Web.Api.Middlewares;
 
 namespace Order.Web.Api
 {
     public class Startup
     {
-        public Startup(IWebHostEnvironment hostingEnvironment)
+        public Startup(IHostingEnvironment hostingEnvironment)
         {
             try
             {
@@ -43,11 +42,11 @@ namespace Order.Web.Api
         {
             try
             {
-                services.AddMvc(options =>
-                {
-                    options.AddNotificationAsyncResultFilter<NotificationAsyncResultFilter>(Configuration);
-                }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                    .AddNewtonsoftJson();
+                services
+                    .AddMvc(options => { options.AddNotificationAsyncResultFilter<NotificationAsyncResultFilter>(Configuration); })
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                //.Net core 3.0
+                //.AddNewtonsoftJson();
 
                 services.AddMediatR(typeof(Startup).Assembly);
 
@@ -69,22 +68,25 @@ namespace Order.Web.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseRouting(routes =>
+            else
             {
-                routes.MapControllers();
-            });
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
 
-            app.UseAuthorization();
-            // Register the Swagger generator and the Swagger UI middlewares
-            app.UseSwagger();
-            app.UseSwaggerUi3();
+            app.UseHttpsRedirection();
+            app.UseMvc();
+
+            //app.UseAuthorization();
+            //// Register the Swagger generator and the Swagger UI middlewares
+            //app.UseSwagger();
+            //app.UseSwaggerUi3();
         }
 
         private void Log(Exception e) => File.AppendAllText($"Log\\Log{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.txt", e.ToString());

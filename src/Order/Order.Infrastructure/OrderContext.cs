@@ -15,7 +15,7 @@ namespace Order.Infrastructure
 
         public OrderContext(DbContextOptions<OrderContext> options) : base(options) { }
 
-        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
+        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             throw new NotImplementedException();
         }

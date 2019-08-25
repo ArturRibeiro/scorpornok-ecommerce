@@ -15,7 +15,7 @@ namespace Ecommerce.Integration.Tests
         public static TestServer CreateInMemoryTestServerPayment()
         {
             var projectName = typeof(PaymentStartup).Assembly.GetName().Name;
-            var pathWebApi = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", projectName));
+            var pathWebApi = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "Payments", projectName));
             var webHostBuilder = CreateTestServer(pathWebApi)
                 .UseStartup<PaymentStartup>();
             return new TestServer(webHostBuilder);

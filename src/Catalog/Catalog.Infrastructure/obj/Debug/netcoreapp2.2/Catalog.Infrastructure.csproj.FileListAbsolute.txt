@@ -1,0 +1,16 @@
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\bin\Debug\netcoreapp2.2\Catalog.Infrastructure.deps.json
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\bin\Debug\netcoreapp2.2\Catalog.Infrastructure.runtimeconfig.json
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\bin\Debug\netcoreapp2.2\Catalog.Infrastructure.runtimeconfig.dev.json
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\bin\Debug\netcoreapp2.2\Catalog.Infrastructure.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\bin\Debug\netcoreapp2.2\Catalog.Infrastructure.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\bin\Debug\netcoreapp2.2\Catalog.Domain.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\bin\Debug\netcoreapp2.2\Shared.Code.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\bin\Debug\netcoreapp2.2\Catalog.Domain.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\bin\Debug\netcoreapp2.2\Shared.Code.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\obj\Debug\netcoreapp2.2\Catalog.Infrastructure.csprojAssemblyReference.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\obj\Debug\netcoreapp2.2\Catalog.Infrastructure.csproj.CoreCompileInputs.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\obj\Debug\netcoreapp2.2\Catalog.Infrastructure.AssemblyInfoInputs.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\obj\Debug\netcoreapp2.2\Catalog.Infrastructure.AssemblyInfo.cs
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\obj\Debug\netcoreapp2.2\Catalog.Infrastructure.csproj.CopyComplete
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\obj\Debug\netcoreapp2.2\Catalog.Infrastructure.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Catalog\Catalog.Infrastructure\obj\Debug\netcoreapp2.2\Catalog.Infrastructure.pdb

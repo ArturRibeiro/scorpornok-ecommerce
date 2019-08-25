@@ -1,0 +1,12 @@
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Order\Order.Domain\bin\Debug\netcoreapp2.2\Order.Domain.deps.json
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Order\Order.Domain\bin\Debug\netcoreapp2.2\Order.Domain.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Order\Order.Domain\bin\Debug\netcoreapp2.2\Order.Domain.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Order\Order.Domain\bin\Debug\netcoreapp2.2\Shared.Code.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Order\Order.Domain\bin\Debug\netcoreapp2.2\Shared.Code.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Order\Order.Domain\obj\Debug\netcoreapp2.2\Order.Domain.csprojAssemblyReference.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Order\Order.Domain\obj\Debug\netcoreapp2.2\Order.Domain.csproj.CoreCompileInputs.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Order\Order.Domain\obj\Debug\netcoreapp2.2\Order.Domain.AssemblyInfoInputs.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Order\Order.Domain\obj\Debug\netcoreapp2.2\Order.Domain.AssemblyInfo.cs
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Order\Order.Domain\obj\Debug\netcoreapp2.2\Order.Domain.csproj.CopyComplete
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Order\Order.Domain\obj\Debug\netcoreapp2.2\Order.Domain.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Order\Order.Domain\obj\Debug\netcoreapp2.2\Order.Domain.pdb

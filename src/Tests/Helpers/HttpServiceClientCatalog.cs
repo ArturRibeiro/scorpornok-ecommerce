@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Catalog.Queries.Products;
-using Frameworker.Scorponok.AspNet.Mvc.Result;
 using Microsoft.AspNetCore.TestHost;
 
 namespace Ecommerce.Integration.Tests.Helpers
 {
     public class HttpServiceClientCatalog : BaseHttpServiceClient
     {
-        private static int port = 62371;
+        private static int port = 55365;
 
         public HttpServiceClientCatalog(TestServer client) : base(client, port)
         {

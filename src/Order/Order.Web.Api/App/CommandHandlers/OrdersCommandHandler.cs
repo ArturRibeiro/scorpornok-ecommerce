@@ -18,12 +18,12 @@ namespace Order.Web.Api.App.CommandHandlers
         public OrdersCommandHandler(IMediatorHandler mediator, INotificationHandler<DomainNotification> notificationHandler)
             : base(mediator, notificationHandler) { }
 
-        public async Task<Unit> Handle([NotNull] CreateOrderCommand message, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateOrderCommand message, CancellationToken cancellationToken)
         {
             return Unit.Value;
         }
 
-        public async Task<Unit> Handle([NotNull] OrderAddressCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(OrderAddressCommand request, CancellationToken cancellationToken)
         {
             return Unit.Value;
         }

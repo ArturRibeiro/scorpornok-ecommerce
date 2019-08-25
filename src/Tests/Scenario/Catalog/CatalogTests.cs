@@ -1,8 +1,6 @@
 ﻿
 using Ecommerce.Integration.Tests.Helpers;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using Catalog.Queries.Products;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -25,6 +23,7 @@ namespace Ecommerce.Integration.Tests.Scenario.Catalog
             var result = await _catalogoServiceClient.GetAllProducts();
             result.Success.Should().BeTrue();
             result.Errors.Should().BeNull();
+            result.Data.Should().HaveCountGreaterOrEqualTo(1);
             result.Should().BeAssignableTo<ResultMessageResponseTest<ProductItemMessageResponse[]>>();
         }
     }

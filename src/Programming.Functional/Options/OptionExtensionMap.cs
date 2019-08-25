@@ -24,12 +24,11 @@ namespace Programming.Functional.Options
         /// <param name="this">A opção de entrada.</param>
         /// <param name="mapfunc">Função que esta mapeando o valor do <paramref name="Option<T>" de entrada./></param>
         /// <returns></returns>
-        public static Option<TResult> Map<T, TResult>(
-            this Option<T> @this,
+        public static Option<TResult> Map<T, TResult>(this Option<T> @this,
             Func<T, TResult> mapfunc)
             => @this.Match
                 (
-                    value => mapfunc(@this.Value), 
+                    value => mapfunc(value), 
                     Option<TResult>.None
                 );
     }

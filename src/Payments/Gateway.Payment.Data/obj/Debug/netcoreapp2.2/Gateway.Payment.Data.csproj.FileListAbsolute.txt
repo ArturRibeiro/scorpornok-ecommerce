@@ -1,0 +1,12 @@
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Payments\Gateway.Payment.Data\bin\Debug\netcoreapp2.2\Gateway.Payment.Data.deps.json
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Payments\Gateway.Payment.Data\bin\Debug\netcoreapp2.2\Gateway.Payment.Data.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Payments\Gateway.Payment.Data\bin\Debug\netcoreapp2.2\Gateway.Payment.Data.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Payments\Gateway.Payment.Data\bin\Debug\netcoreapp2.2\Shared.Code.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Payments\Gateway.Payment.Data\bin\Debug\netcoreapp2.2\Shared.Code.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Payments\Gateway.Payment.Data\obj\Debug\netcoreapp2.2\Gateway.Payment.Data.csprojAssemblyReference.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Payments\Gateway.Payment.Data\obj\Debug\netcoreapp2.2\Gateway.Payment.Data.csproj.CoreCompileInputs.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Payments\Gateway.Payment.Data\obj\Debug\netcoreapp2.2\Gateway.Payment.Data.AssemblyInfoInputs.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Payments\Gateway.Payment.Data\obj\Debug\netcoreapp2.2\Gateway.Payment.Data.AssemblyInfo.cs
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Payments\Gateway.Payment.Data\obj\Debug\netcoreapp2.2\Gateway.Payment.Data.csproj.CopyComplete
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Payments\Gateway.Payment.Data\obj\Debug\netcoreapp2.2\Gateway.Payment.Data.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Payments\Gateway.Payment.Data\obj\Debug\netcoreapp2.2\Gateway.Payment.Data.pdb

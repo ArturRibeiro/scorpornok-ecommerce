@@ -14,7 +14,7 @@ namespace Shared.Code.Models
             protected set;
         }
 
-        public bool IsTransient => this.Id == default;
+        public bool IsTransient => this.Id == null || this.Id.Equals(default(T));
 
         public override bool Equals(object obj)
         {

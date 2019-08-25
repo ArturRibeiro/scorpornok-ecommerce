@@ -1,10 +1,9 @@
-﻿using Catalog.Domain.Products;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Catalog.Domain.Products;
 using Catalog.Infrastructure.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Shared.Code.Models;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Catalog.Infrastructure
 {
@@ -16,7 +15,7 @@ namespace Catalog.Infrastructure
 
         public CatalogContext(DbContextOptions<CatalogContext> options) : base(options) { }
 
-        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
+        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             var result = await base.SaveChangesAsync();
 
