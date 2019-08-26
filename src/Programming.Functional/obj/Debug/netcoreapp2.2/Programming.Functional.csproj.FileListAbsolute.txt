@@ -1,9 +1,0 @@
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional\bin\Debug\netcoreapp2.2\Programming.Functional.deps.json
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional\bin\Debug\netcoreapp2.2\Programming.Functional.dll
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional\bin\Debug\netcoreapp2.2\Programming.Functional.pdb
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional\obj\Debug\netcoreapp2.2\Programming.Functional.csprojAssemblyReference.cache
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional\obj\Debug\netcoreapp2.2\Programming.Functional.csproj.CoreCompileInputs.cache
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional\obj\Debug\netcoreapp2.2\Programming.Functional.AssemblyInfoInputs.cache
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional\obj\Debug\netcoreapp2.2\Programming.Functional.AssemblyInfo.cs
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional\obj\Debug\netcoreapp2.2\Programming.Functional.dll
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Programming.Functional\obj\Debug\netcoreapp2.2\Programming.Functional.pdb
