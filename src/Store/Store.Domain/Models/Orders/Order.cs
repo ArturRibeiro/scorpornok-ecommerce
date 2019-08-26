@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Shared.Code.Models;
+using Store.Domain.Models.Orders.Validations;
 
 namespace Store.Domain.Models.Orders
 {
@@ -19,44 +20,24 @@ namespace Store.Domain.Models.Orders
         /// <summary>
         /// Endereço de entrega
         /// </summary>
-        public OrderAddress Address
-        {
-            get;
-            private set;
-        }
+        public OrderAddress Address { get; private set; }
 
         /// <summary>
         /// Cliente que realizou a compra
         /// </summary>
-        public Guid CustomerId
-        {
-            get;
-            private set;
-        }
+        public Guid CustomerId { get; private set; }
 
         /// <summary>
         /// Código do Pedido
         /// </summary>
-        public string OrderNumber
-        {
-            get;
-            private set;
-        }
+        public string OrderNumber { get; private set; }
 
-        public DateTime OrderDate
-        {
-            get;
-            private set;
-        }
+        public DateTime OrderDate { get; private set; } = DateTime.Now;
 
         /// <summary>
         /// Códido da forma como foi paga o pedido
         /// </summary>
-        public Guid PaymentId
-        {
-            get;
-            private set;
-        }
+        public Guid PaymentId { get; private set; }
 
         #endregion
 
@@ -64,10 +45,6 @@ namespace Store.Domain.Models.Orders
             => new Order();
 
         public bool IsValid()
-        {
-            var result = new OrderValidation().Validate(this);
-
-            return result.IsValid;
-        }
+            => new OrderValidation().Validate(this).IsValid;
     }
 }

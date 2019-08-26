@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Shared.Code.Models;
+using Store.Domain.Models.Orders.Validations;
 
 namespace Store.Domain.Models.Orders
 {
@@ -38,5 +39,8 @@ namespace Store.Domain.Models.Orders
             yield return Country;
             yield return ZipCode;
         }
+
+        public bool IsValid()
+            => new OrderAddressValidation().Validate(this).IsValid;
     }
 }
