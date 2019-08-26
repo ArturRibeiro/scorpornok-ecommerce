@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Order.Web.Api.App.Commands;
 using System.Net;
+using Store.Web.Api.App.Commands;
 
 namespace Ecommerce.Integration.Tests.Scenario.Orders
 {

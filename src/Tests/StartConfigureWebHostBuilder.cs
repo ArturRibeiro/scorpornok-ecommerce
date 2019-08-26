@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using Frameworker.Scorponok.Tests.WebHost.Extensions;
 using PaymentStartup = Gateway.Payment.Web.Api.Startup;
-using OrderStartup = Order.Web.Api.Startup;
+using StoreStartup = Store.Web.Api.Startup;
 using CatalogStartup = Catalog.Web.Api.Startup;
 
 namespace Ecommerce.Integration.Tests
@@ -23,10 +23,10 @@ namespace Ecommerce.Integration.Tests
 
         public static TestServer CreateInMemoryTestServerOrder()
         {
-            var projectName = typeof(OrderStartup).Assembly.GetName().Name;
-            var pathWebApi = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "Order", projectName));
+            var projectName = typeof(StoreStartup).Assembly.GetName().Name;
+            var pathWebApi = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "Store", projectName));
             var webHostBuilder = CreateTestServer(pathWebApi)
-                .UseStartup<OrderStartup>();
+                .UseStartup<StoreStartup>();
             return new TestServer(webHostBuilder);
         }
 

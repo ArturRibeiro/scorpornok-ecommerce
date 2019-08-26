@@ -37,7 +37,7 @@
           "lib/netcoreapp2.0/FluentAssertions.dll": {}
         }
       },
-      "FluentValidation/8.3.0": {
+      "FluentValidation/8.4.0": {
         "type": "package",
         "dependencies": {
           "System.ComponentModel.Annotations": "4.4.1"
@@ -3702,58 +3702,6 @@
           "bin/placeholder/Gateway.Payment.Web.Api.dll": {}
         }
       },
-      "Order.Domain/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.2",
-        "dependencies": {
-          "Shared.Code": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Order.Domain.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Order.Domain.dll": {}
-        }
-      },
-      "Order.Infrastructure/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.2",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "2.2.4",
-          "Microsoft.EntityFrameworkCore.Design": "2.2.4",
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.4",
-          "Microsoft.Extensions.Configuration.Json": "2.2.0",
-          "Order.Domain": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Order.Infrastructure.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Order.Infrastructure.dll": {}
-        }
-      },
-      "Order.Web.Api/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.2",
-        "dependencies": {
-          "Frameworker.Scorponok.AspNet": "1.0.0",
-          "MediatR": "7.0.0",
-          "MediatR.Extensions.Microsoft.DependencyInjection": "7.0.0",
-          "MediatR.Extensions.Microsoft.DependencyInjectionFixed": "5.1.2",
-          "Microsoft.EntityFrameworkCore": "2.2.6",
-          "Microsoft.EntityFrameworkCore.Design": "2.2.6",
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.6",
-          "Microsoft.Extensions.DependencyInjection": "2.2.0",
-          "Order.Infrastructure": "1.0.0",
-          "Shared.Bus": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Order.Web.Api.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Order.Web.Api.dll": {}
-        }
-      },
       "Shared.Bus/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.2",
@@ -3780,6 +3728,60 @@
         },
         "runtime": {
           "bin/placeholder/Shared.Code.dll": {}
+        }
+      },
+      "Store.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "dependencies": {
+          "FluentValidation": "8.4.0",
+          "Shared.Code": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Store.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Store.Domain.dll": {}
+        }
+      },
+      "Store.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "2.2.4",
+          "Microsoft.EntityFrameworkCore.Design": "2.2.4",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.4",
+          "Microsoft.Extensions.Configuration.Json": "2.2.0",
+          "Store.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Store.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Store.Infrastructure.dll": {}
+        }
+      },
+      "Store.Web.Api/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "dependencies": {
+          "Frameworker.Scorponok.AspNet": "1.0.0",
+          "MediatR": "7.0.0",
+          "MediatR.Extensions.Microsoft.DependencyInjection": "7.0.0",
+          "MediatR.Extensions.Microsoft.DependencyInjectionFixed": "5.1.2",
+          "Microsoft.EntityFrameworkCore": "2.2.6",
+          "Microsoft.EntityFrameworkCore.Design": "2.2.6",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.6",
+          "Microsoft.Extensions.DependencyInjection": "2.2.0",
+          "Shared.Bus": "1.0.0",
+          "Store.Domain": "1.0.0",
+          "Store.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Store.Web.Api.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Store.Web.Api.dll": {}
         }
       }
     }
@@ -3851,14 +3853,14 @@
         "lib/netstandard2.0/FluentAssertions.xml"
       ]
     },
-    "FluentValidation/8.3.0": {
-      "sha512": "tQULydqVfFi68qjEw4Y+P3wM1Xp7kppLpUqPVKI6u8NDwlPVTm6V96qnLWCTO4khn7WtQ1p3ysnrNTl98fdJpA==",
+    "FluentValidation/8.4.0": {
+      "sha512": "/VApywgD2sqD3aB1tzub6SIItmwxXN0D5yAiP3kuFHmjYO1W+Ryi531/m4O03/hlfcYrBgewDJn7Jd1Xk0vTdw==",
       "type": "package",
-      "path": "fluentvalidation/8.3.0",
+      "path": "fluentvalidation/8.4.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "fluentvalidation.8.3.0.nupkg.sha512",
+        "fluentvalidation.8.4.0.nupkg.sha512",
         "fluentvalidation.nuspec",
         "lib/net45/FluentValidation.dll",
         "lib/net45/FluentValidation.xml",
@@ -10806,21 +10808,6 @@
       "path": "../Payments/Gateway.Payment.Web.Api/Gateway.Payment.Web.Api.csproj",
       "msbuildProject": "../Payments/Gateway.Payment.Web.Api/Gateway.Payment.Web.Api.csproj"
     },
-    "Order.Domain/1.0.0": {
-      "type": "project",
-      "path": "../Order/Order.Domain/Order.Domain.csproj",
-      "msbuildProject": "../Order/Order.Domain/Order.Domain.csproj"
-    },
-    "Order.Infrastructure/1.0.0": {
-      "type": "project",
-      "path": "../Order/Order.Infrastructure/Order.Infrastructure.csproj",
-      "msbuildProject": "../Order/Order.Infrastructure/Order.Infrastructure.csproj"
-    },
-    "Order.Web.Api/1.0.0": {
-      "type": "project",
-      "path": "../Order/Order.Web.Api/Order.Web.Api.csproj",
-      "msbuildProject": "../Order/Order.Web.Api/Order.Web.Api.csproj"
-    },
     "Shared.Bus/1.0.0": {
       "type": "project",
       "path": "../Shared/Shared.Bus/Shared.Bus.csproj",
@@ -10830,6 +10817,21 @@
       "type": "project",
       "path": "../Shared/Shared.Code/Shared.Code.csproj",
       "msbuildProject": "../Shared/Shared.Code/Shared.Code.csproj"
+    },
+    "Store.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Store/Store.Domain/Store.Domain.csproj",
+      "msbuildProject": "../Store/Store.Domain/Store.Domain.csproj"
+    },
+    "Store.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../Store/Store.Infrastructure/Store.Infrastructure.csproj",
+      "msbuildProject": "../Store/Store.Infrastructure/Store.Infrastructure.csproj"
+    },
+    "Store.Web.Api/1.0.0": {
+      "type": "project",
+      "path": "../Store/Store.Web.Api/Store.Web.Api.csproj",
+      "msbuildProject": "../Store/Store.Web.Api/Store.Web.Api.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -10850,7 +10852,8 @@
       "Microsoft.NET.Test.Sdk >= 16.0.1",
       "Microsoft.NETCore.App >= 2.2.0",
       "NUnit3TestAdapter >= 3.13.0",
-      "Order.Web.Api >= 1.0.0",
+      "Store.Infrastructure >= 1.0.0",
+      "Store.Web.Api >= 1.0.0",
       "nunit >= 3.11.0"
     ]
   },
@@ -10900,11 +10903,14 @@
             "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Frameworker\\Frameworker.Scorponok.Tests\\Frameworker.Scorponok.Tests.csproj": {
               "projectPath": "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Frameworker\\Frameworker.Scorponok.Tests\\Frameworker.Scorponok.Tests.csproj"
             },
-            "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Order\\Order.Web.Api\\Order.Web.Api.csproj": {
-              "projectPath": "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Order\\Order.Web.Api\\Order.Web.Api.csproj"
-            },
             "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Payments\\Gateway.Payment.Web.Api\\Gateway.Payment.Web.Api.csproj": {
               "projectPath": "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Payments\\Gateway.Payment.Web.Api\\Gateway.Payment.Web.Api.csproj"
+            },
+            "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Store\\Store.Infrastructure\\Store.Infrastructure.csproj": {
+              "projectPath": "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Store\\Store.Infrastructure\\Store.Infrastructure.csproj"
+            },
+            "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Store\\Store.Web.Api\\Store.Web.Api.csproj": {
+              "projectPath": "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Store\\Store.Web.Api\\Store.Web.Api.csproj"
             }
           }
         }

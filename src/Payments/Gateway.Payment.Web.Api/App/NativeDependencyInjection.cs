@@ -1,18 +1,17 @@
-﻿using Gateway.Payment.Data.Context;
+﻿using System;
+using Gateway.Payment.Data.Context;
 using Gateway.Payment.Data.EventSourcing;
-using Gateway.Payment.Data.EventSourcing.Repository;
 using Gateway.Payment.Data.EventSourcing.Repository.EventSourcing;
-using Shared.Code.Events;
-using Shared.Code.Notifications;
 using Gateway.Payment.Web.Api.App.eRede;
 using Gateway.Payment.Web.Api.App.eRede.Commands;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using Shared.Code.Bus;
 using Shared.Bus;
+using Shared.Code.Bus;
+using Shared.Code.Events;
+using Shared.Code.Notifications;
 
-namespace Gateway.Payment.Dependency.Injection
+namespace Gateway.Payment.Web.Api.App
 {
     public class NativeDependencyInjection
     {

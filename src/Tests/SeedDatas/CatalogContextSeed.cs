@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace Ecommerce.Integration.Tests.SeedDatas
 {
@@ -39,10 +40,18 @@ namespace Ecommerce.Integration.Tests.SeedDatas
 
         public static bool Start(CatalogContext context)
         {
-            CatalogContextSeed seed = new CatalogContextSeed();
-            var seedOk = seed.SeedAsync(context);
-            seedOk.Wait();
-            return seedOk.Result;
+            try
+            {
+                var seed = new CatalogContextSeed();
+                var seedOk = seed.SeedAsync(context);
+                seedOk.Wait();
+                return seedOk.Result;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message, "Ocorre algum erro ao aplicar o seed.");
+                throw ex;
+            }
         }
     }
 }

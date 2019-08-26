@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using Frameworker.Scorponok.AspNet.Mvc;
-using Gateway.Payment.Dependency.Injection;
+using Gateway.Payment.Web.Api.App;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

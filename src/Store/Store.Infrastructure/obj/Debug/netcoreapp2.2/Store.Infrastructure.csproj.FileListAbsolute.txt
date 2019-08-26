@@ -1,0 +1,16 @@
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\bin\Debug\netcoreapp2.2\Store.Infrastructure.deps.json
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\bin\Debug\netcoreapp2.2\Store.Infrastructure.runtimeconfig.json
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\bin\Debug\netcoreapp2.2\Store.Infrastructure.runtimeconfig.dev.json
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\bin\Debug\netcoreapp2.2\Store.Infrastructure.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\bin\Debug\netcoreapp2.2\Store.Infrastructure.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\bin\Debug\netcoreapp2.2\Shared.Code.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\bin\Debug\netcoreapp2.2\Store.Domain.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\bin\Debug\netcoreapp2.2\Store.Domain.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\bin\Debug\netcoreapp2.2\Shared.Code.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\obj\Debug\netcoreapp2.2\Store.Infrastructure.csprojAssemblyReference.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\obj\Debug\netcoreapp2.2\Store.Infrastructure.csproj.CoreCompileInputs.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\obj\Debug\netcoreapp2.2\Store.Infrastructure.AssemblyInfoInputs.cache
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\obj\Debug\netcoreapp2.2\Store.Infrastructure.AssemblyInfo.cs
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\obj\Debug\netcoreapp2.2\Store.Infrastructure.csproj.CopyComplete
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\obj\Debug\netcoreapp2.2\Store.Infrastructure.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Infrastructure\obj\Debug\netcoreapp2.2\Store.Infrastructure.pdb

@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
+using Store.Infrastructure;
 
 namespace Ecommerce.Integration.Tests.Helpers
 {
@@ -26,7 +21,7 @@ namespace Ecommerce.Integration.Tests.Helpers
         public static ServiceCollection RegisterAll()
         {
             //DbContext
-            _serviceCollection.AddScoped<Order.Infrastructure.OrderContext>();
+            _serviceCollection.AddScoped<OrderContext>();
 
             
             return _serviceCollection;

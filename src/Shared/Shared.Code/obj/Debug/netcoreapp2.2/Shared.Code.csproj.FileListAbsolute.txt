@@ -1,9 +1,9 @@
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Shared\Shared.Code\bin\Debug\netcoreapp2.2\Shared.Code.deps.json
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Shared\Shared.Code\bin\Debug\netcoreapp2.2\Shared.Code.dll
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Shared\Shared.Code\bin\Debug\netcoreapp2.2\Shared.Code.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Shared\Shared.Code\obj\Debug\netcoreapp2.2\Shared.Code.csprojAssemblyReference.cache
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Shared\Shared.Code\obj\Debug\netcoreapp2.2\Shared.Code.csproj.CoreCompileInputs.cache
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Shared\Shared.Code\obj\Debug\netcoreapp2.2\Shared.Code.AssemblyInfoInputs.cache
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Shared\Shared.Code\obj\Debug\netcoreapp2.2\Shared.Code.AssemblyInfo.cs
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Shared\Shared.Code\obj\Debug\netcoreapp2.2\Shared.Code.dll
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Shared\Shared.Code\obj\Debug\netcoreapp2.2\Shared.Code.pdb
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Shared\Shared.Code\obj\Debug\netcoreapp2.2\Shared.Code.csprojAssemblyReference.cache

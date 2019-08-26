@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "5e991d93b7b75aa32edfe080c98b43d576bdb37e"
+    "signature": "f4c45612ea9f59d25cd40b3f2ce51cde0518caa8"
   },
   "compilationOptions": {
     "defines": [
@@ -40,7 +40,8 @@
           "Microsoft.NET.Test.Sdk": "16.0.1",
           "Microsoft.NETCore.App": "2.2.0",
           "NUnit3TestAdapter": "3.13.0",
-          "Order.Web.Api": "1.0.0",
+          "Store.Infrastructure": "1.0.0",
+          "Store.Web.Api": "1.0.0",
           "NUnit": "3.11.0"
         },
         "runtime": {
@@ -91,14 +92,14 @@
           "lib/netcoreapp2.0/FluentAssertions.dll": {}
         }
       },
-      "FluentValidation/8.3.0": {
+      "FluentValidation/8.4.0": {
         "dependencies": {
           "System.ComponentModel.Annotations": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/FluentValidation.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.3.0.0"
+            "fileVersion": "8.4.0.0"
           }
         },
         "compile": {
@@ -3176,52 +3177,6 @@
           "Gateway.Payment.Web.Api.dll": {}
         }
       },
-      "Order.Domain/1.0.0": {
-        "dependencies": {
-          "Shared.Code": "1.0.0"
-        },
-        "runtime": {
-          "Order.Domain.dll": {}
-        },
-        "compile": {
-          "Order.Domain.dll": {}
-        }
-      },
-      "Order.Infrastructure/1.0.0": {
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "2.2.6",
-          "Microsoft.EntityFrameworkCore.Design": "2.2.6",
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.6",
-          "Microsoft.Extensions.Configuration.Json": "2.2.0",
-          "Order.Domain": "1.0.0"
-        },
-        "runtime": {
-          "Order.Infrastructure.dll": {}
-        },
-        "compile": {
-          "Order.Infrastructure.dll": {}
-        }
-      },
-      "Order.Web.Api/1.0.0": {
-        "dependencies": {
-          "Frameworker.Scorponok.AspNet": "1.0.0",
-          "MediatR": "7.0.0",
-          "MediatR.Extensions.Microsoft.DependencyInjection": "7.0.0",
-          "MediatR.Extensions.Microsoft.DependencyInjectionFixed": "5.1.2",
-          "Microsoft.EntityFrameworkCore": "2.2.6",
-          "Microsoft.EntityFrameworkCore.Design": "2.2.6",
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.6",
-          "Microsoft.Extensions.DependencyInjection": "2.2.0",
-          "Order.Infrastructure": "1.0.0",
-          "Shared.Bus": "1.0.0"
-        },
-        "runtime": {
-          "Order.Web.Api.dll": {}
-        },
-        "compile": {
-          "Order.Web.Api.dll": {}
-        }
-      },
       "Shared.Bus/1.0.0": {
         "dependencies": {
           "MediatR": "7.0.0",
@@ -3236,7 +3191,7 @@
       },
       "Shared.Code/1.0.0": {
         "dependencies": {
-          "FluentValidation": "8.3.0",
+          "FluentValidation": "8.4.0",
           "MediatR": "7.0.0"
         },
         "runtime": {
@@ -3244,6 +3199,54 @@
         },
         "compile": {
           "Shared.Code.dll": {}
+        }
+      },
+      "Store.Domain/1.0.0": {
+        "dependencies": {
+          "FluentValidation": "8.4.0",
+          "Shared.Code": "1.0.0"
+        },
+        "runtime": {
+          "Store.Domain.dll": {}
+        },
+        "compile": {
+          "Store.Domain.dll": {}
+        }
+      },
+      "Store.Infrastructure/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "2.2.6",
+          "Microsoft.EntityFrameworkCore.Design": "2.2.6",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.6",
+          "Microsoft.Extensions.Configuration.Json": "2.2.0",
+          "Store.Domain": "1.0.0"
+        },
+        "runtime": {
+          "Store.Infrastructure.dll": {}
+        },
+        "compile": {
+          "Store.Infrastructure.dll": {}
+        }
+      },
+      "Store.Web.Api/1.0.0": {
+        "dependencies": {
+          "Frameworker.Scorponok.AspNet": "1.0.0",
+          "MediatR": "7.0.0",
+          "MediatR.Extensions.Microsoft.DependencyInjection": "7.0.0",
+          "MediatR.Extensions.Microsoft.DependencyInjectionFixed": "5.1.2",
+          "Microsoft.EntityFrameworkCore": "2.2.6",
+          "Microsoft.EntityFrameworkCore.Design": "2.2.6",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.6",
+          "Microsoft.Extensions.DependencyInjection": "2.2.0",
+          "Shared.Bus": "1.0.0",
+          "Store.Domain": "1.0.0",
+          "Store.Infrastructure": "1.0.0"
+        },
+        "runtime": {
+          "Store.Web.Api.dll": {}
+        },
+        "compile": {
+          "Store.Web.Api.dll": {}
         }
       },
       "Microsoft.NETCore.App/2.2.0": {
@@ -3456,12 +3459,12 @@
       "path": "fluentassertions/5.6.0",
       "hashPath": "fluentassertions.5.6.0.nupkg.sha512"
     },
-    "FluentValidation/8.3.0": {
+    "FluentValidation/8.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-tQULydqVfFi68qjEw4Y+P3wM1Xp7kppLpUqPVKI6u8NDwlPVTm6V96qnLWCTO4khn7WtQ1p3ysnrNTl98fdJpA==",
-      "path": "fluentvalidation/8.3.0",
-      "hashPath": "fluentvalidation.8.3.0.nupkg.sha512"
+      "sha512": "sha512-/VApywgD2sqD3aB1tzub6SIItmwxXN0D5yAiP3kuFHmjYO1W+Ryi531/m4O03/hlfcYrBgewDJn7Jd1Xk0vTdw==",
+      "path": "fluentvalidation/8.4.0",
+      "hashPath": "fluentvalidation.8.4.0.nupkg.sha512"
     },
     "MediatR/7.0.0": {
       "type": "package",
@@ -4959,27 +4962,27 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Order.Domain/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Order.Infrastructure/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Order.Web.Api/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
     "Shared.Bus/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
     "Shared.Code/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Store.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Store.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Store.Web.Api/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

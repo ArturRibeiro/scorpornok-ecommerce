@@ -25,8 +25,9 @@
     <ProjectReference Include="..\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj" />
     <ProjectReference Include="..\Frameworker\Frameworker.Scorponok.AspNet\Frameworker.Scorponok.AspNet.csproj" />
     <ProjectReference Include="..\Frameworker\Frameworker.Scorponok.Tests\Frameworker.Scorponok.Tests.csproj" />
-    <ProjectReference Include="..\Order\Order.Web.Api\Order.Web.Api.csproj" />
     <ProjectReference Include="..\Payments\Gateway.Payment.Web.Api\Gateway.Payment.Web.Api.csproj" />
+    <ProjectReference Include="..\Store\Store.Infrastructure\Store.Infrastructure.csproj" />
+    <ProjectReference Include="..\Store\Store.Web.Api\Store.Web.Api.csproj" />
   </ItemGroup>
 
 </Project>

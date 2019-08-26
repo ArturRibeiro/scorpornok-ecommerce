@@ -2,7 +2,7 @@
 using Ecommerce.Integration.Tests.SeedDatas;
 using Frameworker.Scorponok.Tests.WebHost.Extensions;
 using NUnit.Framework;
-using Order.Infrastructure;
+using Store.Infrastructure;
 
 namespace Ecommerce.Integration.Tests
 {
@@ -10,17 +10,12 @@ namespace Ecommerce.Integration.Tests
     {
         public Start MigrationDataBase()
         {
-            //_serverOrder.Host
-            //    .ErasureDatabase<OrderContext>()
-            //    .CreateDataBase<OrderContext>((context, services) => { });
+            _serverOrder.Host
+                .ErasureDatabase<OrderContext>()
+                .CreateDataBase<OrderContext>((context, services) => { });
 
             _serverCatalog.Host
-                 .ErasureDatabase<CatalogContext>()
-                 .CreateDataBase<CatalogContext>((context, services) =>
-                 {
-                     var result = CatalogContextSeed.Start(context);
-                     Assert.IsTrue(result, "Ocorre algum erro ao aplicar o seed.");
-                 });
+                 .CreateDataBase<CatalogContext>((context, services) => { CatalogContextSeed.Start(context); });
 
             return this;
         }
