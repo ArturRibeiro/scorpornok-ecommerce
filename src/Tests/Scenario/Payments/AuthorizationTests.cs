@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Integration.Tests.Scenario.Payments
 {
-    [TestFixture(CardOperator.eRede)]
+    [TestFixture(CardOperator.eRede), Category("Scenario")]
     public class AuthorizationTests
     {
         private readonly BaseHttpServiceClient client;

@@ -12,7 +12,8 @@ namespace Store.Infrastructure
     {
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-        public DbSet<OrderAddress> Address { get; set; }
+        public DbSet<OrderAddress> OrderAddress { get; set; }
+        public DbSet<OrderStatus> OrderStatus { get; set; }
 
         public OrderContext(DbContextOptions<OrderContext> options) : base(options) { }
 
@@ -23,8 +24,6 @@ namespace Store.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            //modelBuilder.ApplyConfiguration(new OrderAddressConfigurations());
             modelBuilder.ApplyConfiguration(new OrderItemConfigurations());
             modelBuilder.ApplyConfiguration(new OrderConfigurations());
         }

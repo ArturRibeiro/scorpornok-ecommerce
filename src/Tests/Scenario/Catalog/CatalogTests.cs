@@ -7,7 +7,7 @@ using FluentAssertions;
 
 namespace Ecommerce.Integration.Tests.Scenario.Catalog
 {
-    [TestFixture]
+    [TestFixture, Category("Scenario")]
     public class CatalogTests
     {
         private readonly HttpServiceClientCatalog _catalogoServiceClient;

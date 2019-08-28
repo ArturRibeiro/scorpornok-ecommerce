@@ -19,12 +19,12 @@ namespace Store.Web.Api.App.CommandHandlers
 
         public async Task<Unit> Handle(CreateOrderCommand message, CancellationToken cancellationToken)
         {
-            var order = Order.Create();
+            //var order = Order.Create();
 
-            if (order.IsValid())
-            {
+            //if (order.IsValid())
+            //{
                 
-            }
+            //}
 
             return Unit.Value;
         }

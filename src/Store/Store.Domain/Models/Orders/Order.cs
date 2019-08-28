@@ -13,6 +13,17 @@ namespace Store.Domain.Models.Orders
     {
         private readonly IList<OrderItem> _items = new List<OrderItem>();
 
+        #region Constructor
+        protected Order() { }
+
+        private Order(OrderAddress address, Guid customerId, Guid paymentId)
+        {
+            Address = address;
+            CustomerId = customerId;
+            PaymentId = paymentId;
+        }
+        #endregion
+
         #region Properties
 
         public IReadOnlyCollection<OrderItem> Items => new ReadOnlyCollection<OrderItem>(_items);
@@ -34,6 +45,8 @@ namespace Store.Domain.Models.Orders
 
         public DateTime OrderDate { get; private set; } = DateTime.Now;
 
+        public OrderStatus Status { get; private set; } = OrderStatus.Submitted;
+
         /// <summary>
         /// Códido da forma como foi paga o pedido
         /// </summary>
@@ -41,8 +54,14 @@ namespace Store.Domain.Models.Orders
 
         #endregion
 
-        public static Order Create()
-            => new Order();
+        public void AddItem(Guid productId, string productName, decimal unitPrice, decimal discount, string pictureUrl, int units = 1)
+        {
+            _items.Add(OrderItem.Create(productId, productName, unitPrice, discount, pictureUrl, units));
+
+        }
+
+        public static Order Create(OrderAddress address, Guid customerId, Guid paymentId)
+            => new Order(address, customerId, paymentId);
 
         public bool IsValid()
             => new OrderValidation().Validate(this).IsValid;

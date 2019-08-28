@@ -4,7 +4,7 @@ using Programming.Functional.Options;
 
 namespace Programming.Functional.Tests.Options
 {
-    [TestFixture]
+    [TestFixture, Category("Frameworker.Programming.Functional")]
     public class OptionTests
     {
         [Test]

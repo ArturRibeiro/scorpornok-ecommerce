@@ -10,7 +10,7 @@ namespace Store.Tests.Domains.Models.Orders
     public class OrderValidationTests
     {
         [Test]
-        public void Validate_order()
+        public void Validate_order_with_success_no_items()
         {
             //Arrange's
             var address = Builder<OrderAddress>
@@ -27,6 +27,39 @@ namespace Store.Tests.Domains.Models.Orders
 
             //Assert's
             result.Should().BeTrue();
+            order.Status.Should().Be(OrderStatus.Submitted);
+            order.Status.Should().Be(OrderStatus.Submitted);
+        }
+
+        [Test]
+        public void Validate_order_with_items_success()
+        {
+            //Arrange's
+            var productId = Guid.NewGuid();
+            var productName = "fakeNameProduct";
+            var unitPrice = 1932;
+            var discount = 0;
+            var pictureUrl = "urlpicture";
+            var units = 1;
+
+            var address = Builder<OrderAddress>
+                .CreateNew()
+                .Build();
+
+            var order = Builder<Order>
+                .CreateNew()
+                    .With(x => x.Address, address)
+                    .Do(x => x.AddItem(productId, productName, unitPrice, discount, pictureUrl, units))
+                .Build();
+
+            //Act
+            var result = order.IsValid();
+
+            //Assert's
+            result.Should().BeTrue();
+            order.Status.Should().Be(OrderStatus.Submitted);
+            order.Items.Should().NotBeNull();
+            order.Items.Should().HaveCount(1);
         }
 
         [Test]
@@ -125,7 +158,6 @@ namespace Store.Tests.Domains.Models.Orders
             //Assert's
             result.Should().BeFalse();
         }
-
 
         [Test]
         public void Invalid_order_address_null()

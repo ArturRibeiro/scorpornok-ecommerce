@@ -6,7 +6,7 @@ using Store.Domain.Models.Orders;
 
 namespace Store.Tests.Domains.Models.Orders
 {
-    [TestFixture]
+    [TestFixture, Category("Store")]
     public class OrderAddressValidationTests
     {
 

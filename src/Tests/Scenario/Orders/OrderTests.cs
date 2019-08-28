@@ -11,7 +11,7 @@ using Store.Web.Api.App.Commands;
 
 namespace Ecommerce.Integration.Tests.Scenario.Orders
 {
-    [TestFixture]
+    [TestFixture, Category("Scenario")]
     public class OrderTests
     {
         private readonly HttpServiceClientOrder _client;
