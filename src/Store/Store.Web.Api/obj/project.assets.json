@@ -4499,6 +4499,16 @@
           "bin/placeholder/Frameworker.Scorponok.AspNet.dll": {}
         }
       },
+      "Programming.Functional/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "compile": {
+          "bin/placeholder/Programming.Functional.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Programming.Functional.dll": {}
+        }
+      },
       "Shared.Bus/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.2",
@@ -12242,6 +12252,11 @@
       "path": "../../Frameworker/Frameworker.Scorponok.AspNet/Frameworker.Scorponok.AspNet.csproj",
       "msbuildProject": "../../Frameworker/Frameworker.Scorponok.AspNet/Frameworker.Scorponok.AspNet.csproj"
     },
+    "Programming.Functional/1.0.0": {
+      "type": "project",
+      "path": "../../Frameworker/Programming.Functional/Programming.Functional.csproj",
+      "msbuildProject": "../../Frameworker/Programming.Functional/Programming.Functional.csproj"
+    },
     "Shared.Bus/1.0.0": {
       "type": "project",
       "path": "../../Shared/Shared.Bus/Shared.Bus.csproj",
@@ -12277,6 +12292,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 2.2.6",
       "Microsoft.Extensions.DependencyInjection >= 2.2.0",
       "Microsoft.NETCore.App >= 2.2.0",
+      "Programming.Functional >= 1.0.0",
       "Shared.Bus >= 1.0.0",
       "Store.Domain >= 1.0.0",
       "Store.Infrastructure >= 1.0.0"
@@ -12315,6 +12331,9 @@
           "projectReferences": {
             "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Frameworker\\Frameworker.Scorponok.AspNet\\Frameworker.Scorponok.AspNet.csproj": {
               "projectPath": "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Frameworker\\Frameworker.Scorponok.AspNet\\Frameworker.Scorponok.AspNet.csproj"
+            },
+            "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Frameworker\\Programming.Functional\\Programming.Functional.csproj": {
+              "projectPath": "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Frameworker\\Programming.Functional\\Programming.Functional.csproj"
             },
             "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Shared\\Shared.Bus\\Shared.Bus.csproj": {
               "projectPath": "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Shared\\Shared.Bus\\Shared.Bus.csproj"

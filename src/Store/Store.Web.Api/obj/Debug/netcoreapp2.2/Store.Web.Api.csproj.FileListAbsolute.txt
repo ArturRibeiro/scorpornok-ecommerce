@@ -23,3 +23,5 @@ S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Web.Api\obj\Debug
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Web.Api\obj\Debug\netcoreapp2.2\Store.Web.Api.csproj.CopyComplete
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Web.Api\obj\Debug\netcoreapp2.2\Store.Web.Api.dll
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Web.Api\obj\Debug\netcoreapp2.2\Store.Web.Api.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Web.Api\bin\Debug\netcoreapp2.2\Programming.Functional.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Web.Api\bin\Debug\netcoreapp2.2\Programming.Functional.pdb

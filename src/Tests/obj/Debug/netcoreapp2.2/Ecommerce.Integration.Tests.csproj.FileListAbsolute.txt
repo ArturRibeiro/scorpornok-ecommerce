@@ -39,3 +39,5 @@ S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Tests\bin\Debug\netcoreapp2.2
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Tests\bin\Debug\netcoreapp2.2\Store.Infrastructure.pdb
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Tests\bin\Debug\netcoreapp2.2\Store.Web.Api.pdb
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Tests\bin\Debug\netcoreapp2.2\Store.Domain.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Tests\bin\Debug\netcoreapp2.2\Programming.Functional.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Tests\bin\Debug\netcoreapp2.2\Programming.Functional.pdb

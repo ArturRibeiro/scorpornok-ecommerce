@@ -3714,6 +3714,16 @@
           "bin/placeholder/Gateway.Payment.Web.Api.dll": {}
         }
       },
+      "Programming.Functional/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "compile": {
+          "bin/placeholder/Programming.Functional.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Programming.Functional.dll": {}
+        }
+      },
       "Shared.Bus/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.2",
@@ -3785,6 +3795,7 @@
           "Microsoft.EntityFrameworkCore.Design": "2.2.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.2.6",
           "Microsoft.Extensions.DependencyInjection": "2.2.0",
+          "Programming.Functional": "1.0.0",
           "Shared.Bus": "1.0.0",
           "Store.Domain": "1.0.0",
           "Store.Infrastructure": "1.0.0"
@@ -10832,6 +10843,11 @@
       "type": "project",
       "path": "../Payments/Gateway.Payment.Web.Api/Gateway.Payment.Web.Api.csproj",
       "msbuildProject": "../Payments/Gateway.Payment.Web.Api/Gateway.Payment.Web.Api.csproj"
+    },
+    "Programming.Functional/1.0.0": {
+      "type": "project",
+      "path": "../Frameworker/Programming.Functional/Programming.Functional.csproj",
+      "msbuildProject": "../Frameworker/Programming.Functional/Programming.Functional.csproj"
     },
     "Shared.Bus/1.0.0": {
       "type": "project",

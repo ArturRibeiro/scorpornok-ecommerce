@@ -2,6 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Programming.Functional.Options;
+using Programming.Functional.Options.Asserts;
 using Shared.Code.Bus;
 using Shared.Code.Commands;
 using Shared.Code.Notifications;
@@ -28,28 +30,31 @@ namespace Store.Web.Api.App.CommandHandlers
             var paymentId = Guid.NewGuid();
             
             //Refactor
-            if (message.Address == null)
+            var address = Assert.IsNotNull(message.Address, "Address null");
+            var orderItems = Assert.IsNotNull(message.Items, "items null");
+            var orderItemsGreaterThanZero = Assert.IsGreaterThan(0, message.Items, "items null");
+            var result = Option.Combine(address, orderItems, orderItemsGreaterThanZero);
+
+           if (result.IsNone)
             {
-                await _mediator.RaiseEvent(DomainNotification.Factory.Create(message, nameof(message.Address)));
+                await _mediator.RaiseEvent(DomainNotification.Factory.Create(result.Message, nameof(message.Address)));
                 return Unit.Value;
             }
 
-            if (message.Items == null || message.Items.Length == 0)
-            {
-                await _mediator.RaiseEvent(DomainNotification.Factory.Create(message, nameof(message.Items)));
-                return Unit.Value;
-            }
-
-            if (_notificationHandler.HasNotifications)
-                return Unit.Value;
-
-            var address = OrderAddress.Factory.Create(message.Address.Street, message.Address.City, message.Address.State, message.Address.Country, message.Address.ZipCode);
-            var order = Order.Factory.Create(address, customerId, paymentId);
+            var order = Order.Factory.Create
+            (
+                address : OrderAddress.Factory.Create(address.Value.Street, address.Value.City, address.Value.State, address.Value.Country, address.Value.ZipCode), 
+                customerId: customerId, 
+                paymentId: paymentId
+            );
 
             //Refactor
             if (!order.IsValid()) await _mediator.RaiseEvent(DomainNotification.Factory.Create(message, "Ocorreram erros"));
 
-            foreach (var item in message.Items)
+            //if (_notificationHandler.HasNotifications)
+            //    return Unit.Value;
+
+            foreach (var item in orderItems.Value)
                 order.AddItem(item.ProductId
                     , item.ProductName
                     , item.UnitPrice

@@ -25,3 +25,5 @@ S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\n
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Frameworker.Scorponok.AspNet.pdb
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Shared.Bus.pdb
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Store.Infrastructure.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Programming.Functional.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Programming.Functional.pdb

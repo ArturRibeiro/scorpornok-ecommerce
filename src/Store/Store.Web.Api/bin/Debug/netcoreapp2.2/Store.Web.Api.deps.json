@@ -36,6 +36,7 @@
           "Microsoft.EntityFrameworkCore.Tools": "2.2.6",
           "Microsoft.Extensions.DependencyInjection": "2.2.0",
           "Microsoft.NETCore.App": "2.2.0",
+          "Programming.Functional": "1.0.0",
           "Shared.Bus": "1.0.0",
           "Store.Domain": "1.0.0",
           "Store.Infrastructure": "1.0.0"
@@ -319,6 +320,14 @@
         },
         "compile": {
           "Frameworker.Scorponok.AspNet.dll": {}
+        }
+      },
+      "Programming.Functional/1.0.0": {
+        "runtime": {
+          "Programming.Functional.dll": {}
+        },
+        "compile": {
+          "Programming.Functional.dll": {}
         }
       },
       "Shared.Bus/1.0.0": {
@@ -3583,6 +3592,11 @@
       "hashPath": "system.text.encoding.codepages.4.5.0.nupkg.sha512"
     },
     "Frameworker.Scorponok.AspNet/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Programming.Functional/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
