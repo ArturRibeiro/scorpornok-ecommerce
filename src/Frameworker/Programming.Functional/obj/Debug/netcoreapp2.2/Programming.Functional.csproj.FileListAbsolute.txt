@@ -15,3 +15,4 @@ S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Frameworker\Programming.Funct
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Frameworker\Programming.Functional\obj\Debug\netcoreapp2.2\Programming.Functional.AssemblyInfo.cs
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Frameworker\Programming.Functional\obj\Debug\netcoreapp2.2\Programming.Functional.dll
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Frameworker\Programming.Functional\obj\Debug\netcoreapp2.2\Programming.Functional.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Frameworker\Programming.Functional\obj\Debug\netcoreapp2.2\Programming.Functional.csprojAssemblyReference.cache
