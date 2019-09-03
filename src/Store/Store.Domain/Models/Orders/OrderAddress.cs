@@ -21,7 +21,7 @@ namespace Store.Domain.Models.Orders
         //EF
         protected OrderAddress() { }
 
-        public OrderAddress(string street, string city, string state, string country, string zipcode)
+        private OrderAddress(string street, string city, string state, string country, string zipcode)
         {
             Street = street;
             City = city;
@@ -42,5 +42,24 @@ namespace Store.Domain.Models.Orders
 
         public bool IsValid()
             => new OrderAddressValidation().Validate(this).IsValid;
+
+        #region Factory
+
+        public class Factory
+        {
+            public static OrderAddress Create(string street, string city, string state, string country, string zipcode)
+                => new OrderAddress()
+
+                {
+                    Street = street,
+                    City = city,
+                    State = state,
+                    Country = country,
+                    ZipCode = zipcode
+                };
+        }
     }
+
+    #endregion
 }
+

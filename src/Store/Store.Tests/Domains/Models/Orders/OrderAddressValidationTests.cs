@@ -15,7 +15,7 @@ namespace Store.Tests.Domains.Models.Orders
         public void Valid_order_address()
         {
             //Arrange's
-            var address = new OrderAddress("street", "city", "state", "country", "zipcode");
+            var address = OrderAddress.Factory.Create("street", "city", "state", "country", "zipcode");
 
             //Act
             var result = address.IsValid();

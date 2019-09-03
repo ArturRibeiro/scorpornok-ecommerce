@@ -19,7 +19,9 @@ namespace Store.Infrastructure
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            var result = await base.SaveChangesAsync(cancellationToken) > 0;
+
+            return result;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

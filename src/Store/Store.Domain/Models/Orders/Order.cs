@@ -21,6 +21,8 @@ namespace Store.Domain.Models.Orders
             Address = address;
             CustomerId = customerId;
             PaymentId = paymentId;
+
+            this.OrderNumber = $"A{this.GetHashCode().ToString()}";
         }
         #endregion
 
@@ -60,10 +62,17 @@ namespace Store.Domain.Models.Orders
 
         }
 
-        public static Order Create(OrderAddress address, Guid customerId, Guid paymentId)
-            => new Order(address, customerId, paymentId);
-
         public bool IsValid()
             => new OrderValidation().Validate(this).IsValid;
+
+        #region Factory
+
+        public static class Factory
+        {
+            public static Order Create(OrderAddress address, Guid customerId, Guid paymentId)
+                => new Order(address, customerId, paymentId);
+        }
+
+        #endregion
     }
 }

@@ -9,5 +9,10 @@ namespace Store.Web.Api.App.Commands
     {
         [DataMember]
         public Guid UserId { get; set; }
+
+        [DataMember] public OrderAddressMessageResponse Address { get; set; } = new OrderAddressMessageResponse();
+
+        [DataMember]
+        public OrderItemMessageResponse[] Items { get; set; } = new OrderItemMessageResponse[] { };
     }
 }

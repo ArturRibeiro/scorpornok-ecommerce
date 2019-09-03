@@ -1736,6 +1736,18 @@
           }
         }
       },
+      "NBuilder/6.0.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "lib/netstandard1.6/FizzWare.NBuilder.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.6/FizzWare.NBuilder.dll": {}
+        }
+      },
       "NETStandard.Library/2.0.3": {
         "type": "package",
         "dependencies": {
@@ -5772,6 +5784,19 @@
         "runtimes/win/lib/netstandard2.0/Microsoft.Win32.Registry.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "NBuilder/6.0.1": {
+      "sha512": "4JFUx4jl/8krtrCa7x/Fll01XoaIuuNkjpmoyXygNnjyvm2kiR7CE/hWtxKjqukX0/c4zJz7Ljs5zNlz1cAGyg==",
+      "type": "package",
+      "path": "nbuilder/6.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/FizzWare.NBuilder.dll",
+        "lib/netstandard1.6/FizzWare.NBuilder.dll",
+        "nbuilder.6.0.1.nupkg.sha512",
+        "nbuilder.nuspec"
       ]
     },
     "NETStandard.Library/2.0.3": {
@@ -10851,6 +10876,7 @@
       "Microsoft.AspNetCore.TestHost >= 2.2.0",
       "Microsoft.NET.Test.Sdk >= 16.0.1",
       "Microsoft.NETCore.App >= 2.2.0",
+      "NBuilder >= 6.0.1",
       "NUnit3TestAdapter >= 3.13.0",
       "Store.Infrastructure >= 1.0.0",
       "Store.Web.Api >= 1.0.0",
@@ -10961,6 +10987,10 @@
             "target": "Package",
             "version": "[2.2.0, )",
             "autoReferenced": true
+          },
+          "NBuilder": {
+            "target": "Package",
+            "version": "[6.0.1, )"
           },
           "NUnit3TestAdapter": {
             "target": "Package",

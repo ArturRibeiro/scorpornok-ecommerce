@@ -3,7 +3,10 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Bus;
 using Shared.Code.Bus;
+using Shared.Code.Models;
 using Shared.Code.Notifications;
+using Store.Domain.Models.Orders;
+using Store.Infrastructure.Repositories;
 using Store.Web.Api.App.CommandHandlers;
 using Store.Web.Api.App.Commands;
 
@@ -25,8 +28,10 @@ namespace Store.Web.Api.App
             RegisterDomainEvents(services);
             RegisterCommandHandler(services);
         }
+
         private static void RegisterEventSourcing(IServiceCollection services)
         {
+            services.AddScoped<IOrderRepository, OrderRepository>();
             //services.AddScoped<IEventStoreRepository, EventStoreRepository>();
             //services.AddScoped<IEventStore, SqlEventStore>();
             //services.AddScoped<EventStoreContext>();
@@ -40,7 +45,7 @@ namespace Store.Web.Api.App
         private static void RegisterCommandHandler(IServiceCollection services)
         {
             services.AddScoped<IRequestHandler<CreateOrderCommand>, OrdersCommandHandler>();
-            services.AddScoped<IRequestHandler<OrderAddressCommand>, OrdersCommandHandler>();
+            //services.AddScoped<IRequestHandler<OrderAddressCommand>, OrdersCommandHandler>();
         }
     }
 }

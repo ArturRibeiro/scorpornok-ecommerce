@@ -17,3 +17,11 @@ S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\n
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Store.Domain.pdb
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Shared.Code.pdb
 S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\obj\Debug\netcoreapp2.2\Store.Tests.csproj.CopyComplete
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Frameworker.Scorponok.AspNet.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Shared.Bus.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Store.Infrastructure.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Store.Web.Api.dll
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Store.Web.Api.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Frameworker.Scorponok.AspNet.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Shared.Bus.pdb
+S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Store\Store.Tests\bin\Debug\netcoreapp2.2\Store.Infrastructure.pdb

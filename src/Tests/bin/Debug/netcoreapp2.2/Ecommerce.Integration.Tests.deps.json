@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "f4c45612ea9f59d25cd40b3f2ce51cde0518caa8"
+    "signature": "bdb00a0c7a316e3dd3dfcc5e7db1f27d8227addc"
   },
   "compilationOptions": {
     "defines": [
@@ -39,6 +39,7 @@
           "Microsoft.AspNetCore.TestHost": "2.2.0",
           "Microsoft.NET.Test.Sdk": "16.0.1",
           "Microsoft.NETCore.App": "2.2.0",
+          "NBuilder": "6.0.1",
           "NUnit3TestAdapter": "3.13.0",
           "Store.Infrastructure": "1.0.0",
           "Store.Web.Api": "1.0.0",
@@ -1729,6 +1730,20 @@
         },
         "compile": {
           "ref/netstandard2.0/Microsoft.Win32.Registry.dll": {}
+        }
+      },
+      "NBuilder/6.0.1": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.3"
+        },
+        "runtime": {
+          "lib/netstandard1.6/FizzWare.NBuilder.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard1.6/FizzWare.NBuilder.dll": {}
         }
       },
       "Newtonsoft.Json/12.0.2": {
@@ -4109,6 +4124,13 @@
       "sha512": "sha512-+FWlwd//+Tt56316p00hVePBCouXyEzT86Jb3+AuRotTND0IYn0OO3obs1gnQEs/txEnt+rF2JBGLItTG+Be6A==",
       "path": "microsoft.win32.registry/4.5.0",
       "hashPath": "microsoft.win32.registry.4.5.0.nupkg.sha512"
+    },
+    "NBuilder/6.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4JFUx4jl/8krtrCa7x/Fll01XoaIuuNkjpmoyXygNnjyvm2kiR7CE/hWtxKjqukX0/c4zJz7Ljs5zNlz1cAGyg==",
+      "path": "nbuilder/6.0.1",
+      "hashPath": "nbuilder.6.0.1.nupkg.sha512"
     },
     "Newtonsoft.Json/12.0.2": {
       "type": "package",

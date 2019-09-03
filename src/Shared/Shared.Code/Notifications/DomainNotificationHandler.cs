@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Shared.Code.Notifications
 {
-    public sealed class DomainNotificationHandler : INotificationHandler<DomainNotification>
+    public class DomainNotificationHandler : INotificationHandler<DomainNotification>
     {
         private List<DomainNotification> _notifications;
 

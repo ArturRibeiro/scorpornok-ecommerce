@@ -30,17 +30,17 @@ namespace Store.Web.Api.Controllers
         }
 
 
-        [HttpPost, Route("addAddress")]
-        [ProducesStatusCodeResponseType(HttpStatusCode.NotFound)]
-        [ProducesStatusCodeResponseType(HttpStatusCode.InternalServerError)]
-        [ProducesStatusCodeResponseType(HttpStatusCode.Unauthorized)]
-        [ProducesStatusCodeResponseType(HttpStatusCode.BadRequest)]
-        [ProducesStatusCodeResponseType(typeof(OrderAddressCommand), HttpStatusCode.OK)]
-        public async Task<IActionResult> AddAddress(OrderAddressCommand command)
-        {
-            await _mediator.Send(command);
+        //[HttpPost, Route("addAddress")]
+        //[ProducesStatusCodeResponseType(HttpStatusCode.NotFound)]
+        //[ProducesStatusCodeResponseType(HttpStatusCode.InternalServerError)]
+        //[ProducesStatusCodeResponseType(HttpStatusCode.Unauthorized)]
+        //[ProducesStatusCodeResponseType(HttpStatusCode.BadRequest)]
+        //[ProducesStatusCodeResponseType(typeof(OrderAddressCommand), HttpStatusCode.OK)]
+        //public async Task<IActionResult> AddAddress(OrderAddressCommand command)
+        //{
+        //    await _mediator.Send(command);
 
-            return this.Ok();
-        }
+        //    return this.Ok();
+        //}
     }
 }
