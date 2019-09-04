@@ -11,14 +11,10 @@ namespace Store.Web.Api.Middlewares
 {
     public class NotificationAsyncResultFilter : IAsyncResultFilter
     {
-        //private readonly IStringLocalizer<SharedResource> _localizer;
         private readonly DomainNotificationHandler _domainNotification;
-        //private readonly IHostingEnvironment _hostingEnvironment;
 
         public NotificationAsyncResultFilter(INotificationHandler<DomainNotification> notifications)
-        {
-            _domainNotification = (DomainNotificationHandler)notifications;
-        }
+            => _domainNotification = (DomainNotificationHandler)notifications;
 
         public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
         {

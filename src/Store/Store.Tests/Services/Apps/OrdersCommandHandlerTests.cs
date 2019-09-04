@@ -39,7 +39,7 @@ namespace Store.Tests.Services.Apps
             };
 
             //Act
-            var result = await handler.Handle(command, CancellationToken.None);
+            await handler.Handle(command, CancellationToken.None);
 
             //Assert's
             orderRepository.Verify(x => x.Save(It.Is<Order>(it => !string.IsNullOrEmpty(it.OrderNumber))), Times.Once);
@@ -69,7 +69,7 @@ namespace Store.Tests.Services.Apps
             };
 
             //Act
-            var result = await handler.Handle(command, CancellationToken.None);
+            await handler.Handle(command, CancellationToken.None);
 
             //Assert's
             orderRepository.Verify(x => x.Save(It.Is<Order>(it => !string.IsNullOrEmpty(it.OrderNumber))), Times.Never);
@@ -98,7 +98,7 @@ namespace Store.Tests.Services.Apps
             };
 
             //Act
-            var result = await handler.Handle(command, CancellationToken.None);
+            await handler.Handle(command, CancellationToken.None);
 
             //Assert's
             orderRepository.Verify(x => x.Save(It.Is<Order>(it => !string.IsNullOrEmpty(it.OrderNumber))), Times.Never);

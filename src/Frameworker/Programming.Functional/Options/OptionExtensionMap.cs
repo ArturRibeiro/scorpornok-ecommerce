@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Programming.Functional.Options
 {
@@ -28,8 +29,49 @@ namespace Programming.Functional.Options
             Func<T, TResult> mapfunc)
             => @this.Match
                 (
-                    value => mapfunc(value), 
+                    value => mapfunc(value),
                     Option<TResult>.None
                 );
+
+
+        //public static Option<T> Then<T, TResult>(this Option<T> @this,
+        //    Func<T, TResult> mapfunc) where TResult : IOption
+        //{
+        //    var result = @this.Match(
+        //        value =>
+        //        {
+        //            var r = mapfunc(@this.Value);
+        //            return r;
+        //        }, Option<TResult>.None);
+        //    var result2 = mapfunc(@this.Value);
+        //    return new Option<T>();
+        //}
+
+
+        public static Option<T> OnSuccess<T, TResult>(this Option<T> @this, 
+            Func<T, TResult> mapfunc)
+        {
+            if (@this.IsNone) return @this; ;
+
+            var result = (IOption)mapfunc(@this.Value);
+
+            return result.IsSome
+                ? @this
+                : Option<T>.None(result.Message) ;
+        }
+
+        public static Option<T> OnSuccess<T, TResult>(this Option<T> @this,
+            Action<T, TResult> mapfunc)
+        {
+            //if (@this.IsNone) return @this; ;
+
+            //var result = (IOption)mapfunc(@this.Value);
+
+            //return result.IsSome
+            //    ? @this
+            //    : Option<T>.None(result.Message);
+
+            throw  new NotImplementedException();
+        }
     }
 }

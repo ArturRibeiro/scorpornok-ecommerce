@@ -114,5 +114,35 @@ namespace Programming.Functional.Tests.Options
 
 
         }
+
+
+        [Test]
+        public void Then()
+        {
+            //Arrange's
+            Option<Person> opt = new Person()
+            {
+                Email = "artur", ID = 2
+            };
+
+            //Act
+            var result = opt
+                .OnSuccess(x => F.Assert.IsNotNull(x.Name, "name"))
+                .OnSuccess(x => F.Assert.IsGreaterThan(0, x.ID, "ID"))
+                .OnSuccess(x => F.Assert.IsNotNull(x.Email, "Email"));
+
+
+
+            //Assert's
+        }
+    }
+
+    public class Person
+    {
+        public int ID { get; set; }
+
+        public string Name { get; set; }
+
+        public string Email { get; set; }
     }
 }

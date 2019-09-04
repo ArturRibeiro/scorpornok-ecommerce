@@ -12,9 +12,6 @@ namespace Programming.Functional.Options
 
     public struct Option<T> : IOption
     {
-        //private readonly T _value;
-        //private readonly string _message;
-        
         public bool IsNone => Value == null || Value.Equals(default(T));
 
         public bool IsSome => !IsNone;
