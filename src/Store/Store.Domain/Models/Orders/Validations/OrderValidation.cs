@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentValidation;
+using Shared.Code.Models;
 
 namespace Store.Domain.Models.Orders.Validations
 {
@@ -9,24 +10,30 @@ namespace Store.Domain.Models.Orders.Validations
         {
             RuleFor(x => x.CustomerId)
                 .NotEmpty()
-                .WithMessage("InvalidCustomerIdEmpty");
+                .WithMessage("Customer not found.");
 
             RuleFor(x => x.OrderNumber)
                 .NotEmpty()
                 .NotNull()
-                .WithMessage("InvalidOrderNumberEmptyOrNull");
+                .WithMessage("Order number not found");
 
             RuleFor(x => x.OrderDate.Date)
                 .Equal(DateTime.Now.Date)
-                .WithMessage("InvalidOrderDataEqual");
+                .WithMessage("Current Date incorret.");
 
             RuleFor(x => x.PaymentId)
                 .NotEmpty()
-                .WithMessage("InvalidPaymentIdEmpty");
+                .WithMessage("Payment code not found.");
 
             RuleFor(x => x.Address)
                 .NotNull()
-                .SetValidator(new OrderAddressValidation());
+                .SetValidator(new OrderAddressValidation())
+                .WithMessage("Address not found.");
+
+            RuleForEach(x => x.Items)
+                .NotNull()
+                .SetValidator(new OrderItemValidation())
+                .WithMessage("Order item not found.");
         }
     }
 }

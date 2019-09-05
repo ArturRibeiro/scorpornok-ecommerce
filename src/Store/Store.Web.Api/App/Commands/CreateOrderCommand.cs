@@ -13,7 +13,6 @@ namespace Store.Web.Api.App.Commands
 
         [DataMember] public OrderAddressMessageResponse Address { get; set; } = new OrderAddressMessageResponse();
 
-        [DataMember]
-        public IList<OrderItemMessageResponse> Items { get; set; } = new List<OrderItemMessageResponse>();
+        [DataMember] public IList<OrderItemMessageResponse> Items { get; set; } = new List<OrderItemMessageResponse>();
     }
 }

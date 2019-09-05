@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Programming.Functional.Options;
 using Programming.Functional.Options.Asserts;
 using Shared.Code.Bus;
@@ -17,11 +18,13 @@ namespace Store.Web.Api.App.CommandHandlers
         IRequestHandler<CreateOrderCommand>
     {
         private readonly IOrderRepository _oderOrderRepository;
+        private readonly ILogger<CreateOrderCommand> _logger;
 
-        public OrdersCommandHandler(IMediatorHandler mediator, INotificationHandler<DomainNotification> notificationHandler, IOrderRepository oderOrderRepository)
+        public OrdersCommandHandler(IMediatorHandler mediator, INotificationHandler<DomainNotification> notificationHandler, IOrderRepository oderOrderRepository, ILogger<CreateOrderCommand> logger)
             : base(mediator, notificationHandler)
         {
             _oderOrderRepository = oderOrderRepository;
+            _logger = logger;
         }
 
         public async Task<Unit> Handle(CreateOrderCommand message, CancellationToken cancellationToken)
@@ -35,23 +38,25 @@ namespace Store.Web.Api.App.CommandHandlers
             else
             {
                 var address = OrderAddress.Factory.Create(message.Address.Street, message.Address.City, message.Address.State, message.Address.Country, message.Address.ZipCode);
-                var order = Order.Factory.Create(address: address, customerId: customerId, paymentId: paymentId);
+                var order = Order.Factory.Create(address, customerId, paymentId);
+
+                foreach (var item in message.Items)
+                    order.AddItem(item.ProductId
+                        , item.ProductName
+                        , item.UnitPrice
+                        , item.Discount
+                        , item.PictureUrl
+                        , item.Units);
 
                 if (!order.IsValid())
-                    await _mediator.RaiseEvent(DomainNotification.Factory.Create(order, "Ocorreram erros"));
+                    this.HasErrors(order.Errors);
                 else
                 {
-                    foreach (var item in message.Items)
-                        order.AddItem(item.ProductId
-                            , item.ProductName
-                            , item.UnitPrice
-                            , item.Discount
-                            , item.PictureUrl
-                            , item.Units);
-
                     this._oderOrderRepository.Save(order);
 
                     await this._oderOrderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+
+                    _logger.LogInformation("----- Creating Order - Order: {@Order}", order);
                 }
             }
 

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using FluentValidation.Results;
 
 namespace Shared.Code.Models
 {
     public abstract class Entity<T>
     {
         private int? _requestedHashCode;
+        private readonly IList<string> _errors = new List<string>();
 
         public virtual T Id
         {
@@ -15,6 +17,16 @@ namespace Shared.Code.Models
         }
 
         public bool IsTransient => this.Id == null || this.Id.Equals(default(T));
+        public IReadOnlyCollection<string> Errors => _errors.ToList().AsReadOnly();
+
+        public virtual bool IsValid()
+            => true;
+
+        protected internal void SetValidation(ValidationResult validationResult)
+        {
+            foreach (var error in validationResult.Errors)
+                _errors.Add(error.ErrorMessage);
+        }
 
         public override bool Equals(object obj)
         {

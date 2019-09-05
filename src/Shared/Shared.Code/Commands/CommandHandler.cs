@@ -1,4 +1,6 @@
-﻿using FluentValidation.Results;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FluentValidation.Results;
 using Shared.Code.Notifications;
 using MediatR;
 using Shared.Code.Bus;
@@ -22,6 +24,14 @@ namespace Shared.Code.Commands
                 _mediator.RaiseEvent(DomainNotification.Factory.Create(this,  error.ErrorMessage));
 
             return result.IsValid;
+        }
+
+        protected bool HasErrors(IReadOnlyCollection<string> errors)
+        {
+            foreach (var error in errors)
+                _mediator.RaiseEvent(DomainNotification.Factory.Create(this, error));
+
+            return errors.Any();
         }
     }
 }

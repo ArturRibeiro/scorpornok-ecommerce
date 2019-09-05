@@ -62,8 +62,13 @@ namespace Store.Domain.Models.Orders
 
         }
 
-        public bool IsValid()
-            => new OrderValidation().Validate(this).IsValid;
+        public override bool IsValid()
+        {
+            var orderValidation = new OrderValidation().Validate(this);
+            if (!orderValidation.IsValid)
+                this.SetValidation(orderValidation);
+            return orderValidation.IsValid;
+        }
 
         #region Factory
 
