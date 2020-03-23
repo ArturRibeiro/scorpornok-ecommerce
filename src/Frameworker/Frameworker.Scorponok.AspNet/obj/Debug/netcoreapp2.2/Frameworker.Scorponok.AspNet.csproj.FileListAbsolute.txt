@@ -1,9 +1,0 @@
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Frameworker\Frameworker.Scorponok.AspNet\bin\Debug\netcoreapp2.2\Frameworker.Scorponok.AspNet.deps.json
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Frameworker\Frameworker.Scorponok.AspNet\bin\Debug\netcoreapp2.2\Frameworker.Scorponok.AspNet.dll
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Frameworker\Frameworker.Scorponok.AspNet\bin\Debug\netcoreapp2.2\Frameworker.Scorponok.AspNet.pdb
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp2.2\Frameworker.Scorponok.AspNet.csproj.CoreCompileInputs.cache
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp2.2\Frameworker.Scorponok.AspNet.AssemblyInfoInputs.cache
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp2.2\Frameworker.Scorponok.AspNet.AssemblyInfo.cs
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp2.2\Frameworker.Scorponok.AspNet.dll
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp2.2\Frameworker.Scorponok.AspNet.pdb
-S:\scorponok\Projetos\Git\scorpornok-ecommerce\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp2.2\Frameworker.Scorponok.AspNet.csprojAssemblyReference.cache

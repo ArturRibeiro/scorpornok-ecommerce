@@ -931,6 +931,7 @@
       "path": "microsoft.netcore.targets/2.0.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/netstandard1.0/_._",
@@ -1115,7 +1116,6 @@
       "path": "runtime.native.system.data.sqlclient.sni/4.4.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -1175,6 +1175,7 @@
       "path": "system.componentmodel.annotations/4.4.1",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/MonoAndroid10/_._",
@@ -1489,6 +1490,7 @@
       "path": "system.reflection.emit.ilgeneration/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1533,6 +1535,7 @@
       "path": "system.reflection.emit.lightweight/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1633,6 +1636,7 @@
       "path": "system.reflection.typeextensions/4.4.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/MonoAndroid10/_._",
@@ -2058,38 +2062,35 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\scorponok\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/home/scorpnok/.nuget/packages/": {},
+    "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Catalog\\Catalog.Queries\\Catalog.Queries.csproj",
+      "projectUniqueName": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Catalog/Catalog.Queries/Catalog.Queries.csproj",
       "projectName": "Catalog.Queries",
-      "projectPath": "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Catalog\\Catalog.Queries\\Catalog.Queries.csproj",
-      "packagesPath": "C:\\Users\\scorponok\\.nuget\\packages\\",
-      "outputPath": "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Catalog\\Catalog.Queries\\obj\\",
+      "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Catalog/Catalog.Queries/Catalog.Queries.csproj",
+      "packagesPath": "/home/scorpnok/.nuget/packages/",
+      "outputPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Catalog/Catalog.Queries/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "/usr/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\scorponok\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/scorpnok/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://www.nuget.org/api/v2/curated-feeds/microsoftdotnet/": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Shared\\Shared.Code\\Shared.Code.csproj": {
-              "projectPath": "S:\\scorponok\\Projetos\\Git\\scorpornok-ecommerce\\src\\Shared\\Shared.Code\\Shared.Code.csproj"
+            "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Shared/Shared.Code/Shared.Code.csproj": {
+              "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Shared/Shared.Code/Shared.Code.csproj"
             }
           }
         }
@@ -2119,10 +2120,16 @@
           }
         },
         "imports": [
-          "net461"
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.200/RuntimeIdentifierGraph.json"
       }
     }
   }

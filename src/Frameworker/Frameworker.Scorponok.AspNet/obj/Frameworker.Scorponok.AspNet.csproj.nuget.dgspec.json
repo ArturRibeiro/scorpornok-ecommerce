@@ -1,42 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Frameworker\\Frameworker.Scorponok.AspNet\\Frameworker.Scorponok.AspNet.csproj": {}
+    "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Frameworker/Frameworker.Scorponok.AspNet/Frameworker.Scorponok.AspNet.csproj": {}
   },
   "projects": {
-    "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Frameworker\\Frameworker.Scorponok.AspNet\\Frameworker.Scorponok.AspNet.csproj": {
+    "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Frameworker/Frameworker.Scorponok.AspNet/Frameworker.Scorponok.AspNet.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Frameworker\\Frameworker.Scorponok.AspNet\\Frameworker.Scorponok.AspNet.csproj",
+        "projectUniqueName": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Frameworker/Frameworker.Scorponok.AspNet/Frameworker.Scorponok.AspNet.csproj",
         "projectName": "Frameworker.Scorponok.AspNet",
-        "projectPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Frameworker\\Frameworker.Scorponok.AspNet\\Frameworker.Scorponok.AspNet.csproj",
-        "packagesPath": "C:\\Users\\arthur.ribeiro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\arthur.ribeiro\\source\\2019\\repos\\Gateway.Payment\\src\\Frameworker\\Frameworker.Scorponok.AspNet\\obj\\",
+        "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Frameworker/Frameworker.Scorponok.AspNet/Frameworker.Scorponok.AspNet.csproj",
+        "packagesPath": "/home/scorpnok/.nuget/packages/",
+        "outputPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Frameworker/Frameworker.Scorponok.AspNet/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\arthur.ribeiro\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/scorpnok/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.0"
+          "netcoreapp2.2"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\nuget": {},
-          "\\\\BRRJSRV34\\Publico\\Epimed\\TI\\RepositorioNuget": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.0": {
+          "netcoreapp2.2": {
             "projectReferences": {}
           }
         },
@@ -47,34 +37,30 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.0": {
+        "netcoreapp2.2": {
           "dependencies": {
             "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
               "version": "[2.2.0, )"
             },
-            "Microsoft.NETCore.Platforms": {
+            "Microsoft.NETCore.App": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.0.0-preview3.19128.7, )",
-              "autoReferenced": true
-            },
-            "Microsoft.WindowsDesktop.App": {
-              "include": "None",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.0.0-preview3-27504-2, )",
+              "version": "[2.2.0, )",
               "autoReferenced": true
             }
           },
           "imports": [
-            "net461"
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": [
-            "Microsoft.NETCore.App"
-          ]
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.200/RuntimeIdentifierGraph.json"
         }
       }
     }

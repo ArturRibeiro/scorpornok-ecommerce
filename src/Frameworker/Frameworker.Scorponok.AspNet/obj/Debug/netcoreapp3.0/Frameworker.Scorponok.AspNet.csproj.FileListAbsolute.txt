@@ -1,9 +1,0 @@
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Frameworker\Frameworker.Scorponok.AspNet\bin\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.deps.json
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Frameworker\Frameworker.Scorponok.AspNet\bin\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.dll
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.csproj.CoreCompileInputs.cache
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.AssemblyInfoInputs.cache
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.AssemblyInfo.cs
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Frameworker\Frameworker.Scorponok.AspNet\bin\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.pdb
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.dll
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.pdb
-C:\Users\arthur.ribeiro\source\2019\repos\Gateway.Payment\src\Frameworker\Frameworker.Scorponok.AspNet\obj\Debug\netcoreapp3.0\Frameworker.Scorponok.AspNet.csprojAssemblyReference.cache
