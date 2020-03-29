@@ -1,5 +1,6 @@
 using System;
 using Programming.Functional.Results;
+using Programming.Functional.Results.Asserts;
 using Programming.Functional.Tests.Results.Domains.Persons;
 
 namespace Programming.Functional.Tests.Results
@@ -13,26 +14,43 @@ namespace Programming.Functional.Tests.Results
             _personRepository = personRepository;
         }
 
-        public string CreatePerson(Guid personId, string name, string email)
+        public string CreatePerson(string name, string email)
         {
-            var nameIsNullOrEmpty = Result.Ok(!string.IsNullOrEmpty(name));
-            var emailIsNullOrEmpty = Result.Ok(!string.IsNullOrEmpty(email));
-            var person = _personRepository.GetPerson(personId).ToResult("Person is not exists");
+            var nameIsNullOrEmpty = Assert2.IsNullOrEmpty(name, "Name is null");
+            var emailIsNullOrEmpty = Assert2.IsNullOrEmpty(email, "Email is null");
+            var person = Person.Factory.Create(name, email)
+                .ToResult("Error occorred ");
+            var combine = Result.Combine(nameIsNullOrEmpty, emailIsNullOrEmpty, person);
 
-            return Result.Combine(nameIsNullOrEmpty, emailIsNullOrEmpty, person)
-                .OnSuccess(() => _personRepository.Save(CreateNewPerson(name, email))
+            return combine
+                .OnSuccess(() => person.Value.Valid())
+                .OnSuccess(() => _personRepository.Save(person.Value)
                     .Cath(() => _personRepository.Rollback()))
                 .Finally(CreateLog)
-                .Finally(result => result.IsSome ? "OK" : result.Message);
-            ;
+                .Finally(CreateResult);
         }
 
+        public string CreatePersonWithAddress(string name, string email, string p1, string p2, string p3)
+        {
+            var nameIsNullOrEmpty = Assert2.IsNullOrEmpty(name, "Name is null");
+            var emailIsNullOrEmpty = Assert2.IsNullOrEmpty(email, "Email is null");
+            var person = Person.Factory.Create(name, email)
+                .ToResult("Error occorred ");
+            var combine = Result.Combine(person, nameIsNullOrEmpty, emailIsNullOrEmpty);
+            
+            return combine
+                .With(() => person.Value.AddAddress(p1, p2, p3))
+                .OnSuccess(() => person.Value.Valid())
+                .OnSuccess(() => _personRepository.Save(person.Value)
+                    .Cath(() => _personRepository.Rollback()))
+                .Finally(CreateLog)
+                .Finally(CreateResult);
+        }
+
+        private string CreateResult(Result result)
+            =>  result.IsSome ? "OK" : result.Message;
+
         #region Private Methods
-
-        private static Person CreateNewPerson(string name, string email)
-            => Person.Factory.Create(name, email)
-                .AddAddress("p1", "p2", "p3");
-
 
         private static void CreateLog(Result result)
         {

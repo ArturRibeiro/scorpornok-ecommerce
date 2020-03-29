@@ -45,10 +45,4 @@ namespace Programming.Functional.Results
             return Ok();
         }
     }
-
-
-    
-
-
-    
 }

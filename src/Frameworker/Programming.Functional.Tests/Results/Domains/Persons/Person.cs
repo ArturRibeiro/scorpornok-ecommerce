@@ -1,4 +1,5 @@
 using System;
+using Programming.Functional.Results;
 
 namespace Programming.Functional.Tests.Results.Domains.Persons
 {
@@ -14,24 +15,33 @@ namespace Programming.Functional.Tests.Results.Domains.Persons
             this.Address = Address.Factory.Create(p1, p2, p3);
             return this;
         }
+        
+        public Result Valid()
+            =>  Result.Ok();
+
+        #region Factory
 
         public static class Factory
         {
-            public static Person Create(string name, string email)
-                => new Person()
+            public static Maybe<Person> Create(string name, string email)
+            {
+                return new Person()
                 {
                     Name = name,
                     Email = email
                 };
-        }
-    }
+            }
 
-    public class Address
-    {
-        public static class Factory
-        {
-            public static Address Create(string p1, string p2, string p3)
-                =>  new Address();
+            public static Maybe<Person> Create(string name, string email, string p1, string p2, string p3)
+            {
+                return new Person()
+                {
+                    Name = name,
+                    Email = email
+                }.AddAddress(p1, p2, p3);
+            }
         }
+
+        #endregion
     }
 }
