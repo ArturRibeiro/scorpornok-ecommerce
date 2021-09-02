@@ -20,7 +20,10 @@ namespace Store.Web.Api.App.CommandHandlers
         private readonly IOrderRepository _oderOrderRepository;
         private readonly ILogger<CreateOrderCommand> _logger;
 
-        public OrdersCommandHandler(IMediatorHandler mediator, INotificationHandler<DomainNotification> notificationHandler, IOrderRepository oderOrderRepository, ILogger<CreateOrderCommand> logger)
+        public OrdersCommandHandler(IMediatorHandler mediator
+            , INotificationHandler<DomainNotification> notificationHandler
+            , IOrderRepository oderOrderRepository
+            , ILogger<CreateOrderCommand> logger)
             : base(mediator, notificationHandler)
         {
             _oderOrderRepository = oderOrderRepository;
@@ -37,7 +40,8 @@ namespace Store.Web.Api.App.CommandHandlers
                 await _mediator.RaiseEvent(DomainNotification.Factory.Create(commandValid.Message, nameof(message.Address)));
             else
             {
-                var address = OrderAddress.Factory.Create(message.Address.Street, message.Address.City, message.Address.State, message.Address.Country, message.Address.ZipCode);
+                var address = OrderAddress.Factory.Create(message.Address.Street, message.Address.City,
+                    message.Address.State, message.Address.Country, message.Address.ZipCode);
                 var order = Order.Factory.Create(address, customerId, paymentId);
 
                 foreach (var item in message.Items)
