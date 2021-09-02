@@ -38,24 +38,5 @@ namespace Ecommerce.Integration.Tests.Scenario.Orders
 
             result.StatusCode.Should().Be(HttpStatusCode.OK);
         }
-
-        //[Test, Order(2)]
-        //public async Task Add_order_address()
-        //{
-        //    var command = new Orde() {
-        //        City = "Rio de Janeiro",
-        //        Country = "BRA",
-        //        OrderId = Guid.NewGuid(),
-        //        PhoneNumber = "01234567896",
-        //        PostCode = "22222222",
-        //        Street = "Av. Ayrton Senna",
-        //        Number = "1234"
-        //    };
-
-        //    var result = await _client.PostAsync(command, "addAddress");
-
-        //    result.StatusCode.Should().Be(HttpStatusCode.OK);
-        //}
-
     }
 }

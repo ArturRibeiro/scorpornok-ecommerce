@@ -11,7 +11,7 @@ namespace Store.Web.Api.App.Commands
         [DataMember, Required]
         public string Street { get; private set; }
 
-        [DataMember, Required]
+        [DataMember(Name = "city"), Required]
         public string City { get; private set; }
 
         [DataMember, Required]

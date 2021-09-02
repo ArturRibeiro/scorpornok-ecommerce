@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Gateway.Payment.Web.Api.Middlewares
+namespace Store.Web.Api.Middlewares
 {
     public static class MvcJsonOptionsExtension
     {

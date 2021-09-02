@@ -26,14 +26,5 @@ namespace Ecommerce.Integration.Tests.Helpers
             
             return _serviceCollection;
         }
-
-        //}
-
-
-
-
-
-        //internal static void BuildService()
-        //    => _container = _serviceCollection.BuildServiceProvider();
     }
 }

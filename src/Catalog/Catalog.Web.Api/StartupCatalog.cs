@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Catalog.Infrastructure;
 using Catalog.Web.Api.App;
@@ -6,32 +6,20 @@ using Catalog.Web.Api.Filters;
 using Frameworker.Scorponok.AspNet.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Shared.Code.Provider;
 
 namespace Catalog.Web.Api
 {
-    public class Startup
+    public class StartupCatalog
     {
-        public Startup(IHostingEnvironment hostingEnvironment)
+        public StartupCatalog(IConfiguration configuration)
         {
-            try
-            {
-                var builder = new ConfigurationBuilder()
-                    .SetBasePath(hostingEnvironment.ContentRootPath)
-                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                    .AddJsonFile($"appsettings.{hostingEnvironment.EnvironmentName}.json", optional: true);
-
-                builder.AddEnvironmentVariables();
-                Configuration = builder.Build();
-            }
-            catch (Exception e)
-            {
-                Log(e);
-            }
+            Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -39,13 +27,15 @@ namespace Catalog.Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Catalog.Web.Api", Version = "v1" });
+            });
+            
             try
             {
-                services.AddMvc(options => { options.AddNotificationAsyncResultFilter<NotificationAsyncResultFilter>(Configuration); })
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-                //.Net core 3.0
-                //.AddNewtonsoftJson();
-
+                services.AddMvc(options => { options.AddNotificationAsyncResultFilter<NotificationAsyncResultFilter>(Configuration); });
                 services.AddHttpContextAccessor();
 
                 NativeDependencyInjection.RegisterServices(services);
@@ -63,22 +53,24 @@ namespace Catalog.Web.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalog.Web.Api v1"));
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
-        }
 
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+        
         private void Log(Exception e) => File.AppendAllText($"Log\\Log{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.txt", e.ToString());
     }
 }

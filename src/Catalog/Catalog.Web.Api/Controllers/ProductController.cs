@@ -8,7 +8,8 @@ using Frameworker.Scorponok.AspNet.Mvc.ControllerBaseExtensions;
 
 namespace Catalog.Web.Api.Controllers
 {
-    [Route("api/v1/[controller]"), ApiController]
+    [ApiController]
+    [Route("api/v1/[controller]")]
     public class ProductController : ControllerBase
     {
         private readonly IProductQueries _productQueries;

@@ -3,6 +3,7 @@ using Shared.Code.Provider;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Bogus;
 
 namespace Catalog.Queries.Products.Queries
 {
@@ -15,18 +16,12 @@ namespace Catalog.Queries.Products.Queries
 
         public async Task<IEnumerable<ProductItemMessageResponse>> GetAllProducts()
         {
-            using (var connection = new SqlConnection(_provider.ConnectionString))
-            {
-                connection.Open();
-
-                return await connection.QueryAsync<ProductItemMessageResponse>(@"SELECT [CatalogId]
-                                                                                      ,[Name]
-                                                                                      ,[Sku]
-                                                                                      ,[PictureUri]
-                                                                                      ,[Price]
-                                                                                      ,[Description]
-                                                                                 FROM [dbo].[Products] ORDER BY [Name]");
-            }
+            var faker = new Faker<ProductItemMessageResponse>()
+                .RuleFor(o => o.Name, f => f.Commerce.ProductName())
+                .RuleFor(o => o.Price, f => decimal.Parse(f.Commerce.Price()))
+                .RuleFor(o => o.PictureUri, f => "nothing");
+            
+            return faker.Generate(20);
         }
     }
 }

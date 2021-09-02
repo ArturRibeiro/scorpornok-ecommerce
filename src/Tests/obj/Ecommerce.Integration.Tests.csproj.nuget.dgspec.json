@@ -17,16 +17,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
               "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Shared/Shared.Code/Shared.Code.csproj": {
                 "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Shared/Shared.Code/Shared.Code.csproj"
@@ -41,15 +43,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
-          "dependencies": {
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
-            }
-          },
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -60,7 +55,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -77,16 +77,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
               "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Catalog/Catalog.Domain/Catalog.Domain.csproj": {
                 "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Catalog/Catalog.Domain/Catalog.Domain.csproj"
@@ -101,7 +103,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -124,12 +127,6 @@
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
               "version": "[2.2.0, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
             }
           },
           "imports": [
@@ -142,7 +139,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -159,16 +161,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
               "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Shared/Shared.Code/Shared.Code.csproj": {
                 "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Shared/Shared.Code/Shared.Code.csproj"
@@ -183,7 +187,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Bogus": {
               "target": "Package",
@@ -192,12 +197,6 @@
             "Dapper": {
               "target": "Package",
               "version": "[1.60.6, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
             }
           },
           "imports": [
@@ -210,7 +209,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -227,16 +231,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
               "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Catalog/Catalog.Infrastructure/Catalog.Infrastructure.csproj": {
                 "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Catalog/Catalog.Infrastructure/Catalog.Infrastructure.csproj"
@@ -257,24 +263,12 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
-            "Microsoft.AspNetCore.App": {
-              "suppressParent": "All",
+            "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
-            },
-            "Microsoft.AspNetCore.Razor.Design": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
+              "version": "[5.6.3, )"
             }
           },
           "imports": [
@@ -287,7 +281,15 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -304,16 +306,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -324,17 +328,12 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
               "version": "[2.2.0, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
             }
           },
           "imports": [
@@ -347,7 +346,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -364,16 +368,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -384,7 +390,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.AspNetCore.Hosting": {
               "target": "Package",
@@ -401,12 +408,6 @@
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[2.2.0, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
             }
           },
           "imports": [
@@ -419,7 +420,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -436,16 +442,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -456,15 +464,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
-          "dependencies": {
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
-            }
-          },
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -475,7 +476,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -492,16 +498,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
               "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Shared/Shared.Code/Shared.Code.csproj": {
                 "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Shared/Shared.Code/Shared.Code.csproj"
@@ -516,7 +524,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -525,12 +534,6 @@
             "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
               "version": "[2.2.4, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -547,7 +550,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -564,16 +572,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
               "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Frameworker/Frameworker.Scorponok.AspNet/Frameworker.Scorponok.AspNet.csproj": {
                 "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Frameworker/Frameworker.Scorponok.AspNet/Frameworker.Scorponok.AspNet.csproj"
@@ -597,28 +607,16 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "MediatR.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[7.0.0, )"
             },
-            "Microsoft.AspNetCore.App": {
-              "suppressParent": "All",
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
-            },
-            "Microsoft.AspNetCore.Razor.Design": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
+              "version": "[3.1.18, )"
             }
           },
           "imports": [
@@ -631,7 +629,15 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -648,16 +654,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
               "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Shared/Shared.Code/Shared.Code.csproj": {
                 "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Shared/Shared.Code/Shared.Code.csproj"
@@ -672,17 +680,12 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "MediatR": {
               "target": "Package",
               "version": "[7.0.0, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
             }
           },
           "imports": [
@@ -695,7 +698,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -712,16 +720,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -732,7 +742,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "FluentValidation": {
               "target": "Package",
@@ -741,12 +752,6 @@
             "MediatR": {
               "target": "Package",
               "version": "[7.0.0, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
             }
           },
           "imports": [
@@ -759,7 +764,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -776,16 +786,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
               "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Shared/Shared.Code/Shared.Code.csproj": {
                 "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Shared/Shared.Code/Shared.Code.csproj"
@@ -800,17 +812,12 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "FluentValidation": {
               "target": "Package",
               "version": "[8.4.0, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
             }
           },
           "imports": [
@@ -823,7 +830,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -840,16 +852,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
               "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Store/Store.Domain/Store.Domain.csproj": {
                 "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Store/Store.Domain/Store.Domain.csproj"
@@ -864,7 +878,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -887,12 +902,6 @@
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
               "version": "[2.2.0, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
             }
           },
           "imports": [
@@ -905,7 +914,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -922,16 +936,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
               "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Frameworker/Frameworker.Scorponok.AspNet/Frameworker.Scorponok.AspNet.csproj": {
                 "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Frameworker/Frameworker.Scorponok.AspNet/Frameworker.Scorponok.AspNet.csproj"
@@ -958,7 +974,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "MediatR": {
               "target": "Package",
@@ -968,48 +985,13 @@
               "target": "Package",
               "version": "[7.0.0, )"
             },
-            "MediatR.Extensions.Microsoft.DependencyInjectionFixed": {
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
-              "version": "[5.1.2, )"
+              "version": "[3.1.18, )"
             },
-            "Microsoft.AspNetCore.App": {
-              "suppressParent": "All",
+            "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
-            },
-            "Microsoft.AspNetCore.Razor.Design": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[2.2.6, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "target": "Package",
-              "version": "[2.2.6, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[2.2.6, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.6, )"
-            },
-            "Microsoft.Extensions.DependencyInjection": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
+              "version": "[5.6.3, )"
             }
           },
           "imports": [
@@ -1022,7 +1004,15 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -1039,16 +1029,18 @@
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/scorpnok/.config/NuGet/NuGet.Config"
+          "/home/scorpnok/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.2"
+          "netcoreapp3.1"
         ],
         "sources": {
+          "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.2": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
               "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Catalog/Catalog.Infrastructure/Catalog.Infrastructure.csproj": {
                 "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Catalog/Catalog.Infrastructure/Catalog.Infrastructure.csproj"
@@ -1084,7 +1076,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.2": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Bogus": {
               "target": "Package",
@@ -1094,35 +1087,13 @@
               "target": "Package",
               "version": "[5.6.0, )"
             },
-            "Microsoft.AspNetCore.Diagnostics": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.AspNetCore.Hosting": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.AspNetCore.Hosting.Abstractions": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.AspNetCore.HttpsPolicy": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
             "Microsoft.AspNetCore.TestHost": {
               "target": "Package",
-              "version": "[2.2.0, )"
+              "version": "[3.1.18, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[16.0.1, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
             },
             "NBuilder": {
               "target": "Package",
@@ -1147,7 +1118,15 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     }

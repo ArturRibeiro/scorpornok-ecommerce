@@ -1567,7 +1567,7 @@
       },
       "Programming.Functional/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v2.2",
+        "framework": ".NETCoreApp,Version=v3.1",
         "compile": {
           "bin/placeholder/Programming.Functional.dll": {}
         },
@@ -5902,16 +5902,18 @@
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/home/scorpnok/.config/NuGet/NuGet.Config"
+        "/home/scorpnok/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
+        "http://artifactory.softplan.com.br/artifactory/api/nuget/v3/nuget-local": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {
             "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Frameworker/Programming.Functional/Programming.Functional.csproj": {
               "projectPath": "/media/scorpnok/Pessoal/Projetos/Pessoal/scorpornok-ecommerce/src/Frameworker/Programming.Functional/Programming.Functional.csproj"
@@ -5927,6 +5929,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "FluentAssertions": {
             "target": "Package",
@@ -5976,7 +5979,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -4,19 +4,18 @@ using Frameworker.Scorponok.AspNet.Mvc;
 using Gateway.Payment.Web.Api.App;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Gateway.Payment.Web.Api.Middlewares;
 using MediatR;
-
+using Microsoft.Extensions.Hosting;
 
 
 namespace Gateway.Payment.Web.Api
 {
-    public class Startup
+    public class StartupPayment
     {
-        public Startup(IHostingEnvironment hostingEnvironment)
+        public StartupPayment(IWebHostEnvironment hostingEnvironment)
         {
             try
             {
@@ -41,12 +40,9 @@ namespace Gateway.Payment.Web.Api
         {
             try
             {
-                services.AddMvc(options => { options.AddNotificationAsyncResultFilter<NotificationAsyncResultFilter>(Configuration); })
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                    .ConfigureJsonOptions();
-
-                services.AddMediatR(typeof(Startup).Assembly);
-
+                services.AddMvc(options => { options.AddNotificationAsyncResultFilter<NotificationAsyncResultFilter>(Configuration); });
+                services.AddNewtonsoftJsonOptions();
+                services.AddMediatR(typeof(StartupPayment).Assembly);
                 services.AddHttpContextAccessor();
 
                 NativeDependencyInjection.RegisterServices(services);
@@ -59,20 +55,17 @@ namespace Gateway.Payment.Web.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
         private void Log(Exception e) => File.AppendAllText($"Log\\Log{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.txt", e.ToString());
