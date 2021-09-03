@@ -45,7 +45,6 @@ namespace Store.Web.Api.App
         private static void RegisterCommandHandler(IServiceCollection services)
         {
             services.AddScoped<IRequestHandler<CreateOrderCommand>, OrdersCommandHandler>();
-            //services.AddScoped<IRequestHandler<OrderAddressCommand>, OrdersCommandHandler>();
         }
     }
 }

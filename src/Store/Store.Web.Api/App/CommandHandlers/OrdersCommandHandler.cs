@@ -9,7 +9,6 @@ using Shared.Code.Bus;
 using Shared.Code.Commands;
 using Shared.Code.Notifications;
 using Store.Domain.Models.Orders;
-using Store.Infrastructure.Repositories;
 using Store.Web.Api.App.Commands;
 
 namespace Store.Web.Api.App.CommandHandlers

@@ -1,7 +1,5 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using Shared.Code.Commands;
 
 namespace Store.Web.Api.App.Commands
 {
@@ -9,18 +7,18 @@ namespace Store.Web.Api.App.Commands
     public class OrderAddressMessageResponse
     {
         [DataMember, Required]
-        public string Street { get; private set; }
-
-        [DataMember(Name = "city"), Required]
-        public string City { get; private set; }
+        public string Street { get; set; }
 
         [DataMember, Required]
-        public string State { get; private set; }
+        public string City { get; set; }
 
         [DataMember, Required]
-        public string Country { get; private set; }
+        public string State { get; set; }
 
         [DataMember, Required]
-        public string ZipCode { get; private set; }
+        public string Country { get; set; }
+
+        [DataMember, Required]
+        public string ZipCode { get; set; }
     }
 }

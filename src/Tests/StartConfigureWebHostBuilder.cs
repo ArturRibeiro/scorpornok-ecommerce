@@ -26,6 +26,7 @@ namespace Ecommerce.Integration.Tests
                 .UseContentRoot(pathWebApi)
                 .UseConfiguration(new ConfigurationBuilder()
                     .SetBasePath(pathWebApi)
+                    .AddJsonFile("appsettings.Development.json")
                     .Build());
     }
 

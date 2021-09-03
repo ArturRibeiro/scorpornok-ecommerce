@@ -1,23 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Frameworker.Scorponok.AspNet.Mvc;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using Store.Infrastructure;
 using Store.Web.Api.App;
-using Store.Web.Api.Middlewares;
+using Store.Web.Api.Extensions;
 
 namespace Store.Web.Api
 {
@@ -34,29 +22,16 @@ namespace Store.Web.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Store.Web.Api", Version = "v1" });
-            });
-            
-            try
-            {
-                services
-                    .AddMvc(options => { options.AddNotificationAsyncResultFilter<NotificationAsyncResultFilter>(Configuration); });
+            services.AddConfigurationSwagger();
+            services.AddConfigurationMvc(this.Configuration);
+            services.AddNewtonsoftJsonOptions();
+            services.AddConfigurationMediatR();
+            services.AddHttpContextAccessor();
 
-                services.AddNewtonsoftJsonOptions();
-                services.AddMediatR(typeof(StartupStore).Assembly);
-                services.AddHttpContextAccessor();
+            NativeDependencyInjection.RegisterServices(services);
 
-                NativeDependencyInjection.RegisterServices(services);
-
-                services.AddDbContext<OrderContext>(options
-                    => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            }
-            catch (Exception ex)
-            {
-                Log(ex);
-            }
+            services.AddInfraDbContext(this.Configuration);
+            services.AddMediatR(typeof(StartupStore).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,7 +52,5 @@ namespace Store.Web.Api
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
-        
-        private void Log(Exception e) => File.AppendAllText($"Log\\Log{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.txt", e.ToString());
     }
 }

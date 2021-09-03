@@ -24,7 +24,7 @@ namespace Store.Web.Api.Controllers
         [ProducesStatusCodeResponseType(typeof(CreateOrderCommand), HttpStatusCode.OK)]
         public async Task<IActionResult> AddOrder(CreateOrderCommand command)
         {
-            //await _mediator.Send(command);
+            await _mediator.Send(command);
             return this.Ok();
         }
 

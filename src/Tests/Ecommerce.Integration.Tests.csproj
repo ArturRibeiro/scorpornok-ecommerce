@@ -10,15 +10,10 @@
     <PackageReference Include="Bogus" Version="27.0.1" />
     <PackageReference Include="FluentAssertions" Version="5.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.18" />
-<!--    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.2.0" />-->
-<!--    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />-->
-<!--    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />-->
-<!--    <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />-->
-<!--    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.2.0" />-->
     <PackageReference Include="NBuilder" Version="6.0.1" />
     <PackageReference Include="nunit" Version="3.11.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />    
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +25,12 @@
     <ProjectReference Include="..\Payments\Gateway.Payment.Web.Api\Gateway.Payment.Web.Api.csproj" />
     <ProjectReference Include="..\Store\Store.Infrastructure\Store.Infrastructure.csproj" />
     <ProjectReference Include="..\Store\Store.Web.Api\Store.Web.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
