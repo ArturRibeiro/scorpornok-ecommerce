@@ -12,7 +12,10 @@ namespace Store.Web.Api.Extensions
         {
             services.AddDbContext<OrderContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
+                    //.UseSnakeCaseNamingConvention()
+                    //.UseUpperCaseNamingConvention()
+                    ;
             });
             return services;
         }

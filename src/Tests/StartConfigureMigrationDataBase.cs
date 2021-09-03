@@ -14,8 +14,8 @@ namespace Ecommerce.Integration.Tests
                 .ErasureDatabase<OrderContext>()
                 .CreateDataBase<OrderContext>((context, services) => { });
 
-            _serverCatalog.Host
-                 .CreateDataBase<CatalogContext>((context, services) => { CatalogContextSeed.Start(context); });
+            // _serverCatalog.Host
+            //      .CreateDataBase<CatalogContext>((context, services) => { CatalogContextSeed.Start(context); });
 
             return this;
         }

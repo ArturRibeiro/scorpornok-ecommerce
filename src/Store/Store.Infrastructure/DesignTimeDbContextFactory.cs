@@ -15,7 +15,7 @@ namespace Store.Infrastructure
                 .Build();
             var builder = new DbContextOptionsBuilder<OrderContext>();
             var connectionString = configuration.GetConnectionString("DefaultConnection");
-            builder.UseSqlServer(connectionString);
+            builder.UseNpgsql(connectionString);
             return new OrderContext(builder.Options);
         }
     }

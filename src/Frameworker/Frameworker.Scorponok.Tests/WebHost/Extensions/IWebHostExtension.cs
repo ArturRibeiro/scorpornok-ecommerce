@@ -41,7 +41,8 @@ namespace Frameworker.Scorponok.Tests.WebHost.Extensions
                 try
                 {
                     var context = services.GetService<TContext>();
-                    context.Database.Migrate();
+                    //context.Database.Migrate();
+                    context.Database.EnsureCreated();
                     logger.LogInformation($"Migrated database associated with context {typeof(TContext).Name}");
                     seeder(context, services);
                     logger.LogInformation($"Migrated database associated with context {typeof(TContext).Name}");

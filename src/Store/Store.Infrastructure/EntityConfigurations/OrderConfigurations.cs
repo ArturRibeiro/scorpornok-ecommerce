@@ -8,19 +8,21 @@ namespace Store.Infrastructure.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            builder.HasKey(cr => cr.Id)
-                .HasName("OrderId");
+            builder.HasKey(cr => cr.Id);
+            
+            builder.Property(cr => cr.Id)
+                .HasColumnName("Id");
 
             builder.Property(x => x.CustomerId)
                 .HasColumnName("CustomerId")
                 .IsRequired();
 
             builder.Property(x => x.OrderNumber)
-                .HasColumnName("OrderNumber")
+                .HasColumnName("Number")
                 .IsRequired();
 
             builder.Property(x => x.OrderDate)
-                .HasColumnName("OrderDate")
+                .HasColumnName("Date")
                 .IsRequired();
 
             builder.Property(x => x.PaymentId)
