@@ -9,7 +9,7 @@ namespace Catalog.Queries.Products
     public class ProductItemMessageResponse
     {
         [DataMember]
-        public Guid CatalogId { get; set; }
+        public string CatalogId { get; set; }
 
         [DataMember]
         public string Name { get; set; }
@@ -24,6 +24,6 @@ namespace Catalog.Queries.Products
         public string Description { get; set; }
 
         [DataMember]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
     }
 }

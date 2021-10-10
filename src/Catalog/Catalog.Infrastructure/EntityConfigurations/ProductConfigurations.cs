@@ -31,7 +31,7 @@ namespace Catalog.Infrastructure.EntityConfigurations
                 .IsRequired();
 
             builder.Property(x => x.Price)
-                .HasColumnType("decimal(9, 2)")
+                //.HasColumnType("decimal(9, 4)")
                 .HasColumnName("Price")
                 .IsRequired();
 

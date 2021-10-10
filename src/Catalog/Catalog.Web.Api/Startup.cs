@@ -15,9 +15,9 @@ using Shared.Code.Provider;
 
 namespace Catalog.Web.Api
 {
-    public class StartupCatalog
+    public class Startup
     {
-        public StartupCatalog(IConfiguration configuration)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -40,8 +40,8 @@ namespace Catalog.Web.Api
 
                 NativeDependencyInjection.RegisterServices(services);
 
-                services.AddDbContext<CatalogContext>(options
-                    => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                services.AddDbContext<ApplicationCatalogDbContext>(options
+                    => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
                 services.AddSingleton<IDataConfigurationProvider>(_ => new DataConfigurationProvider(Configuration.GetConnectionString("DefaultConnection")));
 

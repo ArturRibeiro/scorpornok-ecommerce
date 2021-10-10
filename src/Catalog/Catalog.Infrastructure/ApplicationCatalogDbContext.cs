@@ -7,13 +7,13 @@ using Shared.Code.Models;
 
 namespace Catalog.Infrastructure
 {
-    public class CatalogContext : DbContext, IUnitOfWork
+    public class ApplicationCatalogDbContext : DbContext, IUnitOfWork
     {
         #region Properties
         public DbSet<Product> Products { get; set; }
         #endregion
 
-        public CatalogContext(DbContextOptions<CatalogContext> options) : base(options) { }
+        public ApplicationCatalogDbContext(DbContextOptions<ApplicationCatalogDbContext> options) : base(options) { }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {

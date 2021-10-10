@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
 
-namespace Frameworker.Scorponok.Tests.WebHost.Extensions
+namespace Frameworker.Integration.Tests.WebHostExtensions
 {
     public static class IWebHostExtension
     {

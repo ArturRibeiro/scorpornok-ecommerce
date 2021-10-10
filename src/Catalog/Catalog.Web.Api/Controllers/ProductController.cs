@@ -21,7 +21,6 @@ namespace Catalog.Web.Api.Controllers
         [ProducesStatusCodeResponseType(HttpStatusCode.InternalServerError)]
         [ProducesStatusCodeResponseType(HttpStatusCode.Unauthorized)]
         [ProducesStatusCodeResponseType(typeof(ProductItemMessageResponse[]),  HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAllProducts() 
-            => this.Ok2(await _productQueries.GetAllProducts());
+        public async Task<IActionResult> GetAllProducts() => this.Ok2(await _productQueries.GetAllProducts());
     }
 }
