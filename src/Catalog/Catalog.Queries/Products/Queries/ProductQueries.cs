@@ -12,12 +12,10 @@ namespace Catalog.Queries.Products.Queries
     public class ProductQueries : IProductQueries
     {
         private readonly IDataConfigurationProvider _provider;
-        private readonly ApplicationCatalogDbContext _context;
 
-        public ProductQueries(IDataConfigurationProvider provider, ApplicationCatalogDbContext context)
+        public ProductQueries(IDataConfigurationProvider provider)
         {
             _provider = provider;
-            //_context = context;
         }
 
         public async Task<IEnumerable<ProductItemMessageResponse>> GetAllProducts()

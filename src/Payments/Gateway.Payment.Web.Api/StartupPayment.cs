@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using Frameworker.Scorponok.AspNet.Mvc;
+﻿using Frameworker.Scorponok.AspNet.Mvc;
 using Gateway.Payment.Web.Api.App;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,20 +15,13 @@ namespace Gateway.Payment.Web.Api
     {
         public StartupPayment(IWebHostEnvironment hostingEnvironment)
         {
-            try
-            {
-                var builder = new ConfigurationBuilder()
-                    .SetBasePath(hostingEnvironment.ContentRootPath)
-                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                    .AddJsonFile($"appsettings.{hostingEnvironment.EnvironmentName}.json", optional: true);
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(hostingEnvironment.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{hostingEnvironment.EnvironmentName}.json", optional: true);
 
-                builder.AddEnvironmentVariables();
-                Configuration = builder.Build();
-            }
-            catch (Exception e)
-            {
-                Log(e);
-            }
+            builder.AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -38,20 +29,15 @@ namespace Gateway.Payment.Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            try
+            services.AddMvc(options =>
             {
-                services.AddMvc(options => { options.AddNotificationAsyncResultFilter<NotificationAsyncResultFilter>(Configuration); });
-                services.AddNewtonsoftJsonOptions();
-                services.AddMediatR(typeof(StartupPayment).Assembly);
-                services.AddHttpContextAccessor();
+                options.AddNotificationAsyncResultFilter<NotificationAsyncResultFilter>(Configuration);
+            });
+            services.AddNewtonsoftJsonOptions();
+            services.AddMediatR(typeof(StartupPayment).Assembly);
+            services.AddHttpContextAccessor();
 
-                NativeDependencyInjection.RegisterServices(services);
-
-            }
-            catch (Exception ex)
-            {
-                Log(ex);
-            }
+            NativeDependencyInjection.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,7 +53,5 @@ namespace Gateway.Payment.Web.Api
             app.UseAuthorization();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
-
-        private void Log(Exception e) => File.AppendAllText($"Log\\Log{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.txt", e.ToString());
     }
 }
