@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Code.Notifications;
 using System;
+using Catalog.Queries.Products.Queries.Impl;
 
 namespace Catalog.Web.Api.App
 {

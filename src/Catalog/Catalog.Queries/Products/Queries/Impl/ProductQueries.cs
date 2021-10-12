@@ -1,22 +1,16 @@
-﻿using Dapper;
-using Shared.Code.Provider;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Bogus;
-using Catalog.Infrastructure;
+using Dapper;
 using Microsoft.Data.Sqlite;
+using Shared.Code.Provider;
 
-namespace Catalog.Queries.Products.Queries
+namespace Catalog.Queries.Products.Queries.Impl
 {
     public class ProductQueries : IProductQueries
     {
         private readonly IDataConfigurationProvider _provider;
 
-        public ProductQueries(IDataConfigurationProvider provider)
-        {
-            _provider = provider;
-        }
+        public ProductQueries(IDataConfigurationProvider provider) => _provider = provider;
 
         public async Task<IEnumerable<ProductItemMessageResponse>> GetAllProducts()
         {
