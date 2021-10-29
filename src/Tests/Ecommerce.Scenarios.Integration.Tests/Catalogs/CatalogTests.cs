@@ -8,16 +8,14 @@ using Frameworker.Integration.Tests;
 using Frameworker.Integration.Tests.HttpClientExtensions;
 using NUnit.Framework;
 
-namespace Ecommerce.Scenarios.Integration.Tests
+namespace Ecommerce.Scenarios.Integration.Tests.Catalogs
 {
-    
-    
-    [TestFixture]
-    public class StartTests : BaseWebApplicationFactory<Startup>
+    [TestFixture(Category = "Catalog")]
+    public class CatalogTests : BaseWebApplicationFactory<Startup>
     {
         private readonly HttpClient _client;
 
-        public StartTests()
+        public CatalogTests()
         {
             _client = this.CreateClient();
             _client.Should().NotBeNull();
