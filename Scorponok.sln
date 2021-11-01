@@ -73,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frameworker.Integration.Tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Querys", "2 - Querys", "{178C569F-45C5-4126-9065-F983D4007B80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frameworker.Scorponok.Reading.Database", "Frameworker.Scorponok.Reading.Database\Frameworker.Scorponok.Reading.Database.csproj", "{1797C185-FB42-4854-B6CA-443B8B4DD911}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,10 @@ Global
 		{E8CD82B7-8295-4D19-96D5-E4A7958C8D0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8CD82B7-8295-4D19-96D5-E4A7958C8D0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8CD82B7-8295-4D19-96D5-E4A7958C8D0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1797C185-FB42-4854-B6CA-443B8B4DD911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1797C185-FB42-4854-B6CA-443B8B4DD911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1797C185-FB42-4854-B6CA-443B8B4DD911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1797C185-FB42-4854-B6CA-443B8B4DD911}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -183,6 +189,7 @@ Global
 		{E8CD82B7-8295-4D19-96D5-E4A7958C8D0E} = {DE629601-B37C-4424-9327-5E7D24EC65F4}
 		{178C569F-45C5-4126-9065-F983D4007B80} = {E304C5B0-A8B9-4C4F-BBB5-AC9EA7CB69DF}
 		{C840BEAD-52AC-4941-9660-0DF7FF737C3B} = {178C569F-45C5-4126-9065-F983D4007B80}
+		{1797C185-FB42-4854-B6CA-443B8B4DD911} = {DE629601-B37C-4424-9327-5E7D24EC65F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E91BD82A-F2FA-4028-80CE-2541351E47AA}

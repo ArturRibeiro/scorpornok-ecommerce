@@ -1,25 +1,25 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Dapper;
-using Microsoft.Data.Sqlite;
-using Shared.Code.Provider;
+﻿using System.Threading.Tasks;
+using Frameworker.Scorponok.Reading.Database;
+using Frameworker.Scorponok.Reading.Database.Impl;
 
 namespace Catalog.Queries.Products.Queries.Impl
 {
     public class ProductQueries : IProductQueries
     {
-        private readonly IDataConfigurationProvider _provider;
+        private readonly IApplicationReadDb _context;
 
-        public ProductQueries(IDataConfigurationProvider provider) => _provider = provider;
+        public ProductQueries(IApplicationReadDb context) => _context = context;
 
-        public async Task<IEnumerable<ProductItemMessageResponse>> GetAllProducts()
+        public async Task<PagedList<ProductItemMessageResponse>> GetAllProducts()
         {
-            await using (var connection = new SqliteConnection(_provider.ConnectionString))
-            {
-                var products = connection.Query<ProductItemMessageResponse>("SELECT CatalogId, Name, Sku, PictureUri, Price, Description FROM Products order by Name;");
-                return products;
-            };
-           
+            var pagedList = await _context.QueryToPagedListAsync<ProductItemMessageResponse>
+            (
+                sqlCount: $@"SELECT Count(1) FROM Products p"
+                , sqlRows: $@"SELECT p.CatalogId, p.Name, p.Sku, p.PictureUri,p.Price, p.Description
+                            FROM   Products p
+                            ORDER  BY Name"
+            );
+            return pagedList;
         }
     }
 }

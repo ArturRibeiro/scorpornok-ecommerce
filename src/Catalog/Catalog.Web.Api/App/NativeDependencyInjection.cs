@@ -4,32 +4,25 @@ using Microsoft.Extensions.DependencyInjection;
 using Shared.Code.Notifications;
 using System;
 using Catalog.Queries.Products.Queries.Impl;
+using Frameworker.Scorponok.Reading.Database;
 
 namespace Catalog.Web.Api.App
 {
-    public class NativeDependencyInjection
+    public static class NativeDependencyInjection
     {
-        internal static IServiceProvider _container;
-
-        public static T GetInstance<T>()
-            => (T)_container.GetService(typeof(T));
-
-
-        public static void RegisterServices(IServiceCollection services)
+        public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             RegisterQueries(services);
             RegisterDomainEvents(services);
+            ApplicationReadQueryServices(services);
+
+            return services;
         }
 
-        public static void RegisterQueries(IServiceCollection services)
-        {
-            services.AddScoped<IProductQueries, ProductQueries>();
-        }
+        private static void RegisterQueries(IServiceCollection services) => services.AddScoped<IProductQueries, ProductQueries>();
 
-        private static void RegisterDomainEvents(IServiceCollection services)
-        {
-            services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
-        }
+        private static void RegisterDomainEvents(IServiceCollection services) => services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 
+        private static void ApplicationReadQueryServices(IServiceCollection services) => services.AddReadDbScoped();
     }
 }

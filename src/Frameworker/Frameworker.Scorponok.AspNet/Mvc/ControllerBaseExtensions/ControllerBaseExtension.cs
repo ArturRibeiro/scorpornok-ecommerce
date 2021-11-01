@@ -9,11 +9,10 @@ namespace Frameworker.Scorponok.AspNet.Mvc.ControllerBaseExtensions
         /// Retorna código HTTP de OK 
         /// </summary>
         /// <returns></returns>
-        public static ActionResult Ok2<TResult>(this ControllerBase controllerBase, TResult obj)
+        public static ResultMessageResponse<TResult> Ok2<TResult>(this ControllerBase controllerBase, TResult obj)
         {
             ResultMessageResponse<TResult> result = obj;
-
-            return controllerBase.Ok(result);
+            return result;
         }
     }
 }

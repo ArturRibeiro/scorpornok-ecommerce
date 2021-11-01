@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 
 namespace Catalog.Queries.Products
 {
-    [DataContract]
+    [Serializable]
     public class ProductItemMessageResponse
     {
         [DataMember]

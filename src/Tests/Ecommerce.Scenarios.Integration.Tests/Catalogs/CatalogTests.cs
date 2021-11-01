@@ -6,6 +6,7 @@ using Catalog.Web.Api;
 using FluentAssertions;
 using Frameworker.Integration.Tests;
 using Frameworker.Integration.Tests.HttpClientExtensions;
+using Frameworker.Scorponok.Reading.Database.Impl;
 using NUnit.Framework;
 
 namespace Ecommerce.Scenarios.Integration.Tests.Catalogs
@@ -20,18 +21,19 @@ namespace Ecommerce.Scenarios.Integration.Tests.Catalogs
             _client = this.CreateClient();
             _client.Should().NotBeNull();
         }
-        
-        [TestCase("/api/v1/Product/GetAllProducts")]
+
+        [TestCase("/api/v1/Product/GetAllProducts", TestName = "Return all products paged")]
         public async Task Run(string endPoint)
         {
             var response = await _client.GetAsync(endPoint);
-
+            
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var result = response.GetList<ProductItemMessageResponse>();
+            
+            var result = response.PagedList<ProductItemMessageResponse>();
             result.Should().NotBeNull();
             result.Success.Should().BeTrue();
-            result.Data.Should().HaveCountGreaterThan(1);
+            result.Data.Should().BeAssignableTo<PagedList<ProductItemMessageResponse>>();
+            result.Data.Items.Should().HaveCountGreaterOrEqualTo(1);
         }
     }
 }
