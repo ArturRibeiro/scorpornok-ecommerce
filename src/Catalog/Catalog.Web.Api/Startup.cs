@@ -2,7 +2,6 @@ using Catalog.Infrastructure;
 using Catalog.Web.Api.App;
 using Catalog.Web.Api.Filters;
 using Frameworker.Scorponok.AspNet.Mvc;
-using Frameworker.Scorponok.Reading.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
