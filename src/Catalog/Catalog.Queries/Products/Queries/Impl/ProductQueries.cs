@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Frameworker.Scorponok.Reading.Database;
-using Frameworker.Scorponok.Reading.Database.Impl;
 
 namespace Catalog.Queries.Products.Queries.Impl
 {
@@ -10,7 +9,7 @@ namespace Catalog.Queries.Products.Queries.Impl
 
         public ProductQueries(IApplicationReadDb context) => _context = context;
 
-        public async Task<PagedList<ProductItemMessageResponse>> GetAllProducts()
+        public async Task<IPagedList<ProductItemMessageResponse>> GetAllProducts()
         {
             var pagedList = await _context.QueryToPagedListAsync<ProductItemMessageResponse>
             (

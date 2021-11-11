@@ -5,7 +5,7 @@ using System.Linq;
 namespace Frameworker.Scorponok.Reading.Database.Impl
 {
     [Serializable]
-    public class PagedInfo
+    public class PagedInfo : IPagedInfo
     {
         public int PageIndex { get; set;}
         public int PageSize { get; set;}

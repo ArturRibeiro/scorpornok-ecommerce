@@ -6,7 +6,7 @@ using Catalog.Queries.Products;
 using Frameworker.Scorponok.AspNet.Mvc.Filters;
 using Frameworker.Scorponok.AspNet.Mvc.ControllerBaseExtensions;
 using Frameworker.Scorponok.AspNet.Mvc.Result;
-using Frameworker.Scorponok.Reading.Database.Impl;
+using Frameworker.Scorponok.Reading.Database;
 
 namespace Catalog.Web.Api.Controllers
 {
@@ -22,8 +22,8 @@ namespace Catalog.Web.Api.Controllers
         [ProducesStatusCodeResponseType(HttpStatusCode.NotFound)]
         [ProducesStatusCodeResponseType(HttpStatusCode.InternalServerError)]
         [ProducesStatusCodeResponseType(HttpStatusCode.Unauthorized)]
-        [ProducesStatusCodeResponseType(typeof(ResultMessageResponse<PagedList<ProductItemMessageResponse>>),  HttpStatusCode.OK)]
-        public async Task<ResultMessageResponse<PagedList<ProductItemMessageResponse>>> GetAllProducts()
+        [ProducesStatusCodeResponseType(typeof(ResultMessageResponse<IPagedList<ProductItemMessageResponse>>),  HttpStatusCode.OK)]
+        public async Task<ResultMessageResponse<IPagedList<ProductItemMessageResponse>>> GetAllProducts()
         {
             return this.Ok2(await _productQueries.GetAllProducts());
         }

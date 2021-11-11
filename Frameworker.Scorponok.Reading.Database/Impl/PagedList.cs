@@ -5,7 +5,7 @@ using System.Linq;
 namespace Frameworker.Scorponok.Reading.Database.Impl
 {
     [Serializable]
-    public class PagedList<T>
+    public class PagedList<T> : IPagedList<T>
     {
         /// <summary>
         /// 

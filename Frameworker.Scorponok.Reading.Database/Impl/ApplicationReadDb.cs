@@ -52,7 +52,7 @@ namespace Frameworker.Scorponok.Reading.Database.Impl
         /// <param name="cancellationToken">Returned by this property will be non-cancelable by default</param>
         /// <typeparam name="T">The type of results to return</typeparam>
         /// <returns></returns>
-        public async Task<PagedList<T>> QueryToPagedListAsync<T>(string sqlCount, string sql, int pageNumber = 0, int pageSize = 10, object param = null
+        public async Task<IPagedList<T>> QueryToPagedListAsync<T>(string sqlCount, string sql, int pageNumber = 0, int pageSize = 10, object param = null
             , IDbTransaction transaction = null, CancellationToken cancellationToken = default)
         {
             var offset = GetOffset(pageSize, pageNumber);

@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Frameworker.Scorponok.Reading.Database.Impl;
+using Frameworker.Scorponok.Reading.Database;
 
 namespace Catalog.Queries.Products.Queries
 {
     public interface IProductQueries
     {
-        Task<PagedList<ProductItemMessageResponse>> GetAllProducts();
+        Task<IPagedList<ProductItemMessageResponse>> GetAllProducts();
     }
 }

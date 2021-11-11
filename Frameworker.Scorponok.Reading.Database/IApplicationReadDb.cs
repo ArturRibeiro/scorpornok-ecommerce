@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
-using Frameworker.Scorponok.Reading.Database.Impl;
 
 namespace Frameworker.Scorponok.Reading.Database
 {
@@ -32,7 +31,7 @@ namespace Frameworker.Scorponok.Reading.Database
         /// <param name="cancellationToken"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        Task<PagedList<T>> QueryToPagedListAsync<T>(string sqlCount, string sqlRows, int pageNumber = 0, int pageSize = 10, object param = null, IDbTransaction transaction = null,
+        Task<IPagedList<T>> QueryToPagedListAsync<T>(string sqlCount, string sqlRows, int pageNumber = 0, int pageSize = 10, object param = null, IDbTransaction transaction = null,
             CancellationToken cancellationToken = default);
 
         /// <summary>
