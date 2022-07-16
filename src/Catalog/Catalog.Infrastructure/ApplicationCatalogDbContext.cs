@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Threading.Tasks;
 using Catalog.Domain.Products;
 using Catalog.Infrastructure.EntityConfigurations;
@@ -7,6 +8,7 @@ using Shared.Code.Models;
 
 namespace Catalog.Infrastructure
 {
+    [ExcludeFromCodeCoverage]
     public class ApplicationCatalogDbContext : DbContext, IUnitOfWork
     {
         #region Properties

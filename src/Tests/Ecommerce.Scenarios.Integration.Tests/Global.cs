@@ -19,7 +19,7 @@ namespace Ecommerce.Scenarios.Integration.Tests
                 .ErasureDatabase<ApplicationCatalogDbContext>()
                 .CreateDataBase<ApplicationCatalogDbContext>((context, services) =>
                 {
-                    context.Products.AddRange(Products.GetAll(20));
+                    context.Products.AddRange(Products.CreateProducts(20));
                     context.SaveChanges();
                 });
         }

@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
 namespace Store.Infrastructure
 {
+    [ExcludeFromCodeCoverage]
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<OrderContext>
     {
         public OrderContext CreateDbContext(string[] args)

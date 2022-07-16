@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Shared.Code.Models;
@@ -7,6 +8,7 @@ using Store.Infrastructure.EntityConfigurations;
 
 namespace Store.Infrastructure
 {
+    [ExcludeFromCodeCoverage]
     public class OrderContext : DbContext, IUnitOfWork
     {
         public DbSet<Order> Orders { get; set; }

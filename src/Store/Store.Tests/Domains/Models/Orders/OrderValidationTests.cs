@@ -6,7 +6,7 @@ using Store.Domain.Models.Orders;
 
 namespace Store.Tests.Domains.Models.Orders
 {
-    [TestFixture, Category("Store")]
+    [TestFixture, Category("Store-1")]
     public class OrderValidationTests
     {
         [Test]
@@ -16,15 +16,15 @@ namespace Store.Tests.Domains.Models.Orders
             var address = Builder<OrderAddress>
                 .CreateNew()
                 .Build();
-
+        
             var order = Builder<Order>
                 .CreateNew()
                     .With(x => x.Address, address)
                 .Build();
-
+        
             //Act
             var result = order.IsValid();
-
+        
             //Assert's
             result.Should().BeTrue();
             order.Status.Should().Be(OrderStatus.Submitted);
@@ -41,27 +41,27 @@ namespace Store.Tests.Domains.Models.Orders
             var discount = 0;
             var pictureUrl = "urlpicture";
             var units = 1;
-
+        
             var address = Builder<OrderAddress>
                 .CreateNew()
                 .Build();
-
+        
             var order = Builder<Order>
                 .CreateNew()
                     .With(x => x.Address, address)
                     .Do(x => x.AddItem(productId, productName, unitPrice, discount, pictureUrl, units))
                 .Build();
-
+        
             //Act
             var result = order.IsValid();
-
+        
             //Assert's
             result.Should().BeTrue();
             order.Status.Should().Be(OrderStatus.Submitted);
             order.Items.Should().NotBeNull();
             order.Items.Should().HaveCount(1);
         }
-
+        
         [Test]
         public void Invalid_order_customerId_empty()
         {
@@ -70,14 +70,14 @@ namespace Store.Tests.Domains.Models.Orders
                 .CreateNew()
                     .With(x => x.CustomerId, Guid.Empty)
                 .Build();
-
+        
             //Act
             var result = order.IsValid();
-
+        
             //Assert's
             result.Should().BeFalse();
         }
-
+        
         [Test]
         public void Invalid_order_number_empty()
         {
@@ -86,14 +86,14 @@ namespace Store.Tests.Domains.Models.Orders
                 .CreateNew()
                 .With(x => x.OrderNumber, string.Empty)
                 .Build();
-
+        
             //Act
             var result = order.IsValid();
-
+        
             //Assert's
             result.Should().BeFalse();
         }
-
+        
         [Test]
         public void Invalid_order_number_null()
         {
@@ -102,14 +102,14 @@ namespace Store.Tests.Domains.Models.Orders
                 .CreateNew()
                 .With(x => x.OrderNumber, null)
                 .Build();
-
+        
             //Act
             var result = order.IsValid();
-
+        
             //Assert's
             result.Should().BeFalse();
         }
-
+        
         [TestCase(1)]
         [TestCase(-2)]
         public void Invalid_order_date_not_equal_current_date(int day)
@@ -119,14 +119,14 @@ namespace Store.Tests.Domains.Models.Orders
                 .CreateNew()
                     .With(x => x.OrderDate, DateTime.Now.AddDays(day))
                 .Build();
-
+        
             //Act
             var result = order.IsValid();
-
+        
             //Assert's
             result.Should().BeFalse();
         }
-
+        
         [Test]
         public void Invalid_order_date_equal_current_date()
         {
@@ -135,14 +135,14 @@ namespace Store.Tests.Domains.Models.Orders
                 .CreateNew()
                 .With(x => x.OrderDate, DateTime.Now)
                 .Build();
-
+        
             //Act
             var result = order.IsValid();
-
+        
             //Assert's
             result.Should().BeFalse();
         }
-
+        
         [Test]
         public void Invalid_order_paymentId_empty()
         {
@@ -151,14 +151,14 @@ namespace Store.Tests.Domains.Models.Orders
                 .CreateNew()
                 .With(x => x.PaymentId, Guid.Empty)
                 .Build();
-
+        
             //Act
             var result = order.IsValid();
-
+        
             //Assert's
             result.Should().BeFalse();
         }
-
+        
         [Test]
         public void Invalid_order_address_null()
         {
@@ -167,10 +167,10 @@ namespace Store.Tests.Domains.Models.Orders
                 .CreateNew()
                 .With(x => x.Address, null)
                 .Build();
-
+        
             //Act
             var result = order.IsValid();
-
+        
             //Assert's
             result.Should().BeFalse();
         }

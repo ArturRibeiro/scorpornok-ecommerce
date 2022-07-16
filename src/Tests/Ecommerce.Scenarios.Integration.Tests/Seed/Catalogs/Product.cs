@@ -6,14 +6,14 @@ namespace Ecommerce.Scenarios.Integration.Tests.Seed.Catalogs
 {
     public static class Products
     {
-        public static IEnumerable<Product> GetAll(int amountProduct)
+        public static IEnumerable<Product> CreateProducts(int amountProduct)
         {
             return new Faker<Product>()
                 .RuleFor(o => o.Name, f => f.Commerce.ProductName())
-                .RuleFor(o => o.Price, f => double.Parse(f.Commerce.Price()))
-                .RuleFor(o => o.PictureUri, f => "nothing")
-                .RuleFor(o => o.Sku, f => "0001")
-                .RuleFor(o => o.Description, f => f.Lorem.Text())
+                .RuleFor(o => o.Price, f => f.Finance.Amount())
+                .RuleFor(o => o.PictureUri, f => f.Image.PicsumUrl())
+                .RuleFor(o => o.Sku, f => f.Random.Replace("*********"))
+                .RuleFor(o => o.Description, f => f.Commerce.ProductDescription())
                 .Generate(amountProduct);
         }
     }

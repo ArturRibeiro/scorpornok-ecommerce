@@ -11,7 +11,7 @@ namespace Catalog.Domain.Products
 
         public string PictureUri { get; private set; }
 
-        public double Price { get; private set; }
+        public decimal Price { get; private set; }
 
         public string Description { get; private set; }
     }
