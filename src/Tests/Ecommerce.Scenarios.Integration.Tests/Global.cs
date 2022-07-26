@@ -2,20 +2,23 @@ using Catalog.Infrastructure;
 using Ecommerce.Scenarios.Integration.Tests.Seed.Catalogs;
 using StartupCatalog = Catalog.Web.Api.Startup;
 using NUnit.Framework;
-using Frameworker.Integration.Tests.Sqlite;
-using Frameworker.Integration.Tests.WebHostExtensions;
+using Frameworker.Integration.Tests.WebApplicationFactorys.Extensions;
+using Frameworker.Integration.Tests.WebApplicationFactorys.Postgres;
 
 namespace Ecommerce.Scenarios.Integration.Tests
 {
     [SetUpFixture]
     public class Global
     {
+        private readonly WebApplicationFactoryPostgres<StartupCatalog, ApplicationCatalogDbContext> _factory;
+
+        public Global() => _factory = new WebApplicationFactoryPostgres<StartupCatalog, ApplicationCatalogDbContext>();
+
         [OneTimeSetUp]
         public void Setup()
         {
-            var factory = new WebApplicationFactoryWithSqlite<StartupCatalog, ApplicationCatalogDbContext>()
-                .Server
-                .Host
+            _factory.InitializeContainer()
+                .Server.Host
                 .ErasureDatabase<ApplicationCatalogDbContext>()
                 .CreateDataBase<ApplicationCatalogDbContext>((context, services) =>
                 {
@@ -23,7 +26,8 @@ namespace Ecommerce.Scenarios.Integration.Tests
                     context.SaveChanges();
                 });
         }
-        
-        
+
+        [OneTimeTearDown]
+        public void Cleanup() => _factory.FinalizeContainer();
     }
 }

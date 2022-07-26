@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Frameworker.Integration.Tests.WebHostExtensions
+namespace Frameworker.Integration.Tests.WebApplicationFactorys.Extensions
 {
     public static class IWebHostExtension
     {

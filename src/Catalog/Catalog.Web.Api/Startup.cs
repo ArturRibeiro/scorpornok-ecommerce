@@ -27,7 +27,12 @@ namespace Catalog.Web.Api
                 .AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Catalog of products", Version = "v1" }); })
                 .AddHttpContextAccessor()
                 .RegisterServices()
-                .AddDbContext<ApplicationCatalogDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                .AddDbContext<ApplicationCatalogDbContext>(options =>
+                {
+                    var provider = Configuration.GetConnectionString("Provider");
+                    if (provider == "Postgres") options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
+                    if (provider == "Sqlite") options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

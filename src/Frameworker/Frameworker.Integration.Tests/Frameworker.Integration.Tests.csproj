@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="DotNet.Testcontainers" Version="1.6.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.19" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.19" />
@@ -13,6 +14,7 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />
     </ItemGroup>
 
     <ItemGroup>

@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 
 namespace Frameworker.Scorponok.Reading.Database.Impl
 {
     public class ApplicationReadDb : IDisposable, IApplicationReadDb
     {
-        private static readonly Func<string, int, int, string> PagedSql = (sql, pageIndex, pageSize) => $"{sql} LIMIT {(pageIndex - 1) * pageSize}, {pageSize}";
+        private static readonly Func<string, int, int, string> PagedSql = (sql, pageIndex, pageSize) => $"{sql} offset {(pageIndex - 1) * pageSize} LIMIT {pageSize}";
 
         private static Func<int, int, int> GetOffset = (pageSize, pageNumber) => (pageNumber - 1) * pageSize;
 
@@ -23,8 +24,10 @@ namespace Frameworker.Scorponok.Reading.Database.Impl
 
         public ApplicationReadDb(IConfiguration configuration)
         {
+            var provider = configuration.GetConnectionString("Provider");
             var connectionString = configuration.GetConnectionString("DefaultConnection");
-            connection = new SqliteConnection(connectionString);
+            if (provider == "Postgres") connection = new NpgsqlConnection(connectionString);
+            if (provider == "Sqlite") connection = new SqliteConnection(connectionString);
         }
 
         /// <summary>
@@ -52,13 +55,13 @@ namespace Frameworker.Scorponok.Reading.Database.Impl
         /// <param name="cancellationToken">Returned by this property will be non-cancelable by default</param>
         /// <typeparam name="T">The type of results to return</typeparam>
         /// <returns></returns>
-        public async Task<IPagedList<T>> QueryToPagedListAsync<T>(string sqlCount, string sql, int pageNumber = 0, int pageSize = 10, object param = null
+        public async Task<IPagedList<T>> QueryToPagedListAsync<T>(string sqlCount, string sqlRows, int pageNumber = 1, int pageSize = 10, object param = null
             , IDbTransaction transaction = null, CancellationToken cancellationToken = default)
         {
             var offset = GetOffset(pageSize, pageNumber);
-            var sqlPaged = PagedSql(sql, pageNumber, pageSize);
-            var sqlRows = $"{sqlCount}; {sqlPaged};";
-            var multi = await connection.QueryMultipleAsync(sqlRows, new { pageSize, offset });
+            var sqlPaged = PagedSql(sqlRows, pageNumber, pageSize);
+            var sql = $"{sqlCount}; {sqlPaged};";
+            var multi = await connection.QueryMultipleAsync(sql, new { pageSize, offset });
             var totalRowCount = multi.Read<int>().Single();
             var gridDataRows = multi.Read<T>().ToList();
             return PagedList<T>.Factory.Create(gridDataRows, pageSize, pageNumber, totalRowCount);

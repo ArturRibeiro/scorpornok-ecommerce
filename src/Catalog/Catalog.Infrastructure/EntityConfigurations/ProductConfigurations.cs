@@ -17,7 +17,7 @@ namespace Catalog.Infrastructure.EntityConfigurations
                 .IsRequired();
 
             builder.Property(x => x.Name)
-                .HasColumnName("Name")
+                .HasColumnName("ProductName")
                 .HasMaxLength(400)
                 .IsRequired();
 

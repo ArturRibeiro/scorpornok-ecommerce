@@ -3,7 +3,7 @@ using System;
 
 namespace Catalog.Domain.Products
 {
-    public class Product : Entity<Guid>, IAggregateRoot
+    public class Product : Entity<long>, IAggregateRoot
     {
         public string Name { get; private set; }
 

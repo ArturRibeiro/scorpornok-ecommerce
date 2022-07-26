@@ -23,9 +23,28 @@ namespace Catalog.Web.Api.Controllers
         [ProducesStatusCodeResponseType(HttpStatusCode.InternalServerError)]
         [ProducesStatusCodeResponseType(HttpStatusCode.Unauthorized)]
         [ProducesStatusCodeResponseType(typeof(ResultMessageResponse<IPagedList<ProductItemMessageResponse>>),  HttpStatusCode.OK)]
-        public async Task<ResultMessageResponse<IPagedList<ProductItemMessageResponse>>> GetAllProducts()
+        public async Task<ResultMessageResponse<IPagedList<ProductItemMessageResponse>>> GetAllProducts([FromQuery] PagingModel pagingModel)
         {
-            return this.Ok2(await _productQueries.GetAllProducts());
+            return this.Ok2(await _productQueries.GetAllProducts(pagingModel.pageNumber, pagingModel.PageSize));
         }
     }
+    
+    public class PagingModel  
+    {  
+        const int maxPageSize = 20;  
+  
+        public int pageNumber { get; set; } = 1;  
+  
+        public int PageSize { get; set; } = 10;  
+  
+        // public int pageSize  
+        // {  
+        //
+        //     get { return _pageSize; }  
+        //     set  
+        //     {  
+        //         _pageSize = (value > maxPageSize) ? maxPageSize : value;  
+        //     }  
+        // }  
+    }  
 }

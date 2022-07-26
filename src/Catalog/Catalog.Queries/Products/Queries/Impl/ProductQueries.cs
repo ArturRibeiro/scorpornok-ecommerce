@@ -9,14 +9,16 @@ namespace Catalog.Queries.Products.Queries.Impl
 
         public ProductQueries(IApplicationReadDb context) => _context = context;
 
-        public async Task<IPagedList<ProductItemMessageResponse>> GetAllProducts()
+        public async Task<IPagedList<ProductItemMessageResponse>> GetAllProducts(int pageNumber, int pageSize)
         {
             var pagedList = await _context.QueryToPagedListAsync<ProductItemMessageResponse>
             (
                 sqlCount: $@"SELECT Count(1) FROM Products p"
-                , sqlRows: $@"SELECT p.CatalogId, p.Name, p.Sku, p.PictureUri,p.Price, p.Description
+                , sqlRows: $@"SELECT p.CatalogId, p.ProductName, p.Sku, p.PictureUri,p.Price, p.Description
                             FROM   Products p
-                            ORDER  BY Name"
+                            ORDER  BY ProductName"
+                , pageNumber: pageNumber
+                , pageSize: pageSize
             );
             return pagedList;
         }

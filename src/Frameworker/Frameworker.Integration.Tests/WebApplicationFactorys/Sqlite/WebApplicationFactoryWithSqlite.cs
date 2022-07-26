@@ -1,10 +1,9 @@
-using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Frameworker.Integration.Tests.Sqlite
+namespace Frameworker.Integration.Tests.WebApplicationFactorys.Sqlite
 {
     /// <summary>
     /// Additional services for the host the web application
@@ -15,6 +14,11 @@ namespace Frameworker.Integration.Tests.Sqlite
         where TStartup : class
         where TApplicationDbContext : DbContext
     {
+        public WebApplicationFactoryWithSqlite()
+            : base(DataBaseType.Sqlite)
+        {
+        }
+
         protected override void ConfigureWebHost(IWebHostBuilder builder) =>
             builder.ConfigureServices(services =>
             {
