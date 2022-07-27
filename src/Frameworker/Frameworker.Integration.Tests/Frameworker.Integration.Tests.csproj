@@ -14,7 +14,7 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />        
     </ItemGroup>
 
     <ItemGroup>

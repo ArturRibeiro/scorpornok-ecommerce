@@ -2,10 +2,12 @@ using System;
 using System.IO;
 using System.Net.Http;
 using DotNet.Testcontainers.Containers;
+using Frameworker.Integration.Tests.WebApplicationFactorys.Extensions;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Frameworker.Integration.Tests.WebApplicationFactorys
 {
@@ -14,36 +16,46 @@ namespace Frameworker.Integration.Tests.WebApplicationFactorys
     {
         private readonly string _currentDirectory = Directory.GetCurrentDirectory();
         private readonly string _appsettings;
-        private bool appsettingsExist => File.Exists(@$"{_currentDirectory}//{_appsettings}");
-
         protected TestcontainerDatabase Container;
+
+        #region Properties
+        
+        /// <summary>
+        /// Represents the settings for the tests
+        /// </summary>
+        private ApplicationConfiguration ApplicationConfiguration { get; set; }
+
+        #endregion
 
         protected BaseWebApplicationFactory(DataBaseType dataBaseType)
         {
             Container = ContainerDataBaseFactory.Create(dataBaseType);
-            _appsettings = string.Format("appsettings.{0}.json", dataBaseType.ToString().ToLower());
+            _appsettings = $"appsettings.{dataBaseType.ToString().ToLower()}.json";
         }
 
         protected override IWebHostBuilder CreateWebHostBuilder()
         {
             return WebHost.CreateDefaultBuilder()
-                .ConfigureAppConfiguration(config =>
+                .ConfigureAppConfiguration((context, builder) =>
                 {
-                    if (!appsettingsExist) throw new FileNotFoundException($"{_currentDirectory}/{_appsettings}");
-                    config
+                    builder.ValidTheExistenceOfAppsseting($"{_currentDirectory}/{_appsettings}")
                         .SetBasePath(_currentDirectory)
                         .AddJsonFile(_appsettings);
+                        
+                    var configurationRoot = builder.Build();
+                    this.ApplicationConfiguration = configurationRoot.AddConfigurationToTheTest<ApplicationConfiguration>();
                 })
                 .UseStartup<TStartup>();
         }
 
+
         protected override void ConfigureClient(HttpClient client)
         {
-            client.BaseAddress = new Uri("https://localhost:5001");
-            
+            this.Services.GetService<IConfiguration>();
+            client.BaseAddress = new Uri(this.ApplicationConfiguration.Uri);
             base.ConfigureClient(client);
         }
-        
+
         public BaseWebApplicationFactory<TStartup> InitializeContainer()
         {
             Container.StartAsync().GetAwaiter().GetResult();
@@ -55,7 +67,5 @@ namespace Frameworker.Integration.Tests.WebApplicationFactorys
             Container.DisposeAsync().GetAwaiter().GetResult();
             return this;
         }
-
-        //public string GetConnectionString() => this.Container.ConnectionString;
     }
 }

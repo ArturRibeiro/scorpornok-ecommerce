@@ -12,6 +12,7 @@ namespace Frameworker.Integration.Tests.WebApplicationFactorys
             return dataBaseType switch
             {
                 DataBaseType.Postgres => CreateContainerPostgreSql(),
+                DataBaseType.Oracle => CreateContainerOracle(),
                 DataBaseType.Sqlite => CreateContainerSqlite(),
                 _ => throw new ArgumentOutOfRangeException(nameof(dataBaseType), dataBaseType, null)
             };
@@ -27,6 +28,15 @@ namespace Frameworker.Integration.Tests.WebApplicationFactorys
                     Port = 5432
                 }).Build();
 
+        private static TestcontainerDatabase CreateContainerOracle() =>
+            new TestcontainersBuilder<OracleTestcontainer>()
+                .WithDatabase(new OracleTestcontainerConfiguration()
+                {
+                    Database = "SAJ6.PAINEL.DOCKER",
+                    Username = "saj",
+                    Password = "agesune1"
+                }).Build();
+        
         private static TestcontainerDatabase CreateContainerSqlite() =>
             new TestcontainersBuilder<PostgreSqlTestcontainer>()
                 .WithDatabase(new SqliteTestcontainerConfiguration()

@@ -80,7 +80,7 @@ namespace Ecommerce.Scenarios.Integration.Spec.Tests.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Listar todos os produtos em destaques", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 11
+#line 4
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -100,10 +100,10 @@ namespace Ecommerce.Scenarios.Integration.Spec.Tests.Features
             else
             {
                 this.ScenarioStart();
-#line 12
+#line 5
         testRunner.Given("QUE esteja na tela principal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 13
+#line 6
         testRunner.Then("listo todos os produtos em destaques", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

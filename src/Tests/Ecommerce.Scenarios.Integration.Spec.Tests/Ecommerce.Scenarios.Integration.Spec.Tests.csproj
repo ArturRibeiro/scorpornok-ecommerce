@@ -21,14 +21,29 @@
     </ItemGroup>
 
     <ItemGroup Label="nunit">
+        <PackageReference Include="Bogus" Version="33.1.1" />
         <PackageReference Include="nunit" Version="3.13.2" />
         <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
         <PackageReference Include="FluentAssertions" Version="6.2.0" />
     </ItemGroup>
     
-    <ItemGroup>
+    <ItemGroup Label="NET">
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.19" />
     </ItemGroup>
 
+    <ItemGroup Label="NET">
+        <ProjectReference Include="..\..\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj" />
+        <ProjectReference Include="..\..\Frameworker\Frameworker.Integration.Tests\Frameworker.Integration.Tests.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="appsettings.postgres.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
     
 </Project>
