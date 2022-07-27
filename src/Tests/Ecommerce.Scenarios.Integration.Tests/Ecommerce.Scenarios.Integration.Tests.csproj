@@ -4,31 +4,31 @@
         <TargetFramework>net6.0</TargetFramework>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
-    
+
     <ItemGroup>
-        <PackageReference Include="DotNet.Testcontainers" Version="1.6.0" />
-        <PackageReference Include="Bogus" Version="33.1.1" />
-        <PackageReference Include="FluentAssertions" Version="6.1.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
-        <PackageReference Include="NUnit" Version="3.13.1" />
-        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
-        <PackageReference Include="coverlet.collector" Version="3.0.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.19" />
-        <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
+        <PackageReference Include="DotNet.Testcontainers" Version="1.6.0"/>
+        <PackageReference Include="Bogus" Version="33.1.1"/>
+        <PackageReference Include="FluentAssertions" Version="6.1.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4"/>
+        <PackageReference Include="NUnit" Version="3.13.1"/>
+        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0"/>
+        <PackageReference Include="coverlet.collector" Version="3.0.2"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.19"/>
+        <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj" />
-      <ProjectReference Include="..\..\Frameworker\Frameworker.Integration.Tests\Frameworker.Integration.Tests.csproj" />
+        <ProjectReference Include="..\..\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj"/>
+        <ProjectReference Include="..\..\Frameworker\Frameworker.Integration.Tests\Frameworker.Integration.Tests.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="appsettings.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="appsettings.postgres.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="appsettings.postgres.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

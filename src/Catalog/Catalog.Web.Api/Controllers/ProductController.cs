@@ -12,6 +12,7 @@ namespace Catalog.Web.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
+    [Produces("application/json")]
     public class ProductController : ControllerBase
     {
         private readonly IProductQueries _productQueries;
@@ -25,7 +26,7 @@ namespace Catalog.Web.Api.Controllers
         [ProducesStatusCodeResponseType(typeof(ResultMessageResponse<IPagedList<ProductItemMessageResponse>>),  HttpStatusCode.OK)]
         public async Task<ResultMessageResponse<IPagedList<ProductItemMessageResponse>>> GetAllProducts([FromQuery] PagingModel pagingModel)
         {
-            return this.Ok2(await _productQueries.GetAllProducts(pagingModel.pageNumber, pagingModel.PageSize));
+            return this.Ok2(await _productQueries.GetAllProducts(pagingModel.PageNumber, pagingModel.PageSize));
         }
     }
     
@@ -33,9 +34,9 @@ namespace Catalog.Web.Api.Controllers
     {  
         const int maxPageSize = 20;  
   
-        public int pageNumber { get; set; } = 1;  
+        public int PageNumber { get; set; }
   
-        public int PageSize { get; set; } = 10;  
+        public int PageSize { get; set; } 
   
         // public int pageSize  
         // {  

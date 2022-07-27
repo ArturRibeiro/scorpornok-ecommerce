@@ -35,7 +35,7 @@ namespace Catalog.Web.Api.Filters
                 return;
             }
 
-            next();
+            await next();
         }
 
         private string GetMessageNotifications(DomainNotification notification)

@@ -33,7 +33,7 @@ namespace Store.Web.Api.Middlewares
                 return;
             }
 
-            next();
+            await next();
         }
 
         private string GetMessageNotifications(DomainNotification notification)
