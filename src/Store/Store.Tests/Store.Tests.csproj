@@ -1,17 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <TargetFramework>$(TargetFramework)</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="5.8.0" />
-    <PackageReference Include="Moq" Version="4.12.0" />
-    <PackageReference Include="NBuilder" Version="6.0.1" />
-    <PackageReference Include="nunit" Version="3.13.3" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="FluentAssertions" Version="$(FluentAssertions)" />
+    <PackageReference Include="Moq" Version="$(Moq)" />
+    <PackageReference Include="NBuilder" Version="$(NBuilder)" />
+    <PackageReference Include="nunit" Version="$(nunit)" />
+    <PackageReference Include="NUnit3TestAdapter" Version="$(NUnit3TestAdapter)" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdk)" />
     <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
   </ItemGroup>
 

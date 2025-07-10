@@ -1,19 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <TargetFramework>$(TargetFramework)</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="2.8.0" />
-    <PackageReference Include="FluentAssertions" Version="5.8.0" />
-    <PackageReference Include="Moq" Version="4.13.1" />
-    <PackageReference Include="NBuilder" Version="6.1.0" />
-    <PackageReference Include="nunit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
-    <PackageReference Include="ReportGenerator" Version="4.5.2" />
+    <PackageReference Include="coverlet.msbuild" Version="$(coverletmsbuild)" />
+    <PackageReference Include="FluentAssertions" Version="$(FluentAssertions)" />
+    <PackageReference Include="Moq" Version="$(Moq)" />
+    <PackageReference Include="NBuilder" Version="$(NBuilder)" />
+    <PackageReference Include="nunit" Version="$(nunit)" />
+    <PackageReference Include="NUnit3TestAdapter" Version="$(NUnit3TestAdapter)" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdk)" />
+    <PackageReference Include="ReportGenerator" Version="$(ReportGenerator)" />
     <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
   </ItemGroup>
 

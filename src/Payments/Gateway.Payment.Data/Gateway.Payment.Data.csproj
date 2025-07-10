@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <TargetFramework>$(TargetFramework)</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.4" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCore)" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EntityFrameworkCore)" />
+    <PackageReference Include="Newtonsoft.Json" Version="$(NewtonsoftJson)" />
   </ItemGroup>
 
   <ItemGroup>

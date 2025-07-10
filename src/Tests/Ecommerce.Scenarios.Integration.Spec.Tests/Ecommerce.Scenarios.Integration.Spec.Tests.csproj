@@ -1,49 +1,49 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>$(TargetFramework)</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <ItemGroup>
-        <Using Include="TechTalk.SpecFlow" />
+        <Using Include="TechTalk.SpecFlow"/>
     </ItemGroup>
 
     <ItemGroup Label="Selenium">
-        <PackageReference Include="Selenium.Support" Version="3.141.0" />
-        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="95.0.4638.5401" />        
+        <PackageReference Include="Selenium.Support" Version="$(SeleniumSupport)"/>
+        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="$(WebDriverChromeDriver)"/>
     </ItemGroup>
 
     <ItemGroup Label="SpecFlow">
-        <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
-        <PackageReference Include="SpecFlow.NUnit" Version="3.9.22" />
+        <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="$(SpecFlowPlusLivingDocPlugin)"/>
+        <PackageReference Include="SpecFlow.NUnit" Version="$(SpecFlowNUnit)"/>
     </ItemGroup>
 
     <ItemGroup Label="nunit">
-        <PackageReference Include="Bogus" Version="33.1.1" />
-        <PackageReference Include="nunit" Version="3.13.2" />
-        <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
-        <PackageReference Include="FluentAssertions" Version="6.2.0" />
-    </ItemGroup>
-    
-    <ItemGroup Label="NET">
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.19" />
+        <PackageReference Include="Bogus" Version="$(Bogus)"/>
+        <PackageReference Include="nunit" Version="$(nunit)"/>
+        <PackageReference Include="NUnit3TestAdapter" Version="$(NUnit3TestAdapter)"/>
+        <PackageReference Include="FluentAssertions" Version="$(FluentAssertions)"/>
     </ItemGroup>
 
     <ItemGroup Label="NET">
-        <ProjectReference Include="..\..\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj" />
-        <ProjectReference Include="..\..\Frameworker\Frameworker.Integration.Tests\Frameworker.Integration.Tests.csproj" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdk)"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreMvcTesting)"/>
+    </ItemGroup>
+
+    <ItemGroup Label="NET">
+        <ProjectReference Include="..\..\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj"/>
+        <ProjectReference Include="..\..\Frameworker\Frameworker.Integration.Tests\Frameworker.Integration.Tests.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="appsettings.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="appsettings.postgres.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="appsettings.postgres.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
-    
+
 </Project>

@@ -1,20 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <TargetFramework>$(TargetFramework)</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="DotNet.Testcontainers" Version="1.6.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.19" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.19" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.19" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.0" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="DotNet.Testcontainers" Version="$(DotNetTestcontainers)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCore)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EntityFrameworkCore)" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(ConfigurationJson)" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreMvcTesting)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EntityFrameworkCore)" />
+        <PackageReference Include="Newtonsoft.Json" Version="$(NewtonsoftJson)" />
         <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />        
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(EntityFrameworkCorePostgreSQL)" />        
     </ItemGroup>
 
     <ItemGroup>

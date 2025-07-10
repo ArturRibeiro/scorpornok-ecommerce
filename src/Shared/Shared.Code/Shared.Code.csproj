@@ -1,10 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <TargetFramework>$(TargetFramework)</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="8.3.0" />
-    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="FluentValidation" Version="$(FluentValidation)" />
+    <PackageReference Include="MediatR" Version="$(MediatR)" />
   </ItemGroup>
 </Project>

@@ -1,18 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <TargetFramework>$(TargetFramework)</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MediatR" Version="7.0.0" />
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.18" />
-        <PackageReference Include="EFCore.NamingConventions" Version="1.1.1" />
-        <PackageReference Include="Scrutor" Version="3.3.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.18" />
+        <PackageReference Include="MediatR" Version="$(MediatR)" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="$(MediatR)" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(EntityFrameworkCore)" />
+        <PackageReference Include="EFCore.NamingConventions" Version="$(NamingConventions)" />
+        <PackageReference Include="Scrutor" Version="$(Scrutor)" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="$(Swashbuckle)" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="$(MicrosoftAspNetCoreMvcNewtonsoftJson)" />
     </ItemGroup>
 
     <ItemGroup>
