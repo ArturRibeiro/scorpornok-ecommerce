@@ -1,22 +1,24 @@
-# This docker-compose runs infrastructure required to host the services.
-
-version: '3'
+version: '3.9'
 
 services:
   postgres:
-      image: postgres
-      container_name: e-commerce-order
-      ports:
-          - 5432:5432
-      environment:
-          POSTGRES_PASSWORD: "jTHSuuwu7#@"
-          POSTGRES_USER: e-commerce
-          POSTGRES_DB: ecommerce-order
-      volumes:
-          - /postgresql/data 
-      networks:
-          - ecommerce-networks
-  
+    image: postgres:16
+    container_name: postgres_main
+    restart: always
+    environment:
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpassword
+      POSTGRES_MULTIPLE_DATABASES: customers,catalog,payment,orders
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ecommerce-networks
+
+volumes:
+  postgres_data:
+    
 networks: 
     ecommerce-networks:
         driver: bridge
