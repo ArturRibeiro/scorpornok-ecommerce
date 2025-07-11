@@ -1,6 +1,7 @@
 <Project>
     <PropertyGroup Label="Сommon properties">
         <TargetFramework>net6.0</TargetFramework>
+        <TargetFrameworkNet8>net8.0</TargetFrameworkNet8>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
@@ -9,6 +10,7 @@
         <EntityFrameworkCorePostgreSQL>3.1.0</EntityFrameworkCorePostgreSQL>
         <EFCoreNamingConventions>1.1.1</EFCoreNamingConventions>
         <AspNetCoreMvcTesting>3.1.19</AspNetCoreMvcTesting>
+        <AspNetCoreMvcTestingNet8>8.0.18</AspNetCoreMvcTestingNet8>
 
         <MicrosoftNETTestSdk>17.0.0</MicrosoftNETTestSdk>
         <Dapper>1.60.6</Dapper>

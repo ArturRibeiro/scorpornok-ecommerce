@@ -1,26 +1,32 @@
-﻿using System.Threading.Tasks;
-using Frameworker.Scorponok.Reading.Database;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Catalog.Domain.Products;
+using Frameworker.EntityFrameworkCore;
+using Frameworker.EntityFrameworkCore.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Catalog.Queries.Products.Queries.Impl
 {
     public class ProductQueries : IProductQueries
     {
-        private readonly IApplicationReadDb _context;
+        private readonly IApplicationCatalogDbContext _context;
 
-        public ProductQueries(IApplicationReadDb context) => _context = context;
+        public ProductQueries(IApplicationCatalogDbContext context) => _context = context;
 
-        public async Task<IPagedList<ProductItemMessageResponse>> GetAllProducts(int pageNumber, int pageSize)
+        public async Task<IPagedList<ProductItemMessageResponse>> GetAllProducts(PagingModel paging)
         {
-            var pagedList = await _context.QueryToPagedListAsync<ProductItemMessageResponse>
-            (
-                sqlCount: $@"SELECT Count(1) FROM Products p"
-                , sqlRows: $@"SELECT p.CatalogId, p.ProductName, p.Sku, p.PictureUri,p.Price, p.Description
-                            FROM   Products p
-                            ORDER  BY ProductName"
-                , pageNumber: pageNumber
-                , pageSize: pageSize
-            );
-            return pagedList;
+            var result = await _context.DbSet<Product>().AsNoTracking()
+                .Select(x=> new ProductItemMessageResponse()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Sku = x.Sku,
+                    PictureUri = x.PictureUri,
+                    Price = x.Price,
+                    Description = x.Description
+                })
+                .ToPagedList(paging.PageNumber, paging.PageSize);
+            return result;
         }
     }
 }

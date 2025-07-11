@@ -1,11 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>$(TargetFramework)</TargetFramework>
+    <TargetFramework>$(TargetFrameworkNet8)</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Shared.Code\Shared.Code.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Code.Net8\Shared.Code.Net8.csproj" />
   </ItemGroup>
-
 </Project>

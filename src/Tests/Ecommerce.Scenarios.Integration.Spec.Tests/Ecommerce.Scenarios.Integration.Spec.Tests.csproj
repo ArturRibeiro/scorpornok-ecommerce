@@ -1,18 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>$(TargetFramework)</TargetFramework>
+        <TargetFramework>$(TargetFrameworkNet8)</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <ItemGroup>
         <Using Include="TechTalk.SpecFlow"/>
-    </ItemGroup>
-
-    <ItemGroup Label="Selenium">
-        <PackageReference Include="Selenium.Support" Version="$(SeleniumSupport)"/>
-        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="$(WebDriverChromeDriver)"/>
     </ItemGroup>
 
     <ItemGroup Label="SpecFlow">
@@ -29,11 +24,11 @@
 
     <ItemGroup Label="NET">
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdk)"/>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreMvcTesting)"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreMvcTestingNet8)"/>
     </ItemGroup>
 
     <ItemGroup Label="NET">
-        <ProjectReference Include="..\..\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj"/>
+        <ProjectReference Include="..\..\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj" />
         <ProjectReference Include="..\..\Frameworker\Frameworker.Integration.Tests\Frameworker.Integration.Tests.csproj"/>
     </ItemGroup>
 

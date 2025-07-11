@@ -17,7 +17,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj"/>
         <ProjectReference Include="..\..\Frameworker\Frameworker.Integration.Tests\Frameworker.Integration.Tests.csproj"/>
     </ItemGroup>
 

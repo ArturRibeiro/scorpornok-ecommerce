@@ -22,6 +22,9 @@ namespace Catalog.Queries.Products
         public string Description { get; set; }
 
         [DataMember]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
+
+        [DataMember]
+        public long Id { get; set; }
     }
 }

@@ -1,6 +1,3 @@
-using Bogus;
-using Catalog.Domain.Products;
-
 namespace Ecommerce.Scenarios.Integration.Spec.Tests.Seed.Catalogs
 {
     public static class Products

@@ -1,44 +1,38 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Catalog.Infrastructure;
-using Catalog.Web.Api;
-using Ecommerce.Scenarios.Integration.Spec.Tests.Seed.Catalogs;
-using Frameworker.Integration.Tests.WebApplicationFactorys.Extensions;
-using Frameworker.Integration.Tests.WebApplicationFactorys.Postgres;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.DependencyInjection;
-using TechTalk.SpecFlow;
+namespace Ecommerce.Scenarios.Integration.Spec.Tests.Hooks;
 
-namespace Ecommerce.Scenarios.Integration.Spec.Tests.Hooks
+public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
-    [Binding]
-    public sealed class Hook
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        private readonly WebApplicationFactoryPostgres<Startup, ApplicationCatalogDbContext> _factory;
-
-        public Hook() => _factory = new WebApplicationFactoryPostgres<Startup, ApplicationCatalogDbContext>();
-
-        [BeforeScenario]
-        public void BeforeScenario()
+        // Permite customizar a configuração antes de subir o host
+        builder.ConfigureServices(services =>
         {
+            // Exemplo: remover DbContext real
+            // var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(MyDbContext));
+            // if (descriptor != null) services.Remove(descriptor);
 
-            var webHost = _factory.InitializeContainer().Server.Host;
-            webHost.ErasureDatabase<ApplicationCatalogDbContext>()
-                .CreateDataBase<ApplicationCatalogDbContext>((context, services) =>
-                {
-                    context.Products.AddRange(Products.CreateProducts(20));
-                    context.SaveChanges();
-                });
-        }
-
-
-        [AfterScenario]
-
-            public void AfterScenario()
-            {
-                _factory.FinalizeContainer();
-            }
-        }
+            // Exemplo: injetar serviços fake
+            // services.AddSingleton<IMyService, FakeMyService>();
+        });
     }
+}
+
+[Binding]
+public sealed class Hook
+{
+    private static CustomWebApplicationFactory Factory => new CustomWebApplicationFactory();
+    public static HttpClient Client => Factory.CreateClient();
+
+    [BeforeScenario]
+    public void BeforeScenario()
+    {
+
+    }
+
+
+    [AfterScenario]
+    public void AfterScenario()
+    {
+        
+    }
+}

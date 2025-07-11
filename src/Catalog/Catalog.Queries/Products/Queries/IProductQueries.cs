@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Frameworker.Scorponok.Reading.Database;
+using Frameworker.EntityFrameworkCore;
 
 namespace Catalog.Queries.Products.Queries
 {
     public interface IProductQueries
     {
-        Task<IPagedList<ProductItemMessageResponse>> GetAllProducts(int pageNumber, int pageSize);
+        Task<IPagedList<ProductItemMessageResponse>> GetAllProducts(PagingModel paging);
     }
 }

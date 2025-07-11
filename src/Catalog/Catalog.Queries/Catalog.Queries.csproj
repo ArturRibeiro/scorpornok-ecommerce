@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>$(TargetFramework)</TargetFramework>
+    <TargetFramework>$(TargetFrameworkNet8)</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Frameworker.Scorponok.Reading.Database\Frameworker.Scorponok.Reading.Database.csproj" />
-    <ProjectReference Include="..\..\Shared\Shared.Code\Shared.Code.csproj" />    
+    <ProjectReference Include="..\..\Frameworker\Frameworker.EntityFrameworkCore.Net8\Frameworker.EntityFrameworkCore.Net8.csproj" />
+    <ProjectReference Include="..\Catalog.Domain\Catalog.Domain.csproj" />
   </ItemGroup>
-
 </Project>
