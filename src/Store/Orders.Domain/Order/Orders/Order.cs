@@ -1,77 +1,62 @@
-﻿namespace Orders.Domain.Order.Orders
+﻿namespace Orders.Domain.Order.Orders;
+
+/// <summary>
+/// Pedido
+/// </summary>
+public class Order : Entity<int>, IAggregateRoot
 {
-    /// <summary>
-    /// Pedido
-    /// </summary>
-    public class Order : Entity<int>, IAggregateRoot
+    private readonly List<OrderItem> _items = new List<OrderItem>();
+
+    #region Constructor
+    public Order() { }
+
+    public Order(Guid customerId, Guid paymentId)
     {
-        private readonly IList<OrderItem> _items = new List<OrderItem>();
+        CustomerId = customerId;
+        PaymentId = paymentId;
+        this.OrderNumber = $"A{this.GetHashCode().ToString()}";
+    }
+    #endregion
 
-        #region Constructor
-        protected Order() { }
+    #region Properties
 
-        private Order(OrderAddress address, Guid customerId, Guid paymentId)
-        {
-            Address = address;
-            CustomerId = customerId;
-            PaymentId = paymentId;
+    public IReadOnlyCollection<OrderItem> Items => new ReadOnlyCollection<OrderItem>(_items);
 
-            this.OrderNumber = $"A{this.GetHashCode().ToString()}";
-        }
-        #endregion
+    /// <summary>
+    /// Endereço de entrega
+    /// </summary>
+    public OrderAddress Address { get; private set; }
 
-        #region Properties
+    /// <summary>
+    /// Cliente que realizou a compra
+    /// </summary>
+    public Guid CustomerId { get; private set; }
 
-        public IReadOnlyCollection<OrderItem> Items => new ReadOnlyCollection<OrderItem>(_items);
+    /// <summary>
+    /// Código do Pedido
+    /// </summary>
+    public string OrderNumber { get; private set; }
 
-        /// <summary>
-        /// Endereço de entrega
-        /// </summary>
-        public OrderAddress Address { get; private set; }
+    public DateTime OrderDate { get; private set; } = DateTime.Now;
 
-        /// <summary>
-        /// Cliente que realizou a compra
-        /// </summary>
-        public Guid CustomerId { get; private set; }
+    public OrderStatus Status { get; private set; } = OrderStatus.Submitted;
 
-        /// <summary>
-        /// Código do Pedido
-        /// </summary>
-        public string OrderNumber { get; private set; }
+    /// <summary>
+    /// Códido da forma como foi paga o pedido
+    /// </summary>
+    public Guid PaymentId { get; private set; }
 
-        public DateTime OrderDate { get; private set; } = DateTime.Now;
+    #endregion
 
-        public OrderStatus Status { get; private set; } = OrderStatus.Submitted;
-
-        /// <summary>
-        /// Códido da forma como foi paga o pedido
-        /// </summary>
-        public Guid PaymentId { get; private set; }
-
-        #endregion
-
-        public void AddItem(Guid productId, string productName, decimal unitPrice, decimal discount, string pictureUrl, int units = 1)
-        {
-            _items.Add(OrderItem.Create(productId, productName, unitPrice, discount, pictureUrl, units));
-
-        }
-
-        public override bool IsValid()
-        {
-            var orderValidation = new OrderValidation().Validate(this);
-            if (!orderValidation.IsValid)
-                this.SetValidation(orderValidation);
-            return orderValidation.IsValid;
-        }
-
-        #region Factory
-
-        public static class Factory
-        {
-            public static Order Create(OrderAddress address, Guid customerId, Guid paymentId)
-                => new Order(address, customerId, paymentId);
-        }
-
-        #endregion
+    public void AddProduct(OrderItem item) => _items.Add(item);
+    public void AddProduct(IList<OrderItem> items) => _items.AddRange(items);
+    public void AddAddress(OrderAddress address) => this.Address = address;
+    
+    public override bool IsValid()
+    {
+        var orderValidation = new OrderValidation().Validate(this);
+        if (!orderValidation.IsValid)
+            this.SetValidation(orderValidation);
+        return orderValidation.IsValid;
     }
 }

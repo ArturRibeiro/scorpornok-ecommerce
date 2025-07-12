@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Programming.Functional.Options.Asserts
 {
-    public static class Assert
+    public static class Asserts
     {
         /// <summary>
         /// 

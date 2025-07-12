@@ -22,9 +22,9 @@ namespace Frameworker.Integration.Tests.WebApplicationFactorys
             new TestcontainersBuilder<PostgreSqlTestcontainer>()
                 .WithDatabase(new PostgreSqlTestcontainerConfiguration()
                 {
-                    Database = "SAJ6.PAINEL.DOCKER",
-                    Username = "saj",
-                    Password = "agesune1",
+                    Database = "xxx.PAINEL.DOCKER",
+                    Username = "xxx",
+                    Password = "xxx",
                     Port = 5432
                 }).Build();
 
@@ -32,18 +32,18 @@ namespace Frameworker.Integration.Tests.WebApplicationFactorys
             new TestcontainersBuilder<OracleTestcontainer>()
                 .WithDatabase(new OracleTestcontainerConfiguration()
                 {
-                    Database = "SAJ6.PAINEL.DOCKER",
-                    Username = "saj",
-                    Password = "agesune1"
+                    Database = "xxx.PAINEL.DOCKER",
+                    Username = "xxx",
+                    Password = "xxx"
                 }).Build();
         
         private static TestcontainerDatabase CreateContainerSqlite() =>
             new TestcontainersBuilder<PostgreSqlTestcontainer>()
                 .WithDatabase(new SqliteTestcontainerConfiguration()
                 {
-                    Database = "SAJ6.PAINEL.DOCKER",
-                    Username = "saj",
-                    Password = "agesune1",
+                    Database = "xxx.PAINEL.DOCKER",
+                    Username = "xxx",
+                    Password = "xxx",
                     Port = 5432
                 }).Build();
     }

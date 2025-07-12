@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
 using Programming.Functional.Options;
-using F = Programming.Functional.Options.Asserts;
+using Programming.Functional.Options.Asserts;
 
 namespace Programming.Functional.Tests.Options
 {
@@ -80,12 +80,12 @@ namespace Programming.Functional.Tests.Options
             string message5 = "message5";
 
             //Act
-            var assert1 = F.Assert.IsNotNull(obj1, message1);
-            var assert2 = F.Assert.IsNotNull(obj2, message2);
-            var assert3 = F.Assert.IsGreaterThan(0, obj3, message3);
-            var assert4 = F.Assert.IsGreaterThan(0, obj4, message4);
-            var assert5 = F.Assert.IsGreaterThan(0, obj5, message5);
-            var result = F.Option.Combine(assert1, assert2, assert3, assert4);
+            var assert1 = Asserts.IsNotNull(obj1, message1);
+            var assert2 = Asserts.IsNotNull(obj2, message2);
+            var assert3 = Asserts.IsGreaterThan(0, obj3, message3);
+            var assert4 = Asserts.IsGreaterThan(0, obj4, message4);
+            var assert5 = Asserts.IsGreaterThan(0, obj5, message5);
+            var result = Option.Combine(assert1, assert2, assert3, assert4);
 
             //Assert's
             assert1.IsNone.Should().BeTrue();
@@ -127,9 +127,9 @@ namespace Programming.Functional.Tests.Options
 
             //Act
             var result = opt
-                .OnSuccess(x => F.Assert.IsNotNull(x.Name, "name"))
-                .OnSuccess(x => F.Assert.IsGreaterThan(0, x.ID, "ID"))
-                .OnSuccess(x => F.Assert.IsNotNull(x.Email, "Email"));
+                .OnSuccess(x => Asserts.IsNotNull(x.Name, "name"))
+                .OnSuccess(x => Asserts.IsGreaterThan(0, x.ID, "ID"))
+                .OnSuccess(x => Asserts.IsNotNull(x.Email, "Email"));
 
 
 

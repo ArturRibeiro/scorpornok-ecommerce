@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
-
-namespace Orders.CommandHandlers.Orders.CommandHandlers.Create
+﻿namespace Orders.CommandHandlers.Orders.CommandHandlers.Create
 {
     [DataContract]
     public class OrderAddressMessageResponse

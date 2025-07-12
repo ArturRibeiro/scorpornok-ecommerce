@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace Orders.CommandHandlers.Orders.CommandHandlers.Create
+﻿namespace Orders.CommandHandlers.Orders.CommandHandlers.Create
 {
     [DataContract]
     public class OrderItemMessageResponse
@@ -21,7 +19,5 @@ namespace Orders.CommandHandlers.Orders.CommandHandlers.Create
 
         [DataMember]
         public int Units { get; set; }
-
-
     }
 }
