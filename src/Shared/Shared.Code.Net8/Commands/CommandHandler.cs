@@ -1,18 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using FluentValidation.Results;
-using Shared.Code.Notifications;
-using MediatR;
-using Shared.Code.Bus;
-
-namespace Shared.Code.Commands
+﻿namespace Shared.Code.Commands
 {
     public abstract class CommandHandler
     {
         protected readonly DomainNotificationHandler _notificationHandler;
-        protected readonly IMediatorHandler _mediator;
+        protected readonly IMemoryBus _mediator;
 
-        protected CommandHandler(IMediatorHandler mediator, INotificationHandler<DomainNotification> notificationHandler)
+        protected CommandHandler(IMemoryBus mediator, INotificationHandler<DomainNotification> notificationHandler)
         {
             _notificationHandler = (DomainNotificationHandler)notificationHandler;
             _mediator = mediator;

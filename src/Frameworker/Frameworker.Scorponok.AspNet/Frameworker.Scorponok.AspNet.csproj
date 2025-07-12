@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>$(TargetFramework)</TargetFramework>
+    <TargetFramework>$(TargetFrameworkNet8)</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

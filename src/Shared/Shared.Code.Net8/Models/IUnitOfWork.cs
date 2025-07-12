@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Shared.Code.Models
+﻿namespace Shared.Code.Models
 {
     public interface IUnitOfWork : IDisposable
     {

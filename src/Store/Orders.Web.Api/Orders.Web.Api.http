@@ -1,0 +1,6 @@
+@Orders.Web.Api_HostAddress = http://localhost:5224
+
+GET {{Orders.Web.Api_HostAddress}}/createOrder/
+Accept: application/json
+
+###

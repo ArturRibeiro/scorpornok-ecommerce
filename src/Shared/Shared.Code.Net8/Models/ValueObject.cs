@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Shared.Code.Models
+﻿namespace Shared.Code.Models
 {
     /// <summary>
     /// Referencia: https://docs.microsoft.com/pt-br/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects

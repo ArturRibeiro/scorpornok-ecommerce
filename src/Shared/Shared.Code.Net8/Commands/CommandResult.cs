@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shared.Code.Commands
+﻿namespace Shared.Code.Commands
 {
     public struct CommandResult 
     {

@@ -1,18 +1,10 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Shared.Code.Commands;
 
-namespace Shared.Code.Commands
+public abstract record Message : IRequest
 {
-    public abstract class Message : IRequest
-    {
-        public string MessageType { get; protected set; }
-        public Guid AggregateId { get; protected set; }
-
-        protected Message()
-        {
-            MessageType = GetType().Name;
-        }
-    }
+    public string MessageType { get; protected init; }
+    public Guid AggregateId { get; protected init; } = Guid.NewGuid();
+    protected Message() => MessageType = GetType().Name;
 }
+
+

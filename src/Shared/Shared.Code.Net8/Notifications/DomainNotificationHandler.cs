@@ -1,12 +1,4 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Shared.Code.Notifications
+﻿namespace Shared.Code.Notifications
 {
     public class DomainNotificationHandler : INotificationHandler<DomainNotification>
     {

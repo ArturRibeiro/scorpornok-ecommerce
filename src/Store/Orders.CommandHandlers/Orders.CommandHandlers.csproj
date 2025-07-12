@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>$(TargetFrameworkNet8)</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="$(MediatRNet8)" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Orders.Domain\Orders.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

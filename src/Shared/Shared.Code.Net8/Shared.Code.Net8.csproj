@@ -9,6 +9,9 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="FluentValidation" Version="$(FluentValidation)" />
-        <PackageReference Include="MediatR" Version="$(MediatR)" />
+        <PackageReference Include="MediatR" Version="$(MediatRNet8)" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Imp\" />
     </ItemGroup>
 </Project>
