@@ -1,11 +1,6 @@
-﻿using Shared.Code.Commands;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shared.Code.Events
+﻿namespace Shared.Code.Events
 {
-    public class StoredEvent : Event
+    public record StoredEvent : Event
     {
         public StoredEvent(Event theEvent, string data, string user)
         {

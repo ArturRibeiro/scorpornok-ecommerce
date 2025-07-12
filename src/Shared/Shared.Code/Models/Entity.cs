@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FluentValidation.Results;
-
-namespace Shared.Code.Models
+﻿namespace Shared.Code.Models
 {
     public abstract class Entity<T>
     {

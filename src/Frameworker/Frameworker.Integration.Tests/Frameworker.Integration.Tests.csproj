@@ -16,10 +16,5 @@
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(EntityFrameworkCorePostgreSQL)" />        
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\Frameworker.Scorponok.Reading.Database\Frameworker.Scorponok.Reading.Database.csproj" />
-      <ProjectReference Include="..\Frameworker.Scorponok.AspNet\Frameworker.Scorponok.AspNet.csproj" />
-    </ItemGroup>
-
 
 </Project>

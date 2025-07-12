@@ -5,6 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Shared.Code.Net8\Shared.Code.Net8.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Code\Shared.Code.csproj" />
   </ItemGroup>
 </Project>

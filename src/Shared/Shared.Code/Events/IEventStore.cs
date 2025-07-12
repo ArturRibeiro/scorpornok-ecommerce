@@ -1,9 +1,4 @@
-﻿using Shared.Code.Commands;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shared.Code.Events
+﻿namespace Shared.Code.Events
 {
     public interface IEventStore
     {

@@ -1,11 +1,6 @@
-﻿using Shared.Code.Commands;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shared.Code.Notifications
+﻿namespace Shared.Code.Notifications
 {
-    public sealed class DomainNotification : Event
+    public sealed record DomainNotification : Event
     {
         public Guid DomainNotificationId { get; private set; } = Guid.NewGuid();
         public string Description { get; private set; }

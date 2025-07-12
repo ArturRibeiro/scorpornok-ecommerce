@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace Frameworker.Integration.Tests.HttpClientExtensions
+namespace Ecommerce.Scenarios.Integration.Spec.Tests
 {
     public class Result<T>
     {
