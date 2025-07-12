@@ -41,7 +41,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Scenarios.Integra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Code.Net8", "src\Shared\Shared.Code.Net8\Shared.Code.Net8.csproj", "{E3615C8C-18F5-46D2-815E-2328ED71B432}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frameworker.EntityFrameworkCore.Net8", "src\Frameworker\Frameworker.EntityFrameworkCore.Net8\Frameworker.EntityFrameworkCore.Net8.csproj", "{2D00C056-29C8-46B2-90FA-832E50EF87DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frameworker.EntityFrameworkCore", "src\Frameworker\Frameworker.EntityFrameworkCore\Frameworker.EntityFrameworkCore.csproj", "{2D00C056-29C8-46B2-90FA-832E50EF87DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Web.Api", "src\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj", "{CE07BC1B-5C1F-44B3-A0A6-9C11112AB00B}"
 EndProject

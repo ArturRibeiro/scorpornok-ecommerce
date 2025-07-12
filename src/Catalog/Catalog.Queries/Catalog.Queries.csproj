@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Frameworker\Frameworker.EntityFrameworkCore.Net8\Frameworker.EntityFrameworkCore.Net8.csproj" />
+    <ProjectReference Include="..\..\Frameworker\Frameworker.EntityFrameworkCore\Frameworker.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Catalog.Domain\Catalog.Domain.csproj" />
   </ItemGroup>
 </Project>
