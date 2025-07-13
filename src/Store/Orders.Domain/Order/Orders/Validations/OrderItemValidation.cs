@@ -19,7 +19,7 @@
 
             //RuleFor(x => x.Discount);
 
-            RuleFor(x => x.Units)
+            RuleFor(x => x.Quantity)
                 .NotNull()
                 .GreaterThan(0)
                 .WithMessage("Units  not found."); ;

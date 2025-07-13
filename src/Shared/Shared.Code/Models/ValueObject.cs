@@ -15,7 +15,7 @@
         protected static bool NotEqualOperator(ValueObject left, ValueObject right)
             => !(EqualOperator(left, right));
 
-        protected abstract IEnumerable<object> GetAtomicValues();
+        protected abstract IEnumerable<object> GetValues();
 
         public override bool Equals(object obj)
         {
@@ -23,8 +23,8 @@
                 return false;
 
             ValueObject other = (ValueObject)obj;
-            IEnumerator<object> thisValues = GetAtomicValues().GetEnumerator();
-            IEnumerator<object> otherValues = other.GetAtomicValues().GetEnumerator();
+            IEnumerator<object> thisValues = GetValues().GetEnumerator();
+            IEnumerator<object> otherValues = other.GetValues().GetEnumerator();
             while (thisValues.MoveNext() && otherValues.MoveNext())
             {
                 if (ReferenceEquals(thisValues.Current, null) ^ ReferenceEquals(otherValues.Current, null))
@@ -36,7 +36,7 @@
         }
 
         public override int GetHashCode()
-            => GetAtomicValues()
+            => GetValues()
              .Select(x => x != null ? x.GetHashCode() : 0)
              .Aggregate((x, y) => x ^ y);
 

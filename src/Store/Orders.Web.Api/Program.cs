@@ -4,10 +4,11 @@ using Orders.Web.Api.WebApplicationExtensions;
 var builder = WebApplication.CreateBuilder(args);
 
 var dockerPostgreSql = await DockerPostgreSql.Create().Up();
-
+var connectionString = dockerPostgreSql.GetConnectionString();
+Console.WriteLine("CONECTION_STRING: " + connectionString);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddInfrastructure(dockerPostgreSql.GetConnectionString());
+builder.Services.AddInfrastructure(connectionString);
 
 var app = builder.Build();
 

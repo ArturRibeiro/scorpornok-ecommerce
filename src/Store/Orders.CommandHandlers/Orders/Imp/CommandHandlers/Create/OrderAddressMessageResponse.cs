@@ -1,4 +1,4 @@
-﻿namespace Orders.CommandHandlers.Orders.CommandHandlers.Create
+﻿namespace Orders.CommandHandlers.Orders.Imp.CommandHandlers.Create
 {
     [DataContract]
     public class OrderAddressMessageResponse

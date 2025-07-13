@@ -7,6 +7,7 @@
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<OrderAddress> OrderAddress { get; set; }
         public DbSet<OrderStatus> OrderStatus { get; set; }
+        public DbSet<PaymentMethod> Payments { get; set; }
 
         public OrderContext(DbContextOptions<OrderContext> options) : base(options) { }
 

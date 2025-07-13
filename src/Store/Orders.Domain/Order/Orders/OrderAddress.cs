@@ -26,7 +26,7 @@
             ZipCode = zipcode;
         }
 
-        protected override IEnumerable<object> GetAtomicValues()
+        protected override IEnumerable<object> GetValues()
         {
             // Using a yield return statement to return each element one at a time
             yield return Street;

@@ -1,4 +1,6 @@
-﻿namespace Orders.Domain.Order.Orders;
+﻿using System.Linq;
+
+namespace Orders.Domain.Order.Orders;
 
 /// <summary>
 /// Pedido
@@ -10,10 +12,9 @@ public class Order : Entity<int>, IAggregateRoot
     #region Constructor
     public Order() { }
 
-    public Order(Guid customerId, Guid paymentId)
+    public Order(Guid customerId)
     {
         CustomerId = customerId;
-        PaymentId = paymentId;
         this.OrderNumber = $"A{this.GetHashCode().ToString()}";
     }
     #endregion
@@ -21,36 +22,34 @@ public class Order : Entity<int>, IAggregateRoot
     #region Properties
 
     public IReadOnlyCollection<OrderItem> Items => new ReadOnlyCollection<OrderItem>(_items);
-
-    /// <summary>
-    /// Endereço de entrega
-    /// </summary>
     public OrderAddress Address { get; private set; }
-
-    /// <summary>
-    /// Cliente que realizou a compra
-    /// </summary>
     public Guid CustomerId { get; private set; }
-
-    /// <summary>
-    /// Código do Pedido
-    /// </summary>
+    public Guid? PaymentId { get; private set; }
     public string OrderNumber { get; private set; }
-
     public DateTime OrderDate { get; private set; } = DateTime.Now;
-
-    public OrderStatus Status { get; private set; } = OrderStatus.Submitted;
-
-    /// <summary>
-    /// Códido da forma como foi paga o pedido
-    /// </summary>
-    public Guid PaymentId { get; private set; }
+    public OrderStatus Status { get; private set; } = OrderStatus.Pending;
+    public decimal Total { get; private set; }
+    public PaymentMethod PaymentMethod { get; private set; }
+    
 
     #endregion
 
-    public void AddProduct(OrderItem item) => _items.Add(item);
-    public void AddProduct(IList<OrderItem> items) => _items.AddRange(items);
+    public void AddProduct(IList<OrderItem> items)
+    {
+        _items.AddRange(items);
+        Total = _items.Sum(i => i.UnitPrice * i.Quantity);
+    }
+    
+    public void AddPaymentMethodCreditCard(PaymentMethod paymentMethod) => this.PaymentMethod = paymentMethod;
+    public void ChangeStatus(OrderStatus failed) => Status = failed;
     public void AddAddress(OrderAddress address) => this.Address = address;
+    public void RemoveItem(Guid productId)
+    {
+        var item = _items.FirstOrDefault(i => i.ProductId == productId);
+        if (item != null) _items.Remove(item);
+    }
+
+    public decimal GetTotal() => _items.Sum(i => i.UnitPrice * i.Quantity);
     
     public override bool IsValid()
     {
@@ -59,4 +58,7 @@ public class Order : Entity<int>, IAggregateRoot
             this.SetValidation(orderValidation);
         return orderValidation.IsValid;
     }
+
+
+    
 }

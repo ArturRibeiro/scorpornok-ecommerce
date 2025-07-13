@@ -9,7 +9,7 @@
         public string PictureUrl { get; private set; }
         public decimal UnitPrice { get; private set; }
         public decimal Discount { get; private set; }
-        public int Units { get; private set; }
+        public int Quantity { get; private set; }
 
         #region Properties
 
@@ -19,13 +19,13 @@
 
         //protected OrderItem() { }
 
-        private OrderItem(Guid productId, string productName, decimal unitPrice, decimal discount, string PictureUrl, int units = 1)
+        private OrderItem(Guid productId, string productName, decimal unitPrice, decimal discount, string PictureUrl, int quantity)
         {
             ProductId = productId;
             ProductName = productName;
             UnitPrice = unitPrice;
             Discount = discount;
-            Units = units;
+            Quantity = quantity;
             this.PictureUrl = PictureUrl;
         }
 

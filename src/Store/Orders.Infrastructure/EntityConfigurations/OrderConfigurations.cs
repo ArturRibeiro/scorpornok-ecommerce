@@ -5,6 +5,7 @@
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
+            builder.ToTable("Orders");
             builder.HasKey(cr => cr.Id);
             
             builder.Property(cr => cr.Id)
@@ -23,11 +24,12 @@
                 .IsRequired();
 
             builder.Property(x => x.PaymentId)
-                .HasColumnName("PaymentId")
+                .HasColumnName("PaymentId");
+            
+            builder.Property(x => x.Total)
+                .HasColumnName("Total")
                 .IsRequired();
 
-            //Address Value Object
-            //https://docs.microsoft.com/pt-br/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
             builder.OwnsOne(o => o.Address, r =>
             {
                 r.Property(p => p.Street).HasColumnName("AddressStreet");
@@ -39,9 +41,13 @@
 
             builder.OwnsOne(o => o.Status, r =>
             {
+                r.ToTable("Orders");
                 r.Property(p => p.Code).HasColumnName("StatusCode");
                 r.Property(p => p.Name).HasColumnName("StatusName");
+                r.Property(p => p.Description).HasColumnName("StatusDescription");
             });
+            
+            builder.HasOne(o => o.PaymentMethod);
         }
     }
 }

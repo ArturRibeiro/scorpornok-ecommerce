@@ -1,16 +1,17 @@
-namespace Orders.CommandHandlers.Orders.CommandHandlers;
+namespace Orders.CommandHandlers.Orders.Imp.CommandHandlers;
 
 public class OrderBuilder
 {
     private readonly Order _order;
     private OrderAddress _address;
     private List<OrderItem> _items = new();
+    private PaymentMethod _creditCardPayment;
 
     private OrderBuilder(Order order) => _order = order;
 
-    public static OrderBuilder CreateOrder(Guid customerId, Guid paymentId)
+    public static OrderBuilder Create(Guid customerId)
     {
-        var order = new Order(customerId, paymentId);
+        var order = new Order(customerId);
         return new OrderBuilder(order);
     }
 
@@ -25,6 +26,12 @@ public class OrderBuilder
         items.ToList().ForEach(item => func(item, this));
         return this;
     }
+    
+    public OrderBuilder AddPaymentMethod(CreditCardPaymentCommand creditCardPaymentCommand, Func<CreditCardPaymentCommand, PaymentRequest> action)
+    {
+        action(creditCardPaymentCommand);
+        return this;
+    }
 
     public void CreateItem(Guid productId, string productName, decimal unitPrice, decimal discount, string pictureUrl, int units)
     {
@@ -35,6 +42,10 @@ public class OrderBuilder
     {
         _order.AddAddress(_address);
         _order.AddProduct(_items);
+        _order.AddPaymentMethodCreditCard(_creditCardPayment);
         return _order;
     }
+
+
+
 }
