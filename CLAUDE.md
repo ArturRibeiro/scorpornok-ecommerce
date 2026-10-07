@@ -15,8 +15,9 @@ dotnet test src/backend/Frameworker/Programming.Functional.Tests   # um projeto 
 dotnet test src/backend/Frameworker/Programming.Functional.Tests --filter "FullyQualifiedName~OptionTests"  # uma classe/teste
 dotnet run --project src/backend/Catalog/Catalog.Web.Api           # sobe a API de Catalog (precisa dos bancos do compose)
 dotnet run --project src/backend/Store/Orders.Web.Api              # sobe a API de Orders (precisa dos bancos do compose)
-docker compose up -d --build                   # Catalog (5064), Orders (5224) e Payment (5220), cada um com seu Postgres 16; Swagger em /swagger
+docker compose up -d --build                   # Catalog (5064), Orders (5224) e Payment (5220), cada um com seu Postgres 16, e o front-end (3000); Swagger em /swagger
 docker compose -f docker-compose.database.yml up -d   # só os bancos (o docker-compose.yml raiz inclui este arquivo)
+docker compose -f docker-compose.frontend.yml up -d --build   # só o front-end (também incluído pelo docker-compose.yml)
 ```
 
 - `Programming.Functional.Tests` é net6.0, então rodá-lo exige o runtime do .NET 6 (ou trocar o target).

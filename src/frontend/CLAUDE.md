@@ -13,10 +13,11 @@ npm install
 npm run dev      # servidor de desenvolvimento em http://localhost:3000
 npm run build    # build de produção (também faz a checagem de tipos)
 npm run start    # serve o build
-npx eslint .     # lint
+npm run lint     # lint (eslint .)
 ```
 
-- O script `npm run lint` chama `next lint`, que o Next 16 removeu. Use `npx eslint .`. O `eslint-config-next` está fixado em 15.2.1, uma versão diferente da do `next`.
+No Docker, o serviço `frontend` fica em `docker-compose.frontend.yml` na raiz do repositório (incluído pelo `docker-compose.yml`) e sobe em http://localhost:3000. A imagem vem do `Dockerfile` desta pasta e usa o build `output: "standalone"` do `next.config.ts`; não remova essa opção.
+
 - Não há testes nem framework de testes configurado.
 
 ## Arquitetura

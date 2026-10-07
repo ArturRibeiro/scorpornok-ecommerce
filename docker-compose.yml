@@ -1,7 +1,9 @@
-# Aplicação: sobe as APIs junto com os bancos de docker-compose.database.yml.
+# Aplicação: sobe as APIs junto com os bancos de docker-compose.database.yml
+# e o front-end de docker-compose.frontend.yml.
 #   docker compose up -d --build
 include:
   - docker-compose.database.yml
+  - docker-compose.frontend.yml
 
 services:
   catalog-api:
