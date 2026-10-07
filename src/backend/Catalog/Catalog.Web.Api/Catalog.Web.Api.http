@@ -1,7 +1,7 @@
 @Catalog.Web.Api_HostAddress = http://localhost:5064
 
 # pageNumber (padrão 1) e pageSize (padrão e máximo 20) são opcionais.
-GET {{Catalog.Web.Api_HostAddress}}/GetAllProducts?pageNumber=1&pageSize=10
+GET {{Catalog.Web.Api_HostAddress}}/Products?pageNumber=1&pageSize=10
 Accept: application/json
 
 ###

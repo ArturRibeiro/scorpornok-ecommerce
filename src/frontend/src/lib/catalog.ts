@@ -32,11 +32,11 @@ export async function getProducts(
   signal?: AbortSignal
 ): Promise<PagedList<Product>> {
   const response = await request(
-    `/GetAllProducts?pageNumber=${pageNumber}&pageSize=${pageSize}`,
+    `/Products?pageNumber=${pageNumber}&pageSize=${pageSize}`,
     signal
   );
   if (!response.ok) {
-    throw new Error(`Catalog API respondeu ${response.status} em GetAllProducts`);
+    throw new Error(`Catalog API respondeu ${response.status} em Products`);
   }
 
   const data: PagedList<ProductResponse> = await response.json();

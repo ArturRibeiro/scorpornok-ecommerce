@@ -8,12 +8,12 @@ public static class WebApplicationExtensions
 {
     public static void GetAllProducts(this WebApplication app)
     {
-        app.MapGet("/GetAllProducts", async ([FromServices] IProductQueries queries, [AsParameters] PagingModel paging) =>
+        app.MapGet("/Products", async ([FromServices] IProductQueries queries, [AsParameters] PagingModel paging) =>
             {
                 IPagedList<ProductItemMessageResponse> products = await queries.GetAllProducts(paging);
                 return products;
             })
-            .WithName("GetAllProducts");
+            .WithName("Products");
     }
 
     public static void GetProductById(this WebApplication app)

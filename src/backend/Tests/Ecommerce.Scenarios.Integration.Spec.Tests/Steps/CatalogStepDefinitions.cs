@@ -12,7 +12,7 @@ public class CatalogStepDefinitions : StepBase
     [Then(@"listo todos os produtos em destaques")]
     public async Task ThenListoTodosOsProdutosEmDestaques()
     {
-        var pagedList = await base.SendAsync<PagedList<ProductItemMessageResponse>>($"GetAllProducts?PageNumber={1}&PageSize={10}");
+        var pagedList = await base.SendAsync<PagedList<ProductItemMessageResponse>>($"Products?PageNumber={1}&PageSize={10}");
         pagedList.EnsureSuccessStatusCode.Should().NotBeNull();
         pagedList.Value.Should().NotBeNull();
         pagedList.Value?.Items.Should().HaveCountGreaterOrEqualTo(1);
