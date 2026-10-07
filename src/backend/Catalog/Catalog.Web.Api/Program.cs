@@ -7,6 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ConnectionString")
     ?? throw new InvalidOperationException("ConnectionStrings:ConnectionString não configurada.");
 
+// O front-end (src/frontend) chama a API direto do navegador, então a origem
+// dele precisa estar liberada (Cors:AllowedOrigins no appsettings.json).
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
+builder.Services.AddCors(options =>
+    options.AddDefaultPolicy(policy => policy.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod()));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(connectionString);
@@ -22,6 +28,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors();
 
 app.GetAllProducts();
 app.GetProductById();

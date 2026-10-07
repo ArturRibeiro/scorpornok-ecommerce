@@ -29,7 +29,7 @@ Todas as versões de pacotes são propriedades MSBuild no `Directory.Build.props
 
 ## Arquitetura
 
-Os bounded contexts ficam em `src/backend/` (`src/frontend/` contém o front-end Next.js, com seu próprio `CLAUDE.md`). Cada um é dividido em projetos por camada, e as dependências apontam para dentro, até o Domain:
+Os bounded contexts ficam em `src/backend/` (`src/frontend/` contém o front-end React + Vite, com seu próprio `CLAUDE.md`). Cada um é dividido em projetos por camada, e as dependências apontam para dentro, até o Domain:
 
 - **Catalog** (lado de leitura / queries): `Catalog.Domain` (entidade `Product`) ← `Catalog.Queries` (`IProductQueries`, `IApplicationCatalogDbContext`, paginação via `ToPagedList`/`IPagedList` do `Frameworker.EntityFrameworkCore`) ← `Catalog.Infrastructure` (`ApplicationCatalogDbContext`, configurações do EF, `AddInfrastructure`) ← `Catalog.Web.Api`.
 - **Store / Orders** (lado de escrita / commands): `Orders.Domain` (agregado `Order`, validadores FluentValidation, `IOrderRepository`) ← `Orders.CommandHandlers` (`IRequestHandler`s do MediatR, como o `OrderHandler`, que monta um `Order` com o `OrderBuilder` fluente; também define `IPaymentGateway`) ← `Orders.Infrastructure` (`OrderContext`, repositório, um `PaymentGateway` stub, DI em `AddInfrastructure`) ← `Orders.Web.Api`.
@@ -42,6 +42,7 @@ Os bounded contexts ficam em `src/backend/` (`src/frontend/` contém o front-end
 - Minimal APIs: os endpoints são métodos de extensão de `WebApplication` em `WebApplicationExtensions/` (ex.: `app.GetAllProducts()`, `app.CreateOrder()`), chamados no `Program.cs`.
 - Os commands chegam aos handlers assim: endpoint → `IMemoryBus.SendAsync(command)` → MediatR → handler. Os handlers são registrados explicitamente em cada `Infrastructure/Extensions/ServiceCollectionExtensions.cs`, junto com o scan do assembly.
 - **A connection string (`ConnectionStrings:ConnectionString`) é obrigatória**; sem ela a API não sobe. No `dotnet run` ela vem do `appsettings.Development.json`, que aponta para os bancos do compose em `localhost` (usuário/senha `sa`/`sa`). No compose, cada API tem seu próprio container Postgres, definido em `docker-compose.database.yml` (`catalog-db`, `orders-db`, `payment-db`, portas 5433–5435 no host) e recebe a connection string dele; as imagens usam o `Dockerfile` genérico da raiz (build args `PROJECT` e `ASSEMBLY`). Depois chama `EnsureCreatedAsync()` e popula dados (`*DbContextExtensions.Seed`). Não há migrations do EF. Rodar uma API exige os bancos no ar (`docker compose -f docker-compose.database.yml up -d`).
+- CORS: o `Catalog.Web.Api` libera as origens de `Cors:AllowedOrigins` (`appsettings.json`, hoje `http://localhost:3000`), porque o front-end chama a API direto do navegador.
 - Health checks: `/health/live` (só o processo, sem checks) e `/health/ready` (checks com a tag `ready`, como o `AddDbContextCheck` do banco em Catalog e Orders).
 - `Program` é declarado como `public partial class Program` para que os testes possam usar `WebApplicationFactory<Program>`.
 

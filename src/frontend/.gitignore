@@ -1,7 +1,5 @@
-# Next.js
-/.next/
-/out/
-next-env.d.ts
+# Build do Vite
+/dist/
 *.tsbuildinfo
 
 # Variáveis de ambiente locais

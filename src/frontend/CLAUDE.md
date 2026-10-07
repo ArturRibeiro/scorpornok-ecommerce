@@ -4,26 +4,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Visão geral
 
-Front-end da loja Scorponok, feito em Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4 e componentes shadcn/ui. Ele parte do template **BloomShop** (ThemeWagon), por isso o `package.json` ainda se chama `bloom-ecommerce-template` e os textos da UI estão em inglês. O backend .NET fica em `../backend` (veja o `CLAUDE.md` da raiz do repositório). Por enquanto o front-end **não chama nenhuma API**: os produtos vêm de um JSON estático.
+Front-end da loja Scorponok, feito em React 19 + Vite (SPA, sem servidor Node em produção), TypeScript, React Router 7, Tailwind CSS v4 e componentes shadcn/ui. Ele parte do template **BloomShop** (ThemeWagon), que era em Next.js, por isso o `package.json` ainda se chama `bloom-ecommerce-template` e os textos da UI estão em inglês. O backend .NET fica em `../backend` (veja o `CLAUDE.md` da raiz do repositório). Os produtos vêm do `Catalog.Web.Api`, que precisa estar no ar: sem ele, a home e as páginas de produto mostram o `ErrorState`.
 
 ## Comandos
 
 ```bash
 npm install
 npm run dev      # servidor de desenvolvimento em http://localhost:3000
-npm run build    # build de produção (também faz a checagem de tipos)
-npm run start    # serve o build
+npm run build    # checagem de tipos (tsc) + build de produção em dist/
+npm run preview  # serve o dist/ em http://localhost:3000
 npm run lint     # lint (eslint .)
 ```
 
-No Docker, o serviço `frontend` fica em `docker-compose.frontend.yml` na raiz do repositório (incluído pelo `docker-compose.yml`) e sobe em http://localhost:3000. A imagem vem do `Dockerfile` desta pasta e usa o build `output: "standalone"` do `next.config.ts`; não remova essa opção.
+A URL da API vem de `VITE_CATALOG_API_URL` (padrão `http://localhost:5064`, a porta do `dotnet run` e do compose). Ela é embutida no JavaScript durante o build e usada pelo navegador, então precisa ser um endereço que o browser alcance (nunca o nome de um container). No Docker, o serviço `frontend` fica em `docker-compose.frontend.yml` na raiz do repositório (incluído pelo `docker-compose.yml`) e sobe em http://localhost:3000. A imagem vem do `Dockerfile` desta pasta: faz o build com Node e serve o `dist/` com nginx (`nginx.conf`, com fallback para `index.html` por ser SPA). Para mudar a URL da API no Docker, use o build arg `VITE_CATALOG_API_URL`.
 
+- O dev server e o container usam a porta 3000 porque `http://localhost:3000` é a origem liberada no CORS do `Catalog.Web.Api` (`Cors:AllowedOrigins` no `appsettings.json`). Outra porta ou origem precisa ser adicionada lá.
 - Não há testes nem framework de testes configurado.
 
 ## Arquitetura
 
-- **Dados**: `data/products.json` é a única fonte de produtos. `ProductList`, `RelatedProducts` e `app/product/[productId]/page.tsx` importam o JSON direto. O tipo fica em `types/product.ts`. As imagens são URLs do Unsplash, que precisam estar liberadas em `images.remotePatterns` no `next.config.ts`. Para integrar com o backend, a fonte a trocar é o endpoint `GET /GetAllProducts` (paginado) do `Catalog.Web.Api` e, para o checkout, o `POST /createOrder` do `Orders.Web.Api`. Nenhuma das APIs configura CORS ainda.
-- **Carrinho**: `context/CartContext.tsx` é um Client Component que guarda o carrinho em estado React e o persiste no `localStorage` (chave `cart`). O `CartProvider` envolve toda a aplicação em `app/layout.tsx`, e os componentes o acessam com `useCart()`. O `addToCart` sempre soma 1 à quantidade, então a página de produto chama a função em loop para adicionar N unidades.
-- **Rotas** (`app/`): `/` (lista de produtos), `/product/[productId]`, `/cart` e `/contact`. O botão de checkout em `OrderSummary` aponta para `/checkout`, uma rota que ainda não existe.
-- **Componentes**: `components/ui/` contém os primitivos do shadcn (estilo `new-york`, ícones `lucide-react`, configurados em `components.json`). As outras pastas de `components/` são organizadas por página (`home`, `product`, `cart`, `layout`). Use `cn()` de `lib/utils.ts` para combinar classes. O import `@/*` aponta para a raiz deste diretório.
-- **Estilo**: o Tailwind v4 é configurado via CSS em `app/globals.css` (`@import "tailwindcss"`, tokens de tema como variáveis CSS em `oklch`, variante `dark` via classe `.dark`). Use os tokens semânticos (`bg-background`, `text-primary`, `text-muted-foreground` etc.) em vez de cores fixas. O `tailwind.config.js` é legado do v3 e praticamente não tem efeito.
+- **Entrada**: `index.html` (título, meta e fonte Inter via Google Fonts) carrega `src/main.tsx`, que monta `<BrowserRouter>` e `src/App.tsx`. O `App` tem o layout (`CartProvider`, `Header`, `Footer`) e as rotas.
+- **Dados**: `src/lib/catalog.ts` é o cliente do `Catalog.Web.Api` (`getProducts` → `GET /GetAllProducts`, paginado com no máximo 20 itens por página; `getProduct` → `GET /GetProductById/{id}`, `null` no 404). Ele converte `pictureUri` da API em `image`. As chamadas saem do navegador e aparecem na aba Network. Os componentes as fazem via `useRequest(key, load)` (`src/hooks/useRequest.ts`), que devolve `loading`/`data`/`error`/`retry`, refaz a chamada quando `key` muda e cancela a anterior com `AbortController`. Em dev, o `StrictMode` monta tudo duas vezes, então a primeira chamada aparece como cancelada no Network. Os produtos vêm do seed do backend (`ApplicationCatalogDbContextExtensions`), com imagens do Unsplash usadas direto em `<img>`. O checkout ainda não chama o `POST /createOrder` do `Orders.Web.Api`.
+- **Carrinho**: `src/context/CartContext.tsx` lê e grava o carrinho no `localStorage` (chave `cart`) via `useSyncExternalStore`. O `CartProvider` envolve toda a aplicação em `src/App.tsx`, e os componentes o acessam com `useCart()`. O `addToCart` sempre soma 1 à quantidade, então a página de produto chama a função em loop para adicionar N unidades.
+- **Rotas** (`src/App.tsx`, páginas em `src/pages/`): `/` (`HomePage`), `/product/:productId` (`ProductPage`), `/cart`, `/contact` e `*` (`NotFoundPage`). O botão de checkout em `OrderSummary` aponta para `/checkout`, uma rota que ainda não existe e cai no `NotFoundPage`. Use `Link`/`useNavigate`/`useLocation` de `react-router`.
+- **Componentes**: `src/components/ui/` contém os primitivos do shadcn (estilo `new-york`, ícones `lucide-react`, configurados em `components.json`). As outras pastas de `src/components/` são organizadas por página (`home`, `product`, `cart`, `layout`); `ErrorState` e `LoadingState` ficam na raiz. Use `cn()` de `src/lib/utils.ts` para combinar classes. O import `@/*` aponta para `src/` (`tsconfig.json` e `vite.config.ts`).
+- **Estilo**: o Tailwind v4 entra pelo plugin `@tailwindcss/vite` e é configurado via CSS em `src/index.css` (`@import "tailwindcss"`, tokens de tema como variáveis CSS em `oklch`, variante `dark` via classe `.dark`). Use os tokens semânticos (`bg-background`, `text-primary`, `text-muted-foreground` etc.) em vez de cores fixas.

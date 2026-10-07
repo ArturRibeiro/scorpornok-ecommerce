@@ -1,7 +1,9 @@
-# Front-end Next.js (src/frontend), servido em http://localhost:3000.
-# Ainda não chama as APIs: os produtos vêm de src/frontend/data/products.json.
+# Front-end React + Vite (src/frontend), servido pelo nginx em http://localhost:3000.
+# O navegador chama o catalog-api (docker-compose.yml) direto em http://localhost:5064,
+# por isso a URL não usa o nome do container. Para trocá-la, mude o build arg
+# VITE_CATALOG_API_URL (ela é embutida no build) e libere a origem no CORS da API.
 #
-# Só o front-end:
+# Só o front-end (as páginas de produto mostram erro até o catalog-api subir):
 #   docker compose -f docker-compose.frontend.yml up -d --build
 services:
   frontend:
@@ -10,7 +12,7 @@ services:
     container_name: frontend
     restart: unless-stopped
     ports:
-      - 3000:3000
+      - 3000:80
     networks:
       - ecommerce-networks
 

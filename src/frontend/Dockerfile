@@ -1,26 +1,17 @@
-# Imagem do front-end. Usa o build "standalone" do Next (next.config.ts):
-# a imagem final leva só o servidor gerado e os arquivos estáticos, sem node_modules.
-FROM node:24-alpine AS deps
+# Imagem do front-end. O Vite gera arquivos estáticos (dist/), servidos pelo
+# nginx; não há servidor Node em produção.
+FROM node:24-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
-
-FROM node:24-alpine AS build
-WORKDIR /app
-ENV NEXT_TELEMETRY_DISABLED=1
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# A URL é embutida no JavaScript durante o build e usada pelo navegador,
+# por isso aponta para a porta publicada no host, não para o container.
+ARG VITE_CATALOG_API_URL=http://localhost:5064
+ENV VITE_CATALOG_API_URL=$VITE_CATALOG_API_URL
 RUN npm run build
 
-FROM node:24-alpine
-WORKDIR /app
-ENV NODE_ENV=production \
-    NEXT_TELEMETRY_DISABLED=1 \
-    HOSTNAME=0.0.0.0 \
-    PORT=3000
-COPY --from=build --chown=node:node /app/.next/standalone ./
-COPY --from=build --chown=node:node /app/.next/static ./.next/static
-COPY --from=build --chown=node:node /app/public ./public
-USER node
-EXPOSE 3000
-CMD ["node", "server.js"]
+FROM nginx:1.29-alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
