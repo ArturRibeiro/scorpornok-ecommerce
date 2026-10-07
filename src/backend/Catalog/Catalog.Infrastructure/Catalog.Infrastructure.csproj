@@ -8,6 +8,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCore)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(EntityFrameworkCore)" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(ConfigurationJson)" />
+    <PackageReference Include="Bogus" Version="$(Bogus)" />
   </ItemGroup>
 
   <ItemGroup>
