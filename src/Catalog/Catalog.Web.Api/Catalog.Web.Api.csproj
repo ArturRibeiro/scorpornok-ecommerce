@@ -10,7 +10,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="$(AspNetCoreOpenApi)"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="$(Swashbuckle)"/>
-        <PackageReference Include="Testcontainers.PostgreSql" Version="$(TestcontainersPostgreSql)" />
+        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="$(HealthChecksEntityFrameworkCore)" />
     </ItemGroup>
 
     <ItemGroup>

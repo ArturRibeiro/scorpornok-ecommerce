@@ -7,4 +7,4 @@ global using Catalog.Queries;
 global using Catalog.Queries.Products.Queries;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
-global using Testcontainers.PostgreSql;
+global using Microsoft.AspNetCore.Diagnostics.HealthChecks;

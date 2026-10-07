@@ -4,4 +4,4 @@ global using Microsoft.AspNetCore.Mvc;
 global using Orders.Infrastructure;
 global using Orders.Infrastructure.Extensions;
 global using Shared.Code;
-global using Testcontainers.PostgreSql;
+global using Microsoft.AspNetCore.Diagnostics.HealthChecks;

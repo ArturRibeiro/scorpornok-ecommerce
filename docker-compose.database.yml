@@ -1,0 +1,66 @@
+# Bancos de dados. Cada serviço tem o seu próprio Postgres (database per service):
+# nenhum serviço acessa o banco de outro, e cada banco pode ser parado ou migrado sozinho.
+#
+# Só os bancos (ex.: para rodar as APIs com dotnet run):
+#   docker compose -f docker-compose.database.yml up -d
+x-postgres: &postgres
+  image: postgres:16
+  restart: always
+  environment: &postgres-env
+    POSTGRES_USER: sa
+    POSTGRES_PASSWORD: sa
+  healthcheck:
+    test: ["CMD-SHELL", "pg_isready -U sa -d $${POSTGRES_DB}"]
+    interval: 5s
+    timeout: 5s
+    retries: 10
+  networks:
+    - ecommerce-networks
+
+services:
+  catalog-db:
+    <<: *postgres
+    container_name: catalog_db
+    environment:
+      <<: *postgres-env
+      POSTGRES_DB: catalog
+    ports:
+      - 5433:5432
+    volumes:
+      - catalog_data:/var/lib/postgresql/data
+
+  orders-db:
+    <<: *postgres
+    container_name: orders_db
+    environment:
+      <<: *postgres-env
+      POSTGRES_DB: orders
+    ports:
+      - 5434:5432
+    volumes:
+      - orders_data:/var/lib/postgresql/data
+
+  payment-db:
+    <<: *postgres
+    container_name: payment_db
+    environment:
+      <<: *postgres-env
+      POSTGRES_DB: payment
+    ports:
+      - 5435:5432
+    volumes:
+      - payment_data:/var/lib/postgresql/data
+
+volumes:
+  catalog_data:
+  orders_data:
+  payment_data:
+
+networks:
+  ecommerce-networks:
+    driver: bridge
+    # Sub-rede fixa: a VPN (Cloudflare WARP) captura várias faixas 172.x,
+    # incluindo as que o Docker escolhe por padrão, e as portas ficam inacessíveis.
+    ipam:
+      config:
+        - subnet: 192.168.100.0/24

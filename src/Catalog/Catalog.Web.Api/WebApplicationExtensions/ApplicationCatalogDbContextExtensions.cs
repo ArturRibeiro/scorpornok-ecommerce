@@ -5,6 +5,7 @@ public static class ApplicationCatalogDbContextExtensions
     public static async Task Seed(this ApplicationCatalogDbContext dbContext)
     {
         await dbContext.Database.EnsureCreatedAsync();
+        if (await dbContext.Products.AnyAsync()) return;
         await dbContext.Products.AddRangeAsync(GetProducts());
         await dbContext.SaveChangesAsync();
     }

@@ -10,8 +10,8 @@ The ecommerce Project is a open-source project written in .NET 10
 The goal of this project is implement the most common used technologies and share with the technical community the best way to develop great applications with .NET and evoluting learn.
 
 # Prerequisite
-- .NET SDK 10.0 (version pinned in `global.json`)
-- Docker (the Web APIs and the integration tests start a temporary PostgreSQL container via Testcontainers)
+- .NET SDK 10.0
+- Docker (the databases run with Docker Compose)
 
 # Technologies used
 - [x] Entity Framework Core 10 (Npgsql / PostgreSQL)
@@ -39,7 +39,7 @@ The goal of this project is implement the most common used technologies and shar
 
 # How to use
 - You will need the .NET SDK 10.0 or higher, available at https://dot.net
-- Make sure the Docker daemon is running
+- Make sure the Docker daemon is running and the databases are up: `docker compose -f docker-compose.database.yml up -d`
 
 ```bash
 dotnet build Scorponok.sln                          # build everything
@@ -49,3 +49,20 @@ dotnet run --project src/Store/Orders.Web.Api       # start the Orders API
 ```
 
 Each `*.Web.Api` project has a `.http` file to exercise its endpoints.
+
+# Boas práticas
+
+## Health checks
+
+Cada API tem dois endpoints que informam se ela está funcionando:
+
+- `/health/live`: a API está no ar. Se falhar, reinicie a API.
+- `/health/ready`: a API consegue atender pedidos, incluindo o acesso ao banco. Se falhar, espere ela se recuperar.
+
+| API | Endereço | O que o `/health/ready` verifica |
+|---|---|---|
+| Catalog | http://localhost:5064/health/live e http://localhost:5064/health/ready | Banco de produtos |
+| Orders | http://localhost:5224/health/live e http://localhost:5224/health/ready | Banco de pedidos |
+| Payment | http://localhost:5220/health/live e http://localhost:5220/health/ready | Nada além da própria API, pois ela não usa banco |
+
+O `/health/live` não verifica o banco. Assim, uma queda do banco não faz as APIs reiniciarem.

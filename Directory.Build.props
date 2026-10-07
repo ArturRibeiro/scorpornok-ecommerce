@@ -10,6 +10,7 @@
         <EFCoreNamingConventions>1.1.1</EFCoreNamingConventions>
         <AspNetCoreMvcTesting>10.0.12</AspNetCoreMvcTesting>
         <AspNetCoreOpenApi>10.0.12</AspNetCoreOpenApi>
+        <HealthChecksEntityFrameworkCore>10.0.12</HealthChecksEntityFrameworkCore>
 
         <MicrosoftNETTestSdk>18.10.1</MicrosoftNETTestSdk>
         <Dapper>2.1.89</Dapper>
@@ -26,7 +27,6 @@
         <MediatR>13.1.0</MediatR>
         <Scrutor>3.3.0</Scrutor>
         <DotNetTestcontainers>1.6.0</DotNetTestcontainers>
-        <TestcontainersPostgreSql>4.15.0</TestcontainersPostgreSql>
         <SeleniumSupport>3.141.0</SeleniumSupport>
         <WebDriverChromeDriver>95.0.4638.5401</WebDriverChromeDriver>
 

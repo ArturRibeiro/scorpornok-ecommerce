@@ -13,9 +13,10 @@ dotnet build Scorponok.sln                     # compila tudo (CI: restore → b
 dotnet test Scorponok.sln                      # roda todos os testes
 dotnet test src/Frameworker/Programming.Functional.Tests   # um projeto de teste
 dotnet test src/Frameworker/Programming.Functional.Tests --filter "FullyQualifiedName~OptionTests"  # uma classe/teste
-dotnet run --project src/Catalog/Catalog.Web.Api           # sobe a API de Catalog (precisa de Docker)
-dotnet run --project src/Store/Orders.Web.Api              # sobe a API de Orders (precisa de Docker)
-docker compose up -d                           # Postgres 16 compartilhado (devuser/devpassword); as APIs ainda não o usam
+dotnet run --project src/Catalog/Catalog.Web.Api           # sobe a API de Catalog (precisa dos bancos do compose)
+dotnet run --project src/Store/Orders.Web.Api              # sobe a API de Orders (precisa dos bancos do compose)
+docker compose up -d --build                   # Catalog (5064), Orders (5224) e Payment (5220), cada um com seu Postgres 16; Swagger em /swagger
+docker compose -f docker-compose.database.yml up -d   # só os bancos (o docker-compose.yml raiz inclui este arquivo)
 ```
 
 - `Programming.Functional.Tests` é net6.0, então rodá-lo exige o runtime do .NET 6 (ou trocar o target).
@@ -23,7 +24,7 @@ docker compose up -d                           # Postgres 16 compartilhado (devu
 
 ## Versões de pacotes
 
-Todas as versões de pacotes são propriedades MSBuild no `Directory.Build.props`, por exemplo `Version="$(MediatRNet8)"`. Adicione ou atualize versões lá, não direto no csproj. Os projetos usam `<TargetFramework>$(TargetFrameworkNet8)</TargetFramework>`. O arquivo de props define versões legadas (EF Core 3.1.x, MediatR 7) e versões net8 (`*Net8`), e os projetos misturam as duas. Por exemplo, projetos net8 ainda referenciam o EF Core `$(EntityFrameworkCore)` = 3.1.19. Os projetos Web API fixam algumas versões direto no csproj (Swashbuckle, OpenApi, Testcontainers.PostgreSql).
+Todas as versões de pacotes são propriedades MSBuild no `Directory.Build.props`, por exemplo `Version="$(MediatRNet8)"`. Adicione ou atualize versões lá, não direto no csproj. Os projetos usam `<TargetFramework>$(TargetFrameworkNet8)</TargetFramework>`. O arquivo de props define versões legadas (EF Core 3.1.x, MediatR 7) e versões net8 (`*Net8`), e os projetos misturam as duas. Por exemplo, projetos net8 ainda referenciam o EF Core `$(EntityFrameworkCore)` = 3.1.19. Os projetos Web API fixam algumas versões direto no csproj (Swashbuckle, OpenApi).
 
 ## Arquitetura
 
@@ -39,7 +40,8 @@ Os bounded contexts ficam em `src/`. Cada um é dividido em projetos por camada,
 
 - Minimal APIs: os endpoints são métodos de extensão de `WebApplication` em `WebApplicationExtensions/` (ex.: `app.GetAllProducts()`, `app.CreateOrder()`), chamados no `Program.cs`.
 - Os commands chegam aos handlers assim: endpoint → `IMemoryBus.SendAsync(command)` → MediatR → handler. Os handlers são registrados explicitamente em cada `Infrastructure/Extensions/ServiceCollectionExtensions.cs`, junto com o scan do assembly.
-- **Na inicialização, cada API sobe seu próprio container Postgres temporário via Testcontainers** (`DockerPostgreSql.cs`). Depois chama `EnsureCreatedAsync()` e popula dados (`*DbContextExtensions.Seed`). Não há migrations do EF. Rodar uma API exige o daemon do Docker ativo.
+- **A connection string (`ConnectionStrings:ConnectionString`) é obrigatória**; sem ela a API não sobe. No `dotnet run` ela vem do `appsettings.Development.json`, que aponta para os bancos do compose em `localhost` (usuário/senha `sa`/`sa`). No compose, cada API tem seu próprio container Postgres, definido em `docker-compose.database.yml` (`catalog-db`, `orders-db`, `payment-db`, portas 5433–5435 no host) e recebe a connection string dele; as imagens usam o `Dockerfile` genérico da raiz (build args `PROJECT` e `ASSEMBLY`). Depois chama `EnsureCreatedAsync()` e popula dados (`*DbContextExtensions.Seed`). Não há migrations do EF. Rodar uma API exige os bancos no ar (`docker compose -f docker-compose.database.yml up -d`).
+- Health checks: `/health/live` (só o processo, sem checks) e `/health/ready` (checks com a tag `ready`, como o `AddDbContextCheck` do banco em Catalog e Orders).
 - `Program` é declarado como `public partial class Program` para que os testes possam usar `WebApplicationFactory<Program>`.
 
 ## Testes

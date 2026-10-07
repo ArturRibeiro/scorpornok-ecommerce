@@ -1,24 +1,60 @@
-version: '3.9'
+# Aplicação: sobe as APIs junto com os bancos de docker-compose.database.yml.
+#   docker compose up -d --build
+include:
+  - docker-compose.database.yml
 
 services:
-  postgres:
-    image: postgres:16
-    container_name: postgres_main
-    restart: always
+  catalog-api:
+    build:
+      context: .
+      args:
+        PROJECT: src/Catalog/Catalog.Web.Api/Catalog.Web.Api.csproj
+        ASSEMBLY: Catalog.Web.Api
+    container_name: catalog_api
     environment:
-      POSTGRES_USER: devuser
-      POSTGRES_PASSWORD: devpassword
-      POSTGRES_MULTIPLE_DATABASES: customers,catalog,payment,orders
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__ConnectionString: Host=catalog-db;Port=5432;Database=catalog;Username=sa;Password=sa
     ports:
-      - 5432:5432
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - 5064:8080
+    depends_on:
+      catalog-db:
+        condition: service_healthy
     networks:
       - ecommerce-networks
 
-volumes:
-  postgres_data:
-    
-networks: 
-    ecommerce-networks:
-        driver: bridge
+  orders-api:
+    build:
+      context: .
+      args:
+        PROJECT: src/Store/Orders.Web.Api/Orders.Web.Api.csproj
+        ASSEMBLY: Orders.Web.Api
+    container_name: orders_api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__ConnectionString: Host=orders-db;Port=5432;Database=orders;Username=sa;Password=sa
+    ports:
+      - 5224:8080
+    depends_on:
+      orders-db:
+        condition: service_healthy
+    networks:
+      - ecommerce-networks
+
+  payment-api:
+    build:
+      context: .
+      args:
+        PROJECT: src/Payments/Gateway.Payment.Web.Api/Gateway.Payment.Web.Api.csproj
+        ASSEMBLY: Gateway.Payment.Web.Api
+    container_name: payment_api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      # Ainda não é lida pela API; fica pronta para o event store (Gateway.Payment.Data).
+      ConnectionStrings__ConnectionString: Host=payment-db;Port=5432;Database=payment;Username=sa;Password=sa
+    ports:
+      - 5220:8080
+    depends_on:
+      payment-db:
+        condition: service_healthy
+    networks:
+      - ecommerce-networks
