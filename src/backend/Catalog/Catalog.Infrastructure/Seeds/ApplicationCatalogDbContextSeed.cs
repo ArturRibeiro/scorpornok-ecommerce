@@ -1,6 +1,11 @@
-namespace Catalog.Web.Api.WebApplicationExtensions;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Catalog.Domain.Products;
+using Microsoft.EntityFrameworkCore;
 
-public static class ApplicationCatalogDbContextExtensions
+namespace Catalog.Infrastructure.Seeds;
+
+public static class ApplicationCatalogDbContextSeed
 {
     public static async Task Seed(this ApplicationCatalogDbContext dbContext)
     {

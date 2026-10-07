@@ -3,6 +3,7 @@
 global using Catalog.Domain.Products;
 global using Catalog.Infrastructure;
 global using Catalog.Infrastructure.Extensions;
+global using Catalog.Infrastructure.Seeds;
 global using Catalog.Queries;
 global using Catalog.Queries.Products.Queries;
 global using Microsoft.AspNetCore.Mvc;

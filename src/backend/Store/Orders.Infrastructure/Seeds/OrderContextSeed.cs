@@ -1,6 +1,6 @@
-namespace Orders.Web.Api.WebApplicationExtensions;
+namespace Orders.Infrastructure.Seeds;
 
-public static class ApplicationCatalogDbContextExtensions
+public static class OrderContextSeed
 {
     public static async Task Seed(this OrderContext dbContext)
     {
