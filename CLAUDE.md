@@ -28,7 +28,7 @@ Todas as versões de pacotes são propriedades MSBuild no `Directory.Build.props
 
 ## Arquitetura
 
-Os bounded contexts ficam em `src/backend/` (`src/frontend/` está reservado para o front-end, ainda vazio). Cada um é dividido em projetos por camada, e as dependências apontam para dentro, até o Domain:
+Os bounded contexts ficam em `src/backend/` (`src/frontend/` contém o front-end Next.js, com seu próprio `CLAUDE.md`). Cada um é dividido em projetos por camada, e as dependências apontam para dentro, até o Domain:
 
 - **Catalog** (lado de leitura / queries): `Catalog.Domain` (entidade `Product`) ← `Catalog.Queries` (`IProductQueries`, `IApplicationCatalogDbContext`, paginação via `ToPagedList`/`IPagedList` do `Frameworker.EntityFrameworkCore`) ← `Catalog.Infrastructure` (`ApplicationCatalogDbContext`, configurações do EF, `AddInfrastructure`) ← `Catalog.Web.Api`.
 - **Store / Orders** (lado de escrita / commands): `Orders.Domain` (agregado `Order`, validadores FluentValidation, `IOrderRepository`) ← `Orders.CommandHandlers` (`IRequestHandler`s do MediatR, como o `OrderHandler`, que monta um `Order` com o `OrderBuilder` fluente; também define `IPaymentGateway`) ← `Orders.Infrastructure` (`OrderContext`, repositório, um `PaymentGateway` stub, DI em `AddInfrastructure`) ← `Orders.Web.Api`.

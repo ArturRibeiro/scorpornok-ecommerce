@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "AirFlex Runner",
+    "price": 89,
+    "image": "https://images.unsplash.com/photo-1579338559194-a162d19bf842?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "Lightweight running sneakers designed for speed and comfort. Breathable mesh and durable sole."
+  },
+  {
+    "id": 2,
+    "name": "Urban Street Pro",
+    "price": 99,
+    "image": "https://images.unsplash.com/photo-1608667508764-33cf0726b13a?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "Minimalist sneakers for everyday wear. Premium leather with a modern urban look."
+  },
+  {
+    "id": 3,
+    "name": "Classic Court 90s",
+    "price": 79,
+    "image": "https://images.unsplash.com/photo-1465453869711-7e174808ace9?q=80&w=1176&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "Retro-inspired sneakers with a tennis court vibe. Perfect balance between comfort and style."
+  },
+  {
+    "id": 4,
+    "name": "Volt Edge",
+    "price": 119,
+    "image": "https://images.unsplash.com/photo-1512374382149-233c42b6a83b?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "Performance sneakers with bold details. Responsive cushioning for all-day energy."
+  },
+  {
+    "id": 5,
+    "name": "Zenith Flow",
+    "price": 129,
+    "image": "https://images.unsplash.com/photo-1608231387042-66d1773070a5?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "Premium lifestyle sneakers blending high-quality knit material and futuristic design."
+  },
+  {
+    "id": 6,
+    "name": "Street Vibe Low",
+    "price": 69,
+    "image": "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "Casual low-top sneakers with a timeless silhouette. Built for versatility and comfort."
+  },
+  {
+    "id": 7,
+    "name": "Nova Horizon",
+    "price": 109,
+    "image": "https://images.unsplash.com/photo-1516767254874-281bffac9e9a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "High-top sneakers crafted with suede and mesh. Perfect mix of streetwear and performance."
+  },
+  {
+    "id": 8,
+    "name": "Pulse React",
+    "price": 99,
+    "image": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "Dynamic sneakers with responsive cushioning. Designed for training and everyday comfort."
+  },
+  {
+    "id": 9,
+    "name": "Core Street Retro",
+    "price": 85,
+    "image": "https://images.unsplash.com/photo-1621315271772-28b1f3a5df87?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "Old-school sneakers inspired by 80s basketball. Durable construction with vintage vibes."
+  },
+  {
+    "id": 10,
+    "name": "AeroFlex Lite",
+    "price": 75,
+    "image": "https://images.unsplash.com/photo-1496202703211-aa28e9500c30?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "Ultra-light sneakers designed for everyday mobility. Breathable and flexible design."
+  }
+]
