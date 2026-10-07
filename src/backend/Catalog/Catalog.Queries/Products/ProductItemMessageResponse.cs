@@ -7,9 +7,6 @@ namespace Catalog.Queries.Products
     public class ProductItemMessageResponse
     {
         [DataMember]
-        public string CatalogId { get; set; }
-
-        [DataMember]
         public string Name { get; set; }
 
         [DataMember]

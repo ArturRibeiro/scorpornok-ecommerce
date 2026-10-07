@@ -6,5 +6,7 @@ namespace Catalog.Queries.Products.Queries
     public interface IProductQueries
     {
         Task<IPagedList<ProductItemMessageResponse>> GetAllProducts(PagingModel paging);
+
+        Task<ProductItemMessageResponse> GetProductById(long id);
     }
 }
