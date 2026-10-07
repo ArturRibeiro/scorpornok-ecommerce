@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>$(TargetFrameworkNet8)</TargetFramework>
+        <TargetFramework>$(TargetFramework)</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AssemblyName>Shared.Code</AssemblyName>
@@ -9,7 +9,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="FluentValidation" Version="$(FluentValidation)" />
-        <PackageReference Include="MediatR" Version="$(MediatRNet8)" />
+        <PackageReference Include="MediatR" Version="$(MediatR)" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Imp\" />

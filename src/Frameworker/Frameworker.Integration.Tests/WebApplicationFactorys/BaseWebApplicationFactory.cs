@@ -3,11 +3,11 @@ using System.IO;
 using System.Net.Http;
 using DotNet.Testcontainers.Containers;
 using Frameworker.Integration.Tests.WebApplicationFactorys.Extensions;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Frameworker.Integration.Tests.WebApplicationFactorys
 {
@@ -33,19 +33,20 @@ namespace Frameworker.Integration.Tests.WebApplicationFactorys
             _appsettings = $"appsettings.{dataBaseType.ToString().ToLower()}.json";
         }
 
-        protected override IWebHostBuilder CreateWebHostBuilder()
+        protected override IHostBuilder CreateHostBuilder()
         {
-            return WebHost.CreateDefaultBuilder()
-                .ConfigureAppConfiguration((context, builder) =>
-                {
-                    builder.ValidTheExistenceOfAppsseting($"{_currentDirectory}/{_appsettings}")
-                        .SetBasePath(_currentDirectory)
-                        .AddJsonFile(_appsettings);
-                        
-                    var configurationRoot = builder.Build();
-                    this.ApplicationConfiguration = configurationRoot.AddConfigurationToTheTest<ApplicationConfiguration>();
-                })
-                .UseStartup<TStartup>();
+            return Host.CreateDefaultBuilder()
+                .ConfigureWebHostDefaults(webBuilder => webBuilder
+                    .ConfigureAppConfiguration((context, builder) =>
+                    {
+                        builder.ValidTheExistenceOfAppsseting($"{_currentDirectory}/{_appsettings}")
+                            .SetBasePath(_currentDirectory)
+                            .AddJsonFile(_appsettings);
+                            
+                        var configurationRoot = builder.Build();
+                        this.ApplicationConfiguration = configurationRoot.AddConfigurationToTheTest<ApplicationConfiguration>();
+                    })
+                    .UseStartup<TStartup>());
         }
 
 

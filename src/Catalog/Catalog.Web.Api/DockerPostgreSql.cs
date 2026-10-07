@@ -6,7 +6,7 @@ public class DockerPostgreSql
 
     public static DockerPostgreSql Create()
     {
-        _postgresContainer = new PostgreSqlBuilder()
+        _postgresContainer = new PostgreSqlBuilder("postgres:15.1")
             .WithDatabase("Catalog")
             .WithUsername("postgres")
             .WithPassword("postgres")

@@ -1,47 +1,46 @@
 <Project>
     <PropertyGroup Label="Сommon properties">
-        <TargetFramework>net6.0</TargetFramework>
-        <TargetFrameworkNet8>net8.0</TargetFrameworkNet8>
+        <TargetFramework>net10.0</TargetFramework>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup Label="Packages dependency microsoft">
-        <EntityFrameworkCore>3.1.19</EntityFrameworkCore>
-        <EntityFrameworkCorePostgreSQL>3.1.0</EntityFrameworkCorePostgreSQL>
+        <EntityFrameworkCore>10.0.12</EntityFrameworkCore>
+        <EntityFrameworkCorePostgreSQL>10.0.3</EntityFrameworkCorePostgreSQL>
         <EFCoreNamingConventions>1.1.1</EFCoreNamingConventions>
-        <AspNetCoreMvcTesting>3.1.19</AspNetCoreMvcTesting>
-        <AspNetCoreMvcTestingNet8>8.0.18</AspNetCoreMvcTestingNet8>
+        <AspNetCoreMvcTesting>10.0.12</AspNetCoreMvcTesting>
+        <AspNetCoreOpenApi>10.0.12</AspNetCoreOpenApi>
 
-        <MicrosoftNETTestSdk>17.0.0</MicrosoftNETTestSdk>
-        <Dapper>1.60.6</Dapper>
-        <MicrosoftDataSqliteCore>3.1.19</MicrosoftDataSqliteCore>
+        <MicrosoftNETTestSdk>18.10.1</MicrosoftNETTestSdk>
+        <Dapper>2.1.89</Dapper>
+        <MicrosoftDataSqliteCore>10.0.12</MicrosoftDataSqliteCore>
 
         <MicrosoftAspNetCoreMvcNewtonsoftJson>3.1.18</MicrosoftAspNetCoreMvcNewtonsoftJson>
         <MicrosoftAspNetCoreMvc>2.2.0</MicrosoftAspNetCoreMvc>
-        <NewtonsoftJson>13.0.1</NewtonsoftJson>
-        <ConfigurationJson>3.1.19</ConfigurationJson>
-        <Swashbuckle>5.6.3</Swashbuckle>
-        <FluentValidation>8.4.0</FluentValidation>
+        <NewtonsoftJson>13.0.4</NewtonsoftJson>
+        <ConfigurationJson>10.0.12</ConfigurationJson>
+        <Swashbuckle>10.3.0</Swashbuckle>
+        <FluentValidation>8.6.3</FluentValidation>
         <coverletcollector>3.0.2</coverletcollector>
 
-        <MediatR>7.0.0</MediatR>
-        <MediatRNet8>13.0.0</MediatRNet8>
+        <MediatR>13.1.0</MediatR>
         <Scrutor>3.3.0</Scrutor>
         <DotNetTestcontainers>1.6.0</DotNetTestcontainers>
+        <TestcontainersPostgreSql>4.15.0</TestcontainersPostgreSql>
         <SeleniumSupport>3.141.0</SeleniumSupport>
         <WebDriverChromeDriver>95.0.4638.5401</WebDriverChromeDriver>
 
         <SpecFlowPlusLivingDocPlugin>3.9.57</SpecFlowPlusLivingDocPlugin>
-        <SpecFlowNUnit>3.9.22</SpecFlowNUnit>
-        <Bogus>33.1.1</Bogus>
-        <nunit>3.13.2</nunit>
-        <NUnit3TestAdapter>4.1.0</NUnit3TestAdapter>
-        <FluentAssertions>6.2.0</FluentAssertions>
+        <SpecFlowNUnit>3.9.74</SpecFlowNUnit>
+        <Bogus>35.6.5</Bogus>
+        <nunit>3.14.0</nunit>
+        <NUnit3TestAdapter>5.2.0</NUnit3TestAdapter>
+        <FluentAssertions>6.12.2</FluentAssertions>
 
-        <coverletmsbuild>2.8.0</coverletmsbuild>
-        <Moq>4.13.1</Moq>
+        <coverletmsbuild>6.0.4</coverletmsbuild>
+        <Moq>4.20.72</Moq>
         <NBuilder>6.1.0</NBuilder>
-        <ReportGenerator>4.5.2</ReportGenerator>
+        <ReportGenerator>5.5.11</ReportGenerator>
     </PropertyGroup>
 
 </Project>

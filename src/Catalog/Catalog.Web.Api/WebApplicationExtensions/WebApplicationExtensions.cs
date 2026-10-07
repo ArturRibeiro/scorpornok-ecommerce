@@ -12,7 +12,6 @@ public static class WebApplicationExtensions
                 IPagedList<ProductItemMessageResponse> products = await queries.GetAllProducts(paging);
                 return products;
             })
-            .WithName("GetWeatherForecast")
-            .WithOpenApi();
+            .WithName("GetWeatherForecast");
     }
 }

@@ -8,6 +8,5 @@ public static class WebApplicationExtensions
         (this WebApplication app) 
         => app.MapPost("/createOrder"
             , async ([FromServices] IMemoryBus bus , CreateCommand command) 
-                => await bus.SendAsync(command))
-            .WithOpenApi();
+                => await bus.SendAsync(command));
 }

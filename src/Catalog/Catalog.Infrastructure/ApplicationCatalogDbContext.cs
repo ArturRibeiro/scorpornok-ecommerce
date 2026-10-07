@@ -49,7 +49,7 @@ namespace Catalog.Infrastructure
             => value.ToLower();
 
         private static void ConvertIndexes(IMutableEntityType entityType)
-            => entityType.GetIndexes().ToList().ForEach(index => index.SetName(ConvertCase(index.GetName())));
+            => entityType.GetIndexes().ToList().ForEach(index => index.SetDatabaseName(ConvertCase(index.GetDatabaseName())));
 
         private static void ConvertForeignKeys(IMutableEntityType entityType)
             => entityType.GetForeignKeys().ToList()

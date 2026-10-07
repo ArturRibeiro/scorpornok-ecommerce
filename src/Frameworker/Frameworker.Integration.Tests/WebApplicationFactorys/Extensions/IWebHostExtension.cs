@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -8,7 +8,7 @@ namespace Frameworker.Integration.Tests.WebApplicationFactorys.Extensions
 {
     public static class IWebHostExtension
     {
-        public static IWebHost ErasureDatabase<TContext>(this IWebHost webHost) 
+        public static IHost ErasureDatabase<TContext>(this IHost webHost) 
             where TContext : DbContext
         {
             using (var scope = webHost.Services.CreateScope())
@@ -30,7 +30,7 @@ namespace Frameworker.Integration.Tests.WebApplicationFactorys.Extensions
             return webHost;
         }
 
-        public static IWebHost CreateDataBase<TContext>(this IWebHost @this, Action<TContext, IServiceProvider> seeder) 
+        public static IHost CreateDataBase<TContext>(this IHost @this, Action<TContext, IServiceProvider> seeder) 
             where TContext : DbContext
         {
             using (var scope = @this.Services.CreateScope())
