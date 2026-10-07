@@ -8,7 +8,7 @@ services:
     build:
       context: .
       args:
-        PROJECT: src/Catalog/Catalog.Web.Api/Catalog.Web.Api.csproj
+        PROJECT: src/backend/Catalog/Catalog.Web.Api/Catalog.Web.Api.csproj
         ASSEMBLY: Catalog.Web.Api
     container_name: catalog_api
     environment:
@@ -26,7 +26,7 @@ services:
     build:
       context: .
       args:
-        PROJECT: src/Store/Orders.Web.Api/Orders.Web.Api.csproj
+        PROJECT: src/backend/Store/Orders.Web.Api/Orders.Web.Api.csproj
         ASSEMBLY: Orders.Web.Api
     container_name: orders_api
     environment:
@@ -44,7 +44,7 @@ services:
     build:
       context: .
       args:
-        PROJECT: src/Payments/Gateway.Payment.Web.Api/Gateway.Payment.Web.Api.csproj
+        PROJECT: src/backend/Payments/Gateway.Payment.Web.Api/Gateway.Payment.Web.Api.csproj
         ASSEMBLY: Gateway.Payment.Web.Api
     container_name: payment_api
     environment:

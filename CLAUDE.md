@@ -11,10 +11,10 @@ Scorponok é um backend de e-commerce modular em .NET, feito para estudo e demon
 ```bash
 dotnet build Scorponok.sln                     # compila tudo (CI: restore → build → test no master)
 dotnet test Scorponok.sln                      # roda todos os testes
-dotnet test src/Frameworker/Programming.Functional.Tests   # um projeto de teste
-dotnet test src/Frameworker/Programming.Functional.Tests --filter "FullyQualifiedName~OptionTests"  # uma classe/teste
-dotnet run --project src/Catalog/Catalog.Web.Api           # sobe a API de Catalog (precisa dos bancos do compose)
-dotnet run --project src/Store/Orders.Web.Api              # sobe a API de Orders (precisa dos bancos do compose)
+dotnet test src/backend/Frameworker/Programming.Functional.Tests   # um projeto de teste
+dotnet test src/backend/Frameworker/Programming.Functional.Tests --filter "FullyQualifiedName~OptionTests"  # uma classe/teste
+dotnet run --project src/backend/Catalog/Catalog.Web.Api           # sobe a API de Catalog (precisa dos bancos do compose)
+dotnet run --project src/backend/Store/Orders.Web.Api              # sobe a API de Orders (precisa dos bancos do compose)
 docker compose up -d --build                   # Catalog (5064), Orders (5224) e Payment (5220), cada um com seu Postgres 16; Swagger em /swagger
 docker compose -f docker-compose.database.yml up -d   # só os bancos (o docker-compose.yml raiz inclui este arquivo)
 ```
@@ -28,7 +28,7 @@ Todas as versões de pacotes são propriedades MSBuild no `Directory.Build.props
 
 ## Arquitetura
 
-Os bounded contexts ficam em `src/`. Cada um é dividido em projetos por camada, e as dependências apontam para dentro, até o Domain:
+Os bounded contexts ficam em `src/backend/` (`src/frontend/` está reservado para o front-end, ainda vazio). Cada um é dividido em projetos por camada, e as dependências apontam para dentro, até o Domain:
 
 - **Catalog** (lado de leitura / queries): `Catalog.Domain` (entidade `Product`) ← `Catalog.Queries` (`IProductQueries`, `IApplicationCatalogDbContext`, paginação via `ToPagedList`/`IPagedList` do `Frameworker.EntityFrameworkCore`) ← `Catalog.Infrastructure` (`ApplicationCatalogDbContext`, configurações do EF, `AddInfrastructure`) ← `Catalog.Web.Api`.
 - **Store / Orders** (lado de escrita / commands): `Orders.Domain` (agregado `Order`, validadores FluentValidation, `IOrderRepository`) ← `Orders.CommandHandlers` (`IRequestHandler`s do MediatR, como o `OrderHandler`, que monta um `Order` com o `OrderBuilder` fluente; também define `IPaymentGateway`) ← `Orders.Infrastructure` (`OrderContext`, repositório, um `PaymentGateway` stub, DI em `AddInfrastructure`) ← `Orders.Web.Api`.
@@ -46,7 +46,7 @@ Os bounded contexts ficam em `src/`. Cada um é dividido em projetos por camada,
 
 ## Testes
 
-- `src/Tests/Ecommerce.Scenarios.Integration.Spec.Tests`: testes BDD com SpecFlow + NUnit contra o `Catalog.Web.Api` via `WebApplicationFactory<Program>` (`Hooks/Hook.cs`). O `Features/*.feature.cs` é gerado no build, então edite o arquivo `.feature`.
-- `src/Frameworker/Programming.Functional.Tests`: testes unitários com NUnit + FluentAssertions + Moq.
-- `src/Tests/Ecommerce.Integration.Tests` **não está na solution** e está desatualizado. É netcoreapp3.1 e referencia projetos que não existem mais (`Store.Web.Api`, `Frameworker.Scorponok.*`).
+- `src/backend/Tests/Ecommerce.Scenarios.Integration.Spec.Tests`: testes BDD com SpecFlow + NUnit contra o `Catalog.Web.Api` via `WebApplicationFactory<Program>` (`Hooks/Hook.cs`). O `Features/*.feature.cs` é gerado no build, então edite o arquivo `.feature`.
+- `src/backend/Frameworker/Programming.Functional.Tests`: testes unitários com NUnit + FluentAssertions + Moq.
+- `src/backend/Tests/Ecommerce.Integration.Tests` **não está na solution** e está desatualizado. É netcoreapp3.1 e referencia projetos que não existem mais (`Store.Web.Api`, `Frameworker.Scorponok.*`).
 - `Snippets/` contém snippets do Visual Studio com o layout dos testes unitários.

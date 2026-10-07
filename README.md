@@ -44,8 +44,8 @@ The goal of this project is implement the most common used technologies and shar
 ```bash
 dotnet build Scorponok.sln                          # build everything
 dotnet test Scorponok.sln                           # run all tests
-dotnet run --project src/Catalog/Catalog.Web.Api    # start the Catalog API
-dotnet run --project src/Store/Orders.Web.Api       # start the Orders API
+dotnet run --project src/backend/Catalog/Catalog.Web.Api    # start the Catalog API
+dotnet run --project src/backend/Store/Orders.Web.Api       # start the Orders API
 ```
 
 Each `*.Web.Api` project has a `.http` file to exercise its endpoints.

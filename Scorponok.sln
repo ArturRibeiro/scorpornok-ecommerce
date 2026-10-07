@@ -5,45 +5,49 @@ VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Catalog", "1 - Catalog", "{B5ED8499-BF07-7483-ABE8-B168999EAA4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Domain", "src\Catalog\Catalog.Domain\Catalog.Domain.csproj", "{BDFED449-B50F-4EA5-A020-4894D0371D02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Domain", "src\backend\Catalog\Catalog.Domain\Catalog.Domain.csproj", "{BDFED449-B50F-4EA5-A020-4894D0371D02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Infrastructure", "src\Catalog\Catalog.Infrastructure\Catalog.Infrastructure.csproj", "{670963DC-27C7-46C8-B871-415297BF54E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Infrastructure", "src\backend\Catalog\Catalog.Infrastructure\Catalog.Infrastructure.csproj", "{670963DC-27C7-46C8-B871-415297BF54E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Queries", "src\Catalog\Catalog.Queries\Catalog.Queries.csproj", "{273E59B2-6B38-47D9-AB81-9B95F2969E98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Queries", "src\backend\Catalog\Catalog.Queries\Catalog.Queries.csproj", "{273E59B2-6B38-47D9-AB81-9B95F2969E98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Web.Api", "src\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj", "{3D2C482D-E40B-4321-AC0C-9DECAA73BB1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Web.Api", "src\backend\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj", "{3D2C482D-E40B-4321-AC0C-9DECAA73BB1D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Orders", "2 - Orders", "{4EBCC7BD-6280-610F-6D2D-B5B6CB6AFAC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orders.CommandHandlers", "src\Store\Orders.CommandHandlers\Orders.CommandHandlers.csproj", "{1FB32F79-27E9-4A58-889C-799B21516EBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orders.CommandHandlers", "src\backend\Store\Orders.CommandHandlers\Orders.CommandHandlers.csproj", "{1FB32F79-27E9-4A58-889C-799B21516EBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orders.Domain", "src\Store\Orders.Domain\Orders.Domain.csproj", "{C839B938-9125-4ED7-82ED-CDA34CD59C01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orders.Domain", "src\backend\Store\Orders.Domain\Orders.Domain.csproj", "{C839B938-9125-4ED7-82ED-CDA34CD59C01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orders.Infrastructure", "src\Store\Orders.Infrastructure\Orders.Infrastructure.csproj", "{B2E2E4C5-17CE-47EC-9F61-6B44618E4599}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orders.Infrastructure", "src\backend\Store\Orders.Infrastructure\Orders.Infrastructure.csproj", "{B2E2E4C5-17CE-47EC-9F61-6B44618E4599}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orders.Web.Api", "src\Store\Orders.Web.Api\Orders.Web.Api.csproj", "{5564D655-7EBD-45D7-864F-EBA6C69B9AAE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orders.Web.Api", "src\backend\Store\Orders.Web.Api\Orders.Web.Api.csproj", "{5564D655-7EBD-45D7-864F-EBA6C69B9AAE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Payments", "3 - Payments", "{FEB234CB-B6DD-54C6-A39F-910FA576FE23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway.Payment.Data", "src\Payments\Gateway.Payment.Data\Gateway.Payment.Data.csproj", "{353DDD31-D5C5-40A5-88DE-B0919850AA16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway.Payment.Data", "src\backend\Payments\Gateway.Payment.Data\Gateway.Payment.Data.csproj", "{353DDD31-D5C5-40A5-88DE-B0919850AA16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway.Payment.Web.Api", "src\Payments\Gateway.Payment.Web.Api\Gateway.Payment.Web.Api.csproj", "{26096F12-FFD1-4FBA-9F7A-6D2FA057A6F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway.Payment.Web.Api", "src\backend\Payments\Gateway.Payment.Web.Api\Gateway.Payment.Web.Api.csproj", "{26096F12-FFD1-4FBA-9F7A-6D2FA057A6F2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Shared", "4 - Shared", "{47348C72-7064-5C60-6D76-C52ACC4E3D8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frameworker.Integration.Tests", "src\Frameworker\Frameworker.Integration.Tests\Frameworker.Integration.Tests.csproj", "{A0B0F5CF-7D73-4750-989B-28B45A4F5C7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frameworker.Integration.Tests", "src\backend\Frameworker\Frameworker.Integration.Tests\Frameworker.Integration.Tests.csproj", "{A0B0F5CF-7D73-4750-989B-28B45A4F5C7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Programming.Functional", "src\Frameworker\Programming.Functional\Programming.Functional.csproj", "{079B415E-B2DE-46B4-B2AD-D4842FAE0F41}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Programming.Functional", "src\backend\Frameworker\Programming.Functional\Programming.Functional.csproj", "{079B415E-B2DE-46B4-B2AD-D4842FAE0F41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Programming.Functional.Tests", "src\Frameworker\Programming.Functional.Tests\Programming.Functional.Tests.csproj", "{F518CCE9-948F-4B5E-823D-9191E2A5B035}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Programming.Functional.Tests", "src\backend\Frameworker\Programming.Functional.Tests\Programming.Functional.Tests.csproj", "{F518CCE9-948F-4B5E-823D-9191E2A5B035}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Scenarios", "5 - Scenarios", "{312FFE19-4639-64CB-D030-0C06536753D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Scenarios.Integration.Spec.Tests", "src\Tests\Ecommerce.Scenarios.Integration.Spec.Tests\Ecommerce.Scenarios.Integration.Spec.Tests.csproj", "{5D39CB01-C226-4403-88F3-B1A8E2CE0076}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Scenarios.Integration.Spec.Tests", "src\backend\Tests\Ecommerce.Scenarios.Integration.Spec.Tests\Ecommerce.Scenarios.Integration.Spec.Tests.csproj", "{5D39CB01-C226-4403-88F3-B1A8E2CE0076}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Code", "src\Shared\Shared.Code\Shared.Code.csproj", "{A03DFA94-522A-4F6B-9B2E-25A912838460}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Code", "src\backend\Shared\Shared.Code\Shared.Code.csproj", "{A03DFA94-522A-4F6B-9B2E-25A912838460}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frameworker.EntityFrameworkCore", "src\Frameworker\Frameworker.EntityFrameworkCore\Frameworker.EntityFrameworkCore.csproj", "{10097F49-88E6-462A-876C-0C0375C50034}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frameworker.EntityFrameworkCore", "src\backend\Frameworker\Frameworker.EntityFrameworkCore\Frameworker.EntityFrameworkCore.csproj", "{10097F49-88E6-462A-876C-0C0375C50034}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{243909DF-C6AD-496C-A369-34B50910A2CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frontend", "frontend", "{6ED618E5-C117-4B8E-A06B-7BFCB6E07ACD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -268,6 +272,11 @@ Global
 		{5D39CB01-C226-4403-88F3-B1A8E2CE0076} = {312FFE19-4639-64CB-D030-0C06536753D5}
 		{A03DFA94-522A-4F6B-9B2E-25A912838460} = {47348C72-7064-5C60-6D76-C52ACC4E3D8B}
 		{10097F49-88E6-462A-876C-0C0375C50034} = {47348C72-7064-5C60-6D76-C52ACC4E3D8B}
+		{B5ED8499-BF07-7483-ABE8-B168999EAA4C} = {243909DF-C6AD-496C-A369-34B50910A2CA}
+		{4EBCC7BD-6280-610F-6D2D-B5B6CB6AFAC8} = {243909DF-C6AD-496C-A369-34B50910A2CA}
+		{FEB234CB-B6DD-54C6-A39F-910FA576FE23} = {243909DF-C6AD-496C-A369-34B50910A2CA}
+		{47348C72-7064-5C60-6D76-C52ACC4E3D8B} = {243909DF-C6AD-496C-A369-34B50910A2CA}
+		{312FFE19-4639-64CB-D030-0C06536753D5} = {243909DF-C6AD-496C-A369-34B50910A2CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E91BD82A-F2FA-4028-80CE-2541351E47AA}
