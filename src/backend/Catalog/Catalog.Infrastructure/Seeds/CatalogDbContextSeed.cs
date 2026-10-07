@@ -1,23 +1,62 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace Catalog.Infrastructure.Seeds;
 
-public static class ApplicationCatalogDbContextSeed
+public static class CatalogDbContextSeed
 {
+    private const int TotalProducts = 1000;
+
     public static async Task Seed(this ApplicationCatalogDbContext dbContext)
     {
         await dbContext.Database.EnsureCreatedAsync();
-        if (await dbContext.Products.AnyAsync()) return;
-        await dbContext.Products.AddRangeAsync(GetProducts());
+
+        // Insere só os produtos que faltam, comparando pelo SKU: um banco
+        // criado com menos produtos é completado sem duplicar os existentes.
+        var existingSkus = (await dbContext.Products.Select(x => x.Sku).ToListAsync()).ToHashSet();
+        var missing = GetProducts().Where(x => !existingSkus.Contains(x.Sku)).ToList();
+        if (missing.Count == 0) return;
+
+        await dbContext.Products.AddRangeAsync(missing);
         await dbContext.SaveChangesAsync();
+    }
+
+    private static List<Product> GetProducts()
+    {
+        var featured = GetFeaturedProducts();
+        return [.. featured, .. GenerateProducts(featured, TotalProducts - featured.Count)];
+    }
+
+    // Variações dos produtos em destaque, com a foto e a descrição do produto
+    // base. O Random tem semente fixa, então o seed gera sempre os mesmos dados.
+    // As combinações de nome (12 x 10 x 9 = 1080) não se repetem até 1080 produtos.
+    private static IEnumerable<Product> GenerateProducts(IReadOnlyList<Product> featured, int count)
+    {
+        string[] brands = ["Air", "Urban", "Volt", "Zenith", "Nova", "Pulse", "Core", "Aero", "Swift", "Terra", "Metro", "Apex"];
+        string[] models = ["Runner", "Court", "Trail", "Low", "High", "Flex", "Glide", "Pro", "Lite", "Max"];
+        string[] colors = ["Black", "White", "Navy", "Red", "Grey", "Olive", "Sand", "Blue", "Green"];
+        var random = new Random(42);
+
+        for (var i = 0; i < count; i++)
+        {
+            var baseProduct = featured[i % featured.Count];
+            var color = colors[i / (brands.Length * models.Length) % colors.Length];
+            var name = $"{brands[i % brands.Length]} {models[i / brands.Length % models.Length]} {color}";
+            var sku = $"SKU-{featured.Count + i + 1:D4}";
+            var price = random.Next(49, 200);
+
+            yield return new Product(name, sku, baseProduct.PictureUri, price,
+                $"{color} edition. {baseProduct.Description}");
+        }
     }
 
     // Mesmos produtos que o front-end usava no data/products.json, na mesma ordem:
     // assim os ids gerados (1 a 10) batem com carrinhos já salvos no navegador.
-    private static List<Product> GetProducts()
+    private static List<Product> GetFeaturedProducts()
     {
         return
         [
