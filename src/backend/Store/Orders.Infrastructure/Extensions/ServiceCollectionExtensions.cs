@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IPaymentGateway, PaymentGateway>();
         services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
-        services.AddScoped<IRequestHandler<CreateCommand>, OrderHandler>();
+        services.AddScoped<IRequestHandler<CreateCommand, CreateOrderResult>, OrderHandler>();
         // Npgsql 6+ só aceita DateTime UTC em "timestamp with time zone"; mantém o comportamento
         // anterior porque Order.OrderDate usa DateTime.Now. Remover ao migrar o domínio para UTC.
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

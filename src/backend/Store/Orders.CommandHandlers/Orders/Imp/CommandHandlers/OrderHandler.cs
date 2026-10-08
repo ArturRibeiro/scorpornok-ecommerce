@@ -2,18 +2,24 @@
 
 public class OrderHandler
     (IOrderRepository orderRepository) 
-    : IRequestHandler<CreateCommand>
+    : IRequestHandler<CreateCommand, CreateOrderResult>
 {
-    public async Task Handle(CreateCommand command, CancellationToken cancellationToken)
+    public async Task<CreateOrderResult> Handle(CreateCommand command, CancellationToken cancellationToken)
     {
-        var order = OrderBuilder.Create(customerId: Guid.NewGuid())
-            .AddAddress(command.Address.Street, command.Address.City, command.Address.State, command.Address.Country, command.Address.ZipCode)
-            .AddProduct(command.Items, CreateOrderItem)
+        // Endereço e itens ausentes no JSON chegam como null; viram erros de validação, não exceção.
+        var address = command.Address ?? new OrderAddressMessageResponse();
+        var order = OrderBuilder.Create(customerId: command.UserId)
+            .AddAddress(address.Street, address.City, address.State, address.Country, address.ZipCode)
+            .AddProduct(command.Items ?? [], CreateOrderItem)
             .AddPaymentMethod(command.Card, CreatePaymentMethod)
             .Build();
 
+        if (!order.IsValid())
+            return CreateOrderResult.Invalid(order.Errors);
+
         orderRepository.Save(order);
         await orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+        return CreateOrderResult.Created(order);
     }
 
     private static Action<OrderItemMessageResponse, OrderBuilder> CreateOrderItem =>

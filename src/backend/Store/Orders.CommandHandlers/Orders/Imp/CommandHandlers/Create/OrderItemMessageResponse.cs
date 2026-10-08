@@ -4,7 +4,7 @@
     public class OrderItemMessageResponse
     {
         [DataMember]
-        public Guid ProductId { get; set; }
+        public int ProductId { get; set; }
 
         [DataMember] public string ProductName { get; set; }
 

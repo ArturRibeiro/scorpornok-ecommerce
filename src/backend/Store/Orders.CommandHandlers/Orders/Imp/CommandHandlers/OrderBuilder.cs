@@ -33,7 +33,7 @@ public class OrderBuilder
         return this;
     }
 
-    public void CreateItem(Guid productId, string productName, decimal unitPrice, decimal discount, string pictureUrl, int units)
+    public void CreateItem(int productId, string productName, decimal unitPrice, decimal discount, string pictureUrl, int units)
     {
         _items.Add(OrderItem.Create(productId, productName, unitPrice, discount, pictureUrl, units));
     }

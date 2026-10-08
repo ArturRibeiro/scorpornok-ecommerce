@@ -1,6 +1,58 @@
 @Orders.Web.Api_HostAddress = http://localhost:5224
 
-GET {{Orders.Web.Api_HostAddress}}/createOrder/
+### Pedido válido: 201 com orderNumber, status e total
+POST {{Orders.Web.Api_HostAddress}}/createOrder
+Content-Type: application/json
 Accept: application/json
 
-###
+{
+  "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "address": {
+    "street": "Rua das Flores, 100",
+    "city": "São Paulo",
+    "state": "SP",
+    "country": "Brasil",
+    "zipCode": "01000-000"
+  },
+  "items": [
+    { "productId": 1, "productName": "Produto 1", "pictureUrl": "https://picsum.photos/200", "unitPrice": 10.00, "discount": 0, "units": 2 },
+    { "productId": 2, "productName": "Produto 2", "pictureUrl": "https://picsum.photos/200", "unitPrice": 5.00, "discount": 0, "units": 1 }
+  ],
+  "card": {
+    "orderId": "00000000-0000-0000-0000-000000000000",
+    "cardHolderName": "Fulano de Tal",
+    "cardNumber": "4111111111111111",
+    "expirationMonth": "12",
+    "expirationYear": "2030",
+    "cvv": "123",
+    "amount": 25.00,
+    "installments": 1
+  }
+}
+
+### Pedido inválido (sem cidade e sem itens): 400 com errors
+POST {{Orders.Web.Api_HostAddress}}/createOrder
+Content-Type: application/json
+Accept: application/json
+
+{
+  "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "address": {
+    "street": "Rua das Flores, 100",
+    "city": "",
+    "state": "SP",
+    "country": "Brasil",
+    "zipCode": "01000-000"
+  },
+  "items": [],
+  "card": {
+    "orderId": "00000000-0000-0000-0000-000000000000",
+    "cardHolderName": "Fulano de Tal",
+    "cardNumber": "4111111111111111",
+    "expirationMonth": "12",
+    "expirationYear": "2030",
+    "cvv": "123",
+    "amount": 0,
+    "installments": 1
+  }
+}

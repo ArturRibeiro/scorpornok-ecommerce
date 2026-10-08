@@ -21,4 +21,9 @@ public sealed class MemoryBus : IMemoryBus
         //string serialize = System.Text.Json.JsonSerializer.Serialize(message);
         await _mediator.Send(command);
     }
+
+    // O cast escolhe a sobrecarga Send(IRequest<TResponse>) do MediatR; sem ele,
+    // Send<TRequest>(TRequest) casaria primeiro e a resposta se perderia.
+    public Task<TResponse> RequestAsync<TResponse>(Message<TResponse> command)
+        => _mediator.Send((IRequest<TResponse>)command);
 }

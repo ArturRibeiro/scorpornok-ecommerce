@@ -5,7 +5,7 @@ public record CreateCommand(
     OrderAddressMessageResponse Address,
     IList<OrderItemMessageResponse> Items,
     CreditCardPaymentCommand Card)
-    : Message;
+    : Message<CreateOrderResult>;
 
 /// <summary>
 /// Command que representa os dados necessários para processar um pagamento via cartão de crédito.

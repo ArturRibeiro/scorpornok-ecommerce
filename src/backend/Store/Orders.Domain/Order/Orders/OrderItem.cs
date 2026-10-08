@@ -13,13 +13,13 @@
 
         #region Properties
 
-        public Guid ProductId { get; private set; }
+        public int ProductId { get; private set; }
 
         #endregion
 
         //protected OrderItem() { }
 
-        private OrderItem(Guid productId, string productName, decimal unitPrice, decimal discount, string PictureUrl, int quantity)
+        private OrderItem(int productId, string productName, decimal unitPrice, decimal discount, string PictureUrl, int quantity)
         {
             ProductId = productId;
             ProductName = productName;
@@ -31,7 +31,7 @@
 
         
 
-        public static OrderItem Create(Guid productId, string productName, decimal unitPrice, decimal discount, string pictureUrl, int units)
+        public static OrderItem Create(int productId, string productName, decimal unitPrice, decimal discount, string pictureUrl, int units)
             => new OrderItem(productId, productName, unitPrice, discount, pictureUrl, units);
     }
 }

@@ -17,14 +17,17 @@
                 .Equal(DateTime.Now.Date)
                 .WithMessage("Current Date incorret.");
 
-            RuleFor(x => x.PaymentId)
-                .NotEmpty()
-                .WithMessage("Payment code not found.");
+            // O pedido nasce Pending, antes do pagamento, então o PaymentId
+            // ainda não existe na criação.
 
             RuleFor(x => x.Address)
                 .NotNull()
                 .SetValidator(new OrderAddressValidation())
                 .WithMessage("Address not found.");
+
+            RuleFor(x => x.Items)
+                .NotEmpty()
+                .WithMessage("Order has no items.");
 
             RuleForEach(x => x.Items)
                 .NotNull()

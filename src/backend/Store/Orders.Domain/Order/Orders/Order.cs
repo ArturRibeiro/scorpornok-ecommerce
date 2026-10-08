@@ -43,7 +43,7 @@ public class Order : Entity<int>, IAggregateRoot
     public void AddPaymentMethodCreditCard(PaymentMethod paymentMethod) => this.PaymentMethod = paymentMethod;
     public void ChangeStatus(OrderStatus failed) => Status = failed;
     public void AddAddress(OrderAddress address) => this.Address = address;
-    public void RemoveItem(Guid productId)
+    public void RemoveItem(int productId)
     {
         var item = _items.FirstOrDefault(i => i.ProductId == productId);
         if (item != null) _items.Remove(item);

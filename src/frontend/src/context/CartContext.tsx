@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useSyncExternalStore } from "react";
 
-interface CartItem {
+export interface CartItem {
   id: number;
   name: string;
   price: number;

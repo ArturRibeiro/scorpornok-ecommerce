@@ -1,5 +1,4 @@
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -14,9 +13,8 @@ export default function OrderSummary() {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  const shipping = subtotal > 50 ? 0 : 9.99;
-  const tax = subtotal * 0.08;
-  const total = subtotal + shipping + tax;
+  // O total é só a soma dos itens, igual ao Total que o Orders registra.
+  const total = subtotal;
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -34,24 +32,6 @@ export default function OrderSummary() {
             <span className="font-medium">${subtotal.toFixed(2)}</span>
           </div>
 
-          <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Shipping</span>
-            <span className="font-medium">
-              {shipping === 0 ? (
-                <Badge variant="secondary" className="text-xs">
-                  Free
-                </Badge>
-              ) : (
-                `$${shipping.toFixed(2)}`
-              )}
-            </span>
-          </div>
-
-          <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Tax</span>
-            <span className="font-medium">${tax.toFixed(2)}</span>
-          </div>
-
           <Separator />
 
           <div className="flex justify-between">
@@ -61,20 +41,6 @@ export default function OrderSummary() {
             </span>
           </div>
         </div>
-
-        {shipping > 0 && (
-          <div className="p-3 bg-accent/10 rounded-lg border border-accent/20">
-            <div className="flex items-center gap-2 mb-2">
-              <Truck className="h-4 w-4 text-accent-foreground" />
-              <span className="text-sm font-medium text-accent-foreground">
-                Free shipping on orders over $50
-              </span>
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Add ${(50 - subtotal).toFixed(2)} more to qualify!
-            </p>
-          </div>
-        )}
 
         <Button
           size="lg"

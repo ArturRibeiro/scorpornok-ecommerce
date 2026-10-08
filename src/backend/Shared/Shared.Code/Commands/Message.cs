@@ -7,4 +7,8 @@ public abstract record Message : IRequest
     protected Message() => MessageType = GetType().Name;
 }
 
-
+/// <summary>
+/// Mensagem cujo handler devolve uma resposta (ex.: o resultado de criar um pedido).
+/// Enviada pelo <see cref="IMemoryBus.RequestAsync{TResponse}"/>.
+/// </summary>
+public abstract record Message<TResponse> : Message, IRequest<TResponse>;

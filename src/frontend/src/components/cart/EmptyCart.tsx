@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Shield, ShoppingBag, Truck } from "lucide-react";
+import { Shield, ShoppingBag } from "lucide-react";
 import { Link } from "react-router";
 
 export default function EmptyCart() {
@@ -26,10 +26,6 @@ export default function EmptyCart() {
           </Button>
 
           <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <Truck className="h-4 w-4" />
-              Free shipping over $50
-            </div>
             <div className="flex items-center gap-2">
               <Shield className="h-4 w-4" />
               Secure checkout

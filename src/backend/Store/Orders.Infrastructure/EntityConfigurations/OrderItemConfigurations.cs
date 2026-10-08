@@ -14,7 +14,7 @@
             orderItemConfiguration.Property<decimal>("Discount")
                 .IsRequired();
 
-            orderItemConfiguration.Property<Guid>("ProductId")
+            orderItemConfiguration.Property<int>("ProductId")
                 .IsRequired();
 
             orderItemConfiguration.Property<string>("ProductName")
