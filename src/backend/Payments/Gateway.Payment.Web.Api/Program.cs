@@ -1,14 +1,18 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Vem do appsettings.Development.json (dotnet run) ou do docker compose (variável de ambiente).
+var connectionString = builder.Configuration.GetConnectionString("ConnectionString")
+    ?? throw new InvalidOperationException("ConnectionStrings:ConnectionString não configurada.");
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHealthChecks();
+// Banco, gateway e o consumidor das solicitações de pagamento (RabbitMq no appsettings).
+builder.Services.AddInfrastructure(connectionString, builder.Configuration);
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<PaymentContext>(tags: ["ready"]);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -17,32 +21,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// live: o processo responde. Sem dependências externas, ready é igual a live.
-app.MapHealthChecks("/health/live");
-app.MapHealthChecks("/health/ready");
+// live: o processo responde (não executa checks); ready: o banco responde (o broker não entra no check).
+app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false });
+app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = check => check.Tags.Contains("ready") });
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast");
+using (var scope = app.Services.CreateScope())
+    await scope.ServiceProvider.GetRequiredService<PaymentContext>().Database.EnsureCreatedAsync();
+Console.WriteLine("Database created successfully!");
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+public partial class Program
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }

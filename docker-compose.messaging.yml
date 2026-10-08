@@ -1,0 +1,34 @@
+# Broker de mensagens. Orders e Payments trocam a solicitação e o resultado do
+# pagamento por ele (MassTransit). Painel em http://localhost:15672 (guest/guest).
+#
+# Só o broker (ex.: para rodar as APIs com dotnet run):
+#   docker compose -f docker-compose.messaging.yml up -d
+services:
+  rabbitmq:
+    image: rabbitmq:4.1-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+    networks:
+      - ecommerce-networks
+
+volumes:
+  rabbitmq_data:
+
+networks:
+  ecommerce-networks:
+    driver: bridge
+    # Mesma sub-rede de docker-compose.database.yml (veja o motivo lá),
+    # para o arquivo também funcionar sozinho.
+    ipam:
+      config:
+        - subnet: 192.168.100.0/24

@@ -25,6 +25,7 @@
         <coverletcollector>3.0.2</coverletcollector>
 
         <MediatR>13.1.0</MediatR>
+        <MassTransit>8.5.10</MassTransit>
         <Scrutor>3.3.0</Scrutor>
         <DotNetTestcontainers>1.6.0</DotNetTestcontainers>
         <SeleniumSupport>3.141.0</SeleniumSupport>

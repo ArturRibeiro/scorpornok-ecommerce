@@ -38,6 +38,27 @@ public class Order : Entity<int>, IAggregateRoot
     }
     
     public void ChangeStatus(OrderStatus failed) => Status = failed;
+
+    /// <summary>Pagamento aprovado: confirma o pedido. Só age sobre pedido pendente.</summary>
+    /// <returns>Se o pedido mudou; resultado repetido ou atrasado não altera nada.</returns>
+    public bool ConfirmPayment(Guid paymentId)
+    {
+        if (!IsPending) return false;
+        PaymentId = paymentId;
+        Status = OrderStatus.Confirmed;
+        return true;
+    }
+
+    /// <summary>Pagamento recusado: marca a falha. Só age sobre pedido pendente.</summary>
+    /// <returns>Se o pedido mudou.</returns>
+    public bool FailPayment()
+    {
+        if (!IsPending) return false;
+        Status = OrderStatus.Failed;
+        return true;
+    }
+
+    private bool IsPending => Status.Code == OrderStatus.Pending.Code;
     public void AddAddress(OrderAddress address) => this.Address = address;
     public void RemoveItem(int productId)
     {

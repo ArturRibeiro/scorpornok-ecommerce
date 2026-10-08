@@ -1,7 +1,7 @@
 // Cliente do Orders.Web.Api. Como o catalog.ts, roda no navegador: a URL é a
 // porta publicada no host (VITE_ORDERS_API_URL, embutida no build) e a API
 // precisa liberar a origem do front no CORS.
-const ORDERS_API_URL =
+export const ORDERS_API_URL =
   import.meta.env.VITE_ORDERS_API_URL ?? "http://localhost:5224";
 
 // Formato do CreateCommand no backend.

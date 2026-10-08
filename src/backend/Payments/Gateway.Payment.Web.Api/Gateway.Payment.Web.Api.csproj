@@ -9,6 +9,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="$(AspNetCoreOpenApi)"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="$(Swashbuckle)"/>
+        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="$(HealthChecksEntityFrameworkCore)" />
     </ItemGroup>
 
     <ItemGroup>

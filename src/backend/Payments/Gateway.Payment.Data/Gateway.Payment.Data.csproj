@@ -8,11 +8,13 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCore)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EntityFrameworkCore)" />
     <PackageReference Include="Newtonsoft.Json" Version="$(NewtonsoftJson)" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(EntityFrameworkCorePostgreSQL)" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransit)" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Shared.Code\Shared.Code.csproj" />
-    <ProjectReference Include="..\Gateway.Payment.Domain\Gateway.Payment.Domain.csproj" />
+    <ProjectReference Include="..\Gateway.Payment.CommandHandlers\Gateway.Payment.CommandHandlers.csproj" />
   </ItemGroup>
 
 </Project>

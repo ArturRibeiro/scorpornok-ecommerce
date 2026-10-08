@@ -1,8 +1,9 @@
-# Aplicação: sobe as APIs junto com os bancos de docker-compose.database.yml
-# e o front-end de docker-compose.frontend.yml.
+# Aplicação: sobe as APIs junto com os bancos de docker-compose.database.yml,
+# o RabbitMQ de docker-compose.messaging.yml e o front-end de docker-compose.frontend.yml.
 #   docker compose up -d --build
 include:
   - docker-compose.database.yml
+  - docker-compose.messaging.yml
   - docker-compose.frontend.yml
 
 services:
@@ -34,10 +35,13 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__ConnectionString: Host=orders-db;Port=5432;Database=orders;Username=sa;Password=sa
+      RabbitMq__Host: rabbitmq
     ports:
       - 5224:8080
     depends_on:
       orders-db:
+        condition: service_healthy
+      rabbitmq:
         condition: service_healthy
     networks:
       - ecommerce-networks
@@ -51,12 +55,14 @@ services:
     container_name: payment_api
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      # Ainda não é lida pela API; fica pronta para o event store (Gateway.Payment.Data).
       ConnectionStrings__ConnectionString: Host=payment-db;Port=5432;Database=payment;Username=sa;Password=sa
+      RabbitMq__Host: rabbitmq
     ports:
       - 5220:8080
     depends_on:
       payment-db:
+        condition: service_healthy
+      rabbitmq:
         condition: service_healthy
     networks:
       - ecommerce-networks
