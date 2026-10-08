@@ -1,5 +1,3 @@
-using MassTransit;
-
 namespace Orders.Infrastructure.Messaging;
 
 public class MassTransitIntegrationEventPublisher(IPublishEndpoint publishEndpoint) : IIntegrationEventPublisher

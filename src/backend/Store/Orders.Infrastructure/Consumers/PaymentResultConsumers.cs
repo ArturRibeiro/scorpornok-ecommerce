@@ -1,5 +1,3 @@
-using MassTransit;
-
 namespace Orders.Infrastructure.Consumers;
 
 // Consumidores finos: traduzem a mensagem do Payments em comando e o entregam ao

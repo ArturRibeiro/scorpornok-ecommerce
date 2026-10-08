@@ -5,6 +5,7 @@ global using System.Diagnostics.CodeAnalysis;
 global using System.IO;
 global using System.Threading;
 global using System.Threading.Tasks;
+global using MassTransit;
 global using MediatR;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Design;

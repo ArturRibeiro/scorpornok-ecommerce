@@ -1,6 +1,4 @@
-﻿using MassTransit;
-
-namespace Orders.Infrastructure.Extensions;
+﻿namespace Orders.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {

@@ -38,11 +38,11 @@
 
 - [x] 6.1 Instalar `@microsoft/signalr` 10.0.11 e criar `lib/orderHub.ts` (`watchOrderPayment`, encerra a conexão ao receber o resultado ou ao abortar); verificar com `npm run build` e `npm run lint`
 - [x] 6.2 Fazer o `OrderConfirmation` esperar a mensagem do hub (tempo-limite de 30 s) e mostrar processando/aprovado/recusado/ainda em processamento; verificar no navegador os casos aprovado (final `1111`), recusado (final `0000`) e sem resposta (com o `payment-api` parado), e na aba Network que não há requisições repetidas ao Orders além da conexão do hub
-- [ ] 6.3 Atualizar o `src/frontend/CLAUDE.md` (conexão com o hub e acompanhamento do pagamento); verificar que a descrição bate com o código
+- [x] 6.3 Atualizar o `src/frontend/CLAUDE.md` (conexão com o hub e acompanhamento do pagamento); verificar que a descrição bate com o código
 
 ## 7. Integração
 
-- [ ] 7.1 Rodar `dotnet test Scorponok.sln` e `npm run build && npm run lint` em `src/frontend`, todos sem falhas
+- [x] 7.1 Rodar `dotnet test Scorponok.sln` e `npm run build && npm run lint` em `src/frontend`, todos sem falhas
 
 ## Workflow follow-up
 
