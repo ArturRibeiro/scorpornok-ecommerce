@@ -39,9 +39,22 @@ app.UseWebSockets(webSocketOptions);
 
 app.CreateOrder();
 app.MapHub<OrderHub>(OrderHub.Path);
-// live: o processo responde (não executa checks); ready: dependências ok (banco).
+// live: o processo responde (não executa checks); ready: pode registrar pedidos (banco);
+// bus: conexão com o RabbitMQ, fora do ready porque o outbox segura as mensagens.
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false });
 app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = check => check.Tags.Contains("ready") });
+app.MapHealthChecks("/health/bus", new HealthCheckOptions
+{
+    Predicate = check => check.Tags.Contains("bus"),
+    // Broker que cai depois da partida deixa o bus "Degraded" (reconectando), não "Unhealthy";
+    // o padrão responderia 200 e esconderia a queda.
+    ResultStatusCodes =
+    {
+        [HealthStatus.Healthy] = StatusCodes.Status200OK,
+        [HealthStatus.Degraded] = StatusCodes.Status503ServiceUnavailable,
+        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+    }
+});
 
 using (var scope = app.Services.CreateScope()) 
     await scope.ServiceProvider.GetRequiredService<OrderContext>().Seed();

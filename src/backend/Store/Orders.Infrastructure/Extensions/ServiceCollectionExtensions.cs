@@ -36,6 +36,13 @@ public static class ServiceCollectionExtensions
                 o.UsePostgres();
                 o.UseBusOutbox();
             });
+            // O check do bus vem com a tag "ready"; com o outbox, o pedido não depende do broker,
+            // então ele sai do /health/ready e fica só no /health/bus.
+            x.ConfigureHealthCheckOptions(o =>
+            {
+                o.Tags.Clear();
+                o.Tags.Add("bus");
+            });
             x.UsingRabbitMq((context, cfg) =>
             {
                 var rabbitMq = configuration.GetSection("RabbitMq");
