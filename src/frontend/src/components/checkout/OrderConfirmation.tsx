@@ -6,49 +6,64 @@ import { CheckCircle2, Clock, Loader2, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
-// Sem mensagem do hub nesse prazo, a tela deixa de esperar.
-const PAYMENT_TIMEOUT_MS = 30_000;
+// Sem mensagem do hub nesse prazo, a tela deixa de esperar: o resultado vai por e-mail.
+const PAYMENT_TIMEOUT_MS = 10_000;
 
 type PaymentState = "processing" | "approved" | "declined" | "pending";
 
-const PAYMENT_VIEW: Record<
-  PaymentState,
-  { icon: React.ReactNode; title: string; detail: string }
-> = {
-  processing: {
-    icon: <Loader2 className="h-16 w-16 text-primary mx-auto animate-spin" />,
-    title: "Processing your payment…",
-    detail: "Your order was placed. We'll update this page as soon as the payment is processed.",
-  },
-  approved: {
-    icon: <CheckCircle2 className="h-16 w-16 text-green-500 mx-auto" />,
-    title: "Thank you for your order!",
-    detail: "Your payment was approved.",
-  },
-  declined: {
-    icon: <XCircle className="h-16 w-16 text-destructive mx-auto" />,
-    title: "Payment declined",
-    detail: "Your order was placed, but the card was declined.",
-  },
-  pending: {
-    icon: <Clock className="h-16 w-16 text-muted-foreground mx-auto" />,
-    title: "Payment still processing",
-    detail: "Your order was placed, but the payment is still being processed.",
-  },
+const PAYMENT_ICON: Record<PaymentState, React.ReactNode> = {
+  processing: <Loader2 className="h-16 w-16 text-primary mx-auto animate-spin" />,
+  approved: <CheckCircle2 className="h-16 w-16 text-green-500 mx-auto" />,
+  declined: <XCircle className="h-16 w-16 text-destructive mx-auto" />,
+  pending: <Clock className="h-16 w-16 text-muted-foreground mx-auto" />,
+};
+
+const paymentView = (
+  state: PaymentState,
+  email: string
+): { title: string; detail: string } => {
+  switch (state) {
+    case "processing":
+      return {
+        title: "Processing your payment…",
+        detail: "Your order was placed. We'll update this page as soon as the payment is processed.",
+      };
+    case "approved":
+      return {
+        title: "Thank you for your order!",
+        detail: `Your payment was approved. We sent the confirmation to ${email}.`,
+      };
+    case "declined":
+      return {
+        title: "Payment declined",
+        detail: `Your card was declined. We sent the details to ${email}.`,
+      };
+    case "pending":
+      return {
+        title: "Payment pending",
+        detail: `Your order was placed and the payment is pending. We'll send the result to ${email}.`,
+      };
+  }
 };
 
 const PAYMENT_LABEL: Record<PaymentState, string> = {
   processing: "Processing",
   approved: "Approved",
   declined: "Declined",
-  pending: "Still processing",
+  pending: "Pending",
 };
 
-export default function OrderConfirmation({ order }: { order: CreatedOrder }) {
+export default function OrderConfirmation({
+  order,
+  email,
+}: {
+  order: CreatedOrder;
+  email: string;
+}) {
   const [payment, setPayment] = useState<PaymentState>("processing");
 
   // Recebe o resultado pelo hub do Orders, sem consultar o pedido. Falha de conexão
-  // ou prazo esgotado viram "pending": o pedido existe, só o resultado não chegou.
+  // ou prazo esgotado viram "pending": o pedido existe e o resultado chega por e-mail.
   useEffect(() => {
     const controller = new AbortController();
     let unmounted = false;
@@ -68,13 +83,13 @@ export default function OrderConfirmation({ order }: { order: CreatedOrder }) {
     };
   }, [order.orderNumber]);
 
-  const view = PAYMENT_VIEW[payment];
+  const view = paymentView(payment, email);
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <Card className="max-w-lg mx-auto">
         <CardContent className="pt-8 text-center space-y-4">
-          {view.icon}
+          {PAYMENT_ICON[payment]}
           <h1 className="text-2xl font-bold text-foreground">{view.title}</h1>
           <p className="text-muted-foreground">{view.detail}</p>
           <dl className="grid grid-cols-2 gap-2 text-left text-sm rounded-lg bg-muted p-4">

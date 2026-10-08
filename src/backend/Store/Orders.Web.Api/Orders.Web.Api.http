@@ -1,12 +1,13 @@
 @Orders.Web.Api_HostAddress = http://localhost:5224
 
-### Pedido válido: 201 com orderNumber, status e total
+### Pedido válido: 201 com orderNumber, status e total (o resultado do pagamento vai para o email)
 POST {{Orders.Web.Api_HostAddress}}/createOrder
 Content-Type: application/json
 Accept: application/json
 
 {
   "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "email": "cliente@exemplo.com",
   "address": {
     "street": "Rua das Flores, 100",
     "city": "São Paulo",
@@ -30,7 +31,7 @@ Accept: application/json
   }
 }
 
-### Pedido inválido (sem cidade e sem itens): 400 com errors
+### Pedido inválido (sem email, sem cidade e sem itens): 400 com errors
 POST {{Orders.Web.Api_HostAddress}}/createOrder
 Content-Type: application/json
 Accept: application/json

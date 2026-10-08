@@ -16,7 +16,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCore)" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(EntityFrameworkCorePostgreSQL)" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransit)" />
+    <PackageReference Include="MassTransit.EntityFrameworkCore" Version="$(MassTransit)" />
+    <PackageReference Include="MailKit" Version="$(MailKit)" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(ConfigurationJson)" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(OptionsConfigurationExtensions)" />
   </ItemGroup>
 
   <ItemGroup>

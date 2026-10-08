@@ -4,7 +4,8 @@ public record CreateCommand(
     Guid UserId,
     OrderAddressMessageResponse Address,
     IList<OrderItemMessageResponse> Items,
-    CreditCardPaymentCommand Card)
+    CreditCardPaymentCommand Card,
+    string Email = null)
     : Message<CreateOrderResult>;
 
 /// <summary>

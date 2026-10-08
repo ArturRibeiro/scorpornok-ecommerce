@@ -1,9 +1,11 @@
 # Aplicação: sobe as APIs junto com os bancos de docker-compose.database.yml,
-# o RabbitMQ de docker-compose.messaging.yml e o front-end de docker-compose.frontend.yml.
+# o RabbitMQ de docker-compose.messaging.yml, o Mailpit de docker-compose.mail.yml
+# e o front-end de docker-compose.frontend.yml.
 #   docker compose up -d --build
 include:
   - docker-compose.database.yml
   - docker-compose.messaging.yml
+  - docker-compose.mail.yml
   - docker-compose.frontend.yml
 
 services:
@@ -36,6 +38,14 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__ConnectionString: Host=orders-db;Port=5432;Database=orders;Username=sa;Password=sa
       RabbitMq__Host: rabbitmq
+      # Mailpit por padrão. Para enviar de verdade (ex.: Gmail), defina SMTP_* num .env
+      # na raiz (fora do git); veja o CLAUDE.md.
+      Smtp__Host: ${SMTP_HOST:-mailpit}
+      Smtp__Port: ${SMTP_PORT:-1025}
+      Smtp__From: ${SMTP_FROM:-store@scorponok.local}
+      Smtp__Username: ${SMTP_USERNAME:-}
+      Smtp__Password: ${SMTP_PASSWORD:-}
+      Smtp__UseStartTls: ${SMTP_USE_STARTTLS:-false}
     ports:
       - 5224:8080
     depends_on:
@@ -43,6 +53,8 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+      mailpit:
+        condition: service_started
     networks:
       - ecommerce-networks
 

@@ -13,6 +13,14 @@
                 .NotNull()
                 .WithMessage("Order number not found");
 
+            // Para onde vai o e-mail com o resultado do pagamento.
+            RuleFor(x => x.Email)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty()
+                .WithMessage("Invalid email.")
+                .EmailAddress()
+                .WithMessage("Invalid email.");
+
             RuleFor(x => x.OrderDate.Date)
                 .Equal(DateTime.Now.Date)
                 .WithMessage("Current Date incorret.");

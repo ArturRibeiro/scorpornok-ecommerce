@@ -22,11 +22,14 @@ public class Order : Entity<int>, IAggregateRoot
     public IReadOnlyCollection<OrderItem> Items => new ReadOnlyCollection<OrderItem>(_items);
     public OrderAddress Address { get; private set; }
     public Guid CustomerId { get; private set; }
+    public string Email { get; private set; }
     public Guid? PaymentId { get; private set; }
     public string OrderNumber { get; private set; }
     public DateTime OrderDate { get; private set; } = DateTime.Now;
     public OrderStatus Status { get; private set; } = OrderStatus.Pending;
     public decimal Total { get; private set; }
+    /// <summary>Quando o e-mail com o resultado do pagamento foi enviado; nulo enquanto não foi.</summary>
+    public DateTime? PaymentEmailSentAt { get; private set; }
     
 
     #endregion
@@ -59,7 +62,16 @@ public class Order : Entity<int>, IAggregateRoot
     }
 
     private bool IsPending => Status.Code == OrderStatus.Pending.Code;
+
+    /// <summary>O pagamento já tem resultado (confirmado ou recusado) e o cliente ainda não recebeu o e-mail.</summary>
+    public bool IsAwaitingPaymentEmail
+        => PaymentEmailSentAt is null
+           && (Status.Code == OrderStatus.Confirmed.Code || Status.Code == OrderStatus.Failed.Code);
+
+    /// <summary>Registra o envio do e-mail do resultado. Só a primeira marcação vale.</summary>
+    public void MarkPaymentEmailSent() => PaymentEmailSentAt ??= DateTime.Now;
     public void AddAddress(OrderAddress address) => this.Address = address;
+    public void AddEmail(string email) => Email = email?.Trim();
     public void RemoveItem(int productId)
     {
         var item = _items.FirstOrDefault(i => i.ProductId == productId);

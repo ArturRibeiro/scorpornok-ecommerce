@@ -9,6 +9,7 @@ public class OrderHandler
         // Endereço e itens ausentes no JSON chegam como null; viram erros de validação, não exceção.
         var address = command.Address ?? new OrderAddressMessageResponse();
         var order = OrderBuilder.Create(customerId: command.UserId)
+            .AddEmail(command.Email)
             .AddAddress(address.Street, address.City, address.State, address.Country, address.ZipCode)
             .AddProduct(command.Items ?? [], CreateOrderItem)
             .Build();
@@ -16,14 +17,20 @@ public class OrderHandler
         if (!order.IsValid())
             return CreateOrderResult.Invalid(order.Errors);
 
-        orderRepository.Save(order);
-        await orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
-        await RequestPaymentAsync(order, command.Card, cancellationToken);
+        // Pedido e solicitação de pagamento na mesma transação: ou os dois ficam gravados, ou nenhum.
+        await orderRepository.ExecuteInTransactionAsync(async () =>
+        {
+            orderRepository.Save(order);
+            // Primeiro SaveChanges: gera o order.Id, que vai no PaymentRequested.
+            await orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await RequestPaymentAsync(order, command.Card, cancellationToken);
+        }, cancellationToken);
         return CreateOrderResult.Created(order);
     }
 
-    // O pagamento é do contexto Payments: o pedido já está salvo, então uma falha aqui
-    // não desfaz o pedido. Ele fica Pending (sem outbox, ver design da change).
+    // O publicador grava a mensagem no outbox do Orders (não fala com o broker), e ela só é
+    // persistida no SaveChanges seguinte. Publicar depois do último SaveChanges perderia a
+    // mensagem sem erro. A entrega ao RabbitMQ acontece em segundo plano.
     private async Task RequestPaymentAsync(Order order, CreditCardPaymentCommand card, CancellationToken cancellationToken)
     {
         if (card is null)
@@ -32,18 +39,12 @@ public class OrderHandler
             return;
         }
 
-        try
-        {
-            // O valor cobrado é o total do pedido, nunca o card.Amount enviado pelo cliente.
-            await publisher.PublishAsync(new PaymentRequested(order.Id, order.OrderNumber, order.CustomerId,
-                order.Total, card.Installments,
-                new CardData(card.CardHolderName, card.CardNumber, card.ExpirationMonth, card.ExpirationYear, card.Cvv)),
-                cancellationToken);
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Falha ao solicitar o pagamento do pedido {OrderNumber}; ele ficará Pending.", order.OrderNumber);
-        }
+        // O valor cobrado é o total do pedido, nunca o card.Amount enviado pelo cliente.
+        await publisher.PublishAsync(new PaymentRequested(order.Id, order.OrderNumber, order.CustomerId,
+            order.Total, card.Installments,
+            new CardData(card.CardHolderName, card.CardNumber, card.ExpirationMonth, card.ExpirationYear, card.Cvv)),
+            cancellationToken);
+        await orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
     }
 
     private static Action<OrderItemMessageResponse, OrderBuilder> CreateOrderItem =>

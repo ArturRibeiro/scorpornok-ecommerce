@@ -18,7 +18,7 @@ export interface PaymentDetails {
   installments: string;
 }
 
-export type CheckoutField = keyof ShippingAddress | keyof PaymentDetails;
+export type CheckoutField = "email" | keyof ShippingAddress | keyof PaymentDetails;
 export type CheckoutErrors = Partial<Record<CheckoutField, string>>;
 
 export const EMPTY_ADDRESS: ShippingAddress = {
@@ -41,12 +41,19 @@ export const EMPTY_PAYMENT: PaymentDetails = {
 // O número pode ser digitado com espaços ou hífens; só os dígitos vão para a API.
 export const onlyDigits = (value: string) => value.replace(/[\s-]/g, "");
 
+// Só a forma básica (algo@algo.dominio); o Orders valida de novo.
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export function validateCheckout(
+  email: string,
   address: ShippingAddress,
   payment: PaymentDetails,
   today = new Date()
 ): CheckoutErrors {
   const errors: CheckoutErrors = {};
+
+  if (!email.trim()) errors.email = "Required";
+  else if (!EMAIL_PATTERN.test(email.trim())) errors.email = "Invalid email";
 
   for (const field of Object.keys(address) as (keyof ShippingAddress)[]) {
     if (!address[field].trim()) errors[field] = "Required";

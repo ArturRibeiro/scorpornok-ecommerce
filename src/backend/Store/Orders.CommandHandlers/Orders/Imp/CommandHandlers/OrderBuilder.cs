@@ -20,6 +20,12 @@ public class OrderBuilder
         return this;
     }
     
+    public OrderBuilder AddEmail(string email)
+    {
+        _order.AddEmail(email);
+        return this;
+    }
+
     public OrderBuilder AddProduct(IList<OrderItemMessageResponse> items, Action<OrderItemMessageResponse, OrderBuilder> func)
     {
         items.ToList().ForEach(item => func(item, this));

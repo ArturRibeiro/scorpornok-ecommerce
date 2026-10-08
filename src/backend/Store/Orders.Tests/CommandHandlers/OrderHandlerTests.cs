@@ -6,16 +6,30 @@ public class OrderHandlerTests
     private Mock<IOrderRepository> _repository = null!;
     private Mock<IIntegrationEventPublisher> _publisher = null!;
     private OrderHandler _handler = null!;
+    // Registra a ordem das chamadas: begin/commit da transação, add (Save), save (SaveEntitiesAsync), publish.
+    private List<string> _calls = null!;
 
     [SetUp]
     public void SetUp()
     {
+        _calls = [];
         var unitOfWork = new Mock<IUnitOfWork>();
-        unitOfWork.Setup(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true);
+        unitOfWork.Setup(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>()))
+            .Callback(() => _calls.Add("save")).ReturnsAsync(true);
         _repository = new Mock<IOrderRepository>();
         _repository.SetupGet(r => r.UnitOfWork).Returns(unitOfWork.Object);
-        _repository.Setup(r => r.Save(It.IsAny<Order>())).Returns((Order order) => order);
+        _repository.Setup(r => r.Save(It.IsAny<Order>()))
+            .Callback(() => _calls.Add("add")).Returns((Order order) => order);
+        _repository.Setup(r => r.ExecuteInTransactionAsync(It.IsAny<Func<Task>>(), It.IsAny<CancellationToken>()))
+            .Returns(async (Func<Task> work, CancellationToken _) =>
+            {
+                _calls.Add("begin");
+                await work();
+                _calls.Add("commit");
+            });
         _publisher = new Mock<IIntegrationEventPublisher>();
+        _publisher.Setup(p => p.PublishAsync(It.IsAny<PaymentRequested>(), It.IsAny<CancellationToken>()))
+            .Callback(() => _calls.Add("publish")).Returns(Task.CompletedTask);
         _handler = new OrderHandler(_repository.Object, _publisher.Object, NullLogger<OrderHandler>.Instance);
     }
 
@@ -29,6 +43,9 @@ public class OrderHandlerTests
             Units = units
         };
 
+    private static CreditCardPaymentCommand Card()
+        => new(Guid.Empty, "Fulano", "4111111111111111", "12", "2030", "123", 1m, 3);
+
     private static CreateCommand Command(Guid userId, string city = "São Paulo", params OrderItemMessageResponse[] items)
         => new(
             userId,
@@ -37,7 +54,8 @@ public class OrderHandlerTests
                 Street = "Rua A, 10", City = city, State = "SP", Country = "Brasil", ZipCode = "01000-000"
             },
             items,
-            new CreditCardPaymentCommand(Guid.Empty, "Fulano", "4111111111111111", "12", "2030", "123", 1m, 3));
+            Card(),
+            "cliente@exemplo.com");
 
     [Test]
     public async Task Pedido_valido_deve_ser_salvo_para_o_cliente_informado()
@@ -56,6 +74,7 @@ public class OrderHandlerTests
         result.Errors.Should().BeEmpty();
         saved.Should().NotBeNull();
         saved!.CustomerId.Should().Be(userId);
+        saved.Email.Should().Be("cliente@exemplo.com");
         saved.Items.Select(i => i.ProductId).Should().BeEquivalentTo([42, 7]);
     }
 
@@ -108,15 +127,43 @@ public class OrderHandlerTests
     }
 
     [Test]
-    public async Task Falha_ao_publicar_nao_deve_impedir_o_registro_do_pedido()
+    public async Task Pedido_valido_deve_publicar_antes_do_ultimo_save_dentro_da_transacao()
+    {
+        await _handler.Handle(Command(Guid.NewGuid(), items: [Item(42, 10m, 1)]), CancellationToken.None);
+
+        // O primeiro save gera o Id do pedido; a mensagem do outbox só é gravada no save seguinte.
+        _calls.Should().Equal("begin", "add", "save", "publish", "save", "commit");
+    }
+
+    [Test]
+    public async Task Falha_ao_publicar_deve_desfazer_o_registro_do_pedido()
     {
         _publisher.Setup(p => p.PublishAsync(It.IsAny<PaymentRequested>(), It.IsAny<CancellationToken>()))
-            .ThrowsAsync(new InvalidOperationException("broker fora do ar"));
+            .ThrowsAsync(new InvalidOperationException("falha ao gravar no outbox"));
 
-        var result = await _handler.Handle(Command(Guid.NewGuid(), items: [Item(42, 10m, 1)]), CancellationToken.None);
+        var act = () => _handler.Handle(Command(Guid.NewGuid(), items: [Item(42, 10m, 1)]), CancellationToken.None);
+
+        await act.Should().ThrowAsync<InvalidOperationException>();
+        _calls.Should().NotContain("commit");
+    }
+
+    [Test]
+    public async Task Pedido_sem_cartao_deve_ser_salvo_sem_solicitar_pagamento()
+    {
+        var command = Command(Guid.NewGuid(), items: [Item(42, 10m, 1)]) with { Card = null! };
+
+        var result = await _handler.Handle(command, CancellationToken.None);
 
         result.Success.Should().BeTrue();
-        result.Status.Should().Be(OrderStatus.Pending.Name);
-        _repository.Verify(r => r.Save(It.IsAny<Order>()), Times.Once);
+        _calls.Should().Equal("begin", "add", "save", "commit");
+    }
+
+    [Test]
+    public async Task Pedido_invalido_nao_deve_abrir_transacao()
+    {
+        await _handler.Handle(Command(Guid.NewGuid(), items: []), CancellationToken.None);
+
+        _repository.Verify(r => r.ExecuteInTransactionAsync(It.IsAny<Func<Task>>(), It.IsAny<CancellationToken>()),
+            Times.Never);
     }
 }

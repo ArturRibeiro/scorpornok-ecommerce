@@ -22,6 +22,12 @@
             modelBuilder.HasDefaultSchema("order");
             modelBuilder.ApplyConfiguration(new OrderItemConfigurations());
             modelBuilder.ApplyConfiguration(new OrderConfigurations());
+
+            // Tabelas do outbox do MassTransit: o PaymentRequested é gravado aqui, na mesma
+            // transação do pedido, e entregue ao RabbitMQ em segundo plano.
+            modelBuilder.AddInboxStateEntity();
+            modelBuilder.AddOutboxMessageEntity();
+            modelBuilder.AddOutboxStateEntity();
         }
     }
 }

@@ -4,6 +4,8 @@
         <TargetFramework>$(TargetFramework)</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <!-- Segredos locais (ex.: Smtp:Password de um provedor real), fora do repositório. -->
+        <UserSecretsId>357754b7-18ba-4c55-92c0-4745043a2719</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>

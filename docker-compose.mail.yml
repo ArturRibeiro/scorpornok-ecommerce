@@ -1,0 +1,25 @@
+# Servidor de e-mail de desenvolvimento. O Orders envia por SMTP o e-mail com o resultado
+# do pagamento; o Mailpit guarda as mensagens e não entrega nada para fora.
+# Caixa de entrada em http://localhost:8025.
+#
+# Só o Mailpit (ex.: para rodar o Orders com dotnet run):
+#   docker compose -f docker-compose.mail.yml up -d
+services:
+  mailpit:
+    image: axllent/mailpit:v1.31.1
+    container_name: mailpit
+    restart: always
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - ecommerce-networks
+
+networks:
+  ecommerce-networks:
+    driver: bridge
+    # Mesma sub-rede de docker-compose.database.yml (veja o motivo lá),
+    # para o arquivo também funcionar sozinho.
+    ipam:
+      config:
+        - subnet: 192.168.100.0/24

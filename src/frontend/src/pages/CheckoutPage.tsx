@@ -1,4 +1,5 @@
 import CheckoutItems from "@/components/checkout/CheckoutItems";
+import ContactForm from "@/components/checkout/ContactForm";
 import CheckoutSummary from "@/components/checkout/CheckoutSummary";
 import OrderConfirmation from "@/components/checkout/OrderConfirmation";
 import PaymentForm from "@/components/checkout/PaymentForm";
@@ -30,11 +31,13 @@ const NETWORK_ERROR =
 
 const toRequest = (
   cart: CartItem[],
+  email: string,
   address: ShippingAddress,
   payment: PaymentDetails,
   total: number
 ): CreateOrderRequest => ({
   userId: getCustomerId(),
+  email: email.trim(),
   address,
   items: cart.map((item) => ({
     productId: item.id,
@@ -58,6 +61,7 @@ const toRequest = (
 
 export default function CheckoutPage() {
   const { cart, clearCart } = useCart();
+  const [email, setEmail] = useState("");
   const [address, setAddress] = useState(EMPTY_ADDRESS);
   const [payment, setPayment] = useState(EMPTY_PAYMENT);
   const [errors, setErrors] = useState<CheckoutErrors>({});
@@ -67,7 +71,7 @@ export default function CheckoutPage() {
 
   // Vem antes do redirecionamento: o carrinho já foi esvaziado no sucesso.
   if (placedOrder) {
-    return <OrderConfirmation order={placedOrder} />;
+    return <OrderConfirmation order={placedOrder} email={email.trim()} />;
   }
 
   if (cart.length === 0) {
@@ -84,6 +88,11 @@ export default function CheckoutPage() {
       return next;
     });
 
+  const updateEmail = (value: string) => {
+    setEmail(value);
+    clearError("email");
+  };
+
   const updateAddress = (field: keyof ShippingAddress, value: string) => {
     setAddress((prev) => ({ ...prev, [field]: value }));
     clearError(field);
@@ -97,14 +106,14 @@ export default function CheckoutPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const found = validateCheckout(address, payment);
+    const found = validateCheckout(email, address, payment);
     setErrors(found);
     if (Object.keys(found).length > 0) return;
 
     setSubmitting(true);
     setSubmitErrors([]);
     try {
-      const result = await createOrder(toRequest(cart, address, payment, total));
+      const result = await createOrder(toRequest(cart, email, address, payment, total));
       if (result.ok) {
         clearCart();
         setPlacedOrder(result.order);
@@ -143,6 +152,7 @@ export default function CheckoutPage() {
       <form noValidate onSubmit={handleSubmit} className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-6">
           <CheckoutItems items={cart} />
+          <ContactForm email={email} error={errors.email} onChange={updateEmail} />
           <ShippingAddressForm
             address={address}
             errors={errors}

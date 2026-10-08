@@ -20,12 +20,14 @@
         <MicrosoftAspNetCoreMvc>2.2.0</MicrosoftAspNetCoreMvc>
         <NewtonsoftJson>13.0.4</NewtonsoftJson>
         <ConfigurationJson>10.0.12</ConfigurationJson>
+        <OptionsConfigurationExtensions>10.0.12</OptionsConfigurationExtensions>
         <Swashbuckle>10.3.0</Swashbuckle>
         <FluentValidation>8.6.3</FluentValidation>
         <coverletcollector>3.0.2</coverletcollector>
 
         <MediatR>13.1.0</MediatR>
         <MassTransit>8.5.10</MassTransit>
+        <MailKit>4.18.0</MailKit>
         <Scrutor>3.3.0</Scrutor>
         <DotNetTestcontainers>1.6.0</DotNetTestcontainers>
         <SeleniumSupport>3.141.0</SeleniumSupport>

@@ -1,6 +1,8 @@
 // Global using directives
 
 global using System;
+global using System.Collections.Generic;
+global using System.Linq;
 global using System.Diagnostics.CodeAnalysis;
 global using System.IO;
 global using System.Threading;
@@ -17,6 +19,8 @@ global using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Create;
 global using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Payments;
 global using Orders.Domain.Order.Orders;
 global using Orders.Infrastructure.Consumers;
+global using Orders.CommandHandlers.Orders;
+global using Orders.Infrastructure.Email;
 global using Orders.Infrastructure.EntityConfigurations;
 global using Orders.Infrastructure.Messaging;
 global using Orders.Infrastructure.Repositories;

@@ -7,6 +7,8 @@ export const ORDERS_API_URL =
 // Formato do CreateCommand no backend.
 export interface CreateOrderRequest {
   userId: string;
+  // Para onde o Orders envia o e-mail com o resultado do pagamento.
+  email: string;
   address: {
     street: string;
     city: string;

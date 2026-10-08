@@ -15,6 +15,10 @@
                 .HasColumnName("CustomerId")
                 .IsRequired();
 
+            builder.Property(x => x.Email)
+                .HasColumnName("Email")
+                .IsRequired();
+
             builder.Property(x => x.OrderNumber)
                 .HasColumnName("Number")
                 .IsRequired();
@@ -26,6 +30,9 @@
             builder.Property(x => x.PaymentId)
                 .HasColumnName("PaymentId");
             
+            builder.Property(x => x.PaymentEmailSentAt)
+                .HasColumnName("PaymentEmailSentAt");
+
             builder.Property(x => x.Total)
                 .HasColumnName("Total")
                 .IsRequired();

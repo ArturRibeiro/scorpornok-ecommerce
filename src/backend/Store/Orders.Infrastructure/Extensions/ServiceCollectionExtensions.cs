@@ -14,6 +14,10 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IRequestHandler<FailOrderPaymentCommand>, OrderPaymentHandlers>();
         services.AddScoped<IRequestHandler<GetOrderStatusQuery, string?>, OrderPaymentHandlers>();
         services.AddScoped<IIntegrationEventPublisher, MassTransitIntegrationEventPublisher>();
+        // E-mail com o resultado do pagamento (seção Smtp; Mailpit no compose).
+        services.Configure<SmtpOptions>(configuration.GetSection(SmtpOptions.Section));
+        services.AddScoped<IOrderEmailSender, SmtpOrderEmailSender>();
+        services.AddHostedService<OrderEmailDispatcher>();
         // Npgsql 6+ só aceita DateTime UTC em "timestamp with time zone"; mantém o comportamento
         // anterior porque Order.OrderDate usa DateTime.Now. Remover ao migrar o domínio para UTC.
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -25,6 +29,13 @@ public static class ServiceCollectionExtensions
             x.SetKebabCaseEndpointNameFormatter();
             x.AddConsumer<PaymentApprovedConsumer>();
             x.AddConsumer<PaymentRejectedConsumer>();
+            // Bus outbox: o IPublishEndpoint da requisição grava a mensagem no OrderContext
+            // (no SaveChanges) e um serviço em segundo plano a entrega quando o broker responde.
+            x.AddEntityFrameworkOutbox<OrderContext>(o =>
+            {
+                o.UsePostgres();
+                o.UseBusOutbox();
+            });
             x.UsingRabbitMq((context, cfg) =>
             {
                 var rabbitMq = configuration.GetSection("RabbitMq");

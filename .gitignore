@@ -243,3 +243,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# Variáveis locais do docker compose (ex.: credenciais SMTP de um provedor real)
+.env
