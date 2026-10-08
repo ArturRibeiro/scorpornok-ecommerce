@@ -1,5 +1,3 @@
-using Frameworker.EntityFrameworkCore.Impl;
-
 namespace Frameworker.EntityFrameworkCore;
 
 public interface IPagedList<T>

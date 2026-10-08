@@ -1,4 +1,4 @@
-namespace Orders.Infrastructure.EntityConfigurations;
+namespace Gateway.Payment.Data.Mappings;
 
 public class CreditCardPaymentConfiguration : IEntityTypeConfiguration<PaymentMethod>
 {

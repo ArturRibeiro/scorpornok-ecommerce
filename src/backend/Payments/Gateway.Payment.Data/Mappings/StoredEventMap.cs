@@ -1,8 +1,4 @@
-﻿using Shared.Code.Events;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Gateway.Payment.Data.Mappings
+﻿namespace Gateway.Payment.Data.Mappings
 {
     public class StoredEventMap : IEntityTypeConfiguration<StoredEvent>
     {

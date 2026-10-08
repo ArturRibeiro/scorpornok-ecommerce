@@ -7,11 +7,11 @@ public class OrderHandler
     public async Task<CreateOrderResult> Handle(CreateCommand command, CancellationToken cancellationToken)
     {
         // Endereço e itens ausentes no JSON chegam como null; viram erros de validação, não exceção.
+        // O cartão (command.Card) faz parte do contrato, mas o pagamento é do contexto Payments.
         var address = command.Address ?? new OrderAddressMessageResponse();
         var order = OrderBuilder.Create(customerId: command.UserId)
             .AddAddress(address.Street, address.City, address.State, address.Country, address.ZipCode)
             .AddProduct(command.Items ?? [], CreateOrderItem)
-            .AddPaymentMethod(command.Card, CreatePaymentMethod)
             .Build();
 
         if (!order.IsValid())
@@ -25,15 +25,4 @@ public class OrderHandler
     private static Action<OrderItemMessageResponse, OrderBuilder> CreateOrderItem =>
         (item, builder) => builder.CreateItem(item.ProductId, item.ProductName, item.UnitPrice,
             item.Discount, item.PictureUrl, item.Units);
-
-    private static readonly Func<CreditCardPaymentCommand, PaymentRequest> CreatePaymentMethod 
-        = (command) => new PaymentRequest(Amount: 0, CardHolderName: command.CardHolderName,
-            CardNumber: command.CardNumber, ExpirationMonth: command.ExpirationMonth,
-            ExpirationYear: command.ExpirationYear, Cvv: command.Cvv, Installments: command.Installments);
-
-    private static readonly Func<Order, CreditCardPaymentCommand, PaymentMethod> CreatePaymentRequestToCreatePayment
-        = (order, command) => new PaymentMethod(OrderId: order.Id, CardHolderName: command.CardHolderName,
-            CardNumber: command.CardNumber, ExpirationMonth: command.ExpirationMonth,
-            ExpirationYear: command.ExpirationYear, Cvv: command.Cvv,
-            Amount: command.Amount, Installments: command.Installments);
 }

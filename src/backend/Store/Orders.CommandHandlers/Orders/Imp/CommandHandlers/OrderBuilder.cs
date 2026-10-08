@@ -5,7 +5,6 @@ public class OrderBuilder
     private readonly Order _order;
     private OrderAddress _address;
     private List<OrderItem> _items = new();
-    private PaymentMethod _creditCardPayment;
 
     private OrderBuilder(Order order) => _order = order;
 
@@ -27,12 +26,6 @@ public class OrderBuilder
         return this;
     }
     
-    public OrderBuilder AddPaymentMethod(CreditCardPaymentCommand creditCardPaymentCommand, Func<CreditCardPaymentCommand, PaymentRequest> action)
-    {
-        action(creditCardPaymentCommand);
-        return this;
-    }
-
     public void CreateItem(int productId, string productName, decimal unitPrice, decimal discount, string pictureUrl, int units)
     {
         _items.Add(OrderItem.Create(productId, productName, unitPrice, discount, pictureUrl, units));
@@ -42,7 +35,6 @@ public class OrderBuilder
     {
         _order.AddAddress(_address);
         _order.AddProduct(_items);
-        _order.AddPaymentMethodCreditCard(_creditCardPayment);
         return _order;
     }
 

@@ -1,4 +1,4 @@
-namespace Orders.Infrastructure.Gateways;
+namespace Gateway.Payment.Data.Gateways;
 
 public class PaymentGateway : IPaymentGateway
 {

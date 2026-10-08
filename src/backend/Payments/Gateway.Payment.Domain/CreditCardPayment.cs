@@ -1,4 +1,4 @@
-using Orders.Domain.Order.Orders;
+namespace Gateway.Payment.Domain;
 
 /// <summary>
 /// Command que representa os dados necessários para processar um pagamento via cartão de crédito.

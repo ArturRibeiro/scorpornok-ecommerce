@@ -1,4 +1,4 @@
-namespace Orders.CommandHandlers.Orders.Imp.Payments;
+namespace Gateway.Payment.Domain;
 
 public record PaymentRequest(decimal Amount, string CardHolderName, string CardNumber, string ExpirationMonth,
     string ExpirationYear, string Cvv, int Installments);

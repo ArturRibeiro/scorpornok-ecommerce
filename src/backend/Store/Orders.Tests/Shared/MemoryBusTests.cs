@@ -1,7 +1,3 @@
-using MediatR;
-using Shared.Code.Commands;
-using Shared.Code.Imp.Bus;
-
 namespace Orders.Tests.Shared;
 
 [TestFixture]

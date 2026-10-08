@@ -1,11 +1,4 @@
-﻿using Gateway.Payment.Data.Mappings;
-using Shared.Code.Events;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Gateway.Payment.Data.Context
+﻿namespace Gateway.Payment.Data.Context
 {
     public class EventStoreContext : DbContext
     {

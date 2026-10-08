@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Gateway.Payment.Data.Context;
-using Shared.Code.Events;
-
-namespace Gateway.Payment.Data.EventSourcing.Repository.EventSourcing
+﻿namespace Gateway.Payment.Data.EventSourcing.Repository.EventSourcing
 {
     public class EventStoreRepository : IEventStoreRepository
     {

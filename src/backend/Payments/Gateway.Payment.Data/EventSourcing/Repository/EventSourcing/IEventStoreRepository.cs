@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Shared.Code.Events;
-
-namespace Gateway.Payment.Data.EventSourcing.Repository.EventSourcing
+﻿namespace Gateway.Payment.Data.EventSourcing.Repository.EventSourcing
 {
     public interface IEventStoreRepository : IDisposable
     {

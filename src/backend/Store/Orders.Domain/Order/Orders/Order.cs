@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Orders.Domain.Order.Orders;
+﻿namespace Orders.Domain.Order.Orders;
 
 /// <summary>
 /// Pedido
@@ -29,7 +27,6 @@ public class Order : Entity<int>, IAggregateRoot
     public DateTime OrderDate { get; private set; } = DateTime.Now;
     public OrderStatus Status { get; private set; } = OrderStatus.Pending;
     public decimal Total { get; private set; }
-    public PaymentMethod PaymentMethod { get; private set; }
     
 
     #endregion
@@ -40,7 +37,6 @@ public class Order : Entity<int>, IAggregateRoot
         Total = _items.Sum(i => i.UnitPrice * i.Quantity);
     }
     
-    public void AddPaymentMethodCreditCard(PaymentMethod paymentMethod) => this.PaymentMethod = paymentMethod;
     public void ChangeStatus(OrderStatus failed) => Status = failed;
     public void AddAddress(OrderAddress address) => this.Address = address;
     public void RemoveItem(int productId)

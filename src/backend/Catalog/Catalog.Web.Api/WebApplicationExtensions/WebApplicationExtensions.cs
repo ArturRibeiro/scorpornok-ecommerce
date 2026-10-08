@@ -1,7 +1,3 @@
-using Catalog.Queries.Products;
-using Frameworker.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http.HttpResults;
-
 namespace Catalog.Web.Api.WebApplicationExtensions;
 
 public static class WebApplicationExtensions

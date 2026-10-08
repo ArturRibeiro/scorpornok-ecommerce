@@ -1,4 +1,4 @@
-namespace Orders.CommandHandlers.Orders;
+namespace Gateway.Payment.Domain;
 
 public interface IPaymentGateway
 {

@@ -1,5 +1,3 @@
-using Frameworker.EntityFrameworkCore.Impl;
-
 namespace Frameworker.EntityFrameworkCore.Extensions;
 
 public static class EntityFrameworkQueryableExtensions

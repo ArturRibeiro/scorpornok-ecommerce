@@ -47,7 +47,6 @@
                 r.Property(p => p.Description).HasColumnName("StatusDescription");
             });
             
-            builder.HasOne(o => o.PaymentMethod);
         }
     }
 }

@@ -1,7 +1,3 @@
-using Orders.CommandHandlers.Orders.Imp.CommandHandlers;
-using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Create;
-using Shared.Code.Models;
-
 namespace Orders.Tests.CommandHandlers;
 
 [TestFixture]

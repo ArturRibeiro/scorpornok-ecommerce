@@ -1,5 +1,3 @@
-using System.Runtime.Serialization;
-
 namespace Ecommerce.Scenarios.Integration.Spec.Tests
 {
     public class Result<T>
