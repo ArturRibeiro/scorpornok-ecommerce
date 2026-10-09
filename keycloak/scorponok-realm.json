@@ -8,6 +8,10 @@
     "pt-BR"
   ],
   "defaultLocale": "pt-BR",
+  "browserSecurityHeaders": {
+    "contentSecurityPolicy": "frame-src 'self'; frame-ancestors 'self' http://localhost:3000; object-src 'none';",
+    "xFrameOptions": ""
+  },
   "enabled": true,
   "registrationAllowed": true,
   "registrationEmailAsUsername": true,

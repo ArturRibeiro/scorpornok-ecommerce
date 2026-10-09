@@ -60,7 +60,7 @@ const toRequest = (
 
 export default function CheckoutPage() {
   const { cart, clearCart } = useCart();
-  const { email, login, getAccessToken } = useAuth();
+  const { email, expireSession, getAccessToken } = useAuth();
   const [address, setAddress] = useState(EMPTY_ADDRESS);
   const [payment, setPayment] = useState(EMPTY_PAYMENT);
   const [errors, setErrors] = useState<CheckoutErrors>({});
@@ -108,8 +108,8 @@ export default function CheckoutPage() {
     setSubmitting(true);
     setSubmitErrors([]);
     try {
-      // Sessão vencida sem renovação: o pedido não sai e o cliente entra de novo.
-      // O carrinho continua no localStorage; o login volta para o checkout.
+      // Sessão vencida sem renovação: o pedido não sai e o cliente entra de novo
+      // no modal, sem sair do checkout (carrinho e formulário continuam).
       const token = await getAccessToken();
       if (!token || !email) throw new SessionExpiredError();
       const result = await createOrder(toRequest(cart, address, payment, total), token);
@@ -121,7 +121,7 @@ export default function CheckoutPage() {
       }
     } catch (error) {
       if (error instanceof SessionExpiredError) {
-        await login("/checkout");
+        await expireSession();
         return;
       }
       setSubmitErrors([NETWORK_ERROR]);

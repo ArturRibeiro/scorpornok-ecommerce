@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Signing in…</title>
+  </head>
+  <body>
+    <script>
+      // O Keycloak volta para cá depois do login ou do cadastro feito no modal.
+      // No iframe, a URL (com o code) vai para a janela da loja, que conclui o login.
+      // Numa aba própria (link de confirmação do e-mail), segue para /auth/callback.
+      if (window.parent !== window) {
+        window.parent.postMessage(
+          { type: "scorponok:auth-callback", url: window.location.href },
+          window.location.origin
+        );
+      } else {
+        window.location.replace("/auth/callback" + window.location.search + window.location.hash);
+      }
+    </script>
+  </body>
+</html>

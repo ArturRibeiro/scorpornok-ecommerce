@@ -13,11 +13,9 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { pathname, search } = useLocation();
-  const { user, email, login, register, logout } = useAuth();
-  // Login e cadastro voltam para a página em que o cliente estava.
-  const signIn = () => login(pathname + search);
-  const signUp = () => register(pathname + search);
+  const { pathname } = useLocation();
+  // Login e cadastro abrem num modal, sem sair da página.
+  const { user, email, login: signIn, register: signUp, logout } = useAuth();
   // Guarda a rota em que o menu foi aberto: ao navegar, ele fecha sozinho.
   const [mobileOpenAt, setMobileOpenAt] = useState<string | null>(null);
   const isMobileOpen = mobileOpenAt === pathname;

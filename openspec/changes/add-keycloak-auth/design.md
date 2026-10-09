@@ -22,7 +22,8 @@
 ## Decisions
 
 ### 1. Formulário do Keycloak com Authorization Code + PKCE
-O front redireciona para a página de login/cadastro do Keycloak e recebe o código em `/auth/callback`. Client público `scorponok-web`, sem segredo, PKCE `S256`.
+O front mostra a página de login/cadastro do Keycloak num modal (iframe), sem sair da página da loja, e recebe o código em `/auth/modal-callback.html`. Client público `scorponok-web`, sem segredo, PKCE `S256`.
+- *Alternativa*: redirecionar a página inteira (a primeira versão) ou abrir uma janela popup. O modal mantém a página e o formulário do checkout; o iframe só é liberado para a origem da loja (`frame-ancestors`).
 - *Alternativa*: formulário React próprio com o fluxo de senha direta (Direct Access Grants). Descartada: o fluxo está obsoleto no OAuth 2.1, expõe a senha ao front e perde de graça o cadastro, a confirmação de e-mail, o reenvio e a proteção contra força bruta do Keycloak.
 
 ### 2. Keycloak no compose, com banco próprio e realm importado
@@ -49,12 +50,13 @@ O WebSocket não envia cabeçalho `Authorization`, então o `OnMessageReceived` 
 
 ### 7. Front: `oidc-client-ts` num `AuthProvider`
 `UserManager` com `WebStorageStateStore(localStorage)` (sessão compartilhada entre abas, como o carrinho), escopo `openid email`, `automaticSilentRenew` por refresh token. Partes:
-- `AuthProvider` e `useAuth()` (`user`, `email`, `login(returnTo)`, `register(returnTo)`, `logout()`, `getAccessToken()`).
-- Rota `/auth/callback`, que conclui o login e navega para o `returnTo` guardado no `state`.
-- `RequireAuth` em volta de `/checkout`, que chama `login("/checkout")` quando não há sessão. A checagem de carrinho vazio da `CheckoutPage` vem antes, para não mandar ao login quem seria devolvido ao carrinho.
+- `AuthProvider` e `useAuth()` (`user`, `email`, `login()`, `register()`, `expireSession()`, `logout()`, `getAccessToken()`). `login` e `register` abrem o `AuthModal`; um `OidcClient` com as mesmas configurações monta a URL do iframe.
+- `public/auth/modal-callback.html`: no iframe, manda a URL com o code para a loja (`postMessage`), que conclui o login com `signinRedirectCallback(url)`; numa aba própria (link do e-mail), segue para `/auth/callback`, que conclui e navega para o `returnTo` do `state`. Login concluído em outra aba chega pelo evento `storage` e fecha o modal.
+- `RequireAuth` em volta de `/checkout`, que abre o login no modal quando não há sessão e, se o cliente o fechar, mostra "Sign in to continue". A checagem de carrinho vazio da `CheckoutPage` vem antes, para não mandar ao login quem seria devolvido ao carrinho.
 - Cadastro com `prompt=create`, que abre direto a tela de registro do Keycloak 26.
+- Tema `scorponok` do Keycloak (pt-BR): `js/embedded.js` marca a página quando está no iframe (CSS compacto) e manda a altura do conteúdo para o modal.
 
-O carrinho sobrevive aos redirecionamentos porque já está no `localStorage`. O header mostra "Sign in"/"Create account" ou o e-mail e "Sign out" (`signoutRedirect` com retorno à home). URL por `VITE_KEYCLOAK_URL` (padrão `http://localhost:8080`), realm e client fixos em constantes.
+O carrinho sobrevive aos redirecionamentos (link do e-mail, logout) porque já está no `localStorage`. O header mostra "Sign in"/"Create account" ou o e-mail e "Sign out" (`signoutRedirect` com retorno à home). URL por `VITE_KEYCLOAK_URL` (padrão `http://localhost:8080`), realm e client fixos em constantes.
 - *Alternativa*: `keycloak-js`. Também serviria; `oidc-client-ts` é agnóstico de provedor e já tipado.
 
 ### 8. Testes
@@ -70,7 +72,8 @@ O carrinho sobrevive aos redirecionamentos porque já está no `localStorage`. O
 - [O cadastro revela se o e-mail já existe] → é o comportamento padrão do Keycloak ("Email already exists") e o que o requisito pede (oferecer o login). O login continua sem revelar: a mensagem é a mesma para e-mail inexistente e senha errada.
 - [403 inalcançável pelo fluxo normal] → com `verifyEmail` o Keycloak não emite token antes da confirmação, então a política de `email_verified` é defesa em profundidade (ex.: alguém desliga o `verifyEmail` no realm). Ela é coberta por teste unitário, não pelo roteiro manual.
 - [Link de confirmação aberto em outra aba ou aparelho] → o Keycloak pode terminar na página "e-mail confirmado" em vez de voltar à loja. O cliente então entra pelo checkout e volta a ele normalmente, porque o carrinho está no `localStorage`; o roteiro manual (6.2) cobre os dois caminhos.
-- [Dados de entrega e cartão perdidos ao reautenticar] → o redirecionamento sai da SPA e o formulário vive em `useState`. Só o carrinho é preservado; os dados do cartão não devem ir para o `localStorage`.
+- [Dados de entrega e cartão ao reautenticar] → o login no modal não sai da página, então o formulário em `useState` continua preenchido depois do 401. Os dados do cartão não vão para o `localStorage`.
+- [Login num iframe] → `frame-ancestors` do realm só libera a origem da loja (contra clickjacking). Os cookies do Keycloak no iframe dependem de a loja e o Keycloak serem do mesmo site (`localhost` em dev; em produção, subdomínios do mesmo domínio); com sites diferentes, o navegador os bloquearia como de terceiros.
 - [Primeira partida lenta do Keycloak] → `healthcheck` no serviço e `depends_on: condition: service_healthy` no `orders-api`.
 
 ## Migration Plan

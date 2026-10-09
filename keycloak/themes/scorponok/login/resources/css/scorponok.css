@@ -73,3 +73,40 @@
   border-radius: 999px;
   font-weight: 600;
 }
+
+/* No modal da loja (classe posta pelo js/embedded.js): o modal já é o cartão,
+   então a página perde o fundo, a sombra e o espaço em volta. */
+.kc-embedded body,
+.kc-embedded .pf-v5-c-login {
+  background: #fff;
+  min-height: 0;
+  height: auto;
+}
+
+.kc-embedded .pf-v5-c-login {
+  padding: 0;
+  display: block;
+}
+
+.kc-embedded .pf-v5-c-login__container {
+  display: block;
+  padding: 2rem 0 0.5rem;
+  width: 100%;
+}
+
+.kc-embedded #kc-header-wrapper {
+  font-size: 1.5rem;
+}
+
+.kc-embedded .pf-v5-c-login__main {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.kc-embedded .pf-v5-c-login__main-header {
+  border-top: 0;
+}
+
+.kc-embedded .pf-v5-c-login__main-header {
+  padding-top: 0.5rem;
+}
