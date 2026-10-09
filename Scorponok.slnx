@@ -1,0 +1,39 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/3 - Payments/" />
+  <Folder Name="/backend/" />
+  <Folder Name="/backend/1 - Catalog/">
+    <Project Path="src/backend/Catalog/Catalog.Domain/Catalog.Domain.csproj" />
+    <Project Path="src/backend/Catalog/Catalog.Infrastructure/Catalog.Infrastructure.csproj" />
+    <Project Path="src/backend/Catalog/Catalog.Queries/Catalog.Queries.csproj" />
+    <Project Path="src/backend/Catalog/Catalog.Web.Api/Catalog.Web.Api.csproj" />
+  </Folder>
+  <Folder Name="/backend/2 - Orders/">
+    <Project Path="src/backend/Store/Orders.CommandHandlers/Orders.CommandHandlers.csproj" />
+    <Project Path="src/backend/Store/Orders.Domain/Orders.Domain.csproj" />
+    <Project Path="src/backend/Store/Orders.Infrastructure/Orders.Infrastructure.csproj" />
+    <Project Path="src/backend/Store/Orders.Web.Api/Orders.Web.Api.csproj" />
+  </Folder>
+  <Folder Name="/backend/3 - Payments/">
+    <Project Path="src/backend/Payments/Payments.CommandHandlers/Payments.CommandHandlers.csproj" />
+    <Project Path="src/backend/Payments/Payments.Infrastructure/Payments.Infrastructure.csproj" />
+    <Project Path="src/backend/Payments/Payments.Domain/Payments.Domain.csproj" />
+    <Project Path="src/backend/Payments/Payments.Web.Api/Payments.Web.Api.csproj" />
+  </Folder>
+  <Folder Name="/backend/4 - Shared/">
+    <Project Path="src/backend/Frameworker/Frameworker.EntityFrameworkCore/Frameworker.EntityFrameworkCore.csproj" />
+    <Project Path="src/backend/Frameworker/Frameworker.Integration.Tests/Frameworker.Integration.Tests.csproj" />
+    <Project Path="src/backend/Frameworker/Programming.Functional.Tests/Programming.Functional.Tests.csproj" />
+    <Project Path="src/backend/Frameworker/Programming.Functional/Programming.Functional.csproj" />
+    <Project Path="src/backend/Shared/Shared.Code/Shared.Code.csproj" />
+  </Folder>
+  <Folder Name="/backend/5 - Scenarios/">
+    <Project Path="src/backend/Payments/Payments.Tests/Payments.Tests.csproj" />
+    <Project Path="src/backend/Store/Orders.Tests/Orders.Tests.csproj" />
+    <Project Path="src/backend/Tests/Ecommerce.Scenarios.Integration.Spec.Tests/Ecommerce.Scenarios.Integration.Spec.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -62,8 +62,8 @@ services:
     build:
       context: .
       args:
-        PROJECT: src/backend/Payments/Gateway.Payment.Web.Api/Gateway.Payment.Web.Api.csproj
-        ASSEMBLY: Gateway.Payment.Web.Api
+        PROJECT: src/backend/Payments/Payments.Web.Api/Payments.Web.Api.csproj
+        ASSEMBLY: Payments.Web.Api
     container_name: payment_api
     environment:
       ASPNETCORE_ENVIRONMENT: Development

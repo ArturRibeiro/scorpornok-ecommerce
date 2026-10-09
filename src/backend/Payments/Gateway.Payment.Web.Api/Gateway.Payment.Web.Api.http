@@ -1,7 +1,0 @@
-@Gateway.Payment.Web.Api_HostAddress = http://localhost:5220
-
-# O Payments não tem endpoints de negócio: ele consome PaymentRequested do RabbitMQ.
-# Para disparar um pagamento, crie um pedido pelo Orders.Web.Api.http.
-
-### Pronto para receber mensagens? (banco e broker)
-GET {{Gateway.Payment.Web.Api_HostAddress}}/health/ready

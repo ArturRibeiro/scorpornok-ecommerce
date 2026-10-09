@@ -42,8 +42,8 @@ The goal of this project is implement the most common used technologies and shar
 - Make sure the Docker daemon is running and the databases are up: `docker compose -f docker-compose.database.yml up -d`
 
 ```bash
-dotnet build Scorponok.sln                          # build everything
-dotnet test Scorponok.sln                           # run all tests
+dotnet build Scorponok.slnx                         # build everything
+dotnet test Scorponok.slnx                          # run all tests
 dotnet run --project src/backend/Catalog/Catalog.Web.Api    # start the Catalog API
 dotnet run --project src/backend/Store/Orders.Web.Api       # start the Orders API
 ```

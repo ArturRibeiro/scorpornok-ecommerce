@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>$(TargetFramework)</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="$(AspNetCoreOpenApi)"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="$(Swashbuckle)"/>
+        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="$(HealthChecksEntityFrameworkCore)" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Shared\Shared.Code\Shared.Code.csproj" />
+      <ProjectReference Include="..\Payments.Infrastructure\Payments.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

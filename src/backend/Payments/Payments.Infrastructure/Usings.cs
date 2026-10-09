@@ -1,0 +1,30 @@
+// Global using directives
+
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Text;
+global using System.Threading;
+global using System.Threading.Tasks;
+global using Payments.CommandHandlers.Payments;
+global using Payments.Infrastructure.Consumers;
+global using Payments.Infrastructure.Context;
+global using Payments.Infrastructure.Gateways;
+global using Payments.Infrastructure.Messaging;
+global using Payments.Infrastructure.Repositories;
+global using Payments.Infrastructure.EventSourcing.Repository;
+global using Payments.Infrastructure.EventSourcing.Repository.EventSourcing;
+global using Payments.Infrastructure.Mappings;
+global using Payments.Domain;
+global using MediatR;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Newtonsoft.Json;
+global using Shared.Code.Models;
+global using Shared.Code.Commands;
+global using Shared.Code;
+global using Shared.Code.Events;
+global using Shared.Code.Imp.Bus;
+global using Shared.Code.IntegrationEvents;
