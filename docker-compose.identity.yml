@@ -56,6 +56,9 @@ services:
       - 8080:8080
     volumes:
       - ./keycloak:/opt/keycloak/data/import:ro
+      # Tema das telas de login (loginTheme do realm). O start-dev não guarda o tema
+      # em cache: mudanças no CSS ou nos textos aparecem ao recarregar a página.
+      - ./keycloak/themes:/opt/keycloak/themes:ro
     depends_on:
       keycloak-db:
         condition: service_healthy

@@ -1,6 +1,13 @@
 {
   "realm": "scorponok",
   "displayName": "Scorponok Store",
+  "displayNameHtml": "SCORPONOK<span class=\"brand-accent\">STORE</span>",
+  "loginTheme": "scorponok",
+  "internationalizationEnabled": true,
+  "supportedLocales": [
+    "pt-BR"
+  ],
+  "defaultLocale": "pt-BR",
   "enabled": true,
   "registrationAllowed": true,
   "registrationEmailAsUsername": true,

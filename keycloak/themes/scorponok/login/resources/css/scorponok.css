@@ -1,0 +1,75 @@
+/* Visual da loja sobre o keycloak.v2: cores e raio de src/frontend/src/index.css, fonte Inter. */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap");
+
+:root {
+  --sc-background: oklch(0.9846 0.0017 247.8389);
+  --sc-foreground: oklch(0.2686 0 0);
+  --sc-muted-foreground: oklch(0.551 0.0234 264.3637);
+  --sc-primary: oklch(0.7686 0.1647 70.0804);
+  --sc-primary-hover: oklch(0.6658 0.1574 58.3183);
+  --sc-primary-foreground: oklch(0 0 0);
+  --sc-link: oklch(0.4732 0.1247 46.2007);
+  --sc-border: oklch(0.9276 0.0058 264.5313);
+  --sc-radius: 1.225rem;
+
+  --pf-v5-global--FontFamily--text: Inter, sans-serif;
+  --pf-v5-global--FontFamily--heading: Inter, sans-serif;
+  --pf-v5-global--Color--100: var(--sc-foreground);
+  --pf-v5-global--Color--200: var(--sc-muted-foreground);
+  --pf-v5-global--primary-color--100: var(--sc-primary);
+  --pf-v5-global--primary-color--200: var(--sc-primary-hover);
+  --pf-v5-global--link--Color: var(--sc-link);
+  --pf-v5-global--link--Color--hover: var(--sc-primary-hover);
+  --pf-v5-global--BorderColor--100: var(--sc-border);
+  --pf-v5-global--active-color--100: var(--sc-primary);
+  --keycloak-card-top-color: var(--sc-primary);
+}
+
+.login-pf body {
+  background: var(--sc-background);
+}
+
+/* Marca no lugar do logo do Keycloak: "SCORPONOK" com "STORE" na cor primária
+   (o HTML vem do displayNameHtml do realm). */
+#kc-header-wrapper {
+  color: var(--sc-foreground) !important;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+#kc-header-wrapper .brand-accent {
+  color: var(--sc-primary);
+}
+
+.pf-v5-c-login__main {
+  border-radius: var(--sc-radius);
+  box-shadow: 0px 4px 8px -1px hsl(0 0% 0% / 0.1), 0px 2px 4px -2px hsl(0 0% 0% / 0.1);
+  overflow: hidden;
+}
+
+.pf-v5-c-form-control {
+  --pf-v5-c-form-control--focus--after--BorderBottomColor: var(--sc-primary);
+  --pf-v5-c-form-control--hover--after--BorderBottomColor: var(--sc-primary);
+  border-radius: calc(var(--sc-radius) / 2);
+}
+
+.pf-v5-c-form-control:focus-within {
+  outline: 2px solid var(--sc-primary);
+  outline-offset: 1px;
+}
+
+.pf-v5-c-form-control > input:focus {
+  outline: none;
+}
+
+.pf-v5-c-button.pf-m-primary {
+  --pf-v5-c-button--m-primary--BackgroundColor: var(--sc-primary);
+  --pf-v5-c-button--m-primary--Color: var(--sc-primary-foreground);
+  --pf-v5-c-button--m-primary--hover--BackgroundColor: var(--sc-primary-hover);
+  --pf-v5-c-button--m-primary--hover--Color: var(--sc-primary-foreground);
+  --pf-v5-c-button--m-primary--focus--BackgroundColor: var(--sc-primary-hover);
+  --pf-v5-c-button--m-primary--active--BackgroundColor: var(--sc-primary-hover);
+  border-radius: 999px;
+  font-weight: 600;
+}
