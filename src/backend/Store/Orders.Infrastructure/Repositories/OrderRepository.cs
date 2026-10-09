@@ -19,7 +19,7 @@
             CancellationToken cancellationToken = default)
             // Mesmo critério de Order.IsAwaitingPaymentEmail, escrito para o EF traduzir em SQL.
             => await _context.Orders
-                .Where(o => o.PaymentEmailSentAt == null
+                .Where(o => o.Payment.EmailSentAt == null
                             && (o.Status.Code == OrderStatus.Confirmed.Code || o.Status.Code == OrderStatus.Failed.Code))
                 .OrderBy(o => o.Id)
                 .Take(limit)

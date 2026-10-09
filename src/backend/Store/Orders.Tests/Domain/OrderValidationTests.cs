@@ -27,7 +27,7 @@ public class OrderValidationTests
         var order = CreateOrder(ValidAddress(), Item());
 
         order.IsValid().Should().BeTrue();
-        order.PaymentId.Should().BeNull();
+        order.Payment.PaymentId.Should().BeNull();
         order.Errors.Should().BeEmpty();
     }
 

@@ -25,7 +25,7 @@
                 .Equal(DateTime.Now.Date)
                 .WithMessage("Current Date incorret.");
 
-            // O pedido nasce Pending, antes do pagamento, então o PaymentId
+            // O pedido nasce Pending, antes do pagamento, então o Payment.PaymentId
             // ainda não existe na criação.
 
             RuleFor(x => x.Address)

@@ -51,8 +51,8 @@ public class OrderEmailDispatcherTests
 
         sent.Should().Be(2);
         _sender.Verify(s => s.SendPaymentResultAsync(It.IsAny<Order>(), It.IsAny<CancellationToken>()), Times.Exactly(2));
-        first.PaymentEmailSentAt.Should().NotBeNull();
-        second.PaymentEmailSentAt.Should().NotBeNull();
+        first.Payment.EmailSentAt.Should().NotBeNull();
+        second.Payment.EmailSentAt.Should().NotBeNull();
         _unitOfWork.Verify(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>()), Times.Exactly(2));
     }
 
@@ -68,7 +68,7 @@ public class OrderEmailDispatcherTests
         var sent = await _dispatcher.DispatchPendingAsync(CancellationToken.None);
 
         sent.Should().Be(0);
-        first.PaymentEmailSentAt.Should().BeNull();
+        first.Payment.EmailSentAt.Should().BeNull();
         _sender.Verify(s => s.SendPaymentResultAsync(second, It.IsAny<CancellationToken>()), Times.Never);
         _unitOfWork.Verify(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }

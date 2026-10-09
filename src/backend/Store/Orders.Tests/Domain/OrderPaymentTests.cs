@@ -6,6 +6,16 @@ public class OrderPaymentTests
     private static Order PendingOrder() => new(Guid.NewGuid());
 
     [Test]
+    public void Pedido_novo_nasce_com_o_pagamento_vazio()
+    {
+        var order = PendingOrder();
+
+        order.Payment.Should().NotBeNull();
+        order.Payment.PaymentId.Should().BeNull();
+        order.Payment.EmailSentAt.Should().BeNull();
+    }
+
+    [Test]
     public void ConfirmPayment_em_pedido_pendente_deve_confirmar_e_guardar_o_PaymentId()
     {
         var order = PendingOrder();
@@ -14,7 +24,7 @@ public class OrderPaymentTests
         order.ConfirmPayment(paymentId).Should().BeTrue();
 
         order.Status.Should().Be(OrderStatus.Confirmed);
-        order.PaymentId.Should().Be(paymentId);
+        order.Payment.PaymentId.Should().Be(paymentId);
     }
 
     [Test]
@@ -25,7 +35,7 @@ public class OrderPaymentTests
         order.FailPayment().Should().BeTrue();
 
         order.Status.Should().Be(OrderStatus.Failed);
-        order.PaymentId.Should().BeNull();
+        order.Payment.PaymentId.Should().BeNull();
     }
 
     [Test]
@@ -39,7 +49,7 @@ public class OrderPaymentTests
         order.FailPayment().Should().BeFalse();
 
         order.Status.Should().Be(OrderStatus.Confirmed);
-        order.PaymentId.Should().Be(paymentId);
+        order.Payment.PaymentId.Should().Be(paymentId);
     }
 
     [Test]
@@ -51,7 +61,7 @@ public class OrderPaymentTests
         order.ConfirmPayment(Guid.NewGuid()).Should().BeFalse();
 
         order.Status.Should().Be(OrderStatus.Failed);
-        order.PaymentId.Should().BeNull();
+        order.Payment.PaymentId.Should().BeNull();
     }
 
     [Test]
@@ -72,7 +82,7 @@ public class OrderPaymentTests
         confirmed.MarkPaymentEmailSent();
 
         confirmed.IsAwaitingPaymentEmail.Should().BeFalse();
-        confirmed.PaymentEmailSentAt.Should().NotBeNull();
+        confirmed.Payment.EmailSentAt.Should().NotBeNull();
     }
 
     [Test]
@@ -81,10 +91,10 @@ public class OrderPaymentTests
         var order = PendingOrder();
         order.ConfirmPayment(Guid.NewGuid());
         order.MarkPaymentEmailSent();
-        var first = order.PaymentEmailSentAt;
+        var first = order.Payment.EmailSentAt;
 
         order.MarkPaymentEmailSent();
 
-        order.PaymentEmailSentAt.Should().Be(first);
+        order.Payment.EmailSentAt.Should().Be(first);
     }
 }

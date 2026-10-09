@@ -27,12 +27,6 @@
                 .HasColumnName("Date")
                 .IsRequired();
 
-            builder.Property(x => x.PaymentId)
-                .HasColumnName("PaymentId");
-            
-            builder.Property(x => x.PaymentEmailSentAt)
-                .HasColumnName("PaymentEmailSentAt");
-
             builder.Property(x => x.Total)
                 .HasColumnName("Total")
                 .IsRequired();
@@ -45,6 +39,17 @@
                 r.Property(p => p.Country).HasColumnName("AddressCountry");
                 r.Property(p => p.ZipCode).HasColumnName("AddressZipCode");
             });
+
+            // 1:1 em tabela própria: a chave do OrderPayment é o Id do pedido (OrderId).
+            builder.OwnsOne(o => o.Payment, p =>
+            {
+                p.ToTable("OrderPayment");
+                p.WithOwner().HasForeignKey("OrderId");
+                p.HasKey("OrderId");
+                p.Property(x => x.PaymentId).HasColumnName("PaymentId");
+                p.Property(x => x.EmailSentAt).HasColumnName("EmailSentAt");
+            });
+            builder.Navigation(o => o.Payment).IsRequired();
 
             builder.OwnsOne(o => o.Status, r =>
             {

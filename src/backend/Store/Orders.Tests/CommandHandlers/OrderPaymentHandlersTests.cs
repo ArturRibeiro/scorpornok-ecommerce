@@ -32,7 +32,7 @@ public class OrderPaymentHandlersTests
         await _handlers.Handle(new ConfirmOrderPaymentCommand(_order.OrderNumber, paymentId), CancellationToken.None);
 
         _order.Status.Should().Be(OrderStatus.Confirmed);
-        _order.PaymentId.Should().Be(paymentId);
+        _order.Payment.PaymentId.Should().Be(paymentId);
         _unitOfWork.Verify(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>()), Times.Once);
         _notifier.Verify(n => n.NotifyAsync(_order.OrderNumber, true, It.IsAny<CancellationToken>()), Times.Once);
     }
@@ -43,7 +43,7 @@ public class OrderPaymentHandlersTests
         await _handlers.Handle(new FailOrderPaymentCommand(_order.OrderNumber, "recusado"), CancellationToken.None);
 
         _order.Status.Should().Be(OrderStatus.Failed);
-        _order.PaymentId.Should().BeNull();
+        _order.Payment.PaymentId.Should().BeNull();
         _unitOfWork.Verify(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>()), Times.Once);
         _notifier.Verify(n => n.NotifyAsync(_order.OrderNumber, false, It.IsAny<CancellationToken>()), Times.Once);
     }
