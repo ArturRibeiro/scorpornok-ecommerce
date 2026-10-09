@@ -18,9 +18,13 @@ rules:
     - Requisitos devem utilizar "DEVE" (deve/deverá).
     - Cenários devem utilizar a estrutura Given/When/Then.
     - Mantenha os detalhes de implementação no projeto, não nas especificações.
+    - Seja objetivo e pouco verboso; um comportamento por requisito, com a descrição em até 3 frases.
+    - Cenários cobrem só o que muda o resultado (caminho feliz, erros, limites); não repita o mesmo caso com outros dados.
   proposal:
     - Mantenha as propostas com menos de 500 palavras.
     - Sempre indique o que está fora do escopo.
+    - Seja objetivo e pouco verboso; prefira itens de uma linha a parágrafos.
+    - Não repita a mesma informação entre seções; nomes de arquivos, pacotes, variáveis e códigos HTTP ficam no design e nas specs.
   tasks:
     - As tarefas devem ter um escopo adequado para implementação e ser verificáveis.
     - Divida as tarefas em partes de, no máximo, 2 horas.
