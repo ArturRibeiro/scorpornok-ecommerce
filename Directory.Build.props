@@ -10,6 +10,7 @@
         <EFCoreNamingConventions>1.1.1</EFCoreNamingConventions>
         <AspNetCoreMvcTesting>10.0.12</AspNetCoreMvcTesting>
         <AspNetCoreOpenApi>10.0.12</AspNetCoreOpenApi>
+        <AspNetCoreAuthenticationJwtBearer>10.0.12</AspNetCoreAuthenticationJwtBearer>
         <HealthChecksEntityFrameworkCore>10.0.12</HealthChecksEntityFrameworkCore>
 
         <MicrosoftNETTestSdk>18.10.1</MicrosoftNETTestSdk>

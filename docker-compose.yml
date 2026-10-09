@@ -1,11 +1,12 @@
 # Aplicação: sobe as APIs junto com os bancos de docker-compose.database.yml,
-# o RabbitMQ de docker-compose.messaging.yml, o Mailpit de docker-compose.mail.yml
-# e o front-end de docker-compose.frontend.yml.
+# o RabbitMQ de docker-compose.messaging.yml, o Mailpit de docker-compose.mail.yml,
+# o Keycloak de docker-compose.identity.yml e o front-end de docker-compose.frontend.yml.
 #   docker compose up -d --build
 include:
   - docker-compose.database.yml
   - docker-compose.messaging.yml
   - docker-compose.mail.yml
+  - docker-compose.identity.yml
   - docker-compose.frontend.yml
 
 services:
@@ -38,6 +39,9 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__ConnectionString: Host=orders-db;Port=5432;Database=orders;Username=sa;Password=sa
       RabbitMq__Host: rabbitmq
+      # O emissor dos tokens é o endereço público (localhost:8080, do appsettings.json);
+      # de dentro do container, a descoberta e as chaves vêm de keycloak:8080.
+      Keycloak__MetadataAddress: http://keycloak:8080/realms/scorponok/.well-known/openid-configuration
       # Mailpit por padrão. Para enviar de verdade (ex.: Gmail), defina SMTP_* num .env
       # na raiz (fora do git); veja o CLAUDE.md.
       Smtp__Host: ${SMTP_HOST:-mailpit}
@@ -55,6 +59,8 @@ services:
         condition: service_healthy
       mailpit:
         condition: service_started
+      keycloak:
+        condition: service_healthy
     networks:
       - ecommerce-networks
 

@@ -1,4 +1,5 @@
 
+import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { Menu, Search, ShoppingCart, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
@@ -12,7 +13,11 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
+  const { user, email, login, register, logout } = useAuth();
+  // Login e cadastro voltam para a página em que o cliente estava.
+  const signIn = () => login(pathname + search);
+  const signUp = () => register(pathname + search);
   // Guarda a rota em que o menu foi aberto: ao navegar, ele fecha sozinho.
   const [mobileOpenAt, setMobileOpenAt] = useState<string | null>(null);
   const isMobileOpen = mobileOpenAt === pathname;
@@ -132,16 +137,25 @@ export default function Header() {
             </Link>
 
             <div className="hidden sm:flex items-center space-x-2">
-              <Link to="/">
-                <Button variant="ghost" size="sm" className="text-sm">
-                  Sign In
-                </Button>
-              </Link>
-              <Link to="/">
-                <Button size="sm" variant="default" className="text-sm">
-                  Sign Up
-                </Button>
-              </Link>
+              {user ? (
+                <>
+                  <span className="text-sm text-gray-700 max-w-48 truncate" title={email ?? undefined}>
+                    {email}
+                  </span>
+                  <Button variant="ghost" size="sm" className="text-sm" onClick={logout}>
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="ghost" size="sm" className="text-sm" onClick={signIn}>
+                    Sign In
+                  </Button>
+                  <Button size="sm" variant="default" className="text-sm" onClick={signUp}>
+                    Sign Up
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -188,16 +202,23 @@ export default function Header() {
             </div>
 
             <div className="flex flex-col space-y-3 pt-4 sm:hidden">
-              <Button variant="outline" className="w-full text-sm" asChild>
-                <Link to="/" onClick={closeMobileMenu}>
-                  Sign In
-                </Link>
-              </Button>
-              <Button className="w-full text-sm" variant="default" asChild>
-                <Link to="/" onClick={closeMobileMenu}>
-                  Sign Up
-                </Link>
-              </Button>
+              {user ? (
+                <>
+                  <span className="text-sm text-gray-700 truncate">{email}</span>
+                  <Button variant="outline" className="w-full text-sm" onClick={logout}>
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="outline" className="w-full text-sm" onClick={signIn}>
+                    Sign In
+                  </Button>
+                  <Button className="w-full text-sm" variant="default" onClick={signUp}>
+                    Sign Up
+                  </Button>
+                </>
+              )}
             </div>
           </nav>
         )}

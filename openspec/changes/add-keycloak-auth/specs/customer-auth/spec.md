@@ -2,22 +2,17 @@
 
 ## Purpose
 
-Conta do cliente na loja: cadastro com e-mail e senha, confirmação do e-mail, login e logout, para que só clientes identificados finalizem compras.
+Conta do cliente na loja: cadastro pelo e-mail, confirmação do e-mail com definição da senha, login e logout, para que só clientes identificados finalizem compras.
 
 ## ADDED Requirements
 
-### Requirement: Cadastro com e-mail e senha
-A loja DEVE permitir criar uma conta com e-mail e senha de no mínimo 8 caracteres. O e-mail é o identificador de login.
+### Requirement: Cadastro com e-mail
+A loja DEVE permitir criar uma conta informando o e-mail, que é o identificador de login. A senha só DEVE ser definida depois que o e-mail for confirmado.
 
 #### Scenario: Cadastro válido
 - **GIVEN** não existe conta para cliente@exemplo.com
-- **WHEN** o cliente se cadastra com cliente@exemplo.com e uma senha de 8 caracteres
-- **THEN** a conta é criada com o e-mail não confirmado
-
-#### Scenario: Senha curta
-- **GIVEN** a senha tem 7 caracteres
-- **WHEN** o cliente tenta se cadastrar
-- **THEN** a conta não é criada e a regra da senha é exibida
+- **WHEN** o cliente se cadastra com cliente@exemplo.com
+- **THEN** a conta é criada sem senha e é pedido que ele confirme o e-mail
 
 ### Requirement: E-mail único
 A loja NÃO DEVE criar uma segunda conta para um e-mail já cadastrado, e DEVE oferecer o login.
@@ -27,18 +22,23 @@ A loja NÃO DEVE criar uma segunda conta para um e-mail já cadastrado, e DEVE o
 - **WHEN** alguém tenta se cadastrar com cliente@exemplo.com
 - **THEN** nenhuma conta é criada e é oferecido o login
 
-### Requirement: Confirmação do e-mail
-Ao criar a conta, a loja DEVE enviar um link de confirmação ao e-mail cadastrado. Até o link ser aberto, o login DEVE ser bloqueado, com a opção de reenviar o link.
+### Requirement: Confirmação do e-mail e definição da senha
+Ao criar a conta, a loja DEVE enviar um link ao e-mail cadastrado. Abrir o link DEVE confirmar o e-mail e pedir uma senha de no mínimo 8 caracteres; definida a senha, a sessão DEVE ser iniciada.
 
-#### Scenario: Link enviado e aberto
+#### Scenario: Link aberto
 - **GIVEN** o cliente acabou de se cadastrar com cliente@exemplo.com
-- **WHEN** ele abre o link recebido em cliente@exemplo.com
-- **THEN** o e-mail da conta fica confirmado
+- **WHEN** ele abre o link recebido e define uma senha de 8 caracteres
+- **THEN** o e-mail fica confirmado e a sessão é iniciada
 
-#### Scenario: Login antes de confirmar
-- **GIVEN** a conta de cliente@exemplo.com não está confirmada
-- **WHEN** o cliente entra com a senha correta e pede o reenvio
-- **THEN** a sessão não é iniciada e cliente@exemplo.com recebe um novo link
+#### Scenario: Senha curta
+- **GIVEN** o cliente abriu o link de confirmação
+- **WHEN** ele define uma senha de 7 caracteres
+- **THEN** a senha é recusada e a regra é exibida
+
+#### Scenario: Link perdido
+- **GIVEN** a conta de cliente@exemplo.com não foi confirmada
+- **WHEN** o cliente pede a recuperação de senha com cliente@exemplo.com
+- **THEN** ele recebe um novo link para confirmar o e-mail e definir a senha
 
 ### Requirement: Login com e-mail e senha
 A loja DEVE iniciar a sessão com o e-mail e a senha corretos de uma conta confirmada. A mensagem de falha NÃO DEVE revelar se o e-mail existe.

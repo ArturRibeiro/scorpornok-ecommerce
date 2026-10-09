@@ -27,7 +27,7 @@ O front redireciona para a página de login/cadastro do Keycloak e recebe o cód
 
 ### 2. Keycloak no compose, com banco próprio e realm importado
 `docker-compose.identity.yml` (incluído pelo `docker-compose.yml`) com `keycloak` (imagem `quay.io/keycloak/keycloak`, 26.x, `start-dev --import-realm`, porta 8080) e `keycloak-db` (Postgres 16, porta 5436 no host), no padrão de um banco por serviço. O admin inicial vem de `KC_BOOTSTRAP_ADMIN_USERNAME`/`KC_BOOTSTRAP_ADMIN_PASSWORD` (padrão local `admin`/`admin`). Desde a versão 25 os health checks ficam na porta de gerenciamento 9000 (`KC_HEALTH_ENABLED=true`), e a imagem não tem `curl`: o healthcheck do compose consulta `localhost:9000/health/ready` pelo `/dev/tcp` do bash. O realm fica em `keycloak/scorponok-realm.json`, montado em `/opt/keycloak/data/import`.
-Configuração do realm `scorponok`: `registrationAllowed`, `registrationEmailAsUsername`, `loginWithEmailAllowed`, `duplicateEmailsAllowed=false`, `verifyEmail`, `resetPasswordAllowed`, `bruteForceProtected`, política de senha `length(8)`, SMTP `mailpit:1025` com remetente `no-reply@scorponok.local`.
+Configuração do realm `scorponok`: `registrationAllowed`, `registrationEmailAsUsername`, `loginWithEmailAllowed`, `duplicateEmailsAllowed=false`, `verifyEmail`, `resetPasswordAllowed`, `bruteForceProtected`, política de senha `length(8)`, SMTP `mailpit:1025` com remetente `no-reply@scorponok.local`, e um perfil de usuário só com `username` e `email` (o padrão pede nome e sobrenome no cadastro). Com `verifyEmail`, o Keycloak 26.7 não mostra senha no cadastro: o cliente informa o e-mail, abre o link e só então define a senha, e um link perdido é reenviado pela recuperação de senha. Manter a senha no cadastro exigiria a opção obsoleta "Always set password on register form", que não usamos.
 - *Alternativa*: configurar o realm por script na partida (admin REST/`kcadm`). Descartada: o import é declarativo e versionado. O custo é que o import só roda quando o realm não existe, então mudar o arquivo exige recriar o volume do `keycloak-db`.
 
 ### 3. Mesmo emissor para navegador e containers
@@ -35,7 +35,7 @@ O navegador usa `http://localhost:8080`, e o `orders-api` alcança o Keycloak po
 - *Alternativa*: `extra_hosts` mapeando `localhost` para o Keycloak dentro do container. Descartada: frágil e conflita com o próprio `localhost` do container.
 
 ### 4. Audiência própria para o Orders
-Um client scope `orders-api` com *audience mapper* do tipo "Included Custom Audience" (valor `orders-api`, sem precisar de um client com esse nome) entra como escopo padrão do `scorponok-web`; o Orders valida `aud=orders-api`. Assim, um token emitido para outro client do realm não é aceito.
+Um *audience mapper* do tipo "Included Custom Audience" (valor `orders-api`, sem precisar de um client com esse nome) fica no próprio client `scorponok-web`; o Orders valida `aud=orders-api`. Ele não vai num client scope próprio porque, quando o JSON do realm declara `clientScopes`, o import deixa de criar os escopos padrão (`email`, `profile`), e o token perderia `email` e `email_verified`. Assim, um token emitido para outro client do realm não é aceito.
 - *Alternativa*: não validar audiência. Descartada: qualquer token do realm passaria.
 
 ### 5. Orders: JwtBearer, política e identidade vinda do token

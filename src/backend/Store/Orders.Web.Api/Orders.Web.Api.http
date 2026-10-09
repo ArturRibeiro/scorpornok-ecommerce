@@ -1,13 +1,24 @@
 @Orders.Web.Api_HostAddress = http://localhost:5224
+# Access token do Keycloak (vale 5 min). Entre na loja (http://localhost:3000) com uma conta
+# confirmada e copie o access_token da chave
+# "oidc.user:http://localhost:8080/realms/scorponok:scorponok-web" do localStorage
+# (DevTools → Application → Local Storage). O client não aceita usuário e senha direto.
+@token = cole-o-access-token-aqui
 
-### Pedido válido: 201 com orderNumber, status e total (o resultado do pagamento vai para o email)
+### Sem token: 401
+POST {{Orders.Web.Api_HostAddress}}/createOrder
+Content-Type: application/json
+
+{}
+
+### Pedido válido: 201 com orderNumber, status e total. O cliente e o e-mail do pedido
+### vêm do token (o resultado do pagamento vai para o e-mail da conta), não do corpo.
 POST {{Orders.Web.Api_HostAddress}}/createOrder
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{token}}
 
 {
-  "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "email": "cliente@exemplo.com",
   "address": {
     "street": "Rua das Flores, 100",
     "city": "São Paulo",
@@ -31,13 +42,13 @@ Accept: application/json
   }
 }
 
-### Pedido inválido (sem email, sem cidade e sem itens): 400 com errors
+### Pedido inválido (sem cidade e sem itens): 400 com errors
 POST {{Orders.Web.Api_HostAddress}}/createOrder
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{token}}
 
 {
-  "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "address": {
     "street": "Rua das Flores, 100",
     "city": "",

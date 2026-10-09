@@ -70,11 +70,17 @@ public class OrderPaymentHandlersTests
     }
 
     [Test]
-    public async Task Consulta_de_status_deve_devolver_o_status_ou_nulo()
-    {
-        (await _handlers.Handle(new GetOrderStatusQuery(_order.OrderNumber), CancellationToken.None))
+    public async Task Consulta_de_status_do_dono_devolve_o_status()
+        => (await _handlers.Handle(new GetOrderStatusQuery(_order.OrderNumber, _order.CustomerId), CancellationToken.None))
             .Should().Be(OrderStatus.Pending.Name);
-        (await _handlers.Handle(new GetOrderStatusQuery("X999"), CancellationToken.None))
+
+    [Test]
+    public async Task Consulta_de_status_de_outro_cliente_devolve_nulo()
+        => (await _handlers.Handle(new GetOrderStatusQuery(_order.OrderNumber, Guid.NewGuid()), CancellationToken.None))
             .Should().BeNull();
-    }
+
+    [Test]
+    public async Task Consulta_de_status_de_numero_inexistente_devolve_nulo()
+        => (await _handlers.Handle(new GetOrderStatusQuery("X999", _order.CustomerId), CancellationToken.None))
+            .Should().BeNull();
 }

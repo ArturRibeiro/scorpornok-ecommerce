@@ -15,6 +15,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(connectionString, builder.Configuration);
+// Clientes do Keycloak: o pedido e o hub exigem token com e-mail confirmado.
+builder.Services.AddCustomerAuthentication(builder.Configuration, builder.Environment);
 // Avisa o navegador do resultado do pagamento (hub /hubs/orders).
 builder.Services.AddSignalR();
 builder.Services.AddScoped<IOrderPaymentNotifier, SignalROrderPaymentNotifier>();
@@ -36,6 +38,8 @@ app.UseCors();
 var webSocketOptions = new WebSocketOptions();
 foreach (var origin in allowedOrigins) webSocketOptions.AllowedOrigins.Add(origin);
 app.UseWebSockets(webSocketOptions);
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.CreateOrder();
 app.MapHub<OrderHub>(OrderHub.Path);

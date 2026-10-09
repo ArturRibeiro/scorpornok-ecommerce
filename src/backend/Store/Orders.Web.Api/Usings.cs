@@ -12,3 +12,4 @@ global using Orders.Web.Api;
 global using Orders.Web.Api.WebApplicationExtensions;
 global using Orders.CommandHandlers.Orders;
 global using Orders.Web.Api.Hubs;
+global using Orders.Web.Api.Authentication;

@@ -1,10 +1,12 @@
+import AccountEmail from "@/components/checkout/AccountEmail";
 import CheckoutItems from "@/components/checkout/CheckoutItems";
-import ContactForm from "@/components/checkout/ContactForm";
 import CheckoutSummary from "@/components/checkout/CheckoutSummary";
 import OrderConfirmation from "@/components/checkout/OrderConfirmation";
 import PaymentForm from "@/components/checkout/PaymentForm";
+import RequireAuth from "@/components/RequireAuth";
 import ShippingAddressForm from "@/components/checkout/ShippingAddressForm";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/AuthContext";
 import { useCart, type CartItem } from "@/context/CartContext";
 import {
   EMPTY_ADDRESS,
@@ -16,9 +18,9 @@ import {
   type PaymentDetails,
   type ShippingAddress,
 } from "@/lib/checkout";
-import { getCustomerId } from "@/lib/customer";
 import {
   createOrder,
+  SessionExpiredError,
   type CreatedOrder,
   type CreateOrderRequest,
 } from "@/lib/orders";
@@ -31,13 +33,10 @@ const NETWORK_ERROR =
 
 const toRequest = (
   cart: CartItem[],
-  email: string,
   address: ShippingAddress,
   payment: PaymentDetails,
   total: number
 ): CreateOrderRequest => ({
-  userId: getCustomerId(),
-  email: email.trim(),
   address,
   items: cart.map((item) => ({
     productId: item.id,
@@ -61,17 +60,18 @@ const toRequest = (
 
 export default function CheckoutPage() {
   const { cart, clearCart } = useCart();
-  const [email, setEmail] = useState("");
+  const { email, login, getAccessToken } = useAuth();
   const [address, setAddress] = useState(EMPTY_ADDRESS);
   const [payment, setPayment] = useState(EMPTY_PAYMENT);
   const [errors, setErrors] = useState<CheckoutErrors>({});
   const [submitErrors, setSubmitErrors] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
-  const [placedOrder, setPlacedOrder] = useState<CreatedOrder | null>(null);
+  // Guarda o e-mail com o pedido: é para ele que o resultado foi enviado.
+  const [placed, setPlaced] = useState<{ order: CreatedOrder; email: string } | null>(null);
 
   // Vem antes do redirecionamento: o carrinho já foi esvaziado no sucesso.
-  if (placedOrder) {
-    return <OrderConfirmation order={placedOrder} email={email.trim()} />;
+  if (placed) {
+    return <OrderConfirmation order={placed.order} email={placed.email} />;
   }
 
   if (cart.length === 0) {
@@ -88,11 +88,6 @@ export default function CheckoutPage() {
       return next;
     });
 
-  const updateEmail = (value: string) => {
-    setEmail(value);
-    clearError("email");
-  };
-
   const updateAddress = (field: keyof ShippingAddress, value: string) => {
     setAddress((prev) => ({ ...prev, [field]: value }));
     clearError(field);
@@ -106,70 +101,81 @@ export default function CheckoutPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const found = validateCheckout(email, address, payment);
+    const found = validateCheckout(address, payment);
     setErrors(found);
     if (Object.keys(found).length > 0) return;
 
     setSubmitting(true);
     setSubmitErrors([]);
     try {
-      const result = await createOrder(toRequest(cart, email, address, payment, total));
+      // Sessão vencida sem renovação: o pedido não sai e o cliente entra de novo.
+      // O carrinho continua no localStorage; o login volta para o checkout.
+      const token = await getAccessToken();
+      if (!token || !email) throw new SessionExpiredError();
+      const result = await createOrder(toRequest(cart, address, payment, total), token);
       if (result.ok) {
         clearCart();
-        setPlacedOrder(result.order);
+        setPlaced({ order: result.order, email });
       } else {
         setSubmitErrors(result.errors);
       }
-    } catch {
+    } catch (error) {
+      if (error instanceof SessionExpiredError) {
+        await login("/checkout");
+        return;
+      }
       setSubmitErrors([NETWORK_ERROR]);
     } finally {
       setSubmitting(false);
     }
   };
 
+  // Depois da checagem do carrinho vazio: quem seria devolvido ao carrinho não vai ao login.
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Checkout</h1>
-          <p className="text-muted-foreground mt-2">
-            Review your items and enter your shipping and payment details
-          </p>
+    <RequireAuth>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">Checkout</h1>
+            <p className="text-muted-foreground mt-2">
+              Review your items and enter your shipping and payment details
+            </p>
+          </div>
+
+          <Button
+            variant="ghost"
+            asChild
+            className="text-muted-foreground hover:text-foreground"
+          >
+            <Link to="/cart" className="flex items-center gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Back to Cart
+            </Link>
+          </Button>
         </div>
 
-        <Button
-          variant="ghost"
-          asChild
-          className="text-muted-foreground hover:text-foreground"
-        >
-          <Link to="/cart" className="flex items-center gap-2">
-            <ArrowLeft className="h-4 w-4" />
-            Back to Cart
-          </Link>
-        </Button>
+        <form noValidate onSubmit={handleSubmit} className="grid lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-6">
+            <CheckoutItems items={cart} />
+            {email && <AccountEmail email={email} />}
+            <ShippingAddressForm
+              address={address}
+              errors={errors}
+              onChange={updateAddress}
+            />
+            <PaymentForm payment={payment} errors={errors} onChange={updatePayment} />
+          </div>
+
+          <div className="lg:col-span-1">
+            <CheckoutSummary
+              itemCount={itemCount}
+              total={total}
+              submitting={submitting}
+              errors={submitErrors}
+            />
+          </div>
+        </form>
       </div>
-
-      <form noValidate onSubmit={handleSubmit} className="grid lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-6">
-          <CheckoutItems items={cart} />
-          <ContactForm email={email} error={errors.email} onChange={updateEmail} />
-          <ShippingAddressForm
-            address={address}
-            errors={errors}
-            onChange={updateAddress}
-          />
-          <PaymentForm payment={payment} errors={errors} onChange={updatePayment} />
-        </div>
-
-        <div className="lg:col-span-1">
-          <CheckoutSummary
-            itemCount={itemCount}
-            total={total}
-            submitting={submitting}
-            errors={submitErrors}
-          />
-        </div>
-      </form>
-    </div>
+    </RequireAuth>
   );
 }

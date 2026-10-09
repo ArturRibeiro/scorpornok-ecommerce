@@ -4,11 +4,9 @@
 export const ORDERS_API_URL =
   import.meta.env.VITE_ORDERS_API_URL ?? "http://localhost:5224";
 
-// Formato do CreateCommand no backend.
+// Formato do CreateCommand no backend. O cliente e o e-mail (para onde vai o
+// resultado do pagamento) não vão no corpo: o Orders os lê do token.
 export interface CreateOrderRequest {
-  userId: string;
-  // Para onde o Orders envia o e-mail com o resultado do pagamento.
-  email: string;
   address: {
     street: string;
     city: string;
@@ -47,16 +45,31 @@ export type CreateOrderResult =
   | { ok: true; order: CreatedOrder }
   | { ok: false; errors: string[] };
 
-// 201 devolve o pedido e 400 as mensagens de validação. Falha de rede e outros
-// status viram exceção, porque não há o que o cliente corrigir no formulário.
+// 401: a sessão venceu (ou o token foi recusado) e o cliente precisa entrar de novo.
+export class SessionExpiredError extends Error {
+  constructor() {
+    super("Session expired");
+  }
+}
+
+// 201 devolve o pedido e 400 as mensagens de validação. 401 vira SessionExpiredError;
+// falha de rede e outros status viram exceção, porque não há o que corrigir no formulário.
 export async function createOrder(
-  request: CreateOrderRequest
+  request: CreateOrderRequest,
+  accessToken: string
 ): Promise<CreateOrderResult> {
   const response = await fetch(`${ORDERS_API_URL}/createOrder`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
     body: JSON.stringify(request),
   });
+
+  if (response.status === 401) {
+    throw new SessionExpiredError();
+  }
 
   if (response.status === 201) {
     return { ok: true, order: await response.json() };

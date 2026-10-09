@@ -16,7 +16,10 @@ public class OrderPaymentHandlers(
         => ApplyAsync(command.OrderNumber, order => order.FailPayment(), approved: false, cancellationToken);
 
     public async Task<string?> Handle(GetOrderStatusQuery query, CancellationToken cancellationToken)
-        => (await orderRepository.GetByNumberAsync(query.OrderNumber, cancellationToken))?.Status.Name;
+        => await orderRepository.GetByNumberAsync(query.OrderNumber, cancellationToken) is { } order
+           && order.CustomerId == query.CustomerId
+            ? order.Status.Name
+            : null;
 
     // Salva antes de avisar: a loja nunca recebe um resultado que o pedido ainda não reflete.
     private async Task ApplyAsync(string orderNumber, Func<Order, bool> apply, bool approved,

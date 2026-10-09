@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useAuth } from "@/context/AuthContext";
 import { watchOrderPayment } from "@/lib/orderHub";
 import type { CreatedOrder } from "@/lib/orders";
 import { CheckCircle2, Clock, Loader2, XCircle } from "lucide-react";
@@ -61,6 +62,7 @@ export default function OrderConfirmation({
   email: string;
 }) {
   const [payment, setPayment] = useState<PaymentState>("processing");
+  const { getAccessToken } = useAuth();
 
   // Recebe o resultado pelo hub do Orders, sem consultar o pedido. Falha de conexão
   // ou prazo esgotado viram "pending": o pedido existe e o resultado chega por e-mail.
@@ -69,7 +71,7 @@ export default function OrderConfirmation({
     let unmounted = false;
     const timer = setTimeout(() => controller.abort(), PAYMENT_TIMEOUT_MS);
 
-    watchOrderPayment(order.orderNumber, controller.signal)
+    watchOrderPayment(order.orderNumber, getAccessToken, controller.signal)
       .then((approved) => setPayment(approved ? "approved" : "declined"))
       .catch(() => {
         if (!unmounted) setPayment("pending");
@@ -81,7 +83,7 @@ export default function OrderConfirmation({
       clearTimeout(timer);
       controller.abort();
     };
-  }, [order.orderNumber]);
+  }, [order.orderNumber, getAccessToken]);
 
   const view = paymentView(payment, email);
 

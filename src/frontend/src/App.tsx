@@ -1,6 +1,9 @@
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/CartContext";
+import { AUTH_CALLBACK_PATH } from "@/lib/auth";
+import AuthCallbackPage from "@/pages/AuthCallbackPage";
 import CartPage from "@/pages/CartPage";
 import CheckoutPage from "@/pages/CheckoutPage";
 import ContactPage from "@/pages/ContactPage";
@@ -11,19 +14,22 @@ import { Route, Routes } from "react-router";
 
 export default function App() {
   return (
-    <CartProvider>
-      <Header />
-      <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/product/:productId" element={<ProductPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </main>
-      <Footer />
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <Header />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/product/:productId" element={<ProductPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path={AUTH_CALLBACK_PATH} element={<AuthCallbackPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </CartProvider>
+    </AuthProvider>
   );
 }

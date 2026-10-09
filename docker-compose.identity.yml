@@ -1,0 +1,75 @@
+# Identidade: Keycloak com o seu próprio Postgres. Guarda as contas dos clientes
+# (cadastro, confirmação de e-mail e login pelo formulário do Keycloak) e emite os
+# tokens que o Orders valida. O realm vem de keycloak/scorponok-realm.json, importado
+# só quando ainda não existe; para reimportar, recrie o volume keycloak_data.
+# Console de administração em http://localhost:8080 (admin/admin).
+#
+# Só o Keycloak (o e-mail de confirmação precisa do Mailpit de docker-compose.mail.yml):
+#   docker compose -f docker-compose.identity.yml up -d
+services:
+  keycloak-db:
+    image: postgres:16
+    container_name: keycloak_db
+    restart: always
+    environment:
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: sa
+      POSTGRES_DB: keycloak
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sa -d keycloak"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - 5436:5432
+    volumes:
+      - keycloak_data:/var/lib/postgresql/data
+    networks:
+      - ecommerce-networks
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.7.5
+    container_name: keycloak
+    restart: always
+    command: start-dev --import-realm
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: sa
+      KC_DB_PASSWORD: sa
+      # O navegador e os containers veem o Keycloak por endereços diferentes
+      # (localhost:8080 e keycloak:8080). O emissor dos tokens é sempre o público;
+      # o backchannel dinâmico devolve as URLs internas a quem pede pela rede interna.
+      KC_HOSTNAME: http://localhost:8080
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
+      KC_HEALTH_ENABLED: "true"
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN_USERNAME:-admin}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
+    # Health checks na porta de gerenciamento (9000). A imagem não tem curl.
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/9000 && printf 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && grep -q '\"UP\"' <&3"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    ports:
+      - 8080:8080
+    volumes:
+      - ./keycloak:/opt/keycloak/data/import:ro
+    depends_on:
+      keycloak-db:
+        condition: service_healthy
+    networks:
+      - ecommerce-networks
+
+volumes:
+  keycloak_data:
+
+networks:
+  ecommerce-networks:
+    driver: bridge
+    # Mesma sub-rede de docker-compose.database.yml (veja o motivo lá),
+    # para o arquivo também funcionar sozinho.
+    ipam:
+      config:
+        - subnet: 192.168.100.0/24

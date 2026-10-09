@@ -10,13 +10,18 @@ interface PaymentStatusChanged {
 // Conecta ao hub /hubs/orders, acompanha o pedido e resolve com o resultado do
 // pagamento (true = aprovado). Não consulta o pedido: o Orders envia a mensagem
 // quando o resultado chega, ou na hora, se o pedido já estiver resolvido.
+// O hub exige o token do cliente (o SignalR o manda em access_token na query do
+// WebSocket) e só aceita o dono do pedido; sem token, a conexão é recusada.
 // A conexão é encerrada ao receber o resultado ou quando o signal é abortado.
 export async function watchOrderPayment(
   orderNumber: string,
+  getAccessToken: () => Promise<string | null>,
   signal: AbortSignal
 ): Promise<boolean> {
   const connection = new HubConnectionBuilder()
-    .withUrl(`${ORDERS_API_URL}/hubs/orders`)
+    .withUrl(`${ORDERS_API_URL}/hubs/orders`, {
+      accessTokenFactory: async () => (await getAccessToken()) ?? "",
+    })
     .configureLogging(LogLevel.Warning)
     .build();
 
