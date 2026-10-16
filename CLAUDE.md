@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Visão geral
 
-Scorponok é um backend de e-commerce modular em .NET, feito para estudo e demonstração (DDD, CQRS, MediatR, domain notifications, event sourcing). O README ainda descreve o .NET Core 3.1. O código já migrou para **net8.0** (`Programming.Functional*` ainda é net6.0). Comentários no código, o `use-case.md` e parte da documentação estão em português.
+Scorponok é um backend de e-commerce modular em .NET, feito para estudo e demonstração (DDD, CQRS, MediatR, domain notifications, integration events com outbox). Todos os projetos da solution são **net10.0** (`<TargetFramework>` vem do `Directory.Build.props`). Comentários no código, o `use-case.md` e parte da documentação estão em português.
 
 ## Comandos
 
@@ -24,12 +24,11 @@ docker compose -f docker-compose.identity.yml up -d   # só o Keycloak e o seu b
 docker compose -f docker-compose.frontend.yml up -d --build   # só o front-end (também incluído pelo docker-compose.yml)
 ```
 
-- `Programming.Functional.Tests` é net6.0, então rodá-lo exige o runtime do .NET 6 (ou trocar o target).
 - Cada projeto `*.Web.Api` tem um arquivo `.http` para testar os endpoints.
 
 ## Versões de pacotes
 
-Todas as versões de pacotes são propriedades MSBuild no `Directory.Build.props`, por exemplo `Version="$(MediatRNet8)"`. Adicione ou atualize versões lá, não direto no csproj. Os projetos usam `<TargetFramework>$(TargetFrameworkNet8)</TargetFramework>`. O arquivo de props define versões legadas (EF Core 3.1.x, MediatR 7) e versões net8 (`*Net8`), e os projetos misturam as duas. Por exemplo, projetos net8 ainda referenciam o EF Core `$(EntityFrameworkCore)` = 3.1.19. Os projetos Web API fixam algumas versões direto no csproj (Swashbuckle, OpenApi).
+Todas as versões de pacotes são propriedades MSBuild no `Directory.Build.props`, por exemplo `Version="$(MediatR)"` (EF Core 10, Npgsql 10, MediatR 13, MassTransit 8.5, Swashbuckle 10). Adicione ou atualize versões lá, nunca direto no csproj. O mesmo arquivo define o `<TargetFramework>` (`net10.0`) e o `LangVersion`, e os projetos usam `<TargetFramework>$(TargetFramework)</TargetFramework>`. O CI (`.github/workflows/dotnet.yml`) instala o SDK `10.0.x`; não há `global.json`.
 
 ## Arquitetura
 

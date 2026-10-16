@@ -1,68 +1,149 @@
-# A simple, modularized e-commerce system based on .NET
-
+# Scorponok: um e-commerce modular em .NET
 
 ![5](https://user-images.githubusercontent.com/1322130/131916590-daf90d7f-ccb1-4013-9d59-ca970a04f0a1.png)
 
-What is the ecommerce Project?
-=====================
-The ecommerce Project is a open-source project written in .NET 10
+## O que é o projeto
 
-The goal of this project is implement the most common used technologies and share with the technical community the best way to develop great applications with .NET and evoluting learn.
+O Scorponok é um e-commerce de código aberto, escrito em .NET 10 e React, feito para estudo e demonstração. O objetivo é aplicar as tecnologias e os padrões mais usados no mercado e compartilhar com a comunidade uma forma de construir boas aplicações com .NET.
 
-# Prerequisite
-- .NET SDK 10.0
-- Docker (the databases run with Docker Compose)
+## Bounded contexts
 
-# Technologies used
-- [x] Entity Framework Core 10 (Npgsql / PostgreSQL)
-- [x] MediatR 13
-- [x] FluentValidation
-- [x] Swagger UI (Swashbuckle)
-- [x] ASP.NET Core Minimal APIs
-- [x] Testcontainers
-- [x] SpecFlow + NUnit (integration scenarios)
-- [ ] ASP.NET Core Identity
-- [ ] Angular 1.6.3
-- [ ] AutoMapper
+O backend fica em `src/backend/` e é dividido em contextos. Cada um é dividido em camadas (domínio, commands ou queries, infraestrutura e Web API) e tem sua API e seu banco.
 
-## Architecture:
-- Responsibility separation concerns, SOLID and Clean Code
-- Domain Driven Design
-- Domain Events
-- Domain Notification
-- CQRS
-- Event Sourcing
-- Unit of Work
-- Repository and Generic Repository
+| Contexto | Responsabilidade |
+|---|---|
+| **Catalog** | Lado de leitura: lista e detalha os produtos |
+| **Orders** | Lado de escrita: registra o pedido do cliente autenticado, acompanha o pagamento e envia o resultado por e-mail e pela loja (SignalR) |
+| **Payments** | Recebe a solicitação de pagamento pelo RabbitMQ, decide, grava e devolve o resultado (o gateway é um stub) |
+| **Shared / Frameworker** | Blocos de DDD/CQRS, contratos de integração, paginação, tipos funcionais e bases de teste |
 
+O front-end (`src/frontend/`) é a loja: catálogo, carrinho, login e cadastro pelo Keycloak e checkout.
 
+### Fluxo de um pedido
 
-# How to use
-- You will need the .NET SDK 10.0 or higher, available at https://dot.net
-- Make sure the Docker daemon is running and the databases are up: `docker compose -f docker-compose.database.yml up -d`
+1. O cliente entra pela loja (Keycloak) e confirma o pedido no checkout.
+2. O Orders grava o pedido como `Pending` e, na mesma transação, a mensagem `PaymentRequested` (outbox). A resposta não depende do broker.
+3. O Payments consome a mensagem, cobra no gateway e publica `PaymentApproved` ou `PaymentRejected`.
+4. O Orders passa o pedido para `Confirmed` ou `Failed`, avisa a loja pelo SignalR e envia o resultado por e-mail.
+
+## Tecnologias
+
+**Backend**
+- .NET 10, ASP.NET Core Minimal APIs e Swagger (Swashbuckle)
+- Entity Framework Core 10 com PostgreSQL 16 (Npgsql)
+- MediatR 13 e FluentValidation
+- MassTransit 8 sobre RabbitMQ 4, com outbox transacional
+- SignalR para avisar a loja do resultado do pagamento
+- MailKit para e-mail (Mailpit em desenvolvimento)
+- Keycloak 26 (OpenID Connect, JWT Bearer)
+
+**Front-end**
+- React 19, TypeScript, Vite e React Router 7
+- Tailwind CSS 4, shadcn/ui e Radix UI
+- `oidc-client-ts` (Authorization Code + PKCE)
+
+**Testes**
+- NUnit, FluentAssertions e Moq
+- SpecFlow (cenários BDD)
+- `WebApplicationFactory` e Testcontainers
+- Test harness do MassTransit
+
+**Infraestrutura**
+- Docker Compose: uma API e um Postgres por contexto, mais RabbitMQ, Mailpit, Keycloak e o front-end
+- GitHub Actions: build e testes a cada push e pull request no `master`
+
+## Arquitetura e padrões
+
+- Separação de responsabilidades, SOLID e Clean Code
+- Domain-Driven Design (agregados, value objects, bounded contexts)
+- CQRS com MediatR
+- Domain Notifications
+- Integration events entre contextos, com outbox
+- Repository genérico e Unit of Work
+- Health checks de liveness e readiness
+
+## Pré-requisitos
+
+- Docker com Docker Compose
+- .NET SDK 10.0 (https://dot.net), para rodar as APIs e os testes fora do Docker
+- Node.js 24, só para rodar o front-end fora do Docker
+
+## Como rodar
+
+### Tudo no Docker
 
 ```bash
-dotnet build Scorponok.slnx                         # build everything
-dotnet test Scorponok.slnx                          # run all tests
-dotnet run --project src/backend/Catalog/Catalog.Web.Api    # start the Catalog API
-dotnet run --project src/backend/Store/Orders.Web.Api       # start the Orders API
+docker compose up -d --build
 ```
 
-Each `*.Web.Api` project has a `.http` file to exercise its endpoints.
+Isso sobe as três APIs, os bancos, o RabbitMQ, o Mailpit, o Keycloak e a loja. Na primeira vez, o Keycloak leva alguns segundos para importar o realm.
 
-# Boas práticas
+| Serviço | Endereço |
+|---|---|
+| Loja | http://localhost:3000 |
+| Catalog API (Swagger) | http://localhost:5064/swagger |
+| Orders API (Swagger) | http://localhost:5224/swagger |
+| Payments API (Swagger) | http://localhost:5220/swagger |
+| Keycloak (console: `admin`/`admin`) | http://localhost:8080 |
+| Mailpit (caixa de entrada de desenvolvimento) | http://localhost:8025 |
+| RabbitMQ (painel: `guest`/`guest`) | http://localhost:15672 |
+
+Para comprar, crie uma conta na loja. O link de confirmação chega no Mailpit; depois de abri-lo, defina a senha.
+
+### APIs com `dotnet run`
+
+Suba a infraestrutura com o Docker e rode as APIs localmente:
+
+```bash
+docker compose -f docker-compose.database.yml up -d     # bancos
+docker compose -f docker-compose.messaging.yml up -d    # RabbitMQ
+docker compose -f docker-compose.mail.yml up -d         # Mailpit
+docker compose -f docker-compose.identity.yml up -d     # Keycloak
+
+dotnet run --project src/backend/Catalog/Catalog.Web.Api
+dotnet run --project src/backend/Store/Orders.Web.Api
+dotnet run --project src/backend/Payments/Payments.Web.Api
+```
+
+O front-end tem as instruções próprias em `src/frontend/` (`npm install` e `npm run dev`).
+
+Cada `*.Web.Api` tem um arquivo `.http` para testar os endpoints.
+
+### Build e testes
+
+```bash
+dotnet build Scorponok.slnx
+dotnet test Scorponok.slnx
+```
+
+## Enviar e-mail de verdade
+
+Por padrão, todos os e-mails vão para o Mailpit, que não entrega nada para fora. Para enviar por um SMTP real (por exemplo, o Gmail com uma senha de app), crie um `.env` na raiz, que o git ignora:
+
+```env
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_FROM=seu.email@gmail.com
+SMTP_USERNAME=seu.email@gmail.com
+SMTP_PASSWORD=<senha de app>
+SMTP_USE_STARTTLS=true
+```
+
+O mesmo `.env` vale para os e-mails de pedido (Orders) e para os do Keycloak (confirmação de cadastro e troca de senha). O Keycloak só lê esses valores quando importa o realm. Se ele já estiver no ar, recrie o volume `keycloak_data` (isso apaga as contas) ou ajuste em *Realm settings* → *Email* no console.
+
+Nunca coloque senhas em arquivos versionados.
 
 ## Health checks
 
 Cada API tem dois endpoints que informam se ela está funcionando:
 
-- `/health/live`: a API está no ar. Se falhar, reinicie a API.
-- `/health/ready`: a API consegue atender pedidos, incluindo o acesso ao banco. Se falhar, espere ela se recuperar.
+- `/health/live`: a API está no ar. Se falhar, reinicie a API. Ele não verifica nenhuma dependência, para que uma queda do banco não faça as APIs reiniciarem.
+- `/health/ready`: a API consegue atender pedidos. Se falhar, espere ela se recuperar.
 
-| API | Endereço | O que o `/health/ready` verifica |
+| API | Porta | O que o `/health/ready` verifica |
 |---|---|---|
-| Catalog | http://localhost:5064/health/live e http://localhost:5064/health/ready | Banco de produtos |
-| Orders | http://localhost:5224/health/live e http://localhost:5224/health/ready | Banco de pedidos |
-| Payment | http://localhost:5220/health/live e http://localhost:5220/health/ready | Nada além da própria API, pois ela não usa banco |
+| Catalog | 5064 | Banco de produtos |
+| Orders | 5224 | Banco de pedidos |
+| Payments | 5220 | Banco de pagamentos e RabbitMQ |
 
-O `/health/live` não verifica o banco. Assim, uma queda do banco não faz as APIs reiniciarem.
+O Orders tem também o `/health/bus`, que verifica o RabbitMQ. Ele fica fora do `/health/ready` porque o registro de pedidos não depende do broker: com o RabbitMQ fora, o pedido é aceito e a solicitação de pagamento sai quando ele volta.
