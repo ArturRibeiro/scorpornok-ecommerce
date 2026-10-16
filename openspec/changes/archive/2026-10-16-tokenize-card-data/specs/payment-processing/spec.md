@@ -53,10 +53,15 @@ O Payments DEVE recusar o pagamento quando o cartão do token termina em `0000` 
 - **THEN** o pagamento é recusado com um motivo
 
 ### Requirement: Registro do pagamento
-O Payments DEVE registrar cada pagamento processado com identificador próprio, número do pedido, valor, parcelas, titular, os quatro últimos dígitos do cartão, resultado e data. Ele NÃO DEVE guardar o CVV nem o número completo do cartão, nem no pagamento nem no token.
+O Payments DEVE registrar o pagamento como "em processamento" antes de cobrar e, com a resposta do gateway, completá-lo com o resultado. O registro tem identificador próprio, número do pedido, tentativa, valor, parcelas, titular, os quatro últimos dígitos do cartão, situação, motivo da recusa e data. Ele NÃO DEVE guardar o CVV nem o número completo do cartão, nem no pagamento nem no token.
 
 #### Scenario: Pagamento registrado sem dados sensíveis
 - **GIVEN** uma solicitação com o token do cartão 4111111111111111, tokenizado com CVV 123
 - **WHEN** o pagamento é processado
 - **THEN** o registro guarda os dígitos finais 1111 e o resultado
 - **AND** nem o CVV nem o número completo aparecem no registro nem no token
+
+#### Scenario: Pagamento em processamento
+- **GIVEN** uma solicitação do pedido A123
+- **WHEN** o gateway ainda não respondeu
+- **THEN** existe um pagamento de A123 na situação "em processamento", sem resultado comunicado
