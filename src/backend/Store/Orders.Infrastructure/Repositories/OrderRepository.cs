@@ -12,7 +12,7 @@
         public Order Save(Order order)
             => _context.Orders.Add(order).Entity;
 
-        public Task<Order> GetByNumberAsync(string orderNumber, CancellationToken cancellationToken = default)
+        public Task<Order?> GetByNumberAsync(string orderNumber, CancellationToken cancellationToken = default)
             => _context.Orders.FirstOrDefaultAsync(o => o.OrderNumber == orderNumber, cancellationToken);
 
         public async Task<IReadOnlyList<Order>> GetAwaitingPaymentEmailAsync(int limit,

@@ -4,18 +4,18 @@
     public class OrderAddressMessageResponse
     {
         [DataMember, Required]
-        public string Street { get; set; }
+        public string? Street { get; set; }
 
         [DataMember, Required]
-        public string City { get; set; }
+        public string? City { get; set; }
 
         [DataMember, Required]
-        public string State { get; set; }
+        public string? State { get; set; }
 
         [DataMember, Required]
-        public string Country { get; set; }
+        public string? Country { get; set; }
 
         [DataMember, Required]
-        public string ZipCode { get; set; }
+        public string? ZipCode { get; set; }
     }
 }

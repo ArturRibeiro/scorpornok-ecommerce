@@ -14,6 +14,9 @@ public abstract class StepBase
         response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
 
-        return new Result<T>(JsonConvert.DeserializeObject<T>(content), response.EnsureSuccessStatusCode());
+        var value = JsonConvert.DeserializeObject<T>(content)
+            ?? throw new InvalidOperationException($"A resposta de {uri} veio vazia.");
+
+        return new Result<T>(value, response.EnsureSuccessStatusCode());
     }
 }

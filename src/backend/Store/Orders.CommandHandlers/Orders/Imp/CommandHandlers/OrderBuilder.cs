@@ -3,7 +3,7 @@ namespace Orders.CommandHandlers.Orders.Imp.CommandHandlers;
 public class OrderBuilder
 {
     private readonly Order _order;
-    private OrderAddress _address;
+    private OrderAddress? _address;
     private List<OrderItem> _items = new();
 
     private OrderBuilder(Order order) => _order = order;
@@ -14,13 +14,13 @@ public class OrderBuilder
         return new OrderBuilder(order);
     }
 
-    public OrderBuilder AddAddress(string street, string city, string state, string country, string zipCode)
+    public OrderBuilder AddAddress(string? street, string? city, string? state, string? country, string? zipCode)
     {
         _address = OrderAddress.Factory.Create(street, city, state, country, zipCode);
         return this;
     }
     
-    public OrderBuilder AddEmail(string email)
+    public OrderBuilder AddEmail(string? email)
     {
         _order.AddEmail(email);
         return this;
@@ -32,7 +32,7 @@ public class OrderBuilder
         return this;
     }
     
-    public void CreateItem(int productId, string productName, decimal unitPrice, decimal discount, string pictureUrl, int units)
+    public void CreateItem(int productId, string? productName, decimal unitPrice, decimal discount, string? pictureUrl, int units)
     {
         _items.Add(OrderItem.Create(productId, productName, unitPrice, discount, pictureUrl, units));
     }

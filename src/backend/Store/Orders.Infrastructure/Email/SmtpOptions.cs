@@ -14,8 +14,8 @@ public class SmtpOptions
     public string Host { get; set; } = "localhost";
     public int Port { get; set; } = 1025;
     public string From { get; set; } = "store@scorponok.local";
-    public string Username { get; set; }
-    public string Password { get; set; }
+    public string Username { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
     public bool UseStartTls { get; set; }
     /// <summary>Intervalo, em segundos, entre as buscas do OrderEmailDispatcher.</summary>
     public int PollSeconds { get; set; } = 5;

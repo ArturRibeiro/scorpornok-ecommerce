@@ -9,7 +9,7 @@
         {
             get;
             protected set;
-        }
+        } = default!;
 
         public bool IsTransient => this.Id == null || this.Id.Equals(default(T));
         public IReadOnlyCollection<string> Errors => _errors.ToList().AsReadOnly();
@@ -23,7 +23,7 @@
                 _errors.Add(error.ErrorMessage);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null || !(obj is Entity<T>))
                 return false;
@@ -39,7 +39,7 @@
             if (item.IsTransient || this.IsTransient)
                 return false;
             else
-                return item.Id.Equals(this.Id);
+                return EqualityComparer<T>.Default.Equals(item.Id, this.Id);
         }
 
         public override int GetHashCode()
@@ -47,7 +47,7 @@
             if (!IsTransient)
             {
                 if (!_requestedHashCode.HasValue)
-                    _requestedHashCode = this.Id.GetHashCode() ^ 31; // XOR for random distribution (http://blogs.msdn.com/b/ericlippert/archive/2011/02/28/guidelines-and-rules-for-gethashcode.aspx)
+                    _requestedHashCode = this.Id!.GetHashCode() ^ 31; // XOR for random distribution (http://blogs.msdn.com/b/ericlippert/archive/2011/02/28/guidelines-and-rules-for-gethashcode.aspx)
 
                 return _requestedHashCode.Value;
             }

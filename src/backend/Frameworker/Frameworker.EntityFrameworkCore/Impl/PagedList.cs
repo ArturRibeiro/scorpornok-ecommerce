@@ -11,6 +11,6 @@ public class PagedList<T> : IPagedList<T>
         this.PageInfo = PagedInfo.Create(totalItems: count, currentPage: pageIndex, pageSize: pageSize);
     }
     
-    [DataMember] public PagedInfo PageInfo { get; set; }
-    [DataMember]public IReadOnlyCollection<T> Items { get; set; }
+    [DataMember] public PagedInfo PageInfo { get; set; } = new();
+    [DataMember]public IReadOnlyCollection<T> Items { get; set; } = [];
 }

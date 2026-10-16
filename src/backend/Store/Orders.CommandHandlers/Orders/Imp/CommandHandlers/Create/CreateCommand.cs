@@ -5,7 +5,7 @@ public record CreateCommand(
     OrderAddressMessageResponse Address,
     IList<OrderItemMessageResponse> Items,
     CreditCardPaymentCommand Card,
-    string Email = null)
+    string? Email = null)
     : Message<CreateOrderResult>;
 
 /// <summary>

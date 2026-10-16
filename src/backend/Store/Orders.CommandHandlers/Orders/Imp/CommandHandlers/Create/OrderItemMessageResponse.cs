@@ -6,10 +6,10 @@
         [DataMember]
         public int ProductId { get; set; }
 
-        [DataMember] public string ProductName { get; set; }
+        [DataMember] public string? ProductName { get; set; }
 
         [DataMember]
-        public string PictureUrl { get; set; }
+        public string? PictureUrl { get; set; }
 
         [DataMember]
         public decimal UnitPrice { get; set; }

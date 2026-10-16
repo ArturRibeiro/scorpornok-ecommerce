@@ -3,8 +3,8 @@
     public sealed record DomainNotification : Event
     {
         public Guid DomainNotificationId { get; private set; } = Guid.NewGuid();
-        public string Description { get; private set; }
-        public object Value { get; private set; }
+        public string Description { get; private set; } = string.Empty;
+        public object? Value { get; private set; }
 
         public static class Factory
         {
