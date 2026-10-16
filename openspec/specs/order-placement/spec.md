@@ -7,23 +7,23 @@ Define o contrato da API de Orders para registrar um pedido: que dados ela aceit
 ## Requirements
 
 ### Requirement: Registro do pedido
-A API de Orders DEVE aceitar um pedido com identificador do cliente, e-mail do cliente, endereço de entrega, itens e dados do cartão. Cada item tem identificador do produto (numérico, o mesmo do Catalog), nome, imagem, preço unitário, desconto e quantidade. O pedido aceito DEVE ser persistido com status pendente e com o e-mail informado.
+A API de Orders DEVE aceitar de um cliente autenticado um pedido com endereço, itens e dados do cartão. Cada item tem identificador do produto (numérico, o mesmo do Catalog), nome, imagem, preço unitário, desconto e quantidade. O pedido DEVE ser persistido pendente, com o e-mail da conta.
 
 #### Scenario: Pedido válido
-- **GIVEN** um pedido com cliente, e-mail válido, endereço completo, um item com preço e quantidade maiores que zero e dados do cartão
-- **WHEN** o pedido é enviado à API de Orders
-- **THEN** o pedido é persistido com status pendente e com o e-mail informado
+- **GIVEN** o cliente autenticado cliente@exemplo.com envia um pedido com endereço completo, um item válido e cartão
+- **WHEN** o pedido é registrado
+- **THEN** ele é persistido pendente, com o e-mail cliente@exemplo.com
 
 #### Scenario: Identificador de produto do Catalog
-- **GIVEN** um item cujo identificador de produto é o número 42, como no Catalog
-- **WHEN** o pedido é enviado
-- **THEN** o pedido é aceito e o item é persistido com o identificador 42
+- **GIVEN** um item com o identificador de produto 42, como no Catalog
+- **WHEN** o pedido é registrado
+- **THEN** o item é persistido com o identificador 42
 
 ### Requirement: Cliente do pedido
-O pedido persistido DEVE pertencer ao cliente informado no envio. A API NÃO DEVE gerar outro identificador de cliente.
+O pedido DEVE pertencer ao cliente autenticado que o enviou, ignorando qualquer identificador de cliente no corpo.
 
 #### Scenario: Cliente preservado
-- **GIVEN** um pedido válido enviado com o identificador de cliente C
+- **GIVEN** o cliente autenticado C envia um pedido com o identificador de cliente D no corpo
 - **WHEN** o pedido é persistido
 - **THEN** o cliente do pedido é C
 
@@ -37,30 +37,27 @@ Quando o pedido é registrado, a API DEVE responder com sucesso de criação (HT
 - **AND** o corpo traz um número de pedido não vazio, o status pendente e o total 25.00
 
 ### Requirement: Rejeição de pedido inválido
-A API DEVE validar o pedido antes de persistir. Um pedido inválido NÃO DEVE ser persistido, e a API DEVE responder HTTP 400 com a lista de mensagens de validação. O pedido é inválido sem e-mail ou com e-mail em formato inválido, sem endereço completo, sem itens, ou com item de preço ou quantidade menor ou igual a zero.
+A API DEVE validar o pedido antes de persistir e responder HTTP 400 com as mensagens de validação, sem persistir. O pedido é inválido sem endereço completo, sem itens, ou com item de preço ou quantidade menor ou igual a zero.
 
 #### Scenario: Endereço incompleto
-- **GIVEN** um pedido sem cidade no endereço
-- **WHEN** o pedido é enviado
-- **THEN** a resposta é HTTP 400 com uma mensagem sobre o endereço
-- **AND** nenhum pedido é persistido
+- **GIVEN** um pedido sem cidade
+- **WHEN** ele é enviado
+- **THEN** a resposta é HTTP 400 com uma mensagem sobre o endereço, e nada é persistido
 
 #### Scenario: Pedido sem itens
-- **GIVEN** um pedido com a lista de itens vazia
-- **WHEN** o pedido é enviado
-- **THEN** a resposta é HTTP 400 com uma mensagem sobre os itens
-- **AND** nenhum pedido é persistido
+- **GIVEN** um pedido sem itens
+- **WHEN** ele é enviado
+- **THEN** a resposta é HTTP 400 com uma mensagem sobre os itens, e nada é persistido
 
 #### Scenario: Quantidade zero
 - **GIVEN** um pedido com um item de quantidade 0
-- **WHEN** o pedido é enviado
+- **WHEN** ele é enviado
 - **THEN** a resposta é HTTP 400 com uma mensagem sobre a quantidade
 
 #### Scenario: E-mail ausente ou inválido
-- **GIVEN** um pedido sem e-mail ou com o e-mail "cliente@"
-- **WHEN** o pedido é enviado
-- **THEN** a resposta é HTTP 400 com uma mensagem sobre o e-mail
-- **AND** nenhum pedido é persistido
+- **GIVEN** o cliente autenticado cliente@exemplo.com envia um pedido válido sem e-mail ou com "cliente@" no corpo
+- **WHEN** ele é enviado
+- **THEN** o pedido é aceito com o e-mail cliente@exemplo.com
 
 ### Requirement: Pedido pendente sem pagamento
 O registro de um pedido pendente NÃO DEVE exigir um identificador de pagamento, porque o pagamento acontece depois da criação.
@@ -120,22 +117,32 @@ Ao receber o resultado do pagamento, a API de Orders DEVE atualizar o pedido pen
 - **THEN** o pedido continua confirmado, sem mudanças
 
 ### Requirement: Notificação do resultado à loja
-Depois de atualizar o pedido com o resultado do pagamento, a API de Orders DEVE enviar à loja que acompanha aquele pedido uma mensagem com o número do pedido e a indicação de aprovado ou recusado. Quem começar a acompanhar um pedido que já não está pendente DEVE receber o resultado imediatamente. Só as origens configuradas da loja DEVEM poder acompanhar pedidos.
+Depois de atualizar o pedido com o resultado do pagamento, a API de Orders DEVE enviar o número do pedido e se foi aprovado a quem o acompanha; quem começar a acompanhar um pedido já resolvido DEVE receber o resultado na hora. Só o dono autenticado, a partir das origens configuradas da loja, DEVE poder acompanhar o pedido.
 
 #### Scenario: Resultado enviado a quem acompanha
-- **GIVEN** a loja acompanha o pedido A123, que está pendente
-- **WHEN** o pagamento do pedido A123 é aprovado e o pedido é confirmado
-- **THEN** a loja recebe uma mensagem com o número A123 indicando pagamento aprovado
+- **GIVEN** o dono acompanha o pedido pendente A123
+- **WHEN** o pagamento de A123 é aprovado
+- **THEN** a loja recebe A123 com pagamento aprovado
 
 #### Scenario: Acompanhamento iniciado depois do resultado
 - **GIVEN** o pedido A123 já está com falha no pagamento
-- **WHEN** a loja começa a acompanhar o pedido A123
-- **THEN** a loja recebe imediatamente uma mensagem com o número A123 indicando pagamento recusado
+- **WHEN** o dono começa a acompanhar A123
+- **THEN** a loja recebe na hora A123 com pagamento recusado
 
 #### Scenario: Origem não configurada
 - **GIVEN** a origem `http://exemplo.com` não está configurada
 - **WHEN** o navegador tenta acompanhar um pedido a partir dela
 - **THEN** a conexão é recusada
+
+#### Scenario: Sem credencial
+- **GIVEN** a loja não envia credencial
+- **WHEN** ela tenta acompanhar A123
+- **THEN** a conexão é recusada
+
+#### Scenario: Pedido de outro cliente
+- **GIVEN** A123 pertence ao cliente C
+- **WHEN** o cliente autenticado D tenta acompanhar A123
+- **THEN** o acompanhamento é recusado, sem mensagem sobre A123
 
 ### Requirement: Registro do pedido independente do broker
 A API de Orders DEVE responder ao registro de um pedido válido em até 5 segundos mesmo com o broker de mensagens indisponível, com o mesmo contrato de sempre (HTTP 201 e pedido pendente). A solicitação de pagamento DEVE ser entregue ao contexto Payments assim que o broker voltar, sem novo envio do cliente.
@@ -186,3 +193,24 @@ A verificação de prontidão da API de Orders DEVE indicar que ela está pronta
 - **GIVEN** o banco do Orders está parado
 - **WHEN** a prontidão da API de Orders é consultada
 - **THEN** a resposta indica que a API não está pronta (HTTP 503)
+
+### Requirement: Pedido exige autenticação
+A API de Orders DEVE responder HTTP 401 a um pedido sem credencial ou com credencial inválida ou expirada, sem persistir o pedido nem solicitar pagamento.
+
+#### Scenario: Sem credencial
+- **GIVEN** um pedido válido sem credencial
+- **WHEN** ele é enviado
+- **THEN** a resposta é HTTP 401, e nada é persistido nem cobrado
+
+#### Scenario: Credencial expirada
+- **GIVEN** um pedido válido com credencial expirada
+- **WHEN** ele é enviado
+- **THEN** a resposta é HTTP 401
+
+### Requirement: Pedido exige e-mail confirmado
+A API de Orders DEVE responder HTTP 403 a um cliente autenticado cujo e-mail não foi confirmado, sem persistir o pedido.
+
+#### Scenario: E-mail não confirmado
+- **GIVEN** um cliente autenticado com e-mail não confirmado
+- **WHEN** ele envia um pedido válido
+- **THEN** a resposta é HTTP 403 e nada é persistido

@@ -65,26 +65,18 @@ O total exibido no carrinho e no checkout DEVE ser a soma de preço unitário ve
 - **THEN** o total exibido é $30.00
 - **AND** não aparecem linhas de frete ou imposto
 
-### Requirement: Identificação anônima do cliente
-O checkout DEVE enviar um identificador de cliente gerado no próprio navegador. O mesmo identificador DEVE ser reutilizado nos pedidos seguintes feitos naquele navegador.
-
-#### Scenario: Dois pedidos no mesmo navegador
-- **GIVEN** o cliente já fez um pedido neste navegador
-- **WHEN** ele faz um segundo pedido
-- **THEN** os dois pedidos são enviados com o mesmo identificador de cliente
-
 ### Requirement: Envio do pedido
-Ao confirmar, o checkout DEVE enviar ao serviço de pedidos os itens, o endereço, os dados do cartão, o e-mail e o identificador do cliente. Enquanto o envio está em andamento, o botão de confirmação DEVE ficar desabilitado para impedir envios duplicados.
+Ao confirmar, o checkout DEVE enviar ao serviço de pedidos os itens, o endereço e os dados do cartão, em nome do cliente identificado. Enquanto o envio está em andamento, o botão de confirmação DEVE ficar desabilitado.
 
 #### Scenario: Envio em andamento
 - **GIVEN** o formulário está válido
 - **WHEN** o cliente aciona "Place order"
-- **THEN** o botão fica desabilitado e indica que o pedido está sendo enviado até a resposta chegar
+- **THEN** o botão fica desabilitado e indica o envio até a resposta chegar
 
 #### Scenario: E-mail no pedido
-- **GIVEN** o formulário está válido com o e-mail cliente@exemplo.com
-- **WHEN** o cliente aciona "Place order"
-- **THEN** o pedido enviado ao serviço de pedidos contém o e-mail cliente@exemplo.com
+- **GIVEN** o cliente está identificado com cliente@exemplo.com
+- **WHEN** ele confirma um pedido válido
+- **THEN** o pedido é registrado na conta dele, com o e-mail cliente@exemplo.com
 
 ### Requirement: Pedido registrado
 Quando o serviço de pedidos aceita o pedido, o checkout DEVE mostrar o número do pedido, DEVE indicar que o pagamento está em processamento e DEVE esvaziar o carrinho.
@@ -129,17 +121,23 @@ Depois que o pedido é aceito, o checkout DEVE receber do serviço de pedidos a 
 - **WHEN** passam 10 segundos sem a mensagem do resultado
 - **THEN** o checkout informa que o pagamento está pendente e que o resultado será enviado para cliente@exemplo.com
 
-### Requirement: E-mail do cliente
-O checkout DEVE coletar o e-mail do cliente, obrigatório e em formato válido, e DEVE informar que o resultado do pagamento será enviado para ele. Ele NÃO DEVE enviar o pedido enquanto o e-mail estiver vazio ou inválido.
+### Requirement: Login exigido no checkout
+O checkout DEVE exigir um cliente identificado. Sem sessão, o cliente DEVE ser levado ao login, com a opção de se cadastrar, e voltar ao checkout com o carrinho como estava.
 
-#### Scenario: E-mail vazio
-- **GIVEN** o cliente preencheu tudo menos o e-mail
-- **WHEN** ele aciona "Place order"
-- **THEN** o pedido não é enviado
-- **AND** o campo de e-mail é indicado como obrigatório
+#### Scenario: Checkout sem login
+- **GIVEN** o cliente não está identificado e tem 2 itens no carrinho
+- **WHEN** ele aciona "Proceed to Checkout" e entra
+- **THEN** ele volta ao checkout com os mesmos 2 itens
 
-#### Scenario: E-mail inválido
-- **GIVEN** o cliente digitou "cliente@" no e-mail
+#### Scenario: Sessão expirada ao confirmar
+- **GIVEN** a sessão do cliente expirou sem poder ser renovada
 - **WHEN** ele aciona "Place order"
-- **THEN** o pedido não é enviado
-- **AND** o campo de e-mail é indicado como inválido
+- **THEN** o pedido não é registrado e ele é levado ao login, mantendo o carrinho
+
+### Requirement: E-mail da conta no checkout
+O checkout DEVE exibir o e-mail da conta como destino do resultado do pagamento, sem campo para digitar outro.
+
+#### Scenario: E-mail exibido
+- **GIVEN** o cliente está identificado com cliente@exemplo.com
+- **WHEN** ele abre o checkout
+- **THEN** cliente@exemplo.com aparece como destino do resultado, sem campo de e-mail
