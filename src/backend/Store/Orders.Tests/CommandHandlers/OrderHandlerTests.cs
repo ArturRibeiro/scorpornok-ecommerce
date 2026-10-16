@@ -85,8 +85,8 @@ public class OrderHandlerTests
 
         result.Success.Should().BeFalse();
         result.OrderNumber.Should().BeNull();
-        result.Errors.Should().Contain("Order has no items.");
-        result.Errors.Should().Contain(error => error.Contains("City"));
+        result.Errors.Should().Contain("O pedido não tem itens.");
+        result.Errors.Should().Contain(error => error == "Informe a cidade.");
         _repository.Verify(r => r.Save(It.IsAny<Order>()), Times.Never);
     }
 

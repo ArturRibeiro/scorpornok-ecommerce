@@ -6,23 +6,21 @@
         {
             RuleFor(x => x.ProductName)
                 .NotNull()
-                .WithMessage("Product name not found.");
+                .WithMessage("Informe o nome do produto.");
 
             RuleFor(x => x.PictureUrl)
                 .NotNull()
-                .WithMessage("Picture not found.");
+                .WithMessage("Informe a imagem do produto.");
 
             RuleFor(x => x.UnitPrice)
-                .NotNull()
                 .GreaterThan(0)
-                .WithMessage("Unit Price not found.");
+                .WithMessage("O preço do produto deve ser maior que zero.");
 
             //RuleFor(x => x.Discount);
 
             RuleFor(x => x.Quantity)
-                .NotNull()
                 .GreaterThan(0)
-                .WithMessage("Units  not found."); ;
+                .WithMessage("A quantidade deve ser maior que zero.");
         }
     }
 }

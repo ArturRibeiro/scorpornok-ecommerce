@@ -25,8 +25,8 @@ public class OrderEmailTests
 
         var email = OrderPaymentEmail.For(order);
 
-        email.Subject.Should().Be($"Order {order.OrderNumber} confirmed");
-        email.Body.Should().Contain($"order {order.OrderNumber} is confirmed").And.Contain("Total: $25.00");
+        email.Subject.Should().Be($"Pedido {order.OrderNumber} confirmado");
+        email.Body.Should().Contain($"o pedido {order.OrderNumber} está confirmado").And.Contain("Total: R$ 25,00");
     }
 
     [Test]
@@ -36,8 +36,19 @@ public class OrderEmailTests
 
         var email = OrderPaymentEmail.For(order);
 
-        email.Subject.Should().Be($"Payment declined for order {order.OrderNumber}");
-        email.Body.Should().Contain("Your card was declined").And.Contain("Total: $25.00");
+        email.Subject.Should().Be($"Pagamento recusado no pedido {order.OrderNumber}");
+        email.Body.Should().Contain("Seu cartão foi recusado").And.Contain("Total: R$ 25,00");
+    }
+
+    [Test]
+    public void Total_do_email_deve_usar_o_formato_brasileiro()
+    {
+        var order = new Order(Guid.NewGuid());
+        order.AddEmail("cliente@exemplo.com");
+        order.AddProduct([OrderItem.Create(42, "Produto", 1299.99m, 0m, "http://img", 1)]);
+        order.ConfirmPayment(Guid.NewGuid());
+
+        OrderPaymentEmail.For(order).Body.Should().Contain("Total: R$ 1.299,99");
     }
 
     [Test]

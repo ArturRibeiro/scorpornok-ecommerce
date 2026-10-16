@@ -37,7 +37,7 @@ public class OrderValidationTests
         var order = CreateOrder(ValidAddress());
 
         order.IsValid().Should().BeFalse();
-        order.Errors.Should().Contain("Order has no items.");
+        order.Errors.Should().Contain("O pedido não tem itens.");
     }
 
     [Test]
@@ -46,7 +46,7 @@ public class OrderValidationTests
         var order = CreateOrder(ValidAddress(), Item(quantity: 0));
 
         order.IsValid().Should().BeFalse();
-        order.Errors.Should().Contain(error => error.Contains("Units"));
+        order.Errors.Should().Contain(error => error.Contains("quantidade"));
     }
 
     [Test]
@@ -55,7 +55,7 @@ public class OrderValidationTests
         var order = CreateOrder(ValidAddress(city: ""), Item());
 
         order.IsValid().Should().BeFalse();
-        order.Errors.Should().Contain(error => error.Contains("City"), string.Join(" | ", order.Errors));
+        order.Errors.Should().Contain(error => error == "Informe a cidade.", string.Join(" | ", order.Errors));
     }
 
     [TestCase(null)]
@@ -67,7 +67,7 @@ public class OrderValidationTests
         var order = CreateOrder(ValidAddress(), email!, Item());
 
         order.IsValid().Should().BeFalse();
-        order.Errors.Should().Contain("Invalid email.");
+        order.Errors.Should().Contain("E-mail inválido.");
     }
 
     [Test]

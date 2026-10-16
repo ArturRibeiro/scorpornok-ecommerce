@@ -6,28 +6,23 @@
         {
             RuleFor(x => x.Street)
                 .NotEmpty()
-                .NotNull()
-                .WithMessage("InvalidOrderAddressStreetEmpty");
+                .WithMessage("Informe o endereço.");
 
             RuleFor(x => x.City)
                 .NotEmpty()
-                .NotNull()
-                .WithMessage("InvalidOrderAddressCityEmpty");
+                .WithMessage("Informe a cidade.");
 
             RuleFor(x => x.State)
                 .NotEmpty()
-                .NotNull()
-                .WithMessage("InvalidOrderAddressStateEmpty");
+                .WithMessage("Informe o estado.");
 
             RuleFor(x => x.Country)
                 .NotEmpty()
-                .NotNull()
-                .WithMessage("InvalidOrderAddressCountryEmpty");
+                .WithMessage("Informe o país.");
 
             RuleFor(x => x.ZipCode)
                 .NotEmpty()
-                .NotNull()
-                .WithMessage("InvalidOrderAddressZipCodeEmpty");
+                .WithMessage("Informe o CEP.");
 
         }
     }

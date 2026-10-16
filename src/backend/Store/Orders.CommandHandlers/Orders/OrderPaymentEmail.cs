@@ -2,32 +2,37 @@ using System.Globalization;
 
 namespace Orders.CommandHandlers.Orders;
 
-/// <summary>Assunto e corpo (texto simples, em inglês como a loja) do e-mail do resultado do pagamento.</summary>
+/// <summary>Assunto e corpo (texto simples, em português como a loja) do e-mail do resultado do pagamento.</summary>
 public record OrderPaymentEmail(string Subject, string Body)
 {
     public static OrderPaymentEmail For(Order order)
     {
-        var total = order.Total.ToString("0.00", CultureInfo.InvariantCulture);
+        var total = FormatReais(order.Total);
         return order.Status.Code == OrderStatus.Confirmed.Code
             ? new OrderPaymentEmail(
-                $"Order {order.OrderNumber} confirmed",
+                $"Pedido {order.OrderNumber} confirmado",
                 $"""
-                Thank you for your order!
+                Obrigado pela sua compra!
 
-                Your payment was approved and order {order.OrderNumber} is confirmed.
-                Total: ${total}
+                Seu pagamento foi aprovado e o pedido {order.OrderNumber} está confirmado.
+                Total: {total}
 
-                Scorponok Store
+                Loja Scorponok
                 """)
             : new OrderPaymentEmail(
-                $"Payment declined for order {order.OrderNumber}",
+                $"Pagamento recusado no pedido {order.OrderNumber}",
                 $"""
-                We couldn't complete order {order.OrderNumber}.
+                Não foi possível concluir o pedido {order.OrderNumber}.
 
-                Your card was declined, so the order was not confirmed and nothing was charged.
-                Total: ${total}
+                Seu cartão foi recusado, então o pedido não foi confirmado e nada foi cobrado.
+                Total: {total}
 
-                Scorponok Store
+                Loja Scorponok
                 """);
     }
+
+    // R$ 1.299,99 sem depender da cultura pt-BR, que pode faltar na imagem do container.
+    private static string FormatReais(decimal value)
+        => "R$ " + value.ToString("#,##0.00", CultureInfo.InvariantCulture)
+            .Replace(',', '_').Replace('.', ',').Replace('_', '.');
 }
