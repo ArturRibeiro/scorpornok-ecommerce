@@ -53,45 +53,45 @@ export default function ContactPage() {
   const contactInfo = [
     {
       icon: Mail,
-      title: "Email Us",
+      title: "Envie um e-mail",
       details: ["hello@bloomshop.com", "support@bloomshop.com"],
-      description: "Send us an email anytime",
+      description: "Escreva para nós quando quiser",
     },
     {
       icon: Phone,
-      title: "Call Us",
+      title: "Ligue para nós",
       details: ["+1 (555) 123-4567", "+1 (555) 987-6543"],
-      description: "Mon-Fri from 8am to 5pm",
+      description: "De segunda a sexta, das 8h às 17h",
     },
     {
       icon: MapPin,
-      title: "Visit Us",
+      title: "Visite-nos",
       details: ["123 Fashion Street", "Style City, SC 12345"],
-      description: "Come say hello at our office",
+      description: "Venha nos dar um oi no escritório",
     },
     {
       icon: Clock,
-      title: "Working Hours",
-      details: ["Monday - Friday: 9am - 6pm", "Saturday: 10am - 4pm"],
-      description: "Sunday: Closed",
+      title: "Horário de atendimento",
+      details: ["Segunda a sexta: 9h às 18h", "Sábado: 10h às 16h"],
+      description: "Domingo: fechado",
     },
   ];
 
   const features = [
     {
       icon: Headphones,
-      title: "24/7 Support",
-      description: "Get help whenever you need it",
+      title: "Suporte 24 horas",
+      description: "Ajuda sempre que você precisar",
     },
     {
       icon: MessageSquare,
-      title: "Quick Response",
-      description: "We reply within 2 hours",
+      title: "Resposta rápida",
+      description: "Respondemos em até 2 horas",
     },
     {
       icon: Shield,
-      title: "Secure & Private",
-      description: "Your information is safe with us",
+      title: "Seguro e privado",
+      description: "Seus dados estão seguros conosco",
     },
   ];
 
@@ -101,17 +101,17 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <Badge className="mb-6 bg-primary text-primary-foreground">
-              Get in Touch
+              Fale com a gente
             </Badge>
             <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
-              We&apos;d love to{" "}
+              Queremos{" "}
               <span className="text-primary block lg:inline lg:ml-4">
-                hear from you
+                ouvir você
               </span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Have a question, suggestion, or just want to say hello? We&apos;re
-              here to help and would love to hear from you.
+              Tem uma dúvida, uma sugestão ou só quer dar um oi? Estamos aqui para
+              ajudar e vamos adorar falar com você.
             </p>
           </div>
         </div>
@@ -124,11 +124,11 @@ export default function ContactPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold text-foreground">
-                    Send us a message
+                    Envie uma mensagem
                   </CardTitle>
                   <p className="text-muted-foreground">
-                    Fill out the form below and we&apos;ll get back to you as
-                    soon as possible.
+                    Preencha o formulário abaixo e responderemos o mais rápido
+                    possível.
                   </p>
                 </CardHeader>
                 <CardContent>
@@ -139,13 +139,13 @@ export default function ContactPage() {
                           htmlFor="name"
                           className="text-sm font-medium text-foreground"
                         >
-                          Your Name
+                          Seu nome
                         </label>
                         <Input
                           id="name"
                           name="name"
                           type="text"
-                          placeholder="John Doe"
+                          placeholder="João da Silva"
                           value={formData.name}
                           onChange={handleInputChange}
                           required
@@ -158,13 +158,13 @@ export default function ContactPage() {
                           htmlFor="email"
                           className="text-sm font-medium text-foreground"
                         >
-                          Your Email
+                          Seu e-mail
                         </label>
                         <Input
                           id="email"
                           name="email"
                           type="email"
-                          placeholder="john@example.com"
+                          placeholder="joao@exemplo.com"
                           value={formData.email}
                           onChange={handleInputChange}
                           required
@@ -178,13 +178,13 @@ export default function ContactPage() {
                         htmlFor="subject"
                         className="text-sm font-medium text-foreground"
                       >
-                        Subject
+                        Assunto
                       </label>
                       <Input
                         id="subject"
                         name="subject"
                         type="text"
-                        placeholder="How can we help you?"
+                        placeholder="Como podemos ajudar?"
                         value={formData.subject}
                         onChange={handleInputChange}
                         required
@@ -197,12 +197,12 @@ export default function ContactPage() {
                         htmlFor="message"
                         className="text-sm font-medium text-foreground"
                       >
-                        Your Message
+                        Sua mensagem
                       </label>
                       <Textarea
                         id="message"
                         name="message"
-                        placeholder="Tell us more about your question or concern..."
+                        placeholder="Conte mais sobre a sua dúvida ou problema..."
                         rows={6}
                         value={formData.message}
                         onChange={handleInputChange}
@@ -220,17 +220,17 @@ export default function ContactPage() {
                       {isSubmitting ? (
                         <div className="flex items-center gap-2">
                           <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                          Sending...
+                          Enviando...
                         </div>
                       ) : isSubmitted ? (
                         <div className="flex items-center gap-2">
                           <CheckCircle className="h-4 w-4" />
-                          Message Sent!
+                          Mensagem enviada!
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
                           <Send className="h-4 w-4" />
-                          Send Message
+                          Enviar mensagem
                         </div>
                       )}
                     </Button>
@@ -243,7 +243,7 @@ export default function ContactPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="text-xl font-semibold">
-                    Contact Information
+                    Informações de contato
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -276,7 +276,7 @@ export default function ContactPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="text-xl font-semibold">
-                    Why Contact Us?
+                    Por que falar com a gente?
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -314,35 +314,35 @@ export default function ContactPage() {
               FAQ
             </Badge>
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Frequently Asked Questions
+              Perguntas frequentes
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Find quick answers to common questions about our products and
-              services.
+              Encontre respostas rápidas para as dúvidas mais comuns sobre nossos
+              produtos e serviços.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {[
               {
-                question: "What are your shipping policies?",
+                question: "Como funciona a entrega?",
                 answer:
-                  "We offer free shipping on orders over $50. Standard shipping takes 3-5 business days.",
+                  "O frete é grátis em compras acima de R$ 50. A entrega padrão leva de 3 a 5 dias úteis.",
               },
               {
-                question: "How can I track my order?",
+                question: "Como acompanho o meu pedido?",
                 answer:
-                  "Once your order ships, you'll receive a tracking number via email to monitor your package.",
+                  "Quando o pedido for enviado, você recebe por e-mail um código de rastreamento para acompanhar a entrega.",
               },
               {
-                question: "What is your return policy?",
+                question: "Qual é a política de devolução?",
                 answer:
-                  "We accept returns within 30 days of purchase. Items must be in original condition.",
+                  "Aceitamos devoluções em até 30 dias após a compra. Os produtos devem estar nas condições originais.",
               },
               {
-                question: "Do you offer international shipping?",
+                question: "Vocês entregam fora do Brasil?",
                 answer:
-                  "Yes, we ship worldwide. International shipping rates vary by destination.",
+                  "Sim, entregamos no mundo todo. O frete internacional varia conforme o destino.",
               },
             ].map((faq, index) => (
               <Card key={index} className="hover:shadow-md transition-shadow">
@@ -363,11 +363,11 @@ export default function ContactPage() {
           <Card className="bg-gradient-to-r from-primary/10 to-accent/10 border-primary/20">
             <CardContent className="p-12 text-center">
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                Still have questions?
+                Ainda tem dúvidas?
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Can&apos;t find what you&apos;re looking for? Our customer
-                support team is here to help.
+                Não encontrou o que procurava? Nossa equipe de atendimento está
+                aqui para ajudar.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -376,12 +376,12 @@ export default function ContactPage() {
                   className="bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                   <Phone className="h-4 w-4 mr-2" />
-                  Call Us Now
+                  Ligue agora
                 </Button>
 
                 <Button size="lg" variant="outline">
                   <Mail className="h-4 w-4 mr-2" />
-                  Live Chat
+                  Chat ao vivo
                 </Button>
               </div>
             </CardContent>

@@ -5,7 +5,7 @@
 
 ## Fluxo principal
 
-1. O visitante aciona "Sign Up" no cabeçalho.
+1. O visitante aciona "Cadastrar-se" no cabeçalho.
 2. O sistema abre a tela de cadastro numa janela sobre a página atual.
 3. O visitante informa o e-mail.
 4. O sistema cria a conta, ainda sem senha.

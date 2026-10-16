@@ -30,11 +30,11 @@ export default function AuthCallbackPage() {
     return (
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
         <h1 className="text-2xl font-bold text-foreground mb-2">
-          We couldn&apos;t sign you in
+          Não conseguimos fazer o seu login
         </h1>
-        <p className="text-muted-foreground mb-6">Please try again.</p>
+        <p className="text-muted-foreground mb-6">Tente de novo.</p>
         <Button asChild>
-          <Link to="/">Back to the store</Link>
+          <Link to="/">Voltar para a loja</Link>
         </Button>
       </div>
     );

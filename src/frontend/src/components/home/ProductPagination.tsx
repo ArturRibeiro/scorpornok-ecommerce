@@ -29,17 +29,17 @@ export default function ProductPagination({ pageInfo }: { pageInfo: PageInfo }) 
 
   return (
     <nav
-      aria-label="Product pages"
+      aria-label="Páginas de produtos"
       className="max-w-7xl mx-auto mt-12 flex flex-col items-center gap-4"
     >
       <p className="text-sm text-muted-foreground">
-        Showing {first}–{last} of {totalItems} products
+        Exibindo {first}–{last} de {totalItems} produtos
       </p>
 
       <div className="flex flex-wrap items-center justify-center gap-1">
         <PageButton page={currentPage - 1} disabled={!pageInfo.hasPreviousPage}>
           <ChevronLeft />
-          <span className="sr-only sm:not-sr-only">Previous</span>
+          <span className="sr-only sm:not-sr-only">Anterior</span>
         </PageButton>
 
         {visiblePages(currentPage, totalPages).map((page, index) =>
@@ -62,7 +62,7 @@ export default function ProductPagination({ pageInfo }: { pageInfo: PageInfo }) 
         )}
 
         <PageButton page={currentPage + 1} disabled={!pageInfo.hasNextPage}>
-          <span className="sr-only sm:not-sr-only">Next</span>
+          <span className="sr-only sm:not-sr-only">Próxima</span>
           <ChevronRight />
         </PageButton>
       </div>

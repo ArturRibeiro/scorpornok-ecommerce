@@ -21,14 +21,14 @@ export default function RequireAuth({ children }: { children: React.ReactNode })
   if (loading) return <LoadingState />;
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-      <h1 className="text-2xl font-bold text-foreground mb-2">Sign in to continue</h1>
+      <h1 className="text-2xl font-bold text-foreground mb-2">Entre para continuar</h1>
       <p className="text-muted-foreground mb-6">
-        You need an account to check out. Your cart is saved.
+        Você precisa de uma conta para finalizar a compra. Seu carrinho está salvo.
       </p>
       <div className="flex justify-center gap-3">
-        <Button onClick={login}>Sign In</Button>
+        <Button onClick={login}>Entrar</Button>
         <Button variant="outline" onClick={register}>
-          Sign Up
+          Cadastrar-se
         </Button>
       </div>
     </div>

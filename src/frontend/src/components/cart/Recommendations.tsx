@@ -7,15 +7,15 @@ export default function Recommendations() {
     <div className="mt-16">
       <Card>
         <CardHeader>
-          <CardTitle>You might also like</CardTitle>
+          <CardTitle>Você também pode gostar</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-center py-8">
             <p className="text-muted-foreground mb-4">
-              Discover more products that match your style
+              Descubra mais produtos que combinam com você
             </p>
             <Button variant="outline" asChild>
-              <Link to="/">Browse Products</Link>
+              <Link to="/">Ver produtos</Link>
             </Button>
           </div>
         </CardContent>

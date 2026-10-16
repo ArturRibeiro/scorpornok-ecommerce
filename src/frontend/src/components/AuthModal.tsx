@@ -44,7 +44,7 @@ export default function AuthModal({ mode, url, failed, onRetry, onClose }: AuthM
     };
   }, [onClose]);
 
-  const title = mode === "register" ? "Sign up" : "Sign in";
+  const title = mode === "register" ? "Cadastro" : "Entrar";
 
   return (
     <div
@@ -62,7 +62,7 @@ export default function AuthModal({ mode, url, failed, onRetry, onClose }: AuthM
         <button
           type="button"
           onClick={onClose}
-          aria-label="Close"
+          aria-label="Fechar"
           className="absolute right-3 top-3 z-10 rounded-full p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
           <X className="h-5 w-5" />
@@ -71,10 +71,10 @@ export default function AuthModal({ mode, url, failed, onRetry, onClose }: AuthM
         {failed ? (
           <div className="px-8 py-16 text-center">
             <h2 className="mb-2 text-xl font-bold text-foreground">
-              We couldn&apos;t sign you in
+              Não conseguimos fazer o seu login
             </h2>
-            <p className="mb-6 text-muted-foreground">Please try again.</p>
-            <Button onClick={onRetry}>Try again</Button>
+            <p className="mb-6 text-muted-foreground">Tente de novo.</p>
+            <Button onClick={onRetry}>Tentar de novo</Button>
           </div>
         ) : (
           <>

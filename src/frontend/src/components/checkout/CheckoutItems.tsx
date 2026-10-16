@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import type { CartItem } from "@/context/CartContext";
+import { formatPrice } from "@/lib/utils";
 import { Pencil } from "lucide-react";
 import { Link } from "react-router";
 
@@ -10,11 +11,11 @@ export default function CheckoutItems({ items }: { items: CartItem[] }) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0">
-        <CardTitle className="text-lg font-semibold">Review items</CardTitle>
+        <CardTitle className="text-lg font-semibold">Revise os itens</CardTitle>
         <Button variant="ghost" size="sm" asChild>
           <Link to="/cart" className="flex items-center gap-2">
             <Pencil className="h-4 w-4" />
-            Edit cart
+            Editar carrinho
           </Link>
         </Button>
       </CardHeader>
@@ -34,11 +35,11 @@ export default function CheckoutItems({ items }: { items: CartItem[] }) {
                   {item.name}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  {item.quantity} × ${item.price.toFixed(2)}
+                  {item.quantity} × {formatPrice(item.price)}
                 </p>
               </div>
               <p className="font-semibold text-foreground">
-                ${(item.price * item.quantity).toFixed(2)}
+                {formatPrice(item.price * item.quantity)}
               </p>
             </div>
             {index < items.length - 1 && <Separator className="mt-4" />}

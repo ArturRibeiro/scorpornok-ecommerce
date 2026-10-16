@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/context/CartContext";
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import { Product } from "@/types/product";
 import {
   Check,
@@ -65,7 +65,7 @@ export default function ProductDetails({ product }: { product: Product }) {
           <div className="rounded-xl shadow-lg overflow-hidden mb-4 w-full">
             <img
               src={product.image}
-              alt="Selected product"
+              alt="Produto selecionado"
               width={600}
               height={600}
               fetchPriority="high"
@@ -86,13 +86,13 @@ export default function ProductDetails({ product }: { product: Product }) {
             ))}
           </div>
           <span className="text-sm text-muted-foreground">
-            (4.8) • 127 reviews
+            (4,8) • 127 avaliações
           </span>
         </div>
 
         <div className="flex items-center gap-3">
           <span className="text-3xl font-bold text-foreground">
-            ${product.price.toFixed(2)}
+            {formatPrice(product.price)}
           </span>
         </div>
 
@@ -105,7 +105,7 @@ export default function ProductDetails({ product }: { product: Product }) {
         <div className="space-y-4">
           <div>
             <label className="text-sm font-medium text-foreground mb-2 block">
-              Quantity
+              Quantidade
             </label>
             <div className="flex items-center gap-3">
               <div className="flex items-center border border-border rounded-lg">
@@ -148,17 +148,17 @@ export default function ProductDetails({ product }: { product: Product }) {
               {isAdding ? (
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                  Adding...
+                  Adicionando...
                 </div>
               ) : justAdded ? (
                 <div className="flex items-center gap-2">
                   <Check className="h-4 w-4" />
-                  Added to Cart!
+                  Adicionado!
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
                   <ShoppingCart className="h-4 w-4" />
-                  Add to Cart
+                  Adicionar ao carrinho
                 </div>
               )}
             </Button>
@@ -169,7 +169,7 @@ export default function ProductDetails({ product }: { product: Product }) {
               onClick={handleBuyNow}
               className="flex-1"
             >
-              Buy Now
+              Comprar agora
             </Button>
           </div>
 
@@ -186,7 +186,7 @@ export default function ProductDetails({ product }: { product: Product }) {
               <Heart
                 className={cn("h-4 w-4 mr-2", isLiked && "fill-current")}
               />
-              Add to Wishlist
+              Adicionar aos favoritos
             </Button>
 
             <Button
@@ -195,7 +195,7 @@ export default function ProductDetails({ product }: { product: Product }) {
               className="text-muted-foreground hover:text-foreground"
             >
               <Share2 className="h-4 w-4 mr-2" />
-              Share
+              Compartilhar
             </Button>
           </div>
         </div>

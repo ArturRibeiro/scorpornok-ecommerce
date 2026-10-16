@@ -9,10 +9,10 @@ export default function EmptyCart() {
         <div className="mb-8">
           <ShoppingBag className="h-24 w-24 text-muted-foreground mx-auto mb-4" />
           <h1 className="text-3xl font-bold text-foreground mb-4">
-            Your cart is empty
+            Seu carrinho está vazio
           </h1>
           <p className="text-muted-foreground text-lg">
-            Looks like you haven&apos;t added anything to your cart yet.
+            Você ainda não adicionou nenhum produto ao carrinho.
           </p>
         </div>
 
@@ -22,13 +22,13 @@ export default function EmptyCart() {
             size="lg"
             className="bg-primary text-primary-foreground hover:bg-primary/90"
           >
-            <Link to="/">Continue Shopping</Link>
+            <Link to="/">Continuar comprando</Link>
           </Button>
 
           <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <Shield className="h-4 w-4" />
-              Secure checkout
+              Compra segura
             </div>
           </div>
         </div>

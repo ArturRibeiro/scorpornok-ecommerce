@@ -39,7 +39,7 @@ export default function Header() {
 
   const isActivePath = (path: string) => pathname === path;
 
-  const navItems = [{ href: "/contact", label: "Contact" }];
+  const navItems = [{ href: "/contact", label: "Contato" }];
 
   return (
     <header
@@ -55,7 +55,7 @@ export default function Header() {
             <Link
               className="text-2xl tracking-tight text-gray-900 hover:text-gray-700 transition-colors"
               to="/"
-              aria-label="BloomShop Home"
+              aria-label="Página inicial da BloomShop"
             >
               BLOOM<span className="text-primary">SHOP</span>
             </Link>
@@ -63,7 +63,7 @@ export default function Header() {
             <nav
               className="hidden md:flex items-center space-x-1"
               role="navigation"
-              aria-label="Main navigation"
+              aria-label="Navegação principal"
             >
               {navItems.map(({ href, label }) => (
                 <Link
@@ -86,11 +86,11 @@ export default function Header() {
             <form className="relative w-full">
               <input
                 type="search"
-                placeholder="Search products..."
+                placeholder="Buscar produtos..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
-                aria-label="Search products"
+                aria-label="Buscar produtos"
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             </form>
@@ -100,7 +100,7 @@ export default function Header() {
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
               className="lg:hidden p-2 rounded-full hover:bg-gray-100 transition-colors"
-              aria-label="Search"
+              aria-label="Buscar"
             >
               <Search className="h-5 w-5 text-gray-700" />
             </button>
@@ -108,7 +108,7 @@ export default function Header() {
             <button
               onClick={toggleMobileMenu}
               className="md:hidden p-2 rounded-full hover:bg-gray-100 transition-colors"
-              aria-label="Toggle navigation menu"
+              aria-label="Abrir ou fechar o menu"
               aria-expanded={isMobileOpen}
             >
               {isMobileOpen ? (
@@ -121,13 +121,13 @@ export default function Header() {
             <Link
               to="/cart"
               className="relative p-2 rounded-full hover:bg-gray-100 transition-all duration-200 group"
-              aria-label={`Shopping cart with ${cartCount} items`}
+              aria-label={`Carrinho com ${cartCount} ${cartCount === 1 ? "item" : "itens"}`}
             >
               <ShoppingCart className="h-6 w-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
               {cartCount > 0 && (
                 <span
                   className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1"
-                  aria-label={`${cartCount} items in cart`}
+                  aria-label={`${cartCount} ${cartCount === 1 ? "item" : "itens"} no carrinho`}
                 >
                   {cartCount > 99 ? "99+" : cartCount}
                 </span>
@@ -141,16 +141,16 @@ export default function Header() {
                     {email}
                   </span>
                   <Button variant="ghost" size="sm" className="text-sm" onClick={logout}>
-                    Sign Out
+                    Sair
                   </Button>
                 </>
               ) : (
                 <>
                   <Button variant="ghost" size="sm" className="text-sm" onClick={signIn}>
-                    Sign In
+                    Entrar
                   </Button>
                   <Button size="sm" variant="default" className="text-sm" onClick={signUp}>
-                    Sign Up
+                    Cadastrar-se
                   </Button>
                 </>
               )}
@@ -163,11 +163,11 @@ export default function Header() {
             <form className="relative">
               <input
                 type="search"
-                placeholder="Search products..."
+                placeholder="Buscar produtos..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                aria-label="Search products"
+                aria-label="Buscar produtos"
                 autoFocus
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -179,7 +179,7 @@ export default function Header() {
           <nav
             className="md:hidden mt-4 animate-in slide-in-from-top duration-200"
             role="navigation"
-            aria-label="Mobile navigation"
+            aria-label="Navegação móvel"
           >
             <div className="flex flex-col space-y-3 pb-4 border-b border-gray-200">
               {navItems.map(({ href, label }) => (
@@ -204,16 +204,16 @@ export default function Header() {
                 <>
                   <span className="text-sm text-gray-700 truncate">{email}</span>
                   <Button variant="outline" className="w-full text-sm" onClick={logout}>
-                    Sign Out
+                    Sair
                   </Button>
                 </>
               ) : (
                 <>
                   <Button variant="outline" className="w-full text-sm" onClick={signIn}>
-                    Sign In
+                    Entrar
                   </Button>
                   <Button className="w-full text-sm" variant="default" onClick={signUp}>
-                    Sign Up
+                    Cadastrar-se
                   </Button>
                 </>
               )}

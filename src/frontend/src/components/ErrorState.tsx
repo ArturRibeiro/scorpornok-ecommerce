@@ -9,15 +9,15 @@ export default function ErrorState({ onRetry }: { onRetry: () => void }) {
       <div className="text-center">
         <div className="text-6xl mb-4">🛠️</div>
         <h1 className="text-2xl font-bold text-foreground mb-2">
-          Something went wrong
+          Algo deu errado
         </h1>
         <p className="text-muted-foreground mb-6">
-          We couldn&apos;t load the products right now. Please try again in a
-          moment.
+          Não conseguimos carregar os produtos agora. Tente de novo em
+          instantes.
         </p>
         <Button onClick={onRetry}>
           <RotateCcw className="h-4 w-4 mr-2" />
-          Try again
+          Tentar de novo
         </Button>
       </div>
     </div>

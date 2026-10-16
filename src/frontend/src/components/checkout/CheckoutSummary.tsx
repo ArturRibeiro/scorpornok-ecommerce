@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { formatPrice } from "@/lib/utils";
 import { AlertCircle, Loader2, Lock } from "lucide-react";
 
 interface CheckoutSummaryProps {
@@ -21,16 +22,16 @@ export default function CheckoutSummary({
   return (
     <Card className="sticky top-4">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">Order Summary</CardTitle>
+        <CardTitle className="text-lg font-semibold">Resumo do pedido</CardTitle>
       </CardHeader>
 
       <CardContent className="space-y-4">
         <div className="space-y-3">
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">
-              Subtotal ({itemCount} {itemCount === 1 ? "item" : "items"})
+              Subtotal ({itemCount} {itemCount === 1 ? "item" : "itens"})
             </span>
-            <span className="font-medium">${total.toFixed(2)}</span>
+            <span className="font-medium">{formatPrice(total)}</span>
           </div>
 
           <Separator />
@@ -38,7 +39,7 @@ export default function CheckoutSummary({
           <div className="flex justify-between">
             <span className="text-lg font-semibold">Total</span>
             <span className="text-lg font-bold text-primary">
-              ${total.toFixed(2)}
+              {formatPrice(total)}
             </span>
           </div>
         </div>
@@ -50,7 +51,7 @@ export default function CheckoutSummary({
           >
             <div className="flex items-center gap-2 font-medium">
               <AlertCircle className="h-4 w-4" />
-              We couldn&apos;t place your order
+              Não conseguimos registrar o seu pedido
             </div>
             <ul className="mt-2 list-disc pl-5 space-y-1">
               {errors.map((error) => (
@@ -69,12 +70,12 @@ export default function CheckoutSummary({
           {submitting ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              Placing order...
+              Enviando pedido...
             </>
           ) : (
             <>
               <Lock className="h-4 w-4" />
-              Place order
+              Confirmar pedido
             </>
           )}
         </Button>

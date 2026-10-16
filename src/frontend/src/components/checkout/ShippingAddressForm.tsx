@@ -26,17 +26,17 @@ export default function ShippingAddressForm({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">Shipping address</CardTitle>
+        <CardTitle className="text-lg font-semibold">Endereço de entrega</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-4 sm:grid-cols-2">
         <FormField
-          {...field("street", "Street", "street-address")}
+          {...field("street", "Endereço", "street-address")}
           className="sm:col-span-2"
         />
-        <FormField {...field("city", "City", "address-level2")} />
-        <FormField {...field("state", "State", "address-level1")} />
-        <FormField {...field("country", "Country", "country-name")} />
-        <FormField {...field("zipCode", "ZIP code", "postal-code")} />
+        <FormField {...field("city", "Cidade", "address-level2")} />
+        <FormField {...field("state", "Estado", "address-level1")} />
+        <FormField {...field("country", "País", "country-name")} />
+        <FormField {...field("zipCode", "CEP", "postal-code")} />
       </CardContent>
     </Card>
   );

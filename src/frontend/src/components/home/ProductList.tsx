@@ -42,15 +42,15 @@ export default function ProductList() {
           <div className="col-span-full flex flex-col items-center justify-center py-16 text-center">
             <div className="text-6xl mb-4">🔍</div>
             <h3 className="text-xl font-semibold text-foreground mb-2">
-              No products found
+              Nenhum produto encontrado
             </h3>
             {isPastLastPage ? (
               <Button asChild>
-                <Link to="/">Go to the first page</Link>
+                <Link to="/">Ir para a primeira página</Link>
               </Button>
             ) : (
               <p className="text-muted-foreground mb-4">
-                Try adjusting your filters or search terms
+                Volte mais tarde para ver as novidades
               </p>
             )}
           </div>

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/context/CartContext";
+import { formatPrice } from "@/lib/utils";
 import { CreditCard, Heart, Shield, Truck } from "lucide-react";
 import { Link } from "react-router";
 
@@ -20,16 +21,16 @@ export default function OrderSummary() {
   return (
     <Card className="sticky top-4">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">Order Summary</CardTitle>
+        <CardTitle className="text-lg font-semibold">Resumo do pedido</CardTitle>
       </CardHeader>
 
       <CardContent className="space-y-4">
         <div className="space-y-3">
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">
-              Subtotal ({itemCount} items)
+              Subtotal ({itemCount} {itemCount === 1 ? "item" : "itens"})
             </span>
-            <span className="font-medium">${subtotal.toFixed(2)}</span>
+            <span className="font-medium">{formatPrice(subtotal)}</span>
           </div>
 
           <Separator />
@@ -37,7 +38,7 @@ export default function OrderSummary() {
           <div className="flex justify-between">
             <span className="text-lg font-semibold">Total</span>
             <span className="text-lg font-bold text-primary">
-              ${total.toFixed(2)}
+              {formatPrice(total)}
             </span>
           </div>
         </div>
@@ -49,22 +50,22 @@ export default function OrderSummary() {
         >
           <Link to="/checkout" className="flex items-center gap-2">
             <CreditCard className="h-4 w-4" />
-            Proceed to Checkout
+            Finalizar compra
           </Link>
         </Button>
 
         <div className="space-y-3 pt-4 border-t border-border">
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <Shield className="h-4 w-4 text-green-500" />
-            <span>Secure SSL checkout</span>
+            <span>Compra segura com SSL</span>
           </div>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <Truck className="h-4 w-4 text-blue-500" />
-            <span>Free returns within 30 days</span>
+            <span>Devolução grátis em até 30 dias</span>
           </div>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <Heart className="h-4 w-4 text-red-500" />
-            <span>24/7 customer support</span>
+            <span>Atendimento 24 horas por dia</span>
           </div>
         </div>
       </CardContent>

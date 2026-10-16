@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useCart } from "@/context/CartContext";
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import { Check, Eye, Heart, ShoppingCart } from "lucide-react";
 import { Link } from "react-router";
 import { useState } from "react";
@@ -57,7 +57,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <Button
           variant="ghost"
           size="icon"
-          name="Like Button"
+          aria-label="Favoritar"
           className={cn(
             "absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-all duration-200 bg-background/80 backdrop-blur-sm hover:bg-background",
             isLiked && "opacity-100 text-destructive"
@@ -85,7 +85,7 @@ export default function ProductCard({ product }: { product: Product }) {
             ) : (
               <div className="w-full h-full bg-muted flex items-center justify-center">
                 <div className="text-muted-foreground text-sm">
-                  Image not available
+                  Imagem indisponível
                 </div>
               </div>
             )}
@@ -97,7 +97,7 @@ export default function ProductCard({ product }: { product: Product }) {
               className="bg-primary text-primary-foreground hover:bg-primary/90"
             >
               <Eye className="h-4 w-4 mr-2" />
-              Quick View
+              Ver produto
             </Button>
           </div>
         </Link>
@@ -112,7 +112,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
         <div className="flex items-center gap-2">
           <span className="text-lg font-bold text-foreground">
-            ${product.price.toFixed(2)}
+            {formatPrice(product.price)}
           </span>
         </div>
 
@@ -129,17 +129,17 @@ export default function ProductCard({ product }: { product: Product }) {
           {isAdding ? (
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-              Adding...
+              Adicionando...
             </div>
           ) : justAdded ? (
             <div className="flex items-center gap-2">
               <Check className="h-4 w-4" />
-              Added to Cart!
+              Adicionado!
             </div>
           ) : (
             <div className="flex items-center gap-2">
               <ShoppingCart className="h-4 w-4" />
-              Add to Cart
+              Adicionar ao carrinho
             </div>
           )}
         </Button>

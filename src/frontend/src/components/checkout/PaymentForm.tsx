@@ -35,30 +35,30 @@ export default function PaymentForm({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">Payment</CardTitle>
+        <CardTitle className="text-lg font-semibold">Pagamento</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-4 sm:grid-cols-2">
         <FormField
-          {...field("cardHolderName", "Name on card", "cc-name")}
+          {...field("cardHolderName", "Nome impresso no cartão", "cc-name")}
           className="sm:col-span-2"
         />
         <FormField
-          {...field("cardNumber", "Card number", "cc-number")}
+          {...field("cardNumber", "Número do cartão", "cc-number")}
           inputMode="numeric"
           placeholder="4111 1111 1111 1111"
           className="sm:col-span-2"
         />
         <div className="grid grid-cols-2 gap-4">
           <FormField
-            {...field("expirationMonth", "Exp. month", "cc-exp-month")}
+            {...field("expirationMonth", "Mês de validade", "cc-exp-month")}
             inputMode="numeric"
             placeholder="MM"
             maxLength={2}
           />
           <FormField
-            {...field("expirationYear", "Exp. year", "cc-exp-year")}
+            {...field("expirationYear", "Ano de validade", "cc-exp-year")}
             inputMode="numeric"
-            placeholder="YYYY"
+            placeholder="AAAA"
             maxLength={4}
           />
         </div>
@@ -73,7 +73,7 @@ export default function PaymentForm({
               id="installments-label"
               className="text-sm font-medium text-foreground"
             >
-              Installments
+              Parcelas
             </label>
             <Select
               value={payment.installments}

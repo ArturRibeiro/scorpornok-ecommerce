@@ -6,14 +6,14 @@ export default function AccountEmail({ email }: { email: string }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">Contact</CardTitle>
+        <CardTitle className="text-lg font-semibold">Contato</CardTitle>
       </CardHeader>
       <CardContent className="space-y-1">
         <p className="text-sm font-medium text-foreground" data-testid="account-email">
           {email}
         </p>
         <p className="text-xs text-muted-foreground">
-          We'll send the payment result to this address.
+          Vamos enviar o resultado do pagamento para este e-mail.
         </p>
       </CardContent>
     </Card>

@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/context/AuthContext";
 import { watchOrderPayment } from "@/lib/orderHub";
 import type { CreatedOrder } from "@/lib/orders";
+import { formatPrice } from "@/lib/utils";
 import { CheckCircle2, Clock, Loader2, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
@@ -26,32 +27,32 @@ const paymentView = (
   switch (state) {
     case "processing":
       return {
-        title: "Processing your payment…",
-        detail: "Your order was placed. We'll update this page as soon as the payment is processed.",
+        title: "Processando o seu pagamento…",
+        detail: "Seu pedido foi registrado. Esta página será atualizada assim que o pagamento for processado.",
       };
     case "approved":
       return {
-        title: "Thank you for your order!",
-        detail: `Your payment was approved. We sent the confirmation to ${email}.`,
+        title: "Obrigado pela sua compra!",
+        detail: `Seu pagamento foi aprovado. Enviamos a confirmação para ${email}.`,
       };
     case "declined":
       return {
-        title: "Payment declined",
-        detail: `Your card was declined. We sent the details to ${email}.`,
+        title: "Pagamento recusado",
+        detail: `Seu cartão foi recusado. Enviamos os detalhes para ${email}.`,
       };
     case "pending":
       return {
-        title: "Payment pending",
-        detail: `Your order was placed and the payment is pending. We'll send the result to ${email}.`,
+        title: "Pagamento pendente",
+        detail: `Seu pedido foi registrado e o pagamento está pendente. Vamos enviar o resultado para ${email}.`,
       };
   }
 };
 
 const PAYMENT_LABEL: Record<PaymentState, string> = {
-  processing: "Processing",
-  approved: "Approved",
-  declined: "Declined",
-  pending: "Pending",
+  processing: "Processando",
+  approved: "Aprovado",
+  declined: "Recusado",
+  pending: "Pendente",
 };
 
 export default function OrderConfirmation({
@@ -95,19 +96,19 @@ export default function OrderConfirmation({
           <h1 className="text-2xl font-bold text-foreground">{view.title}</h1>
           <p className="text-muted-foreground">{view.detail}</p>
           <dl className="grid grid-cols-2 gap-2 text-left text-sm rounded-lg bg-muted p-4">
-            <dt className="text-muted-foreground">Order number</dt>
+            <dt className="text-muted-foreground">Número do pedido</dt>
             <dd className="font-semibold" data-testid="order-number">
               {order.orderNumber}
             </dd>
-            <dt className="text-muted-foreground">Payment</dt>
+            <dt className="text-muted-foreground">Pagamento</dt>
             <dd className="font-semibold" data-testid="payment-status">
               {PAYMENT_LABEL[payment]}
             </dd>
             <dt className="text-muted-foreground">Total</dt>
-            <dd className="font-semibold">${order.total.toFixed(2)}</dd>
+            <dd className="font-semibold">{formatPrice(order.total)}</dd>
           </dl>
           <Button asChild>
-            <Link to="/">Continue Shopping</Link>
+            <Link to="/">Continuar comprando</Link>
           </Button>
         </CardContent>
       </Card>

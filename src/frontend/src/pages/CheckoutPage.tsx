@@ -29,7 +29,7 @@ import { useState } from "react";
 import { Link, Navigate } from "react-router";
 
 const NETWORK_ERROR =
-  "The order service is unavailable. Please try again in a moment.";
+  "O serviço de pedidos está indisponível. Tente de novo em instantes.";
 
 const toRequest = (
   cart: CartItem[],
@@ -136,9 +136,9 @@ export default function CheckoutPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Checkout</h1>
+            <h1 className="text-3xl font-bold text-foreground">Finalizar compra</h1>
             <p className="text-muted-foreground mt-2">
-              Review your items and enter your shipping and payment details
+              Revise os itens e informe a entrega e o pagamento
             </p>
           </div>
 
@@ -149,7 +149,7 @@ export default function CheckoutPage() {
           >
             <Link to="/cart" className="flex items-center gap-2">
               <ArrowLeft className="h-4 w-4" />
-              Back to Cart
+              Voltar ao carrinho
             </Link>
           </Button>
         </div>

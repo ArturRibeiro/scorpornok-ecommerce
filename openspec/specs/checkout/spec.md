@@ -11,7 +11,7 @@ A loja DEVE oferecer uma página de checkout acessível a partir do carrinho. A 
 
 #### Scenario: Ir do carrinho para o checkout
 - **GIVEN** o carrinho tem pelo menos um item
-- **WHEN** o cliente aciona "Proceed to Checkout" no carrinho
+- **WHEN** o cliente aciona "Finalizar compra" no carrinho
 - **THEN** a página de checkout é exibida, sem cair na página de "não encontrado"
 
 #### Scenario: Checkout com o carrinho vazio
@@ -30,7 +30,7 @@ O checkout DEVE listar, só para leitura, cada item do carrinho com imagem, nome
 
 #### Scenario: Voltar para editar
 - **GIVEN** o cliente está no checkout
-- **WHEN** ele aciona "Edit cart"
+- **WHEN** ele aciona "Editar carrinho"
 - **THEN** a página do carrinho é exibida com os mesmos itens
 
 ### Requirement: Endereço de entrega
@@ -38,7 +38,7 @@ O checkout DEVE coletar rua, cidade, estado, país e CEP, todos obrigatórios. E
 
 #### Scenario: Campo de endereço vazio
 - **GIVEN** o cliente preencheu tudo menos a cidade
-- **WHEN** ele aciona "Place order"
+- **WHEN** ele aciona "Confirmar pedido"
 - **THEN** o pedido não é enviado
 - **AND** o campo cidade é indicado como obrigatório
 
@@ -47,7 +47,7 @@ O checkout DEVE coletar nome do titular, número do cartão, mês e ano de valid
 
 #### Scenario: Cartão vencido
 - **GIVEN** a data atual é outubro de 2026
-- **WHEN** o cliente informa a validade 09/2026 e aciona "Place order"
+- **WHEN** o cliente informa a validade 09/2026 e aciona "Confirmar pedido"
 - **THEN** o pedido não é enviado
 - **AND** a validade é indicada como inválida
 
@@ -70,7 +70,7 @@ Ao confirmar, o checkout DEVE enviar ao serviço de pedidos os itens, o endereç
 
 #### Scenario: Envio em andamento
 - **GIVEN** o formulário está válido
-- **WHEN** o cliente aciona "Place order"
+- **WHEN** o cliente aciona "Confirmar pedido"
 - **THEN** o botão fica desabilitado e indica o envio até a resposta chegar
 
 #### Scenario: E-mail no pedido
@@ -126,12 +126,12 @@ O checkout DEVE exigir um cliente identificado. Sem sessão, o cliente DEVE ser 
 
 #### Scenario: Checkout sem login
 - **GIVEN** o cliente não está identificado e tem 2 itens no carrinho
-- **WHEN** ele aciona "Proceed to Checkout" e entra
+- **WHEN** ele aciona "Finalizar compra" e entra
 - **THEN** ele volta ao checkout com os mesmos 2 itens
 
 #### Scenario: Sessão expirada ao confirmar
 - **GIVEN** a sessão do cliente expirou sem poder ser renovada
-- **WHEN** ele aciona "Place order"
+- **WHEN** ele aciona "Confirmar pedido"
 - **THEN** o pedido não é registrado e ele é levado ao login, mantendo o carrinho
 
 ### Requirement: E-mail da conta no checkout

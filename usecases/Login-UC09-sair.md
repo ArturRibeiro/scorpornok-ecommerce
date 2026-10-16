@@ -9,9 +9,9 @@ O cliente está logado (Login-UC07).
 
 ## Fluxo principal
 
-1. O cliente aciona "Sign Out" no cabeçalho.
+1. O cliente aciona "Sair" no cabeçalho.
 2. O sistema encerra a sessão.
-3. O sistema volta a exibir "Sign In" e "Sign Up" no cabeçalho.
+3. O sistema volta a exibir "Entrar" e "Cadastrar-se" no cabeçalho.
 
 ## Regras de negócio
 

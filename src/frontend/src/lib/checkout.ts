@@ -50,31 +50,31 @@ export function validateCheckout(
   const errors: CheckoutErrors = {};
 
   for (const field of Object.keys(address) as (keyof ShippingAddress)[]) {
-    if (!address[field].trim()) errors[field] = "Required";
+    if (!address[field].trim()) errors[field] = "Obrigatório";
   }
 
-  if (!payment.cardHolderName.trim()) errors.cardHolderName = "Required";
+  if (!payment.cardHolderName.trim()) errors.cardHolderName = "Obrigatório";
 
   if (!/^\d{13,19}$/.test(onlyDigits(payment.cardNumber))) {
-    errors.cardNumber = "Card number must have 13 to 19 digits";
+    errors.cardNumber = "O número do cartão deve ter de 13 a 19 dígitos";
   }
 
   if (!/^\d{3,4}$/.test(payment.cvv)) {
-    errors.cvv = "CVV must have 3 or 4 digits";
+    errors.cvv = "O CVV deve ter 3 ou 4 dígitos";
   }
 
   const month = Number(payment.expirationMonth);
   const year = Number(payment.expirationYear);
   if (!/^\d{1,2}$/.test(payment.expirationMonth) || month < 1 || month > 12) {
-    errors.expirationMonth = "Invalid month";
+    errors.expirationMonth = "Mês inválido";
   } else if (!/^\d{4}$/.test(payment.expirationYear)) {
-    errors.expirationYear = "Invalid year";
+    errors.expirationYear = "Ano inválido";
   } else {
     // O cartão vale até o fim do mês de validade.
     const currentYear = today.getFullYear();
     const currentMonth = today.getMonth() + 1;
     if (year < currentYear || (year === currentYear && month < currentMonth)) {
-      errors.expirationYear = "Card is expired";
+      errors.expirationYear = "Cartão vencido";
     }
   }
 

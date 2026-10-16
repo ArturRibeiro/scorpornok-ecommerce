@@ -57,7 +57,7 @@ O domínio também define outras situações (Em processamento, Enviado, Entregu
 Itens que aparecem na loja sem comportamento de verdade, ou que ainda não existem:
 
 - **Busca** no cabeçalho: o campo existe, mas não pesquisa.
-- **Lista de desejos** ("Add to Wishlist"): só alterna o ícone; nada é guardado.
+- **Lista de desejos** ("Adicionar aos favoritos"): só alterna o ícone; nada é guardado.
 - **Contato:** o formulário simula o envio; nenhuma mensagem é entregue.
 - **Histórico de pedidos:** o cliente não consulta os pedidos anteriores; o resultado chega na tela do checkout e por e-mail.
 - **Cancelamento, devolução e reembolso.**

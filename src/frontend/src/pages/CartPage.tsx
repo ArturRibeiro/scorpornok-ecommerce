@@ -20,9 +20,9 @@ export default function CartPage() {
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Shopping Cart</h1>
+          <h1 className="text-3xl font-bold text-foreground">Carrinho</h1>
           <p className="text-muted-foreground mt-2">
-            {itemCount} {itemCount === 1 ? "item" : "items"} in your cart
+            {itemCount} {itemCount === 1 ? "item" : "itens"} no seu carrinho
           </p>
         </div>
 
@@ -33,7 +33,7 @@ export default function CartPage() {
         >
           <Link to="/" className="flex items-center gap-2">
             <ArrowLeft className="h-4 w-4" />
-            Continue Shopping
+            Continuar comprando
           </Link>
         </Button>
       </div>

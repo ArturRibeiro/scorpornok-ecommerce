@@ -8,15 +8,15 @@ export default function NotFoundPage() {
       <div className="text-center">
         <div className="text-6xl mb-4">🧭</div>
         <h1 className="text-2xl font-bold text-foreground mb-2">
-          Page not found
+          Página não encontrada
         </h1>
         <p className="text-muted-foreground mb-6">
-          The page you&apos;re looking for doesn&apos;t exist.
+          A página que você procura não existe.
         </p>
         <Button asChild>
           <Link to="/">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Return to Shop
+            Voltar para a loja
           </Link>
         </Button>
       </div>

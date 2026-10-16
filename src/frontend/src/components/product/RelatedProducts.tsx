@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { formatPrice } from "@/lib/utils";
 import { Product } from "@/types/product";
 import { Link } from "react-router";
 
@@ -11,10 +12,10 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl font-bold text-foreground">Related Products</h2>
+        <h2 className="text-2xl font-bold text-foreground">Produtos relacionados</h2>
         <Button variant="ghost" asChild>
           <Link to="/" className="text-primary hover:text-primary/80">
-            View All
+            Ver todos
           </Link>
         </Button>
       </div>
@@ -41,7 +42,7 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
                   {relatedProduct.name}
                 </h3>
                 <p className="text-lg font-bold text-primary">
-                  ${relatedProduct.price.toFixed(2)}
+                  {formatPrice(relatedProduct.price)}
                 </p>
               </CardContent>
             </Link>

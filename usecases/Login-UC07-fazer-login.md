@@ -9,7 +9,7 @@ O visitante tem uma conta com o e-mail confirmado (Login-UC05 e Login-UC06).
 
 ## Fluxo principal
 
-1. O visitante aciona "Sign In" no cabeçalho.
+1. O visitante aciona "Entrar" no cabeçalho.
 2. O sistema abre a tela de login numa janela sobre a página atual.
 3. O visitante informa o e-mail e a senha.
 4. O sistema confere as credenciais e inicia a sessão.
@@ -21,7 +21,7 @@ O visitante tem uma conta com o e-mail confirmado (Login-UC05 e Login-UC06).
 - **3a. Não tem conta:** o visitante escolhe criar uma conta (Login-UC05).
 - **3b. Esqueceu a senha:** o visitante aciona "Esqueceu sua senha?" (Login-UC08).
 - **4a. E-mail ou senha incorretos:** o sistema não inicia a sessão e exibe uma mensagem de erro.
-- **5a. Visitante fecha a janela numa página que exige login:** o sistema exibe "Sign in to continue", com as opções de entrar e de se cadastrar.
+- **5a. Visitante fecha a janela numa página que exige login:** o sistema exibe "Entre para continuar", com as opções de entrar e de se cadastrar.
 
 ## Regras de negócio
 

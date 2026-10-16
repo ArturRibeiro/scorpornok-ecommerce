@@ -22,46 +22,46 @@ export default function Footer() {
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      console.log("Newsletter subscription:", email);
+      console.log("Inscrição na newsletter:", email);
       setEmail("");
     }
   };
 
   const footerSections = [
     {
-      title: "Shop",
+      title: "Loja",
       links: [
-        { href: "/shop", label: "All Products" },
-        { href: "/shop", label: "New Arrivals" },
-        { href: "/shop", label: "Sale" },
-        { href: "/shop", label: "Featured" },
+        { href: "/shop", label: "Todos os produtos" },
+        { href: "/shop", label: "Lançamentos" },
+        { href: "/shop", label: "Promoções" },
+        { href: "/shop", label: "Destaques" },
       ],
     },
     {
-      title: "Customer Care",
+      title: "Atendimento",
       links: [
-        { href: "/contact", label: "Contact Us" },
-        { href: "/", label: "Help Center" },
-        { href: "/", label: "Shipping Info" },
-        { href: "/", label: "Returns & Exchanges" },
+        { href: "/contact", label: "Fale conosco" },
+        { href: "/", label: "Central de ajuda" },
+        { href: "/", label: "Informações de entrega" },
+        { href: "/", label: "Trocas e devoluções" },
       ],
     },
     {
-      title: "Company",
+      title: "Empresa",
       links: [
-        { href: "/about", label: "About Us" },
-        { href: "/", label: "Careers" },
+        { href: "/about", label: "Sobre nós" },
+        { href: "/", label: "Trabalhe conosco" },
         { href: "/", label: "Blog" },
-        { href: "/", label: "Press" },
+        { href: "/", label: "Imprensa" },
       ],
     },
     {
       title: "Legal",
       links: [
-        { href: "/", label: "Privacy Policy" },
-        { href: "/", label: "Terms & Conditions" },
-        { href: "/", label: "Cookie Policy" },
-        { href: "/", label: "Accessibility" },
+        { href: "/", label: "Política de privacidade" },
+        { href: "/", label: "Termos e condições" },
+        { href: "/", label: "Política de cookies" },
+        { href: "/", label: "Acessibilidade" },
       ],
     },
   ];
@@ -79,11 +79,11 @@ export default function Footer() {
         <div className="py-12 border-b border-border">
           <div className="max-w-2xl mx-auto text-center">
             <h3 className="text-2xl font-bold text-foreground mb-4">
-              Stay in the loop
+              Fique por dentro
             </h3>
             <p className="text-muted-foreground mb-6">
-              Subscribe to our newsletter for exclusive offers, new arrivals,
-              and style inspiration.
+              Assine nossa newsletter e receba ofertas exclusivas, lançamentos
+              e inspiração de estilo.
             </p>
             <form
               onSubmit={handleNewsletterSubmit}
@@ -91,7 +91,7 @@ export default function Footer() {
             >
               <Input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Digite seu e-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="flex-1"
@@ -102,7 +102,7 @@ export default function Footer() {
                 className="bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 <ArrowRight className="h-4 w-4" />
-                <span className="sr-only">Subscribe</span>
+                <span className="sr-only">Assinar</span>
               </Button>
             </form>
           </div>
@@ -114,13 +114,13 @@ export default function Footer() {
               <Link
                 className="text-2xl tracking-tight text-gray-900 hover:text-gray-700 transition-colors"
                 to="/"
-                aria-label="BloomShop Home"
+                aria-label="Página inicial da BloomShop"
               >
                 BLOOM<span className="text-primary">SHOP</span>
               </Link>
               <p className="text-muted-foreground mb-6 max-w-sm">
-                Discover unique products that inspire your lifestyle. Quality
-                craftsmanship meets modern design.
+                Descubra produtos únicos que inspiram o seu estilo de vida. Qualidade
+                e design moderno em cada detalhe.
               </p>
 
               <div className="space-y-3">
@@ -185,12 +185,12 @@ export default function Footer() {
         <div className="py-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <span>© 2025 BloomShop™. Made with</span>
+              <span>© 2025 BloomShop™. Feito com</span>
               <Heart className="h-4 w-4 text-red-500 fill-current" />
-              <span>All Rights Reserved.</span>
+              <span>Todos os direitos reservados.</span>
               <br />
             </div>
-            <p className="text-sm text-muted-foreground">Developed by <a href="https://github.com/bloomtpl" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-primary transition-colors">Bloomtpl</a> • Distributed by <a href="https://themewagon.com" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-primary transition-colors">ThemeWagon</a></p>
+            <p className="text-sm text-muted-foreground">Desenvolvido por <a href="https://github.com/bloomtpl" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-primary transition-colors">Bloomtpl</a> • Distribuído por <a href="https://themewagon.com" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-primary transition-colors">ThemeWagon</a></p>
           </div>
 
           <div className="flex items-center gap-6 text-sm">
@@ -198,13 +198,13 @@ export default function Footer() {
               to="/privacy"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              Privacy
+              Privacidade
             </Link>
             <Link
               to="/terms"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              Terms
+              Termos
             </Link>
             <Link
               to="/cookies"
