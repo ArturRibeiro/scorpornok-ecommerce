@@ -23,13 +23,15 @@
   "bruteForceProtected": true,
   "passwordPolicy": "length(8)",
   "smtpServer": {
-    "host": "mailpit",
-    "port": "1025",
-    "from": "no-reply@scorponok.local",
+    "host": "${SMTP_HOST:mailpit}",
+    "port": "${SMTP_PORT:1025}",
+    "from": "${SMTP_FROM:no-reply@scorponok.local}",
     "fromDisplayName": "Scorponok Store",
-    "auth": "false",
+    "auth": "${SMTP_AUTH:false}",
+    "user": "${SMTP_USERNAME:}",
+    "password": "${SMTP_PASSWORD:}",
     "ssl": "false",
-    "starttls": "false"
+    "starttls": "${SMTP_USE_STARTTLS:false}"
   },
   "components": {
     "org.keycloak.userprofile.UserProfileProvider": [
