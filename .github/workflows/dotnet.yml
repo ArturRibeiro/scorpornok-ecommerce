@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     # Os cenários do SpecFlow sobem o Catalog.Web.Api real, que usa o banco do
     # appsettings.Development.json (localhost:5433, catalog, sa/sa), como o catalog-db do compose.
