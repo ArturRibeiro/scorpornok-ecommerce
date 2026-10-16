@@ -1,6 +1,6 @@
 # Pagamentos
 
-A parte da loja que recebe o pedido de cobrança, fala com o meio de pagamento (a empresa que processa o cartão) e devolve o resultado (aprovado ou recusado). Todas as soluções abaixo são **propostas**. Visão geral em [README.md](README.md).
+A parte da loja que recebe o pedido de cobrança, fala com o meio de pagamento (a empresa que processa o cartão) e devolve o resultado (aprovado ou recusado). As soluções abaixo são **propostas**, exceto a 1, que está **em funcionamento**. Visão geral em [README.md](README.md).
 
 ## 1. Cobrança em dobro
 

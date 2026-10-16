@@ -11,11 +11,19 @@ public class PaymentConfiguration : IEntityTypeConfiguration<Domain.Payment>
 
         builder.Property(x => x.OrderId).IsRequired();
 
-        // Um pagamento por pedido: a solicitação repetida não pode gerar outro registro.
         builder.Property(x => x.OrderNumber)
             .IsRequired()
             .HasMaxLength(32);
-        builder.HasIndex(x => x.OrderNumber).IsUnique();
+        builder.HasIndex(x => x.OrderNumber);
+
+        builder.Property(x => x.Attempt).IsRequired();
+
+        // Um pagamento por tentativa: a solicitação repetida, mesmo simultânea, não gera outro
+        // registro (a segunda gravação viola o índice e a retentativa encontra o primeiro).
+        builder.Property(x => x.IdempotencyKey)
+            .IsRequired()
+            .HasMaxLength(48);
+        builder.HasIndex(x => x.IdempotencyKey).IsUnique();
 
         builder.Property(x => x.Amount)
             .IsRequired()
@@ -31,8 +39,13 @@ public class PaymentConfiguration : IEntityTypeConfiguration<Domain.Payment>
             .IsRequired()
             .HasMaxLength(4);
 
-        builder.Property(x => x.Approved).IsRequired();
+        builder.Property(x => x.Status)
+            .IsRequired()
+            .HasConversion<string>()
+            .HasMaxLength(16);
+        builder.Ignore(x => x.Approved);
         builder.Property(x => x.Reason).HasMaxLength(250);
-        builder.Property(x => x.ProcessedAt).IsRequired();
+        builder.Property(x => x.RequestedAt).IsRequired();
+        builder.Property(x => x.ProcessedAt);
     }
 }

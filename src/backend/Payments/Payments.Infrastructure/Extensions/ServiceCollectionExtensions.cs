@@ -10,7 +10,8 @@ public static class ServiceCollectionExtensions
         services.AddMediatR(x => x.RegisterServicesFromAssembly(typeof(ProcessPaymentHandler).Assembly));
         services.AddScoped<IMemoryBus, MemoryBus>();
         services.AddScoped<IPaymentRepository, PaymentRepository>();
-        services.AddScoped<IPaymentGateway, PaymentGateway>();
+        // Singleton: o gateway simulado guarda o resultado por chave de idempotência.
+        services.AddSingleton<IPaymentGateway, PaymentGateway>();
         services.AddScoped<IIntegrationEventPublisher, MassTransitIntegrationEventPublisher>();
         services.AddScoped<IRequestHandler<ProcessPaymentCommand>, ProcessPaymentHandler>();
         services.AddDbContext<PaymentContext>(x => x.UseNpgsql(connectionString));
