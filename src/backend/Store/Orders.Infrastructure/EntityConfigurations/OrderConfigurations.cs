@@ -19,9 +19,13 @@
                 .HasColumnName("Email")
                 .IsRequired();
 
+            // Identificador externo do pedido (tela, e-mail, hub e chave de idempotência do
+            // Payments): um número repetido falha ao gravar, sem misturar dois pedidos.
             builder.Property(x => x.OrderNumber)
                 .HasColumnName("Number")
+                .HasMaxLength(16)
                 .IsRequired();
+            builder.HasIndex(x => x.OrderNumber).IsUnique();
 
             builder.Property(x => x.OrderDate)
                 .HasColumnName("Date")

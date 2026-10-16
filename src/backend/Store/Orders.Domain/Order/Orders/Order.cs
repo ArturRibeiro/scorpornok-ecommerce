@@ -13,7 +13,7 @@ public class Order : Entity<int>, IAggregateRoot
     public Order(Guid customerId)
     {
         CustomerId = customerId;
-        this.OrderNumber = $"A{this.GetHashCode().ToString()}";
+        OrderNumber = Orders.OrderNumber.New();
     }
     #endregion
 
