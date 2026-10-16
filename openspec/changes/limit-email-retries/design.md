@@ -43,7 +43,7 @@ O `IOrderEmailSender` passa a lançar `EmailDeliveryException` com um `Kind`, ma
 Autenticação errada afeta todos os pedidos igualmente, por isso é `Server`: queimar tentativas de cada pedido levaria todos à falha definitiva por um erro de configuração.
 
 ### 3. Intervalos
-- Por pedido (`Message`): `RetryBaseSeconds × 2^(tentativas−1)`, limitado a `RetryMaxSeconds`; falha definitiva ao atingir `MaxEmailAttempts`. Padrões: base 60 s, teto 1 h, 6 tentativas (≈ 1 h no total).
+- Por pedido (`Message`): `RetryBaseSeconds × 2^(tentativas−1)`, limitado a `RetryMaxSeconds`; falha definitiva ao atingir `MaxEmailAttempts`. Padrões: base 60 s, teto 1 h, 6 tentativas (≈ 30 min entre a 1ª e a última: 1, 2, 4, 8 e 16 min).
 - Do servidor (`Server`): o dispatcher dobra a espera entre rodadas a partir de `PollSeconds`, até `RetryMaxSeconds`, e volta ao normal no primeiro envio bem-sucedido. Sem gravar nada nos pedidos.
 - Novas chaves em `Smtp`: `MaxEmailAttempts`, `RetryBaseSeconds`, `RetryMaxSeconds`.
 

@@ -97,4 +97,46 @@ public class OrderPaymentTests
 
         order.Payment.EmailSentAt.Should().Be(first);
     }
+
+    private static Order ConfirmedOrder()
+    {
+        var order = PendingOrder();
+        order.ConfirmPayment(Guid.NewGuid());
+        return order;
+    }
+
+    [Test]
+    public void Falha_temporaria_do_email_conta_a_tentativa_e_agenda_a_proxima()
+    {
+        var order = ConfirmedOrder();
+        var now = new DateTime(2026, 10, 16, 12, 0, 0);
+
+        order.RegisterPaymentEmailRetry(now, TimeSpan.FromMinutes(2), "451 tente mais tarde");
+
+        order.Payment.EmailAttempts.Should().Be(1);
+        order.Payment.NextEmailAttemptAt.Should().Be(now.AddMinutes(2));
+        order.Payment.EmailFailureReason.Should().Be("451 tente mais tarde");
+        order.IsAwaitingPaymentEmailAt(now.AddMinutes(1)).Should().BeFalse();
+        order.IsAwaitingPaymentEmailAt(now.AddMinutes(2)).Should().BeTrue();
+    }
+
+    [Test]
+    public void Falha_definitiva_do_email_tira_o_pedido_da_espera()
+    {
+        var order = ConfirmedOrder();
+        var now = DateTime.Now;
+
+        order.MarkPaymentEmailFailed(now, "550 destinatário inexistente");
+
+        order.Payment.EmailFailedAt.Should().Be(now);
+        order.Payment.NextEmailAttemptAt.Should().BeNull();
+        order.Payment.EmailFailureReason.Should().Be("550 destinatário inexistente");
+        order.IsAwaitingPaymentEmailAt(now.AddDays(1)).Should().BeFalse();
+    }
+
+    [Test]
+    public void Pedido_sem_tentativa_agendada_aguarda_o_email()
+    {
+        ConfirmedOrder().IsAwaitingPaymentEmail.Should().BeTrue();
+    }
 }

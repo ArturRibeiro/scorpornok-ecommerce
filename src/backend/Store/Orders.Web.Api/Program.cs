@@ -60,6 +60,18 @@ app.MapHealthChecks("/health/ops", new HealthCheckOptions
             e => new { status = e.Value.Status.ToString(), description = e.Value.Description })
     })
 });
+// email: o envio do e-mail do resultado, fora do ready (o pedido não espera o e-mail). Servidor de e-mail
+// fora → 503; pedidos com e-mail em falha definitiva nas últimas 24 h → 200 "Degraded", com a quantidade.
+app.MapHealthChecks("/health/email", new HealthCheckOptions
+{
+    Predicate = check => check.Tags.Contains("email"),
+    ResponseWriter = (context, report) => context.Response.WriteAsJsonAsync(new
+    {
+        status = report.Status.ToString(),
+        checks = report.Entries.ToDictionary(e => e.Key,
+            e => new { status = e.Value.Status.ToString(), description = e.Value.Description, data = e.Value.Data })
+    })
+});
 app.MapHealthChecks("/health/bus", new HealthCheckOptions
 {
     Predicate = check => check.Tags.Contains("bus"),

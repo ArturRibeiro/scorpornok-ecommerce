@@ -41,19 +41,19 @@ Detalhes técnicos: `allow-payment-retry`.
 
 ## 6. E-mail que não chega
 
-**Problema:** se o e-mail com o resultado não pode ser entregue (por exemplo, endereço inexistente ou servidor de e-mail mal configurado), a loja tenta de novo a cada poucos segundos, para sempre. A equipe não fica sabendo, e o cliente nunca é avisado.
+**Problema:** quando o e-mail com o resultado não podia ser entregue (por exemplo, endereço inexistente ou servidor de e-mail mal configurado), a loja tentava de novo a cada poucos segundos, para sempre. Um único e-mail com problema ainda travava os e-mails de todos os outros clientes. A equipe não ficava sabendo, e o cliente nunca era avisado.
 
 **Solução:**
 - A loja diferencia três situações:
   - **endereço do cliente inválido:** não adianta insistir; a loja desiste na hora e registra o motivo;
-  - **problema passageiro com a mensagem:** tenta de novo algumas vezes, com pausas crescentes, por cerca de uma hora;
-  - **servidor de e-mail fora do ar ou mal configurado:** espera o servidor voltar sem dar o e-mail de nenhum cliente como perdido.
+  - **problema passageiro com a mensagem:** tenta de novo até seis vezes, com pausas que dobram a cada vez, por cerca de meia hora; depois disso, desiste e registra o motivo;
+  - **servidor de e-mail fora do ar ou mal configurado** (inclusive senha errada): espera o servidor voltar, verificando com pausas cada vez maiores, sem dar o e-mail de nenhum cliente como perdido. Quando ele volta, os e-mails pendentes saem.
 - Um e-mail com problema não atrasa os e-mails dos outros clientes.
 - A equipe é avisada quando o servidor de e-mail está fora ou quando e-mails deixam de ser entregues.
 
-**Situação:** proposta.
+**Situação:** em funcionamento.
 
-Detalhes técnicos: `limit-email-retries`.
+Detalhes técnicos: `limit-email-retries` (arquivada em `openspec/changes/archive/`).
 
 ## 7. Preço do pedido
 

@@ -6,7 +6,10 @@
         Task<Order> GetByNumberAsync(string orderNumber, CancellationToken cancellationToken = default);
 
         // Pedidos com resultado de pagamento cujo e-mail ainda não foi enviado, dos mais antigos aos mais novos.
-        Task<IReadOnlyList<Order>> GetAwaitingPaymentEmailAsync(int limit, CancellationToken cancellationToken = default);
+        Task<IReadOnlyList<Order>> GetAwaitingPaymentEmailAsync(DateTime now, int limit,
+            CancellationToken cancellationToken = default);
+        /// <summary>Pedidos cujo envio de e-mail entrou em falha definitiva a partir de <paramref name="since"/>.</summary>
+        Task<int> CountEmailFailedSinceAsync(DateTime since, CancellationToken cancellationToken = default);
 
         // Pendentes criados até createdBefore cuja última consulta ao Payments (se houve) foi até
         // checkedBefore: o critério de Order.IsPaymentCheckDue, dos mais antigos aos mais novos.

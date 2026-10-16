@@ -15,7 +15,7 @@ Cada solução indica a sua **situação**:
 | 3 | Uma instabilidade de poucos segundos já faz a loja desistir de processar o pagamento | A loja insiste por alguns minutos, com pausas cada vez maiores, antes de desistir | Em funcionamento |
 | 4 | Os dados completos do cartão, inclusive o código de segurança, ficam guardados em sistemas internos | O cartão vira um código descartável assim que o cliente o digita; os dados reais não circulam nem ficam guardados | Em funcionamento |
 | 5 | Quando o cartão é recusado, o cliente perde o carrinho e não pode tentar outro cartão | O carrinho é mantido e o cliente pode tentar pagar o mesmo pedido com outro cartão | Proposta |
-| 6 | Se o e-mail com o resultado não pode ser entregue, a loja tenta sem parar e o cliente nunca é avisado | A loja tenta algumas vezes, com pausas, e avisa a equipe quando não consegue entregar | Proposta |
+| 6 | Se o e-mail com o resultado não pode ser entregue, a loja tenta sem parar e o cliente nunca é avisado | A loja tenta algumas vezes, com pausas, e avisa a equipe quando não consegue entregar | Em funcionamento |
 | 7 | A loja aceita o preço que chega do navegador, que pode ser alterado | O preço de cada produto é conferido com o catálogo no momento da compra | Em funcionamento |
 | 8 | Dois pedidos podiam receber o mesmo número, e um pedido novo podia ser confundido com um antigo e confirmado sem pagamento | Cada pedido recebe um número sorteado que não se repete, e a loja recusa registrar um número já usado | Em funcionamento |
 
@@ -36,7 +36,7 @@ Cada solução indica a sua **situação**:
 | 4 | Insistência por alguns minutos (3) | Em funcionamento |
 | 5 | Pedidos presos (2) | Em funcionamento |
 | 6 | Proteção do cartão (4) | Em funcionamento |
-| 7 | Limite no envio de e-mail (6) | Próxima |
-| 8 | Nova tentativa com outro cartão (5) | Proposta |
+| 7 | Limite no envio de e-mail (6) | Em funcionamento |
+| 8 | Nova tentativa com outro cartão (5) | Próxima |
 
 O número que não se repete veio antes da cobrança única porque a cobrança única identifica cada cobrança pelo número do pedido: com números repetidos, ela confundiria dois pedidos. A cobrança única vem cedo porque várias outras soluções dependem dela, e a nova tentativa com outro cartão vem por último porque depende da cobrança única e da proteção do cartão.

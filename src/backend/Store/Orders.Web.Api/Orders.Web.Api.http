@@ -59,3 +59,9 @@ Authorization: Bearer {{token}}
     "installments": 1
   }
 }
+
+### Envio do e-mail do resultado: 503 com o servidor de e-mail fora; 200 "Degraded" (failedEmails)
+### quando houve pedido com e-mail em falha definitiva nas últimas 24 h; 200 "Healthy" no resto.
+GET {{Orders.Web.Api_HostAddress}}/health/email
+
+###

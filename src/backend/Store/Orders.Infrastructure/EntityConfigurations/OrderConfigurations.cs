@@ -53,6 +53,11 @@
                 p.Property(x => x.PaymentId).HasColumnName("PaymentId");
                 p.Property(x => x.EmailSentAt).HasColumnName("EmailSentAt");
                 p.Property(x => x.StatusCheckedAt).HasColumnName("StatusCheckedAt");
+                // Envio do e-mail: tentativas, próxima tentativa e falha definitiva (limit-email-retries).
+                p.Property(x => x.EmailAttempts).HasColumnName("EmailAttempts");
+                p.Property(x => x.NextEmailAttemptAt).HasColumnName("NextEmailAttemptAt");
+                p.Property(x => x.EmailFailedAt).HasColumnName("EmailFailedAt");
+                p.Property(x => x.EmailFailureReason).HasColumnName("EmailFailureReason").HasMaxLength(250);
             });
             builder.Navigation(o => o.Payment).IsRequired();
 

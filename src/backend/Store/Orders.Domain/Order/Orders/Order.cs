@@ -86,14 +86,28 @@ public class Order : Entity<int>, IAggregateRoot
     /// <summary>Registra a consulta ao Payments, para a próxima só sair depois do intervalo.</summary>
     public void MarkPaymentStatusChecked(DateTime now) => Payment.MarkStatusChecked(now);
 
-    /// <summary>O pagamento já tem desfecho (confirmado, recusado ou não processado) e o cliente ainda não recebeu o e-mail.</summary>
-    public bool IsAwaitingPaymentEmail
+    /// <summary>
+    /// O pagamento já tem desfecho (confirmado, recusado ou não processado), o cliente ainda não recebeu
+    /// o e-mail, o envio não está em falha definitiva e a próxima tentativa, se agendada, já venceu.
+    /// </summary>
+    public bool IsAwaitingPaymentEmail => IsAwaitingPaymentEmailAt(DateTime.Now);
+
+    public bool IsAwaitingPaymentEmailAt(DateTime now)
         => Payment.EmailSentAt is null
+           && Payment.EmailFailedAt is null
+           && (Payment.NextEmailAttemptAt is null || Payment.NextEmailAttemptAt <= now)
            && (Status.Code == OrderStatus.Confirmed.Code || Status.Code == OrderStatus.Failed.Code
                || Status.Code == OrderStatus.NotProcessed.Code);
 
     /// <summary>Registra o envio do e-mail do resultado. Só a primeira marcação vale.</summary>
     public void MarkPaymentEmailSent() => Payment.MarkEmailSent();
+
+    /// <summary>Falha temporária no envio do e-mail: conta a tentativa e agenda a próxima.</summary>
+    public void RegisterPaymentEmailRetry(DateTime now, TimeSpan delay, string reason)
+        => Payment.RegisterEmailRetry(now + delay, reason);
+
+    /// <summary>Falha definitiva no envio do e-mail: o pedido deixa de ser tentado.</summary>
+    public void MarkPaymentEmailFailed(DateTime now, string reason) => Payment.MarkEmailFailed(now, reason);
     public void AddAddress(OrderAddress address) => this.Address = address;
     public void AddEmail(string email) => Email = email?.Trim();
     public void RemoveItem(int productId)

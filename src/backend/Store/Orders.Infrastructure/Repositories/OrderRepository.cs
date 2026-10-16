@@ -15,16 +15,25 @@
         public Task<Order?> GetByNumberAsync(string orderNumber, CancellationToken cancellationToken = default)
             => _context.Orders.FirstOrDefaultAsync(o => o.OrderNumber == orderNumber, cancellationToken);
 
-        public async Task<IReadOnlyList<Order>> GetAwaitingPaymentEmailAsync(int limit,
+        public async Task<IReadOnlyList<Order>> GetAwaitingPaymentEmailAsync(DateTime now, int limit,
             CancellationToken cancellationToken = default)
-            // Mesmo critério de Order.IsAwaitingPaymentEmail, escrito para o EF traduzir em SQL.
+            // Mesmo critério de Order.IsAwaitingPaymentEmailAt, escrito para o EF traduzir em SQL. Os que
+            // nunca falharam vêm antes; depois, os de tentativa vencida há mais tempo.
             => await _context.Orders
                 .Where(o => o.Payment.EmailSentAt == null
+                            && o.Payment.EmailFailedAt == null
+                            && (o.Payment.NextEmailAttemptAt == null || o.Payment.NextEmailAttemptAt <= now)
                             && (o.Status.Code == OrderStatus.Confirmed.Code || o.Status.Code == OrderStatus.Failed.Code
                                 || o.Status.Code == OrderStatus.NotProcessed.Code))
-                .OrderBy(o => o.Id)
+                .OrderBy(o => o.Payment.NextEmailAttemptAt == null ? 0 : 1)
+                .ThenBy(o => o.Payment.NextEmailAttemptAt)
+                .ThenBy(o => o.Id)
                 .Take(limit)
                 .ToListAsync(cancellationToken);
+
+        public Task<int> CountEmailFailedSinceAsync(DateTime since, CancellationToken cancellationToken = default)
+            => _context.Orders.CountAsync(o => o.Payment.EmailFailedAt != null && o.Payment.EmailFailedAt >= since,
+                cancellationToken);
 
         public async Task<IReadOnlyList<Order>> GetPaymentCheckDueAsync(DateTime createdBefore, DateTime checkedBefore,
             int limit, CancellationToken cancellationToken = default)

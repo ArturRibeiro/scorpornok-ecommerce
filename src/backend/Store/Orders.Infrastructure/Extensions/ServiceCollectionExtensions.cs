@@ -16,7 +16,13 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IRequestHandler<GetOrderStatusQuery, string?>, OrderPaymentHandlers>();
         services.AddScoped<IIntegrationEventPublisher, MassTransitIntegrationEventPublisher>();
         // E-mail com o resultado do pagamento (seção Smtp; Mailpit no compose).
-        services.Configure<SmtpOptions>(configuration.GetSection(SmtpOptions.Section));
+        services.AddOptions<SmtpOptions>()
+            .Bind(configuration.GetSection(SmtpOptions.Section))
+            .Validate(o => o.IsValid, "Smtp: PollSeconds, MaxEmailAttempts, RetryBaseSeconds e RetryMaxSeconds devem ser positivos.")
+            .ValidateOnStart();
+        // Estado do envio (servidor de e-mail fora ou não), lido pelo /health/email.
+        services.AddSingleton<EmailDeliveryState>();
+        services.AddHealthChecks().AddCheck<EmailDeliveryHealthCheck>(EmailDeliveryHealthCheck.Name, tags: ["email"]);
         services.AddScoped<IOrderEmailSender, SmtpOrderEmailSender>();
         services.AddHostedService<OrderEmailDispatcher>();
         // Pedido pendente além do prazo: consulta o Payments (seção PaymentCheck).
