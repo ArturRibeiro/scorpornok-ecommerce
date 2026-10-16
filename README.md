@@ -1,10 +1,18 @@
-# Scorponok: um e-commerce modular em .NET
+<!-- # Scorponok: um e-commerce modular em .NET
 
-![5](https://user-images.githubusercontent.com/1322130/131916590-daf90d7f-ccb1-4013-9d59-ca970a04f0a1.png)
+![5](https://user-images.githubusercontent.com/1322130/131916590-daf90d7f-ccb1-4013-9d59-ca970a04f0a1.png) -->
 
 ## O que é o projeto
 
 O Scorponok é um e-commerce de código aberto, escrito em .NET 10 e React, feito para estudo e demonstração. O objetivo é aplicar as tecnologias e os padrões mais usados no mercado e compartilhar com a comunidade uma forma de construir boas aplicações com .NET.
+
+## Diagrama de contexto
+
+Quem usa a loja, os contextos que a compõem e os sistemas externos com que ela conversa.
+
+![Diagrama de contexto da Loja Scorponok](docs/diagrams/contexto.png)
+
+Fonte editável: [`docs/diagrams/contexto.drawio`](docs/diagrams/contexto.drawio) (abre no draw.io ou no diagrams.net). O fluxo de compra, do catálogo ao resultado do pagamento, está em [`usecases/`](usecases/README.md#fluxo).
 
 ## Bounded contexts
 

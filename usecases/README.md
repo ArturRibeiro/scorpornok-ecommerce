@@ -25,22 +25,9 @@ Descrevem o que a loja faz hoje, do ponto de vista de quem a usa. As regras deta
 
 ## Fluxo
 
-```mermaid
-flowchart LR
-    A[Consultar catálogo] --> B[Gerenciar carrinho]
-    B --> C{Tem sessão?}
-    C -->|Não| L[Fazer login]
-    L -->|Sem conta| S[Cadastrar-se]
-    S --> M[Confirmar e-mail e definir senha]
-    L -->|Esqueceu a senha| R[Esqueci minha senha]
-    R --> M
-    M --> D
-    L --> D
-    C -->|Sim| D[Finalizar pedido]
-    D --> E[Pagar pedido]
-    E -->|Aprovado| F[Pedido confirmado]
-    E -->|Recusado| G[Falha no pagamento]
-```
+![Fluxo de compra](../docs/diagrams/fluxo-compra.png)
+
+Fonte editável: [`docs/diagrams/fluxo-compra.drawio`](../docs/diagrams/fluxo-compra.drawio) (abre no draw.io ou no diagrams.net).
 
 ## Situação do pedido
 
