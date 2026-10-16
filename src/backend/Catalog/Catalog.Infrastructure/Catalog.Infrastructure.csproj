@@ -8,7 +8,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCore)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(EntityFrameworkCore)" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(ConfigurationJson)" />
-    <PackageReference Include="Bogus" Version="$(Bogus)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Seeds\products.json" LogicalName="Catalog.Infrastructure.Seeds.products.json" />
   </ItemGroup>
 
   <ItemGroup>

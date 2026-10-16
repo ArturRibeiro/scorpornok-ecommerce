@@ -5,7 +5,7 @@ context: |
   - Back-end: .NET 10 (C# latest), ASP.NET Core Minimal APIs, Swagger (Swashbuckle)
   - Arquitetura: DDD, CQRS com MediatR, domain notifications, event sourcing (Payments)
   - Validação: FluentValidation
-  - Persistência: EF Core 10 + Npgsql (PostgreSQL 16), sem migrations (EnsureCreated + seeds com Bogus)
+  - Persistência: EF Core 10 + Npgsql (PostgreSQL 16), sem migrations (EnsureCreated + seeds)
   - Front-end: React 19 + TypeScript, Vite, React Router 7, Tailwind CSS 4, Radix UI
   - Testes: NUnit, FluentAssertions, Moq, SpecFlow (BDD), WebApplicationFactory + Testcontainers
   - Infra: Docker Compose (uma API e um Postgres por bounded context)
