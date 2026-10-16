@@ -13,8 +13,13 @@ public class OrderPayment
     /// <summary>Quando o e-mail com o resultado do pagamento foi enviado; nulo enquanto não foi.</summary>
     public DateTime? EmailSentAt { get; private set; }
 
+    /// <summary>Última consulta ao Payments sobre o pedido pendente; nula enquanto não houve.</summary>
+    public DateTime? StatusCheckedAt { get; private set; }
+
     internal void Approve(Guid paymentId) => PaymentId = paymentId;
 
     /// <summary>Só a primeira marcação vale.</summary>
     internal void MarkEmailSent() => EmailSentAt ??= DateTime.Now;
+
+    internal void MarkStatusChecked(DateTime at) => StatusCheckedAt = at;
 }

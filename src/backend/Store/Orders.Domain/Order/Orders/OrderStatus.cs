@@ -13,6 +13,8 @@
         public static readonly OrderStatus OnHold           = new(8, "OnHold", "Em espera");
         public static readonly OrderStatus PartiallyShipped = new(9, "PartiallyShipped", "Parcialmente enviado");
         public static readonly OrderStatus Failed           = new(10, "Failed", "Falha no pagamento");
+        // Nada foi cobrado: o Payments anulou o pedido que passou do prazo sem pagamento.
+        public static readonly OrderStatus NotProcessed     = new(11, "NotProcessed", "Pagamento não processado");
 
         public string Name { get; }
         public string Description { get; }

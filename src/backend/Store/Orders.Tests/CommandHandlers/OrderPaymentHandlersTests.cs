@@ -34,7 +34,7 @@ public class OrderPaymentHandlersTests
         _order.Status.Should().Be(OrderStatus.Confirmed);
         _order.Payment.PaymentId.Should().Be(paymentId);
         _unitOfWork.Verify(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>()), Times.Once);
-        _notifier.Verify(n => n.NotifyAsync(_order.OrderNumber, true, It.IsAny<CancellationToken>()), Times.Once);
+        _notifier.Verify(n => n.NotifyAsync(_order.OrderNumber, OrderStatus.Confirmed, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Test]
@@ -45,7 +45,7 @@ public class OrderPaymentHandlersTests
         _order.Status.Should().Be(OrderStatus.Failed);
         _order.Payment.PaymentId.Should().BeNull();
         _unitOfWork.Verify(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>()), Times.Once);
-        _notifier.Verify(n => n.NotifyAsync(_order.OrderNumber, false, It.IsAny<CancellationToken>()), Times.Once);
+        _notifier.Verify(n => n.NotifyAsync(_order.OrderNumber, OrderStatus.Failed, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Test]
@@ -57,7 +57,7 @@ public class OrderPaymentHandlersTests
 
         _order.Status.Should().Be(OrderStatus.Confirmed);
         _unitOfWork.Verify(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>()), Times.Never);
-        _notifier.Verify(n => n.NotifyAsync(It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<CancellationToken>()), Times.Never);
+        _notifier.Verify(n => n.NotifyAsync(It.IsAny<string>(), It.IsAny<OrderStatus>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Test]
@@ -66,7 +66,28 @@ public class OrderPaymentHandlersTests
         await _handlers.Handle(new ConfirmOrderPaymentCommand("X999", Guid.NewGuid()), CancellationToken.None);
 
         _unitOfWork.Verify(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>()), Times.Never);
-        _notifier.Verify(n => n.NotifyAsync(It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<CancellationToken>()), Times.Never);
+        _notifier.Verify(n => n.NotifyAsync(It.IsAny<string>(), It.IsAny<OrderStatus>(), It.IsAny<CancellationToken>()), Times.Never);
+    }
+
+    [Test]
+    public async Task Nao_processado_deve_marcar_salvar_e_notificar()
+    {
+        await _handlers.Handle(new MarkOrderPaymentNotProcessedCommand(_order.OrderNumber), CancellationToken.None);
+
+        _order.Status.Should().Be(OrderStatus.NotProcessed);
+        _unitOfWork.Verify(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        _notifier.Verify(n => n.NotifyAsync(_order.OrderNumber, OrderStatus.NotProcessed, It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Test]
+    public async Task Recusa_depois_de_nao_processado_nao_deve_mudar_o_pedido()
+    {
+        _order.MarkPaymentNotProcessed();
+
+        await _handlers.Handle(new FailOrderPaymentCommand(_order.OrderNumber, "Pedido anulado"), CancellationToken.None);
+
+        _order.Status.Should().Be(OrderStatus.NotProcessed);
+        _notifier.Verify(n => n.NotifyAsync(It.IsAny<string>(), It.IsAny<OrderStatus>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Test]

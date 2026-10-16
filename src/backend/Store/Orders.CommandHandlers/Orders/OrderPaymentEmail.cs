@@ -8,6 +8,18 @@ public record OrderPaymentEmail(string Subject, string Body)
     public static OrderPaymentEmail For(Order order)
     {
         var total = FormatReais(order.Total);
+        if (order.Status.Code == OrderStatus.NotProcessed.Code)
+            return new OrderPaymentEmail(
+                $"Pagamento não processado no pedido {order.OrderNumber}",
+                $"""
+                Não foi possível processar o pagamento do pedido {order.OrderNumber}.
+
+                Tivemos um problema do nosso lado: o pagamento não foi processado e nada foi cobrado.
+                Você pode refazer a compra na loja.
+                Total: {total}
+
+                Loja Scorponok
+                """);
         return order.Status.Code == OrderStatus.Confirmed.Code
             ? new OrderPaymentEmail(
                 $"Pedido {order.OrderNumber} confirmado",

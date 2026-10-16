@@ -37,6 +37,8 @@ public class ProcessPaymentHandler(
             await paymentRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         }
 
+        // Pagamento anulado (Voided) pela consulta do Orders: a solicitação chegou depois do prazo e
+        // é recusada sem passar pelo gateway; Approved é falso e Reason traz o motivo da anulação.
         if (payment.Approved)
             await publisher.PublishAsync(new PaymentApproved(payment.OrderNumber, payment.Id), cancellationToken);
         else

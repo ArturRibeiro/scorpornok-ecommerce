@@ -4,16 +4,16 @@ A parte da loja que registra o pedido, pede a cobrança, acompanha o resultado e
 
 ## 2. Pedido parado em "processando"
 
-**Problema:** se o resultado do pagamento se perde no caminho, o pedido fica "em processamento" para sempre. O cliente não recebe resposta nem e-mail, e em alguns casos já foi cobrado.
+**Problema:** se o resultado do pagamento se perdia no caminho, o pedido ficava "em processamento" para sempre. O cliente não recebia resposta nem e-mail, e em alguns casos já tinha sido cobrado.
 
 **Solução:**
 - Depois de 15 minutos sem resposta, a loja pergunta à área de pagamentos o que aconteceu (veja [Pagamentos](payments.md)) e dá ao pedido uma situação definitiva: **confirmado**, **recusado** ou o novo **pagamento não processado**.
 - "Pagamento não processado" é diferente de "recusado": significa que houve um problema da loja, que nada foi cobrado e que o cliente pode refazer a compra. O cliente vê isso na tela e recebe por e-mail.
 - A equipe é avisada quando há pedidos parados além do esperado, e há um passo a passo para resolver.
 
-**Situação:** proposta.
+**Situação:** em funcionamento.
 
-Detalhes técnicos: `handle-stuck-payments`.
+Detalhes técnicos: `handle-stuck-payments` (arquivada em `openspec/changes/archive/`).
 
 ## 3. Insistência diante de falhas curtas
 

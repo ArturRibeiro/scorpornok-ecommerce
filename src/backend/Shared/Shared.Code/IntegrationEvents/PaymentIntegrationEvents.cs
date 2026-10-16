@@ -26,3 +26,19 @@ public record PaymentApproved(string OrderNumber, Guid PaymentId);
 
 /// <summary>Payments → Orders: pagamento recusado.</summary>
 public record PaymentRejected(string OrderNumber, string Reason);
+
+/// <summary>
+/// Orders → Payments: qual é a situação do pagamento do pedido? Só consulta, nunca cobra.
+/// Enviada quando o pedido passa do prazo sem resultado.
+/// </summary>
+/// <param name="Attempt">Tentativa de pagamento do pedido (1 até haver nova tentativa com outro cartão).</param>
+public record PaymentStatusRequested(string OrderNumber, int Attempt = 1);
+
+/// <summary>Payments → Orders: o pagamento do pedido ainda está sendo cobrado.</summary>
+public record PaymentStatusPending(string OrderNumber);
+
+/// <summary>
+/// Payments → Orders: não houve pagamento para o pedido. A tentativa foi anulada e uma solicitação
+/// que chegue depois não é cobrada.
+/// </summary>
+public record PaymentNotProcessed(string OrderNumber);

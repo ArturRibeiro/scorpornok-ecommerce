@@ -6,14 +6,17 @@ public class OrderPaymentHandlers(
     ILogger<OrderPaymentHandlers> logger)
     : IRequestHandler<ConfirmOrderPaymentCommand>,
       IRequestHandler<FailOrderPaymentCommand>,
+      IRequestHandler<MarkOrderPaymentNotProcessedCommand>,
       IRequestHandler<GetOrderStatusQuery, string?>
 {
     public Task Handle(ConfirmOrderPaymentCommand command, CancellationToken cancellationToken)
-        => ApplyAsync(command.OrderNumber, order => order.ConfirmPayment(command.PaymentId), approved: true,
-            cancellationToken);
+        => ApplyAsync(command.OrderNumber, order => order.ConfirmPayment(command.PaymentId), cancellationToken);
 
     public Task Handle(FailOrderPaymentCommand command, CancellationToken cancellationToken)
-        => ApplyAsync(command.OrderNumber, order => order.FailPayment(), approved: false, cancellationToken);
+        => ApplyAsync(command.OrderNumber, order => order.FailPayment(), cancellationToken);
+
+    public Task Handle(MarkOrderPaymentNotProcessedCommand command, CancellationToken cancellationToken)
+        => ApplyAsync(command.OrderNumber, order => order.MarkPaymentNotProcessed(), cancellationToken);
 
     public async Task<string?> Handle(GetOrderStatusQuery query, CancellationToken cancellationToken)
         => await orderRepository.GetByNumberAsync(query.OrderNumber, cancellationToken) is { } order
@@ -22,8 +25,7 @@ public class OrderPaymentHandlers(
             : null;
 
     // Salva antes de avisar: a loja nunca recebe um resultado que o pedido ainda não reflete.
-    private async Task ApplyAsync(string orderNumber, Func<Order, bool> apply, bool approved,
-        CancellationToken cancellationToken)
+    private async Task ApplyAsync(string orderNumber, Func<Order, bool> apply, CancellationToken cancellationToken)
     {
         var order = await orderRepository.GetByNumberAsync(orderNumber, cancellationToken);
         if (order is null)
@@ -37,6 +39,6 @@ public class OrderPaymentHandlers(
             return; // já não estava Pending: resultado repetido ou atrasado
 
         await orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
-        await notifier.NotifyAsync(orderNumber, approved, cancellationToken);
+        await notifier.NotifyAsync(orderNumber, order.Status, cancellationToken);
     }
 }

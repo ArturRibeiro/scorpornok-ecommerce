@@ -41,6 +41,22 @@ public class OrderEmailTests
     }
 
     [Test]
+    public void Email_de_pagamento_nao_processado_deve_dizer_que_nada_foi_cobrado()
+    {
+        var order = new Order(Guid.NewGuid());
+        order.AddEmail("cliente@exemplo.com");
+        order.AddProduct([OrderItem.Create(42, "Produto", 10m, 0m, "http://img", 2),
+            OrderItem.Create(7, "Outro", 5m, 0m, "http://img", 1)]);
+        order.MarkPaymentNotProcessed();
+
+        var email = OrderPaymentEmail.For(order);
+
+        email.Subject.Should().Be($"Pagamento não processado no pedido {order.OrderNumber}");
+        email.Body.Should().Contain("nada foi cobrado").And.Contain("refazer a compra").And.Contain("Total: R$ 25,00");
+        email.Body.Should().NotContain("recusado");
+    }
+
+    [Test]
     public void Total_do_email_deve_usar_o_formato_brasileiro()
     {
         var order = new Order(Guid.NewGuid());

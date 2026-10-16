@@ -14,3 +14,20 @@ public class PaymentRejectedConsumer(IMemoryBus bus) : IConsumer<PaymentRejected
     public Task Consume(ConsumeContext<PaymentRejected> context)
         => bus.SendAsync(new FailOrderPaymentCommand(context.Message.OrderNumber, context.Message.Reason));
 }
+
+public class PaymentNotProcessedConsumer(IMemoryBus bus) : IConsumer<PaymentNotProcessed>
+{
+    public Task Consume(ConsumeContext<PaymentNotProcessed> context)
+        => bus.SendAsync(new MarkOrderPaymentNotProcessedCommand(context.Message.OrderNumber));
+}
+
+// O pagamento ainda está sendo cobrado: nada muda. O PendingOrderWatcher consulta de novo depois do intervalo.
+public class PaymentStatusPendingConsumer(ILogger<PaymentStatusPendingConsumer> logger) : IConsumer<PaymentStatusPending>
+{
+    public Task Consume(ConsumeContext<PaymentStatusPending> context)
+    {
+        logger.LogInformation("Pagamento do pedido {OrderNumber} ainda em processamento; nova consulta no próximo intervalo.",
+            context.Message.OrderNumber);
+        return Task.CompletedTask;
+    }
+}

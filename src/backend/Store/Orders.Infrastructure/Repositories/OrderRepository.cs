@@ -20,10 +20,26 @@
             // Mesmo critério de Order.IsAwaitingPaymentEmail, escrito para o EF traduzir em SQL.
             => await _context.Orders
                 .Where(o => o.Payment.EmailSentAt == null
-                            && (o.Status.Code == OrderStatus.Confirmed.Code || o.Status.Code == OrderStatus.Failed.Code))
+                            && (o.Status.Code == OrderStatus.Confirmed.Code || o.Status.Code == OrderStatus.Failed.Code
+                                || o.Status.Code == OrderStatus.NotProcessed.Code))
                 .OrderBy(o => o.Id)
                 .Take(limit)
                 .ToListAsync(cancellationToken);
+
+        public async Task<IReadOnlyList<Order>> GetPaymentCheckDueAsync(DateTime createdBefore, DateTime checkedBefore,
+            int limit, CancellationToken cancellationToken = default)
+            // Mesmo critério de Order.IsPaymentCheckDue, escrito para o EF traduzir em SQL.
+            => await _context.Orders
+                .Where(o => o.Status.Code == OrderStatus.Pending.Code
+                            && o.OrderDate <= createdBefore
+                            && (o.Payment.StatusCheckedAt == null || o.Payment.StatusCheckedAt <= checkedBefore))
+                .OrderBy(o => o.Id)
+                .Take(limit)
+                .ToListAsync(cancellationToken);
+
+        public Task<int> CountPendingCreatedBeforeAsync(DateTime createdBefore, CancellationToken cancellationToken = default)
+            => _context.Orders.CountAsync(o => o.Status.Code == OrderStatus.Pending.Code && o.OrderDate <= createdBefore,
+                cancellationToken);
 
         public async Task ExecuteInTransactionAsync(Func<Task> work, CancellationToken cancellationToken = default)
         {

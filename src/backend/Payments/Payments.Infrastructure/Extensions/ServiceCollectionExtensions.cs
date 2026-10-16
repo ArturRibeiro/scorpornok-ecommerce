@@ -14,12 +14,18 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IPaymentGateway, PaymentGateway>();
         services.AddScoped<IIntegrationEventPublisher, MassTransitIntegrationEventPublisher>();
         services.AddScoped<IRequestHandler<ProcessPaymentCommand>, ProcessPaymentHandler>();
+        services.AddScoped<IRequestHandler<CheckPaymentStatusCommand>, CheckPaymentStatusHandler>();
         services.AddDbContext<PaymentContext>(x => x.UseNpgsql(connectionString));
+        // /health/ops: mensagens paradas nas filas de erro dos consumidores do Payments.
+        var queues = KebabCaseEndpointNameFormatter.Instance;
+        services.AddErrorQueuesHealthCheck(configuration,
+            queues.Consumer<PaymentRequestedConsumer>(), queues.Consumer<PaymentStatusRequestedConsumer>());
 
         services.AddMassTransit(x =>
         {
             x.SetKebabCaseEndpointNameFormatter();
             x.AddConsumer<PaymentRequestedConsumer>();
+            x.AddConsumer<PaymentStatusRequestedConsumer>();
             x.UsingRabbitMq((context, cfg) =>
             {
                 var rabbitMq = configuration.GetSection("RabbitMq");

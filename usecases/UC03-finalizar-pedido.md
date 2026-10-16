@@ -50,4 +50,4 @@
 
 ## Pós-condição
 
-Pedido registrado como **Pendente**, aguardando o pagamento.
+Pedido registrado como **Pendente**, aguardando o pagamento. Se o resultado não chegar no prazo, o pedido é verificado como descrito no UC04 (fluxo 2d).

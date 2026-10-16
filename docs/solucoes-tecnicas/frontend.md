@@ -26,10 +26,10 @@ Detalhes técnicos: `allow-payment-retry`.
 
 ## 2. Pedido não processado
 
-**Problema:** quando o resultado do pagamento não chega, a tela diz que o resultado será enviado por e-mail, mas, se o pedido ficar parado, esse e-mail nunca chega.
+**Problema:** quando o resultado do pagamento não chegava, a tela dizia que o resultado seria enviado por e-mail, mas, se o pedido ficasse parado, esse e-mail nunca chegava.
 
 **Solução:** quando a loja descobre que o pagamento não chegou a ser feito, a tela mostra "Pagamento não processado": nada foi cobrado e o cliente pode refazer a compra. O cliente também recebe essa informação por e-mail.
 
-**Situação:** proposta.
+**Situação:** em funcionamento.
 
-Detalhes técnicos: `handle-stuck-payments`.
+Detalhes técnicos: `handle-stuck-payments` (arquivada em `openspec/changes/archive/`).

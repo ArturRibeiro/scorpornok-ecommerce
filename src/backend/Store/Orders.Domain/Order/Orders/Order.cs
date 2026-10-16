@@ -60,12 +60,37 @@ public class Order : Entity<int>, IAggregateRoot
         return true;
     }
 
+    /// <summary>
+    /// O Payments não tem pagamento para o pedido e o anulou: nada foi cobrado. Só age sobre
+    /// pedido pendente, como os outros desfechos.
+    /// </summary>
+    /// <returns>Se o pedido mudou.</returns>
+    public bool MarkPaymentNotProcessed()
+    {
+        if (!IsPending) return false;
+        Status = OrderStatus.NotProcessed;
+        return true;
+    }
+
     private bool IsPending => Status.Code == OrderStatus.Pending.Code;
 
-    /// <summary>O pagamento já tem resultado (confirmado ou recusado) e o cliente ainda não recebeu o e-mail.</summary>
+    /// <summary>
+    /// Pendente além do prazo e sem consulta ao Payments no último intervalo: é hora de perguntar
+    /// ao Payments o que aconteceu com o pagamento.
+    /// </summary>
+    public bool IsPaymentCheckDue(DateTime now, TimeSpan timeout, TimeSpan interval)
+        => IsPending
+           && OrderDate <= now - timeout
+           && (Payment.StatusCheckedAt is null || Payment.StatusCheckedAt <= now - interval);
+
+    /// <summary>Registra a consulta ao Payments, para a próxima só sair depois do intervalo.</summary>
+    public void MarkPaymentStatusChecked(DateTime now) => Payment.MarkStatusChecked(now);
+
+    /// <summary>O pagamento já tem desfecho (confirmado, recusado ou não processado) e o cliente ainda não recebeu o e-mail.</summary>
     public bool IsAwaitingPaymentEmail
         => Payment.EmailSentAt is null
-           && (Status.Code == OrderStatus.Confirmed.Code || Status.Code == OrderStatus.Failed.Code);
+           && (Status.Code == OrderStatus.Confirmed.Code || Status.Code == OrderStatus.Failed.Code
+               || Status.Code == OrderStatus.NotProcessed.Code);
 
     /// <summary>Registra o envio do e-mail do resultado. Só a primeira marcação vale.</summary>
     public void MarkPaymentEmailSent() => Payment.MarkEmailSent();

@@ -36,6 +36,7 @@ Fonte editável: [`docs/diagrams/fluxo-compra.drawio`](../docs/diagrams/fluxo-co
 | Pendente | Pedido registrado, aguardando o resultado do pagamento |
 | Confirmado | Pagamento aprovado |
 | Falha no pagamento | Pagamento recusado |
+| Pagamento não processado | Pedido sem resultado depois do prazo e sem pagamento registrado: nada foi cobrado |
 
 O domínio também define outras situações (Em processamento, Enviado, Entregue, Cancelado, Devolvido, Reembolsado etc.), mas nenhum fluxo as usa hoje.
 

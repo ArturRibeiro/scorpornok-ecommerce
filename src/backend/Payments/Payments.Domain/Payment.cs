@@ -5,7 +5,9 @@ public enum PaymentStatus
 {
     Processing,
     Approved,
-    Rejected
+    Rejected,
+    /// <summary>Anulado sem cobrança: a consulta do Orders chegou antes de qualquer solicitação.</summary>
+    Voided
 }
 
 /// <summary>
@@ -56,6 +58,31 @@ public class Payment : Entity<Guid>, IAggregateRoot
             CardLast4 = digits.Length >= 4 ? digits[^4..] : digits,
             Status = PaymentStatus.Processing,
             RequestedAt = DateTime.UtcNow
+        };
+    }
+
+    public const string VoidedReason = "Pedido anulado: o pagamento não foi processado a tempo.";
+
+    /// <summary>
+    /// Anula a tentativa que ainda não tem pagamento, ocupando a mesma chave da cobrança: uma
+    /// solicitação que chegue depois encontra o registro e é recusada sem passar pelo gateway.
+    /// Não há dados do cartão nem valor, porque nenhuma solicitação chegou.
+    /// </summary>
+    public static Payment Void(string orderNumber, int attempt)
+    {
+        var now = DateTime.UtcNow;
+        return new Payment
+        {
+            Id = Guid.NewGuid(),
+            OrderNumber = orderNumber,
+            Attempt = attempt,
+            IdempotencyKey = KeyFor(orderNumber, attempt),
+            CardHolderName = "",
+            CardLast4 = "",
+            Status = PaymentStatus.Voided,
+            Reason = VoidedReason,
+            RequestedAt = now,
+            ProcessedAt = now
         };
     }
 

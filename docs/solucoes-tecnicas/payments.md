@@ -14,18 +14,20 @@ Detalhes técnicos: `add-payment-idempotency` (arquivada em `openspec/changes/ar
 
 ## 2. Resposta quando o pedido fica parado
 
-**Problema:** às vezes a loja deixa de receber o resultado de um pagamento e o pedido fica "em processamento" para sempre. No pior caso, o cliente foi cobrado e o pedido nunca foi confirmado.
+**Problema:** às vezes a loja deixava de receber o resultado de um pagamento e o pedido ficava "em processamento" para sempre. No pior caso, o cliente era cobrado e o pedido nunca era confirmado.
 
 **Solução:** quando um pedido passa do prazo sem resposta, a área de pedidos pergunta à área de pagamentos o que aconteceu, e a área de pagamentos é quem decide:
 - se o pagamento foi feito, o resultado é reenviado e o pedido é confirmado ou recusado normalmente;
 - se ainda está sendo feito, a loja espera um pouco mais;
 - se a cobrança nem começou, ela é cancelada e não pode mais acontecer. Assim o cliente nunca é cobrado por um pedido que a loja já deu como não processado.
 
+Se a área de pagamentos ficar fora do ar por mais tempo que o prazo, os pedidos feitos nesse período tendem a terminar como "pagamento não processado": nada é cobrado e o cliente é avisado para refazer a compra.
+
 A equipe também passa a ser avisada quando mensagens de pagamento ficam travadas, e há um passo a passo para destravá-las.
 
-**Situação:** proposta.
+**Situação:** em funcionamento.
 
-Detalhes técnicos: `handle-stuck-payments`.
+Detalhes técnicos: `handle-stuck-payments` (arquivada em `openspec/changes/archive/`).
 
 ## 3. Insistência diante de falhas curtas
 

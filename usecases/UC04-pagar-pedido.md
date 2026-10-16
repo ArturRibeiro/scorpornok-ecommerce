@@ -19,6 +19,11 @@ Existe um pedido **Pendente** (UC03).
 
 - **2a. Pagamento recusado:** o sistema muda o pedido para **Falha no pagamento**, informa o cliente na tela e envia o e-mail com a recusa.
 - **2b. Serviço de pagamentos indisponível:** o pedido continua **Pendente**; a cobrança é feita quando o serviço voltar, sem nova ação do cliente.
+- **2d. Sem resultado depois do prazo (15 minutos):** o sistema pergunta ao serviço de pagamentos o que aconteceu, a cada minuto, até ter uma resposta:
+  - pagamento aprovado ou recusado: o pedido recebe esse resultado, mesmo que ele tenha se perdido no caminho;
+  - pagamento ainda em andamento: o pedido continua **Pendente** e é consultado de novo;
+  - nenhum pagamento: o pedido fica com **Pagamento não processado**, nada é cobrado e o cliente recebe um e-mail para refazer a compra. Uma cobrança dessa tentativa que chegue depois é recusada sem passar pelo cartão.
+- **2e. Serviço de pagamentos indisponível além do prazo:** o pedido continua **Pendente**, e a equipe é avisada pelo monitoramento até ele ter um desfecho.
 - **2c. Mesma cobrança solicitada de novo:** o serviço de pagamentos não cobra outra vez e repete o resultado já registrado.
 - **4a. Resultado demora mais de 10 segundos:** o sistema informa que o pagamento está pendente e que o resultado será enviado por e-mail.
 - **4b. Cliente saiu da loja:** o resultado chega só pelo e-mail.
@@ -32,6 +37,8 @@ Existe um pedido **Pendente** (UC03).
 - RN04: O serviço de pagamentos guarda só os 4 últimos dígitos do cartão e o titular; nunca o número completo nem o CVV.
 - RN05: Cada resultado gera um único e-mail ao cliente.
 - RN06: Só o dono do pedido acompanha o resultado na tela.
+- RN07: O sistema de pedidos nunca dá um desfecho ao pagamento por conta própria: depois do prazo, a resposta vem sempre do serviço de pagamentos.
+- RN08: **Pagamento não processado** é diferente de **Falha no pagamento**: no primeiro, o problema foi da loja e nada foi cobrado; no segundo, o cartão foi recusado.
 
 ## Limitações conhecidas
 
@@ -40,4 +47,4 @@ Existe um pedido **Pendente** (UC03).
 
 ## Pós-condição
 
-Pedido **Confirmado** ou com **Falha no pagamento**, e o cliente avisado por e-mail.
+Pedido **Confirmado**, com **Falha no pagamento** ou com **Pagamento não processado**, e o cliente avisado por e-mail.

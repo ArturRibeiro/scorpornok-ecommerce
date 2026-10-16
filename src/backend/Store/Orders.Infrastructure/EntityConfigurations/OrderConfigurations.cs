@@ -52,6 +52,7 @@
                 p.HasKey("OrderId");
                 p.Property(x => x.PaymentId).HasColumnName("PaymentId");
                 p.Property(x => x.EmailSentAt).HasColumnName("EmailSentAt");
+                p.Property(x => x.StatusCheckedAt).HasColumnName("StatusCheckedAt");
             });
             builder.Navigation(o => o.Payment).IsRequired();
 

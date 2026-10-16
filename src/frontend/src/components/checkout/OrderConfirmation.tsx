@@ -4,19 +4,20 @@ import { useAuth } from "@/context/AuthContext";
 import { watchOrderPayment } from "@/lib/orderHub";
 import type { CreatedOrder } from "@/lib/orders";
 import { formatPrice } from "@/lib/utils";
-import { CheckCircle2, Clock, Loader2, XCircle } from "lucide-react";
+import { AlertCircle, CheckCircle2, Clock, Loader2, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
 // Sem mensagem do hub nesse prazo, a tela deixa de esperar: o resultado vai por e-mail.
 const PAYMENT_TIMEOUT_MS = 10_000;
 
-type PaymentState = "processing" | "approved" | "declined" | "pending";
+type PaymentState = "processing" | "approved" | "declined" | "notProcessed" | "pending";
 
 const PAYMENT_ICON: Record<PaymentState, React.ReactNode> = {
   processing: <Loader2 className="h-16 w-16 text-primary mx-auto animate-spin" />,
   approved: <CheckCircle2 className="h-16 w-16 text-green-500 mx-auto" />,
   declined: <XCircle className="h-16 w-16 text-destructive mx-auto" />,
+  notProcessed: <AlertCircle className="h-16 w-16 text-amber-500 mx-auto" />,
   pending: <Clock className="h-16 w-16 text-muted-foreground mx-auto" />,
 };
 
@@ -40,6 +41,11 @@ const paymentView = (
         title: "Pagamento recusado",
         detail: `Seu cartão foi recusado. Enviamos os detalhes para ${email}.`,
       };
+    case "notProcessed":
+      return {
+        title: "Pagamento não processado",
+        detail: `Não conseguimos processar o pagamento do seu pedido e nada foi cobrado. Você pode refazer a compra. Enviamos os detalhes para ${email}.`,
+      };
     case "pending":
       return {
         title: "Pagamento pendente",
@@ -52,6 +58,7 @@ const PAYMENT_LABEL: Record<PaymentState, string> = {
   processing: "Processando",
   approved: "Aprovado",
   declined: "Recusado",
+  notProcessed: "Não processado",
   pending: "Pendente",
 };
 
@@ -73,7 +80,7 @@ export default function OrderConfirmation({
     const timer = setTimeout(() => controller.abort(), PAYMENT_TIMEOUT_MS);
 
     watchOrderPayment(order.orderNumber, getAccessToken, controller.signal)
-      .then((approved) => setPayment(approved ? "approved" : "declined"))
+      .then((outcome) => setPayment(outcome))
       .catch(() => {
         if (!unmounted) setPayment("pending");
       })

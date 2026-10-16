@@ -24,6 +24,19 @@ app.UseHttpsRedirection();
 // live: o processo responde (não executa checks); ready: o banco responde (o broker não entra no check).
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false });
 app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = check => check.Tags.Contains("ready") });
+// ops: o que a operação precisa acompanhar (filas de erro), fora do ready: o problema não
+// impede a API de atender, mas exige ação (docs/runbooks/filas-de-erro.md). Unhealthy responde 503.
+app.MapHealthChecks("/health/ops", new HealthCheckOptions
+{
+    Predicate = check => check.Tags.Contains("ops"),
+    // Mostra o que cada check encontrou (ex.: "payment-approved_error=1"), não só o status geral.
+    ResponseWriter = (context, report) => context.Response.WriteAsJsonAsync(new
+    {
+        status = report.Status.ToString(),
+        checks = report.Entries.ToDictionary(e => e.Key,
+            e => new { status = e.Value.Status.ToString(), description = e.Value.Description })
+    })
+});
 
 using (var scope = app.Services.CreateScope())
     await scope.ServiceProvider.GetRequiredService<PaymentContext>().Database.EnsureCreatedAsync();

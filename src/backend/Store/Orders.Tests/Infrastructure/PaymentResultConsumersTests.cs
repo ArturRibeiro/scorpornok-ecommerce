@@ -24,6 +24,8 @@ public class PaymentResultConsumersTests
             {
                 x.AddConsumer<PaymentApprovedConsumer>();
                 x.AddConsumer<PaymentRejectedConsumer>();
+                x.AddConsumer<PaymentNotProcessedConsumer>();
+                x.AddConsumer<PaymentStatusPendingConsumer>();
             })
             .BuildServiceProvider(true);
         _harness = _provider.GetRequiredService<ITestHarness>();
@@ -53,5 +55,23 @@ public class PaymentResultConsumersTests
         (await _harness.GetConsumerHarness<PaymentRejectedConsumer>().Consumed.Any<PaymentRejected>()).Should().BeTrue();
         _bus.Verify(b => b.SendAsync(It.Is<FailOrderPaymentCommand>(c =>
             c.OrderNumber == "A123" && c.Reason == "Card declined")), Times.Once);
+    }
+
+    [Test]
+    public async Task PaymentNotProcessed_deve_enviar_MarkOrderPaymentNotProcessedCommand()
+    {
+        await _harness.Bus.Publish(new PaymentNotProcessed("A123"));
+
+        (await _harness.GetConsumerHarness<PaymentNotProcessedConsumer>().Consumed.Any<PaymentNotProcessed>()).Should().BeTrue();
+        _bus.Verify(b => b.SendAsync(It.Is<MarkOrderPaymentNotProcessedCommand>(c => c.OrderNumber == "A123")), Times.Once);
+    }
+
+    [Test]
+    public async Task PaymentStatusPending_so_deve_registrar_sem_mudar_o_pedido()
+    {
+        await _harness.Bus.Publish(new PaymentStatusPending("A123"));
+
+        (await _harness.GetConsumerHarness<PaymentStatusPendingConsumer>().Consumed.Any<PaymentStatusPending>()).Should().BeTrue();
+        _bus.VerifyNoOtherCalls();
     }
 }

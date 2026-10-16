@@ -1,14 +1,24 @@
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { ORDERS_API_URL } from "./orders";
 
-// Mensagem que o Orders.Web.Api envia pelo hub quando o pagamento é processado.
+// Mensagem que o Orders.Web.Api envia pelo hub quando o pagamento tem desfecho.
+// status é o status do pedido (Confirmed, Failed ou NotProcessed); approved é o
+// campo antigo, mantido pelo Orders por compatibilidade.
 interface PaymentStatusChanged {
   orderNumber: string;
   approved: boolean;
+  status?: string;
 }
 
-// Conecta ao hub /hubs/orders, acompanha o pedido e resolve com o resultado do
-// pagamento (true = aprovado). Não consulta o pedido: o Orders envia a mensagem
+// Desfecho do pagamento: "notProcessed" é diferente de "declined": nada foi
+// cobrado, porque o pagamento não chegou a ser processado.
+export type PaymentOutcome = "approved" | "declined" | "notProcessed";
+
+const toOutcome = (message: PaymentStatusChanged): PaymentOutcome =>
+  message.status === "NotProcessed" ? "notProcessed" : message.approved ? "approved" : "declined";
+
+// Conecta ao hub /hubs/orders, acompanha o pedido e resolve com o desfecho do
+// pagamento. Não consulta o pedido: o Orders envia a mensagem
 // quando o resultado chega, ou na hora, se o pedido já estiver resolvido.
 // O hub exige o token do cliente (o SignalR o manda em access_token na query do
 // WebSocket) e só aceita o dono do pedido; sem token, a conexão é recusada.
@@ -17,7 +27,7 @@ export async function watchOrderPayment(
   orderNumber: string,
   getAccessToken: () => Promise<string | null>,
   signal: AbortSignal
-): Promise<boolean> {
+): Promise<PaymentOutcome> {
   const connection = new HubConnectionBuilder()
     .withUrl(`${ORDERS_API_URL}/hubs/orders`, {
       accessTokenFactory: async () => (await getAccessToken()) ?? "",
@@ -25,9 +35,9 @@ export async function watchOrderPayment(
     .configureLogging(LogLevel.Warning)
     .build();
 
-  const result = new Promise<boolean>((resolve, reject) => {
+  const result = new Promise<PaymentOutcome>((resolve, reject) => {
     connection.on("PaymentStatusChanged", (message: PaymentStatusChanged) => {
-      if (message.orderNumber === orderNumber) resolve(message.approved);
+      if (message.orderNumber === orderNumber) resolve(toOutcome(message));
     });
     signal.addEventListener("abort", () => reject(signal.reason), { once: true });
   });

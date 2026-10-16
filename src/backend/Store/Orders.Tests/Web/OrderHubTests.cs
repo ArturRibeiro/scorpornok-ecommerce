@@ -61,7 +61,20 @@ public class OrderHubTests
 
         _groups.Verify(g => g.AddToGroupAsync("conn-1", OrderHub.GroupName("A123"), It.IsAny<CancellationToken>()), Times.Once);
         _caller.Verify(c => c.SendCoreAsync(OrderHub.PaymentStatusChangedMethod,
-            It.Is<object?[]>(args => args.Length == 1 && Equals(args[0], new PaymentStatusChanged("A123", false))),
+            It.Is<object?[]>(args => args.Length == 1 && Equals(args[0], new PaymentStatusChanged("A123", false, OrderStatus.Failed.Name))),
+            It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Test]
+    public async Task Pedido_proprio_nao_processado_envia_o_status_e_nao_como_recusado()
+    {
+        OrderOf(Owner, "A123", OrderStatus.NotProcessed.Name);
+
+        await _hub.WatchOrder("A123");
+
+        _caller.Verify(c => c.SendCoreAsync(OrderHub.PaymentStatusChangedMethod,
+            It.Is<object?[]>(args => args.Length == 1
+                && Equals(args[0], new PaymentStatusChanged("A123", false, OrderStatus.NotProcessed.Name))),
             It.IsAny<CancellationToken>()), Times.Once);
     }
 

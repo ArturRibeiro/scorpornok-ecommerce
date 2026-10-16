@@ -11,6 +11,7 @@ global using Payments.Infrastructure.Consumers;
 global using Payments.Infrastructure.Context;
 global using Payments.Infrastructure.Gateways;
 global using Payments.Infrastructure.Messaging;
+global using Payments.Infrastructure.Monitoring;
 global using Payments.Infrastructure.Repositories;
 global using Payments.Infrastructure.EventSourcing.Repository;
 global using Payments.Infrastructure.EventSourcing.Repository.EventSourcing;

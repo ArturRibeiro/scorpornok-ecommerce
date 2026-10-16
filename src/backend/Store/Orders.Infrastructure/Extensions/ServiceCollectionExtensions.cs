@@ -12,12 +12,23 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IRequestHandler<CreateCommand, CreateOrderResult>, OrderHandler>();
         services.AddScoped<IRequestHandler<ConfirmOrderPaymentCommand>, OrderPaymentHandlers>();
         services.AddScoped<IRequestHandler<FailOrderPaymentCommand>, OrderPaymentHandlers>();
+        services.AddScoped<IRequestHandler<MarkOrderPaymentNotProcessedCommand>, OrderPaymentHandlers>();
         services.AddScoped<IRequestHandler<GetOrderStatusQuery, string?>, OrderPaymentHandlers>();
         services.AddScoped<IIntegrationEventPublisher, MassTransitIntegrationEventPublisher>();
         // E-mail com o resultado do pagamento (seção Smtp; Mailpit no compose).
         services.Configure<SmtpOptions>(configuration.GetSection(SmtpOptions.Section));
         services.AddScoped<IOrderEmailSender, SmtpOrderEmailSender>();
         services.AddHostedService<OrderEmailDispatcher>();
+        // Pedido pendente além do prazo: consulta o Payments (seção PaymentCheck).
+        services.Configure<PaymentCheckOptions>(configuration.GetSection(PaymentCheckOptions.Section));
+        services.AddHostedService<PendingOrderWatcher>();
+        // /health/ops: mensagens paradas nas filas de erro dos consumidores do Orders.
+        var queues = KebabCaseEndpointNameFormatter.Instance;
+        services.AddErrorQueuesHealthCheck(configuration,
+            queues.Consumer<PaymentApprovedConsumer>(), queues.Consumer<PaymentRejectedConsumer>(),
+            queues.Consumer<PaymentNotProcessedConsumer>(), queues.Consumer<PaymentStatusPendingConsumer>());
+        // /health/ops: pedidos pendentes além do prazo e da tolerância.
+        services.AddHealthChecks().AddCheck<StuckOrdersHealthCheck>(StuckOrdersHealthCheck.Name, tags: ["ops"]);
         // Preço, nome e foto dos itens vêm do Catalog (obrigatório, como a connection string).
         var catalogAddress = configuration[$"{HttpCatalogProducts.Section}:BaseAddress"]
             ?? throw new InvalidOperationException("Catalog:BaseAddress não configurado.");
@@ -37,6 +48,8 @@ public static class ServiceCollectionExtensions
             x.SetKebabCaseEndpointNameFormatter();
             x.AddConsumer<PaymentApprovedConsumer>();
             x.AddConsumer<PaymentRejectedConsumer>();
+            x.AddConsumer<PaymentNotProcessedConsumer>();
+            x.AddConsumer<PaymentStatusPendingConsumer>();
             // Bus outbox: o IPublishEndpoint da requisição grava a mensagem no OrderContext
             // (no SaveChanges) e um serviço em segundo plano a entrega quando o broker responde.
             x.AddEntityFrameworkOutbox<OrderContext>(o =>

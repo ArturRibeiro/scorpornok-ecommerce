@@ -5,8 +5,15 @@ using Orders.Domain.Order.Orders;
 
 namespace Orders.Web.Api.Hubs;
 
-/// <summary>Mensagem enviada ao navegador: <c>{ orderNumber, approved }</c>.</summary>
-public record PaymentStatusChanged(string OrderNumber, bool Approved);
+/// <summary>
+/// Mensagem enviada ao navegador: <c>{ orderNumber, approved, status }</c>. <c>status</c> é o nome do
+/// status do pedido (Confirmed, Failed ou NotProcessed); <c>approved</c> continua, por compatibilidade.
+/// </summary>
+public record PaymentStatusChanged(string OrderNumber, bool Approved, string Status)
+{
+    public static PaymentStatusChanged For(string orderNumber, string status)
+        => new(orderNumber, status == OrderStatus.Confirmed.Name, status);
+}
 
 /// <summary>
 /// O checkout se conecta aqui e chama <see cref="WatchOrder"/> para receber o resultado
@@ -35,15 +42,16 @@ public class OrderHub(IMemoryBus bus) : Hub
         await Groups.AddToGroupAsync(Context.ConnectionId, GroupName(orderNumber));
 
         var status = await StatusAsync();
-        if (status == OrderStatus.Confirmed.Name || status == OrderStatus.Failed.Name)
-            await Clients.Caller.SendAsync(PaymentStatusChangedMethod,
-                new PaymentStatusChanged(orderNumber, status == OrderStatus.Confirmed.Name));
+        if (status == OrderStatus.Confirmed.Name || status == OrderStatus.Failed.Name
+            || status == OrderStatus.NotProcessed.Name)
+            await Clients.Caller.SendAsync(PaymentStatusChangedMethod, PaymentStatusChanged.For(orderNumber, status));
     }
 }
 
 public class SignalROrderPaymentNotifier(IHubContext<OrderHub> hub) : IOrderPaymentNotifier
 {
-    public Task NotifyAsync(string orderNumber, bool approved, CancellationToken cancellationToken = default)
+    public Task NotifyAsync(string orderNumber, OrderStatus status, CancellationToken cancellationToken = default)
         => hub.Clients.Group(OrderHub.GroupName(orderNumber))
-            .SendAsync(OrderHub.PaymentStatusChangedMethod, new PaymentStatusChanged(orderNumber, approved), cancellationToken);
+            .SendAsync(OrderHub.PaymentStatusChangedMethod, PaymentStatusChanged.For(orderNumber, status.Name),
+                cancellationToken);
 }

@@ -41,6 +41,13 @@ services:
       # Preço, nome e foto dos itens do pedido vêm do Catalog, pela rede interna.
       Catalog__BaseAddress: http://catalog-api:8080
       RabbitMq__Host: rabbitmq
+      # API de gerenciamento do RabbitMQ, usada pelo /health/ops para olhar as filas de erro.
+      RabbitMq__ManagementUrl: http://rabbitmq:15672
+      # Pedido pendente além do prazo: o Orders consulta o Payments (veja o CLAUDE.md). Os
+      # valores podem vir do .env, por exemplo para testar com um prazo curto.
+      PaymentCheck__TimeoutMinutes: ${PAYMENT_CHECK_TIMEOUT_MINUTES:-15}
+      PaymentCheck__IntervalSeconds: ${PAYMENT_CHECK_INTERVAL_SECONDS:-60}
+      PaymentCheck__AlertAfterMinutes: ${PAYMENT_CHECK_ALERT_AFTER_MINUTES:-15}
       # O emissor dos tokens é o endereço público (localhost:8080, do appsettings.json);
       # de dentro do container, a descoberta e as chaves vêm de keycloak:8080.
       Keycloak__MetadataAddress: http://keycloak:8080/realms/scorponok/.well-known/openid-configuration
@@ -79,6 +86,8 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__ConnectionString: Host=payment-db;Port=5432;Database=payment;Username=sa;Password=sa
       RabbitMq__Host: rabbitmq
+      # API de gerenciamento do RabbitMQ, usada pelo /health/ops para olhar as filas de erro.
+      RabbitMq__ManagementUrl: http://rabbitmq:15672
     ports:
       - 5220:8080
     depends_on:
