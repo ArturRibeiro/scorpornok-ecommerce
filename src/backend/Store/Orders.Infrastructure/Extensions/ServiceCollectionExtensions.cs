@@ -59,7 +59,7 @@ public static class ServiceCollectionExtensions
                     h.Username(rabbitMq["Username"] ?? "guest");
                     h.Password(rabbitMq["Password"] ?? "guest");
                 });
-                cfg.UseMessageRetry(r => r.Interval(3, TimeSpan.FromSeconds(1)));
+                cfg.UseTransientRetry();
                 cfg.ConfigureEndpoints(context);
             });
         });

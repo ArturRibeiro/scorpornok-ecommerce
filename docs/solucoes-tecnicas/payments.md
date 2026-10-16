@@ -1,14 +1,16 @@
 # Pagamentos
 
-A parte da loja que recebe o pedido de cobrança, fala com o meio de pagamento (a empresa que processa o cartão) e devolve o resultado (aprovado ou recusado). As soluções abaixo são **propostas**, exceto a 1, que está **em funcionamento**. Visão geral em [README.md](README.md).
+A parte da loja que recebe o pedido de cobrança, fala com o meio de pagamento (a empresa que processa o cartão) e devolve o resultado (aprovado ou recusado). Cada item indica a sua situação. Visão geral em [README.md](README.md).
 
 ## 1. Cobrança em dobro
 
-**Problema:** hoje o sistema cobra o cartão e só depois anota que cobrou. Se algo falhar entre uma coisa e outra, o sistema não sabe que já cobrou, tenta de novo e o cliente paga duas vezes.
+**Problema:** o sistema cobrava o cartão e só depois anotava que tinha cobrado. Se algo falhasse entre uma coisa e outra, o sistema não sabia que já tinha cobrado, tentava de novo e o cliente pagava duas vezes. Duas cópias da mesma solicitação chegando ao mesmo tempo também podiam cobrar duas vezes.
 
-**Solução:** o sistema passa a anotar que vai cobrar **antes** de cobrar, e cada cobrança leva um identificador único do pedido. Se o sistema precisar repetir a operação, o meio de pagamento reconhece o identificador e devolve o resultado da primeira cobrança, sem cobrar de novo. Cada tentativa de pagamento é cobrada no máximo uma vez.
+**Solução:** o sistema passa a anotar que vai cobrar **antes** de cobrar, e cada cobrança leva um identificador único do pedido. Se o sistema precisar repetir a operação, o meio de pagamento reconhece o identificador e devolve o resultado da primeira cobrança, sem cobrar de novo. Cada tentativa de pagamento é cobrada no máximo uma vez. O identificador usa o número do pedido, por isso depende de os números nunca se repetirem (item 8 em [Pedidos](orders.md)).
 
-Detalhes técnicos: `add-payment-idempotency`.
+**Situação:** em funcionamento.
+
+Detalhes técnicos: `add-payment-idempotency` (arquivada em `openspec/changes/archive/`).
 
 ## 2. Resposta quando o pedido fica parado
 
@@ -21,21 +23,27 @@ Detalhes técnicos: `add-payment-idempotency`.
 
 A equipe também passa a ser avisada quando mensagens de pagamento ficam travadas, e há um passo a passo para destravá-las.
 
+**Situação:** proposta.
+
 Detalhes técnicos: `handle-stuck-payments`.
 
 ## 3. Insistência diante de falhas curtas
 
-**Problema:** hoje, se a área de pagamentos fica indisponível por poucos segundos, a loja desiste de processar o pagamento e ele fica parado.
+**Problema:** se a área de pagamentos ficava indisponível por poucos segundos, a loja desistia de processar o pagamento e ele ficava parado.
 
-**Solução:** a loja passa a insistir por cerca de cinco minutos, com pausas cada vez maiores entre as tentativas. Quedas curtas se resolvem sozinhas, sem ninguém precisar intervir. Mensagens com dados inválidos, que nunca vão dar certo, não são repetidas.
+**Solução:** a loja insiste por cerca de cinco minutos, com pausas cada vez maiores entre as tentativas. Quedas curtas se resolvem sozinhas, sem ninguém precisar intervir, e um pedido de cobrança não se perde mesmo que a área de pagamentos reinicie no meio das tentativas. Mensagens com dados inválidos, que nunca vão dar certo, não são repetidas.
 
-Detalhes técnicos: `add-messaging-retry-backoff`.
+**Situação:** em funcionamento.
+
+Detalhes técnicos: `add-messaging-retry-backoff` (arquivada em `openspec/changes/archive/`).
 
 ## 4. Proteção dos dados do cartão
 
 **Problema:** hoje os dados completos do cartão, inclusive o código de segurança, passam por vários sistemas internos e podem ficar guardados neles. As regras de segurança de cartões proíbem guardar o código de segurança.
 
 **Solução:** assim que o cliente digita o cartão, ele é trocado por um código descartável, como fazem os meios de pagamento reais. Só esse código circula pela loja. Ele vale por 24 horas e serve para uma única cobrança. O código de segurança e o número completo do cartão nunca são guardados. Se o código descartável estiver vencido ou já tiver sido usado, o pagamento é recusado com uma explicação clara, e o cliente é avisado.
+
+**Situação:** proposta.
 
 Detalhes técnicos: `tokenize-card-data`.
 
@@ -44,5 +52,7 @@ Detalhes técnicos: `tokenize-card-data`.
 **Problema:** hoje cada pedido só pode ter um pagamento.
 
 **Solução:** cada pedido passa a aceitar algumas tentativas de pagamento, uma por cartão, e cada tentativa tem a sua própria proteção contra cobrança em dobro (item 1). Veja também o item 5 em [Pedidos](orders.md).
+
+**Situação:** proposta.
 
 Detalhes técnicos: `allow-payment-retry`.
