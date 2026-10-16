@@ -7,6 +7,15 @@ namespace Orders.Domain.Order.Orders;
 /// </summary>
 public class OrderPayment
 {
+    /// <summary>
+    /// Tentativa atual de pagamento: 1 no registro do pedido e mais uma a cada nova tentativa com
+    /// outro cartão. Só o resultado desta tentativa muda o pedido.
+    /// </summary>
+    public int Attempt { get; private set; } = 1;
+
+    /// <summary>Quando a tentativa atual foi solicitada; nulo na primeira (vale a data do pedido).</summary>
+    public DateTime? AttemptRequestedAt { get; private set; }
+
     /// <summary>Id do pagamento no Payments; nulo até o pagamento ser aprovado.</summary>
     public Guid? PaymentId { get; private set; }
 
@@ -29,6 +38,23 @@ public class OrderPayment
     public string EmailFailureReason { get; private set; }
 
     internal void Approve(Guid paymentId) => PaymentId = paymentId;
+
+    /// <summary>
+    /// Começa a próxima tentativa: o prazo da consulta ao Payments e o envio do e-mail recomeçam,
+    /// para que o resultado desta tentativa tenha a sua consulta e o seu e-mail.
+    /// </summary>
+    internal void StartNextAttempt(DateTime at)
+    {
+        Attempt++;
+        AttemptRequestedAt = at;
+        PaymentId = null;
+        StatusCheckedAt = null;
+        EmailSentAt = null;
+        EmailAttempts = 0;
+        NextEmailAttemptAt = null;
+        EmailFailedAt = null;
+        EmailFailureReason = null;
+    }
 
     /// <summary>Só a primeira marcação vale.</summary>
     internal void MarkEmailSent() => EmailSentAt ??= DateTime.Now;

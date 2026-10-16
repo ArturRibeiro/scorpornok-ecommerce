@@ -74,4 +74,32 @@ public class PaymentResultConsumersTests
         (await _harness.GetConsumerHarness<PaymentStatusPendingConsumer>().Consumed.Any<PaymentStatusPending>()).Should().BeTrue();
         _bus.VerifyNoOtherCalls();
     }
+
+    [Test]
+    public async Task Resultados_devem_repassar_a_tentativa()
+    {
+        var paymentId = Guid.NewGuid();
+
+        await _harness.Bus.Publish(new PaymentApproved("A123", paymentId, 2));
+        await _harness.Bus.Publish(new PaymentRejected("A456", "Card declined", 3));
+        await _harness.Bus.Publish(new PaymentNotProcessed("A789", 2));
+
+        (await _harness.GetConsumerHarness<PaymentApprovedConsumer>().Consumed.Any<PaymentApproved>()).Should().BeTrue();
+        (await _harness.GetConsumerHarness<PaymentRejectedConsumer>().Consumed.Any<PaymentRejected>()).Should().BeTrue();
+        (await _harness.GetConsumerHarness<PaymentNotProcessedConsumer>().Consumed.Any<PaymentNotProcessed>()).Should().BeTrue();
+        _bus.Verify(b => b.SendAsync(It.Is<ConfirmOrderPaymentCommand>(c =>
+            c.OrderNumber == "A123" && c.PaymentId == paymentId && c.Attempt == 2)), Times.Once);
+        _bus.Verify(b => b.SendAsync(It.Is<FailOrderPaymentCommand>(c => c.OrderNumber == "A456" && c.Attempt == 3)), Times.Once);
+        _bus.Verify(b => b.SendAsync(It.Is<MarkOrderPaymentNotProcessedCommand>(c =>
+            c.OrderNumber == "A789" && c.Attempt == 2)), Times.Once);
+    }
+
+    [Test]
+    public async Task Mensagem_antiga_sem_tentativa_vale_como_tentativa_1()
+    {
+        await _harness.Bus.Publish(new PaymentRejected("A123", "Card declined"));
+
+        (await _harness.GetConsumerHarness<PaymentRejectedConsumer>().Consumed.Any<PaymentRejected>()).Should().BeTrue();
+        _bus.Verify(b => b.SendAsync(It.Is<FailOrderPaymentCommand>(c => c.Attempt == 1)), Times.Once);
+    }
 }

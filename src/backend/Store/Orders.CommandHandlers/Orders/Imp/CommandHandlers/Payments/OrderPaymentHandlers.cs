@@ -7,21 +7,21 @@ public class OrderPaymentHandlers(
     : IRequestHandler<ConfirmOrderPaymentCommand>,
       IRequestHandler<FailOrderPaymentCommand>,
       IRequestHandler<MarkOrderPaymentNotProcessedCommand>,
-      IRequestHandler<GetOrderStatusQuery, string?>
+      IRequestHandler<GetOrderStatusQuery, OrderPaymentState?>
 {
     public Task Handle(ConfirmOrderPaymentCommand command, CancellationToken cancellationToken)
-        => ApplyAsync(command.OrderNumber, order => order.ConfirmPayment(command.PaymentId), cancellationToken);
+        => ApplyAsync(command.OrderNumber, order => order.ConfirmPayment(command.PaymentId, command.Attempt), cancellationToken);
 
     public Task Handle(FailOrderPaymentCommand command, CancellationToken cancellationToken)
-        => ApplyAsync(command.OrderNumber, order => order.FailPayment(), cancellationToken);
+        => ApplyAsync(command.OrderNumber, order => order.FailPayment(command.Attempt), cancellationToken);
 
     public Task Handle(MarkOrderPaymentNotProcessedCommand command, CancellationToken cancellationToken)
-        => ApplyAsync(command.OrderNumber, order => order.MarkPaymentNotProcessed(), cancellationToken);
+        => ApplyAsync(command.OrderNumber, order => order.MarkPaymentNotProcessed(command.Attempt), cancellationToken);
 
-    public async Task<string?> Handle(GetOrderStatusQuery query, CancellationToken cancellationToken)
+    public async Task<OrderPaymentState?> Handle(GetOrderStatusQuery query, CancellationToken cancellationToken)
         => await orderRepository.GetByNumberAsync(query.OrderNumber, cancellationToken) is { } order
            && order.CustomerId == query.CustomerId
-            ? order.Status.Name
+            ? new OrderPaymentState(order.Status.Name, order.Payment.Attempt)
             : null;
 
     // Salva antes de avisar: a loja nunca recebe um resultado que o pedido ainda não reflete.
@@ -36,9 +36,9 @@ public class OrderPaymentHandlers(
         }
 
         if (!apply(order))
-            return; // já não estava Pending: resultado repetido ou atrasado
+            return; // já não estava Pending, ou é de outra tentativa: resultado repetido ou atrasado
 
         await orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
-        await notifier.NotifyAsync(orderNumber, order.Status, cancellationToken);
+        await notifier.NotifyAsync(orderNumber, order.Status, order.Payment.Attempt, cancellationToken);
     }
 }

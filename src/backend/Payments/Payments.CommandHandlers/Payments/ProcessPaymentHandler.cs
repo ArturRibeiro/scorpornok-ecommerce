@@ -7,15 +7,13 @@ public class ProcessPaymentHandler(
     IIntegrationEventPublisher publisher)
     : IRequestHandler<ProcessPaymentCommand>
 {
-    // Só há uma tentativa por pedido até existir a nova tentativa com outro cartão.
-    private const int Attempt = 1;
-
     public const string InvalidTokenReason = "Token do cartão inválido ou vencido.";
 
     public async Task Handle(ProcessPaymentCommand command, CancellationToken cancellationToken)
     {
-        // Entrega "pelo menos uma vez": a chave (pedido + tentativa) garante uma única cobrança.
-        var key = Domain.Payment.KeyFor(command.OrderNumber, Attempt);
+        // Entrega "pelo menos uma vez": a chave (pedido + tentativa) garante uma única cobrança por
+        // tentativa. Uma nova tentativa do mesmo pedido (outro cartão) tem chave própria e novo pagamento.
+        var key = Domain.Payment.KeyFor(command.OrderNumber, command.Attempt);
         var payment = await paymentRepository.GetByIdempotencyKeyAsync(key, cancellationToken);
 
         if (payment is null)
@@ -25,7 +23,7 @@ public class ProcessPaymentHandler(
 
             // Grava "em processamento" ANTES de cobrar. Se outra entrega gravou primeiro, o índice
             // único rejeita esta gravação; a exceção sobe e a retentativa encontra o registro.
-            payment = Domain.Payment.Start(command.OrderId, command.OrderNumber, Attempt, command.Amount,
+            payment = Domain.Payment.Start(command.OrderId, command.OrderNumber, command.Attempt, command.Amount,
                 command.Installments, token?.CardHolderName ?? "", token?.Last4 ?? "");
             paymentRepository.Add(payment);
 
@@ -57,9 +55,12 @@ public class ProcessPaymentHandler(
 
         // Pagamento anulado (Voided) pela consulta do Orders: a solicitação chegou depois do prazo e
         // é recusada sem passar pelo gateway; Approved é falso e Reason traz o motivo da anulação.
+        // O resultado leva a tentativa: o Orders ignora o de uma tentativa que já não é a atual.
         if (payment.Approved)
-            await publisher.PublishAsync(new PaymentApproved(payment.OrderNumber, payment.Id), cancellationToken);
+            await publisher.PublishAsync(new PaymentApproved(payment.OrderNumber, payment.Id, payment.Attempt),
+                cancellationToken);
         else
-            await publisher.PublishAsync(new PaymentRejected(payment.OrderNumber, payment.Reason), cancellationToken);
+            await publisher.PublishAsync(new PaymentRejected(payment.OrderNumber, payment.Reason, payment.Attempt),
+                cancellationToken);
     }
 }

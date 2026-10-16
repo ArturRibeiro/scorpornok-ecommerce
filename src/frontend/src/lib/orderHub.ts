@@ -8,6 +8,8 @@ interface PaymentStatusChanged {
   orderNumber: string;
   approved: boolean;
   status?: string;
+  // Tentativa a que o desfecho pertence; mensagens antigas, sem o campo, valem como 1.
+  attempt?: number;
 }
 
 // Desfecho do pagamento: "notProcessed" é diferente de "declined": nada foi
@@ -23,10 +25,13 @@ const toOutcome = (message: PaymentStatusChanged): PaymentOutcome =>
 // O hub exige o token do cliente (o SignalR o manda em access_token na query do
 // WebSocket) e só aceita o dono do pedido; sem token, a conexão é recusada.
 // A conexão é encerrada ao receber o resultado ou quando o signal é abortado.
+// attempt é a tentativa acompanhada: o desfecho de uma tentativa anterior (que pode chegar
+// atrasado, ou na hora, pela consulta do WatchOrder) é ignorado.
 export async function watchOrderPayment(
   orderNumber: string,
   getAccessToken: () => Promise<string | null>,
-  signal: AbortSignal
+  signal: AbortSignal,
+  attempt = 1
 ): Promise<PaymentOutcome> {
   const connection = new HubConnectionBuilder()
     .withUrl(`${ORDERS_API_URL}/hubs/orders`, {
@@ -37,7 +42,8 @@ export async function watchOrderPayment(
 
   const result = new Promise<PaymentOutcome>((resolve, reject) => {
     connection.on("PaymentStatusChanged", (message: PaymentStatusChanged) => {
-      if (message.orderNumber === orderNumber) resolve(toOutcome(message));
+      if (message.orderNumber === orderNumber && (message.attempt ?? 1) >= attempt)
+        resolve(toOutcome(message));
     });
     signal.addEventListener("abort", () => reject(signal.reason), { once: true });
   });

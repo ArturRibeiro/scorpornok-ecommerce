@@ -33,6 +33,10 @@ export interface CreatedOrder {
   orderNumber: string;
   status: string;
   total: number;
+  // Tentativa de pagamento atual e o máximo por pedido: a tela de recusa só oferece
+  // "Tentar com outro cartão" enquanto attempt < maxAttempts.
+  attempt: number;
+  maxAttempts: number;
 }
 
 export type CreateOrderResult =
@@ -73,4 +77,43 @@ export async function createOrder(
     return { ok: false, errors: body.errors ?? [] };
   }
   throw new Error(`Orders API respondeu ${response.status} em createOrder`);
+}
+
+export type RetryOrderPaymentResult =
+  | { ok: true; attempt: number }
+  | { ok: false; errors: string[] };
+
+// Nova tentativa de pagamento de um pedido recusado, com outro cartão (token do Payments).
+// 202 devolve a nova tentativa; 400 (sem cartão), 404 (pedido não encontrado) e 409 (pedido não
+// recusado ou tentativas esgotadas) devolvem as mensagens. 401 vira SessionExpiredError; falha de
+// rede e outros status viram exceção.
+export async function retryOrderPayment(
+  orderNumber: string,
+  payment: { cardToken: string; installments: number },
+  accessToken: string
+): Promise<RetryOrderPaymentResult> {
+  const response = await fetch(
+    `${ORDERS_API_URL}/orders/${encodeURIComponent(orderNumber)}/payment`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(payment),
+    }
+  );
+
+  if (response.status === 401) {
+    throw new SessionExpiredError();
+  }
+  if (response.status === 202) {
+    const body: { attempt: number } = await response.json();
+    return { ok: true, attempt: body.attempt };
+  }
+  if ([400, 404, 409].includes(response.status)) {
+    const body: { errors?: string[] } = await response.json();
+    return { ok: false, errors: body.errors ?? [] };
+  }
+  throw new Error(`Orders API respondeu ${response.status} em orders/payment`);
 }

@@ -40,14 +40,17 @@ public class ProcessPaymentHandlerTests
         _handler = new ProcessPaymentHandler(_repository, _repository, _gateway, _publisher.Object);
     }
 
-    // Um token por cartão, criado uma vez: a reentrega traz a mesma mensagem, com o mesmo token.
+    // Um token por cartão e tentativa, criado uma vez: a reentrega traz a mesma mensagem, com o mesmo
+    // token; uma nova tentativa tokeniza o cartão de novo no navegador.
     private readonly Dictionary<string, string> _tokens = new();
 
-    private ProcessPaymentCommand Command(string cardNumber = "4111111111111111", string orderNumber = "A123")
+    private ProcessPaymentCommand Command(string cardNumber = "4111111111111111", string orderNumber = "A123",
+        int attempt = 1)
     {
-        if (!_tokens.TryGetValue(cardNumber, out var token))
-            _tokens[cardNumber] = token = _repository.SeedToken(cardNumber);
-        return new(7, orderNumber, 25m, 1, token);
+        var tokenKey = $"{cardNumber}#{attempt}";
+        if (!_tokens.TryGetValue(tokenKey, out var token))
+            _tokens[tokenKey] = token = _repository.SeedToken(cardNumber);
+        return new(7, orderNumber, 25m, 1, token, attempt);
     }
 
     [Test]
@@ -200,6 +203,28 @@ public class ProcessPaymentHandlerTests
         _gateway.Keys.Should().BeEmpty();
         _publisher.Verify(p => p.PublishAsync(new PaymentRejected("A123", ProcessPaymentHandler.InvalidTokenReason),
             It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Test]
+    public async Task Nova_tentativa_do_mesmo_pedido_gera_novo_pagamento_e_a_repeticao_dela_nao()
+    {
+        await _handler.Handle(Command("4111111111110000", attempt: 1), CancellationToken.None);
+
+        await _handler.Handle(Command("4111111111111111", attempt: 2), CancellationToken.None);
+        await _handler.Handle(Command("4111111111111111", attempt: 2), CancellationToken.None);
+
+        _repository.Saved.Should().HaveCount(2);
+        _repository.Saved.Select(p => (p.IdempotencyKey, p.Status)).Should().BeEquivalentTo(new[]
+        {
+            ("A123-1", PaymentStatus.Rejected),
+            ("A123-2", PaymentStatus.Approved)
+        });
+        _gateway.Charges.Should().Be(2);
+        var approved = _repository.Saved.Single(p => p.Attempt == 2);
+        _publisher.Verify(p => p.PublishAsync(new PaymentRejected("A123", PaymentGateway.RejectedReason, 1),
+            It.IsAny<CancellationToken>()), Times.Once);
+        _publisher.Verify(p => p.PublishAsync(new PaymentApproved("A123", approved.Id, 2),
+            It.IsAny<CancellationToken>()), Times.Exactly(2));
     }
 
     // Deixa a primeira gravação passar e derruba a segunda (a do resultado, depois de cobrar).

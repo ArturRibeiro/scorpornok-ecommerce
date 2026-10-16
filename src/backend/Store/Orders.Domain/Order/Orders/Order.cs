@@ -41,38 +41,66 @@ public class Order : Entity<int>, IAggregateRoot
     
     public void ChangeStatus(OrderStatus failed) => Status = failed;
 
-    /// <summary>Pagamento aprovado: confirma o pedido. Só age sobre pedido pendente.</summary>
-    /// <returns>Se o pedido mudou; resultado repetido ou atrasado não altera nada.</returns>
-    public bool ConfirmPayment(Guid paymentId)
+    /// <summary>Tentativas de pagamento por pedido: a primeira e até duas novas, com outro cartão.</summary>
+    public const int MaxPaymentAttempts = 3;
+
+    /// <summary>Pagamento aprovado: confirma o pedido. Só age sobre pedido pendente e na tentativa atual.</summary>
+    /// <returns>Se o pedido mudou; resultado repetido, atrasado ou de outra tentativa não altera nada.</returns>
+    public bool ConfirmPayment(Guid paymentId, int attempt)
     {
-        if (!IsPending) return false;
+        if (!IsPendingOn(attempt)) return false;
         Payment.Approve(paymentId);
         Status = OrderStatus.Confirmed;
         return true;
     }
 
-    /// <summary>Pagamento recusado: marca a falha. Só age sobre pedido pendente.</summary>
+    /// <summary>Pagamento recusado: marca a falha. Só age sobre pedido pendente e na tentativa atual.</summary>
     /// <returns>Se o pedido mudou.</returns>
-    public bool FailPayment()
+    public bool FailPayment(int attempt)
     {
-        if (!IsPending) return false;
+        if (!IsPendingOn(attempt)) return false;
         Status = OrderStatus.Failed;
         return true;
     }
 
     /// <summary>
-    /// O Payments não tem pagamento para o pedido e o anulou: nada foi cobrado. Só age sobre
-    /// pedido pendente, como os outros desfechos.
+    /// O Payments não tem pagamento para a tentativa e a anulou: nada foi cobrado. Só age sobre
+    /// pedido pendente e na tentativa atual, como os outros desfechos.
     /// </summary>
     /// <returns>Se o pedido mudou.</returns>
-    public bool MarkPaymentNotProcessed()
+    public bool MarkPaymentNotProcessed(int attempt)
     {
-        if (!IsPending) return false;
+        if (!IsPendingOn(attempt)) return false;
         Status = OrderStatus.NotProcessed;
         return true;
     }
 
+    /// <summary>
+    /// O cliente pode pagar de novo, com outro cartão: só depois de uma recusa do cartão e enquanto
+    /// houver tentativas. "Não processado" não entra: a tentativa foi anulada por um problema da loja,
+    /// e o cliente é orientado a refazer a compra.
+    /// </summary>
+    public bool CanRetryPayment => Status.Code == OrderStatus.Failed.Code && Payment.Attempt < MaxPaymentAttempts;
+
+    /// <summary>
+    /// Nova tentativa de pagamento: o pedido volta a pendente na próxima tentativa, com o prazo e o
+    /// e-mail recomeçando. Só age quando <see cref="CanRetryPayment"/>.
+    /// </summary>
+    /// <returns>Se o pedido mudou.</returns>
+    public bool RetryPayment(DateTime now)
+    {
+        if (!CanRetryPayment) return false;
+        Payment.StartNextAttempt(now);
+        Status = OrderStatus.Pending;
+        return true;
+    }
+
     private bool IsPending => Status.Code == OrderStatus.Pending.Code;
+
+    private bool IsPendingOn(int attempt) => IsPending && attempt == Payment.Attempt;
+
+    /// <summary>Desde quando a tentativa atual espera resultado: o registro do pedido ou a nova tentativa.</summary>
+    public DateTime AttemptStartedAt => Payment.AttemptRequestedAt ?? OrderDate;
 
     /// <summary>
     /// Pendente além do prazo e sem consulta ao Payments no último intervalo: é hora de perguntar
@@ -80,7 +108,7 @@ public class Order : Entity<int>, IAggregateRoot
     /// </summary>
     public bool IsPaymentCheckDue(DateTime now, TimeSpan timeout, TimeSpan interval)
         => IsPending
-           && OrderDate <= now - timeout
+           && AttemptStartedAt <= now - timeout
            && (Payment.StatusCheckedAt is null || Payment.StatusCheckedAt <= now - interval);
 
     /// <summary>Registra a consulta ao Payments, para a próxima só sair depois do intervalo.</summary>

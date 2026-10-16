@@ -37,11 +37,19 @@ public record OrderPaymentEmail(string Subject, string Body)
                 Não foi possível concluir o pedido {order.OrderNumber}.
 
                 Seu cartão foi recusado, então o pedido não foi confirmado e nada foi cobrado.
+                {RetryHint(order)}
                 Total: {total}
 
                 Loja Scorponok
                 """);
     }
+
+    // Enquanto houver tentativas, o cliente pode pagar o mesmo pedido com outro cartão, na tela da compra.
+    private static string RetryHint(Order order)
+        => order.CanRetryPayment
+            ? "Você pode tentar de novo com outro cartão na tela da compra"
+              + $" ({Order.MaxPaymentAttempts - order.Payment.Attempt} tentativa(s) restante(s))."
+            : "As tentativas de pagamento deste pedido acabaram; para comprar, faça um novo pedido.";
 
     // R$ 1.299,99 sem depender da cultura pt-BR, que pode faltar na imagem do container.
     private static string FormatReais(decimal value)

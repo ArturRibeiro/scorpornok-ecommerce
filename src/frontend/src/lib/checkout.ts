@@ -53,6 +53,13 @@ export function validateCheckout(
     if (!address[field].trim()) errors[field] = "Obrigatório";
   }
 
+  return { ...errors, ...validatePayment(payment, today) };
+}
+
+// Só o cartão: usada também na nova tentativa de pagamento, em que o endereço não muda.
+export function validatePayment(payment: PaymentDetails, today = new Date()): CheckoutErrors {
+  const errors: CheckoutErrors = {};
+
   if (!payment.cardHolderName.trim()) errors.cardHolderName = "Obrigatório";
 
   if (!/^\d{13,19}$/.test(onlyDigits(payment.cardNumber))) {

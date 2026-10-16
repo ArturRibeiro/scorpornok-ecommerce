@@ -13,7 +13,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IRequestHandler<ConfirmOrderPaymentCommand>, OrderPaymentHandlers>();
         services.AddScoped<IRequestHandler<FailOrderPaymentCommand>, OrderPaymentHandlers>();
         services.AddScoped<IRequestHandler<MarkOrderPaymentNotProcessedCommand>, OrderPaymentHandlers>();
-        services.AddScoped<IRequestHandler<GetOrderStatusQuery, string?>, OrderPaymentHandlers>();
+        services.AddScoped<IRequestHandler<GetOrderStatusQuery, OrderPaymentState?>, OrderPaymentHandlers>();
+        services.AddScoped<IRequestHandler<RetryOrderPaymentCommand, RetryOrderPaymentResult>, RetryOrderPaymentHandler>();
         services.AddScoped<IIntegrationEventPublisher, MassTransitIntegrationEventPublisher>();
         // E-mail com o resultado do pagamento (seção Smtp; Mailpit no compose).
         services.AddOptions<SmtpOptions>()

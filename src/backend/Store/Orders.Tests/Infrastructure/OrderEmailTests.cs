@@ -13,9 +13,23 @@ public class OrderEmailTests
         order.AddEmail("cliente@exemplo.com");
         order.AddProduct([OrderItem.Create(42, "Produto", 10m, 0m, "http://img", 2),
             OrderItem.Create(7, "Outro", 5m, 0m, "http://img", 1)]);
-        if (approved) order.ConfirmPayment(Guid.NewGuid());
-        else order.FailPayment();
+        if (approved) order.ConfirmPayment(Guid.NewGuid(), 1);
+        else order.FailPayment(1);
         return order;
+    }
+
+    [Test]
+    public void Email_de_recusa_deve_oferecer_nova_tentativa_enquanto_houver()
+    {
+        var order = ResolvedOrder(approved: false);
+
+        OrderPaymentEmail.For(order).Body.Should().Contain("tentar de novo com outro cartão").And.Contain("2 tentativa(s)");
+
+        order.RetryPayment(DateTime.Now);
+        order.FailPayment(2);
+        order.RetryPayment(DateTime.Now);
+        order.FailPayment(3);
+        OrderPaymentEmail.For(order).Body.Should().Contain("As tentativas de pagamento deste pedido acabaram");
     }
 
     [Test]
@@ -47,7 +61,7 @@ public class OrderEmailTests
         order.AddEmail("cliente@exemplo.com");
         order.AddProduct([OrderItem.Create(42, "Produto", 10m, 0m, "http://img", 2),
             OrderItem.Create(7, "Outro", 5m, 0m, "http://img", 1)]);
-        order.MarkPaymentNotProcessed();
+        order.MarkPaymentNotProcessed(1);
 
         var email = OrderPaymentEmail.For(order);
 
@@ -62,7 +76,7 @@ public class OrderEmailTests
         var order = new Order(Guid.NewGuid());
         order.AddEmail("cliente@exemplo.com");
         order.AddProduct([OrderItem.Create(42, "Produto", 1299.99m, 0m, "http://img", 1)]);
-        order.ConfirmPayment(Guid.NewGuid());
+        order.ConfirmPayment(Guid.NewGuid(), 1);
 
         OrderPaymentEmail.For(order).Body.Should().Contain("Total: R$ 1.299,99");
     }

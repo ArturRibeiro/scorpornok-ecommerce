@@ -17,7 +17,7 @@
 5. O cliente confirma o pedido.
 5.1. O sistema troca o cartão por um código descartável (token) junto ao serviço de pagamentos; o número e o CVV não seguem para o pedido.
 6. O sistema registra o pedido com a situação **Pendente**, na conta do cliente, e gera o número do pedido.
-7. O sistema exibe o número do pedido, informa que o pagamento está em processamento e esvazia o carrinho.
+7. O sistema exibe o número do pedido e informa que o pagamento está em processamento. O carrinho é esvaziado só quando o pagamento é aprovado ou fica pendente (UC04); na recusa, ele continua.
 8. O sistema segue para o pagamento (UC04).
 
 ## Fluxos alternativos
@@ -45,6 +45,7 @@
 - RN06: O pedido só é confirmado após o pagamento aprovado (UC04).
 - RN07: Para registrar o pedido, o serviço de pagamentos precisa estar no ar no momento da confirmação, para trocar o cartão pelo token. Depois do registro, a cobrança não depende dele estar no ar: é feita quando ele voltar (o token vale 24 horas).
 - RN08: O cartão completo e o CVV nunca chegam ao serviço de pedidos; só o token.
+- RN09: O carrinho só é esvaziado quando o pagamento é aprovado ou fica pendente: no pendente, o pedido já existe e ainda pode ser aprovado, e manter o carrinho levaria a comprar duas vezes. Na recusa, o carrinho continua.
 
 ## Limitações conhecidas
 

@@ -22,21 +22,23 @@ public class CheckPaymentStatusHandler(IPaymentRepository paymentRepository, IIn
             await paymentRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         }
 
-        // Publica com o tipo concreto: o MassTransit roteia pelo tipo da mensagem.
+        // Publica com o tipo concreto: o MassTransit roteia pelo tipo da mensagem. Todas levam a tentativa
+        // consultada, para o Orders aplicar só a resposta da tentativa atual.
         var orderNumber = payment.OrderNumber;
+        var attempt = command.Attempt;
         switch (payment.Status)
         {
             case PaymentStatus.Approved:
-                await publisher.PublishAsync(new PaymentApproved(orderNumber, payment.Id), cancellationToken);
+                await publisher.PublishAsync(new PaymentApproved(orderNumber, payment.Id, attempt), cancellationToken);
                 break;
             case PaymentStatus.Rejected:
-                await publisher.PublishAsync(new PaymentRejected(orderNumber, payment.Reason), cancellationToken);
+                await publisher.PublishAsync(new PaymentRejected(orderNumber, payment.Reason, attempt), cancellationToken);
                 break;
             case PaymentStatus.Processing:
-                await publisher.PublishAsync(new PaymentStatusPending(orderNumber), cancellationToken);
+                await publisher.PublishAsync(new PaymentStatusPending(orderNumber, attempt), cancellationToken);
                 break;
             default:
-                await publisher.PublishAsync(new PaymentNotProcessed(orderNumber), cancellationToken);
+                await publisher.PublishAsync(new PaymentNotProcessed(orderNumber, attempt), cancellationToken);
                 break;
         }
     }

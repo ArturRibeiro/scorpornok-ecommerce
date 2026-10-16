@@ -17,7 +17,9 @@ Existe um pedido **Pendente** (UC03).
 
 ## Fluxos alternativos
 
-- **2a. Pagamento recusado:** o sistema muda o pedido para **Falha no pagamento**, informa o cliente na tela e envia o e-mail com a recusa.
+- **2a. Pagamento recusado:** o sistema muda o pedido para **Falha no pagamento**, informa o cliente na tela e envia o e-mail com a recusa. O carrinho continua.
+  - **2a1. Tentar com outro cartão:** enquanto houver tentativas, a tela oferece "Tentar com outro cartão". O cliente informa outro cartão, o pedido volta a **Pendente** na tentativa seguinte e o fluxo recomeça no passo 1, com o mesmo número e o mesmo total. Cada tentativa tem o seu resultado e o seu e-mail.
+  - **2a2. Tentativas esgotadas:** depois da terceira recusa, a tela e o e-mail informam que as tentativas acabaram; para comprar, o cliente faz um novo pedido com o carrinho, que continua salvo.
 - **2b. Serviço de pagamentos indisponível:** o pedido continua **Pendente**; a cobrança é feita quando o serviço voltar, sem nova ação do cliente.
 - **2d. Sem resultado depois do prazo (15 minutos):** o sistema pergunta ao serviço de pagamentos o que aconteceu, a cada minuto, até ter uma resposta:
   - pagamento aprovado ou recusado: o pedido recebe esse resultado, mesmo que ele tenha se perdido no caminho;
@@ -40,6 +42,8 @@ Existe um pedido **Pendente** (UC03).
 - RN06: Só o dono do pedido acompanha o resultado na tela.
 - RN07: O sistema de pedidos nunca dá um desfecho ao pagamento por conta própria: depois do prazo, a resposta vem sempre do serviço de pagamentos.
 - RN08: **Pagamento não processado** é diferente de **Falha no pagamento**: no primeiro, o problema foi da loja e nada foi cobrado; no segundo, o cartão foi recusado.
+- RN10: Cada pedido aceita até 3 tentativas de pagamento, só depois de uma recusa do cartão e só pelo dono do pedido. Um pedido com **Pagamento não processado** não tem nova tentativa: o cliente refaz a compra.
+- RN11: Só o resultado da tentativa atual muda o pedido; um resultado atrasado de uma tentativa anterior é ignorado. Cada tentativa é cobrada no máximo uma vez.
 
 ## Limitações conhecidas
 

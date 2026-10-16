@@ -21,7 +21,7 @@ public class OrderPaymentTests
         var order = PendingOrder();
         var paymentId = Guid.NewGuid();
 
-        order.ConfirmPayment(paymentId).Should().BeTrue();
+        order.ConfirmPayment(paymentId, 1).Should().BeTrue();
 
         order.Status.Should().Be(OrderStatus.Confirmed);
         order.Payment.PaymentId.Should().Be(paymentId);
@@ -32,7 +32,7 @@ public class OrderPaymentTests
     {
         var order = PendingOrder();
 
-        order.FailPayment().Should().BeTrue();
+        order.FailPayment(1).Should().BeTrue();
 
         order.Status.Should().Be(OrderStatus.Failed);
         order.Payment.PaymentId.Should().BeNull();
@@ -43,10 +43,10 @@ public class OrderPaymentTests
     {
         var order = PendingOrder();
         var paymentId = Guid.NewGuid();
-        order.ConfirmPayment(paymentId);
+        order.ConfirmPayment(paymentId, 1);
 
-        order.ConfirmPayment(Guid.NewGuid()).Should().BeFalse();
-        order.FailPayment().Should().BeFalse();
+        order.ConfirmPayment(Guid.NewGuid(), 1).Should().BeFalse();
+        order.FailPayment(1).Should().BeFalse();
 
         order.Status.Should().Be(OrderStatus.Confirmed);
         order.Payment.PaymentId.Should().Be(paymentId);
@@ -56,9 +56,9 @@ public class OrderPaymentTests
     public void Pedido_com_falha_nao_deve_mudar_com_novo_resultado()
     {
         var order = PendingOrder();
-        order.FailPayment();
+        order.FailPayment(1);
 
-        order.ConfirmPayment(Guid.NewGuid()).Should().BeFalse();
+        order.ConfirmPayment(Guid.NewGuid(), 1).Should().BeFalse();
 
         order.Status.Should().Be(OrderStatus.Failed);
         order.Payment.PaymentId.Should().BeNull();
@@ -72,9 +72,9 @@ public class OrderPaymentTests
     public void Pedido_confirmado_ou_recusado_deve_aguardar_email_ate_ser_marcado()
     {
         var confirmed = PendingOrder();
-        confirmed.ConfirmPayment(Guid.NewGuid());
+        confirmed.ConfirmPayment(Guid.NewGuid(), 1);
         var failed = PendingOrder();
-        failed.FailPayment();
+        failed.FailPayment(1);
 
         confirmed.IsAwaitingPaymentEmail.Should().BeTrue();
         failed.IsAwaitingPaymentEmail.Should().BeTrue();
@@ -89,7 +89,7 @@ public class OrderPaymentTests
     public void Segunda_marcacao_deve_manter_a_data_do_primeiro_envio()
     {
         var order = PendingOrder();
-        order.ConfirmPayment(Guid.NewGuid());
+        order.ConfirmPayment(Guid.NewGuid(), 1);
         order.MarkPaymentEmailSent();
         var first = order.Payment.EmailSentAt;
 
@@ -101,7 +101,7 @@ public class OrderPaymentTests
     private static Order ConfirmedOrder()
     {
         var order = PendingOrder();
-        order.ConfirmPayment(Guid.NewGuid());
+        order.ConfirmPayment(Guid.NewGuid(), 1);
         return order;
     }
 

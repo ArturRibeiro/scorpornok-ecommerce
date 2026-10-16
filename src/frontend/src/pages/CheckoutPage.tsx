@@ -55,7 +55,7 @@ const toRequest = (
 });
 
 export default function CheckoutPage() {
-  const { cart, clearCart } = useCart();
+  const { cart } = useCart();
   const { email, expireSession, getAccessToken } = useAuth();
   const [address, setAddress] = useState(EMPTY_ADDRESS);
   const [payment, setPayment] = useState(EMPTY_PAYMENT);
@@ -65,7 +65,7 @@ export default function CheckoutPage() {
   // Guarda o e-mail com o pedido: é para ele que o resultado foi enviado.
   const [placed, setPlaced] = useState<{ order: CreatedOrder; email: string } | null>(null);
 
-  // Vem antes do redirecionamento: o carrinho já foi esvaziado no sucesso.
+  // Vem antes do redirecionamento: a confirmação esvazia o carrinho na aprovação (ou no pendente).
   if (placed) {
     return <OrderConfirmation order={placed.order} email={placed.email} />;
   }
@@ -123,7 +123,7 @@ export default function CheckoutPage() {
         token
       );
       if (result.ok) {
-        clearCart();
+        // O carrinho fica até o resultado: na recusa, o cliente pode tentar outro cartão.
         setPlaced({ order: result.order, email });
       } else {
         setSubmitErrors(result.errors);

@@ -33,11 +33,11 @@ public class OrderHubTests
 
     // Só responde ao dono: a consulta de outro cliente (ou de número inexistente) devolve nulo.
     private void OrderOf(Guid customerId, string orderNumber, string status)
-        => _bus.Setup(b => b.RequestAsync(It.IsAny<Message<string?>>()))
-            .ReturnsAsync((Message<string?> query) =>
+        => _bus.Setup(b => b.RequestAsync(It.IsAny<Message<OrderPaymentState?>>()))
+            .ReturnsAsync((Message<OrderPaymentState?> query) =>
             {
                 var q = (GetOrderStatusQuery)query;
-                return q.OrderNumber == orderNumber && q.CustomerId == customerId ? status : null;
+                return q.OrderNumber == orderNumber && q.CustomerId == customerId ? new OrderPaymentState(status, 1) : null;
             });
 
     [Test]
@@ -61,7 +61,7 @@ public class OrderHubTests
 
         _groups.Verify(g => g.AddToGroupAsync("conn-1", OrderHub.GroupName("A123"), It.IsAny<CancellationToken>()), Times.Once);
         _caller.Verify(c => c.SendCoreAsync(OrderHub.PaymentStatusChangedMethod,
-            It.Is<object?[]>(args => args.Length == 1 && Equals(args[0], new PaymentStatusChanged("A123", false, OrderStatus.Failed.Name))),
+            It.Is<object?[]>(args => args.Length == 1 && Equals(args[0], new PaymentStatusChanged("A123", false, OrderStatus.Failed.Name, 1))),
             It.IsAny<CancellationToken>()), Times.Once);
     }
 
@@ -74,7 +74,7 @@ public class OrderHubTests
 
         _caller.Verify(c => c.SendCoreAsync(OrderHub.PaymentStatusChangedMethod,
             It.Is<object?[]>(args => args.Length == 1
-                && Equals(args[0], new PaymentStatusChanged("A123", false, OrderStatus.NotProcessed.Name))),
+                && Equals(args[0], new PaymentStatusChanged("A123", false, OrderStatus.NotProcessed.Name, 1))),
             It.IsAny<CancellationToken>()), Times.Once);
     }
 

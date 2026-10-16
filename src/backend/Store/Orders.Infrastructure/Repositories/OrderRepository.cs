@@ -40,14 +40,15 @@
             // Mesmo critério de Order.IsPaymentCheckDue, escrito para o EF traduzir em SQL.
             => await _context.Orders
                 .Where(o => o.Status.Code == OrderStatus.Pending.Code
-                            && o.OrderDate <= createdBefore
+                            && (o.Payment.AttemptRequestedAt ?? o.OrderDate) <= createdBefore
                             && (o.Payment.StatusCheckedAt == null || o.Payment.StatusCheckedAt <= checkedBefore))
                 .OrderBy(o => o.Id)
                 .Take(limit)
                 .ToListAsync(cancellationToken);
 
         public Task<int> CountPendingCreatedBeforeAsync(DateTime createdBefore, CancellationToken cancellationToken = default)
-            => _context.Orders.CountAsync(o => o.Status.Code == OrderStatus.Pending.Code && o.OrderDate <= createdBefore,
+            => _context.Orders.CountAsync(o => o.Status.Code == OrderStatus.Pending.Code
+                                               && (o.Payment.AttemptRequestedAt ?? o.OrderDate) <= createdBefore,
                 cancellationToken);
 
         public async Task ExecuteInTransactionAsync(Func<Task> work, CancellationToken cancellationToken = default)

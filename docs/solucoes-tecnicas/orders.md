@@ -27,17 +27,17 @@ Detalhes técnicos: `add-messaging-retry-backoff` (arquivada em `openspec/change
 
 ## 5. Tentar de novo com outro cartão
 
-**Problema:** quando o cartão é recusado, o pedido termina ali. O cliente precisa montar o carrinho e fazer um pedido novo.
+**Problema:** quando o cartão era recusado, o pedido terminava ali. O cliente precisava montar o carrinho e fazer um pedido novo.
 
 **Solução:**
 - O cliente pode tentar pagar **o mesmo pedido** com outro cartão, até três tentativas.
 - Cada tentativa tem o seu resultado e o seu e-mail; um resultado atrasado de uma tentativa antiga não muda o pedido.
-- Só o dono do pedido pode tentar de novo, e só depois de uma recusa.
-- O e-mail de recusa lembra que ainda é possível tentar outro cartão, enquanto houver tentativas.
+- Só o dono do pedido pode tentar de novo, e só depois de uma recusa do cartão. Um pedido com "pagamento não processado" (item 2) não tem nova tentativa: como o problema foi da loja, o cliente refaz a compra.
+- O e-mail de recusa diz quantas tentativas ainda restam ou, na última, que elas acabaram.
 
-**Situação:** proposta.
+**Situação:** em funcionamento.
 
-Detalhes técnicos: `allow-payment-retry`.
+Detalhes técnicos: `allow-payment-retry` (arquivada em `openspec/changes/archive/`).
 
 ## 6. E-mail que não chega
 

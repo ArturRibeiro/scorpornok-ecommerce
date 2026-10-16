@@ -6,5 +6,6 @@ namespace Orders.CommandHandlers.Orders;
 /// </summary>
 public interface IOrderPaymentNotifier
 {
-    Task NotifyAsync(string orderNumber, OrderStatus status, CancellationToken cancellationToken = default);
+    /// <param name="attempt">Tentativa a que o desfecho pertence: a loja ignora a de uma tentativa anterior.</param>
+    Task NotifyAsync(string orderNumber, OrderStatus status, int attempt, CancellationToken cancellationToken = default);
 }

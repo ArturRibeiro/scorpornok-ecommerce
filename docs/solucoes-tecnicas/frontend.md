@@ -14,15 +14,15 @@ Detalhes técnicos: `tokenize-card-data` (arquivada em `openspec/changes/archive
 
 ## 5. Carrinho e nova tentativa
 
-**Problema:** hoje o carrinho é esvaziado assim que o pedido é registrado, antes de o pagamento ser aprovado. Se o cartão for recusado, o cliente perde o carrinho e não tem como tentar outro cartão.
+**Problema:** o carrinho era esvaziado assim que o pedido era registrado, antes de o pagamento ser aprovado. Se o cartão fosse recusado, o cliente perdia o carrinho e não tinha como tentar outro cartão.
 
 **Solução:**
 - O carrinho só é esvaziado quando o pagamento é **aprovado** ou fica **pendente**. No pendente, o pedido já existe e ainda pode ser aprovado, e manter o carrinho levaria o cliente a comprar duas vezes.
-- Na **recusa**, o carrinho continua, e a tela oferece "Tentar com outro cartão" enquanto houver tentativas (até três por pedido). O resultado da nova tentativa aparece na mesma tela.
+- Na **recusa**, o carrinho continua, e a tela oferece "Tentar com outro cartão" enquanto houver tentativas (até três por pedido). O resultado da nova tentativa aparece na mesma tela. Quando as tentativas acabam, a tela orienta a fazer um novo pedido, com o carrinho ainda salvo.
 
-**Situação:** proposta.
+**Situação:** em funcionamento.
 
-Detalhes técnicos: `allow-payment-retry`.
+Detalhes técnicos: `allow-payment-retry` (arquivada em `openspec/changes/archive/`).
 
 ## 2. Pedido não processado
 

@@ -65,3 +65,18 @@ Authorization: Bearer {{token}}
 GET {{Orders.Web.Api_HostAddress}}/health/email
 
 ###
+
+### Nova tentativa de pagamento de um pedido recusado (Failed), com outro cartão: tokenize o cartão no
+### POST /card-tokens do Payments e use o token novo. 202 com { orderNumber, status, attempt };
+### 404 para pedido de outro cliente ou inexistente; 409 se não está recusado ou as 3 tentativas acabaram.
+POST {{Orders.Web.Api_HostAddress}}/orders/{{orderNumber}}/payment
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "cardToken": "{{cardToken}}",
+  "installments": 1
+}
+
+###

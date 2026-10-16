@@ -11,12 +11,12 @@
         /// <summary>Pedidos cujo envio de e-mail entrou em falha definitiva a partir de <paramref name="since"/>.</summary>
         Task<int> CountEmailFailedSinceAsync(DateTime since, CancellationToken cancellationToken = default);
 
-        // Pendentes criados até createdBefore cuja última consulta ao Payments (se houve) foi até
+        // Pendentes cuja tentativa atual começou até createdBefore e cuja última consulta ao Payments (se houve) foi até
         // checkedBefore: o critério de Order.IsPaymentCheckDue, dos mais antigos aos mais novos.
         Task<IReadOnlyList<Order>> GetPaymentCheckDueAsync(DateTime createdBefore, DateTime checkedBefore, int limit,
             CancellationToken cancellationToken = default);
 
-        // Quantos pedidos continuam pendentes desde antes de createdBefore (pedidos presos).
+        // Quantos pedidos continuam pendentes, na tentativa atual, desde antes de createdBefore (pedidos presos).
         Task<int> CountPendingCreatedBeforeAsync(DateTime createdBefore, CancellationToken cancellationToken = default);
 
         // Executa work numa transação do banco: commit no fim, rollback se work lançar exceção.

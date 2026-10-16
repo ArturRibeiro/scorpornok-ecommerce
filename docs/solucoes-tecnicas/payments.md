@@ -51,10 +51,10 @@ Detalhes técnicos: `tokenize-card-data` (arquivada em `openspec/changes/archive
 
 ## 5. Mais de uma tentativa no mesmo pedido
 
-**Problema:** hoje cada pedido só pode ter um pagamento.
+**Problema:** cada pedido só podia ter um pagamento.
 
-**Solução:** cada pedido passa a aceitar algumas tentativas de pagamento, uma por cartão, e cada tentativa tem a sua própria proteção contra cobrança em dobro (item 1). Veja também o item 5 em [Pedidos](orders.md).
+**Solução:** cada pedido passa a aceitar até três tentativas de pagamento, uma por cartão, e cada tentativa tem a sua própria proteção contra cobrança em dobro (item 1). O resultado de cada tentativa volta identificado, para a área de pedidos ignorar o de uma tentativa antiga que chegue atrasado. Veja também o item 5 em [Pedidos](orders.md).
 
-**Situação:** proposta.
+**Situação:** em funcionamento.
 
-Detalhes técnicos: `allow-payment-retry`.
+Detalhes técnicos: `allow-payment-retry` (arquivada em `openspec/changes/archive/`).

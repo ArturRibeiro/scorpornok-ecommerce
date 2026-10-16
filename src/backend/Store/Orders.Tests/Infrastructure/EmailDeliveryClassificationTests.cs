@@ -69,7 +69,7 @@ public class EmailDeliveryClassificationTests
     {
         var order = new Order(Guid.NewGuid());
         order.AddEmail("cliente@");
-        order.ConfirmPayment(Guid.NewGuid());
+        order.ConfirmPayment(Guid.NewGuid(), 1);
         // Host inexistente: se tentasse conectar, a falha seria do servidor.
         var sender = new SmtpOrderEmailSender(Options.Create(new SmtpOptions { Host = "invalido.local", Port = 1 }));
 
@@ -83,7 +83,7 @@ public class EmailDeliveryClassificationTests
     {
         var order = new Order(Guid.NewGuid());
         order.AddEmail("cliente@exemplo.com");
-        order.ConfirmPayment(Guid.NewGuid());
+        order.ConfirmPayment(Guid.NewGuid(), 1);
         var sender = new SmtpOrderEmailSender(Options.Create(new SmtpOptions { From = "sem-arroba" }));
 
         var act = () => sender.SendPaymentResultAsync(order);

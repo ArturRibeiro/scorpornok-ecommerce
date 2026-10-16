@@ -36,7 +36,7 @@ public class OrderEmailDispatcherTests
     {
         var order = new Order(Guid.NewGuid());
         order.AddEmail("cliente@exemplo.com");
-        order.ConfirmPayment(Guid.NewGuid());
+        order.ConfirmPayment(Guid.NewGuid(), 1);
         return order;
     }
 

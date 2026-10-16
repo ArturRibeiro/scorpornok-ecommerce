@@ -36,8 +36,8 @@ public class PendingOrderWatcher(
     }
 
     /// <summary>
-    /// Uma rodada: devolve quantos pedidos foram consultados. O relógio é o de Order.OrderDate
-    /// (DateTime.Now), para o prazo ser medido na mesma base.
+    /// Uma rodada: devolve quantos pedidos foram consultados. O relógio é o de Order.OrderDate e da
+    /// nova tentativa (DateTime.Now), para o prazo ser medido na mesma base.
     /// </summary>
     public async Task<int> CheckDueOrdersAsync(DateTime now, CancellationToken cancellationToken)
     {
@@ -56,10 +56,10 @@ public class PendingOrderWatcher(
         // O publicador grava no outbox; as mensagens e o StatusCheckedAt vão no mesmo SaveChanges.
         foreach (var order in due)
         {
-            await publisher.PublishAsync(new PaymentStatusRequested(order.OrderNumber), cancellationToken);
+            await publisher.PublishAsync(new PaymentStatusRequested(order.OrderNumber, order.Payment.Attempt), cancellationToken);
             order.MarkPaymentStatusChecked(now);
-            logger.LogInformation("Pedido {OrderNumber} pendente desde {OrderDate}; consultando o Payments.",
-                order.OrderNumber, order.OrderDate);
+            logger.LogInformation("Pedido {OrderNumber} pendente desde {StartedAt} (tentativa {Attempt}); consultando o Payments.",
+                order.OrderNumber, order.AttemptStartedAt, order.Payment.Attempt);
         }
         await repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         return due.Count;

@@ -41,7 +41,7 @@ public class OrderPaymentCheckTests
     public void Pedido_com_desfecho_nao_deve_ser_consultado()
     {
         var order = Pending();
-        order.ConfirmPayment(Guid.NewGuid());
+        order.ConfirmPayment(Guid.NewGuid(), 1);
 
         order.IsPaymentCheckDue(DateTime.Now.AddHours(1), Timeout, Interval).Should().BeFalse();
     }
@@ -51,13 +51,13 @@ public class OrderPaymentCheckTests
     {
         var order = Pending();
 
-        order.MarkPaymentNotProcessed().Should().BeTrue();
+        order.MarkPaymentNotProcessed(1).Should().BeTrue();
         order.Status.Should().Be(OrderStatus.NotProcessed);
         order.IsAwaitingPaymentEmail.Should().BeTrue();
 
-        order.FailPayment().Should().BeFalse();
-        order.ConfirmPayment(Guid.NewGuid()).Should().BeFalse();
-        order.MarkPaymentNotProcessed().Should().BeFalse();
+        order.FailPayment(1).Should().BeFalse();
+        order.ConfirmPayment(Guid.NewGuid(), 1).Should().BeFalse();
+        order.MarkPaymentNotProcessed(1).Should().BeFalse();
         order.Status.Should().Be(OrderStatus.NotProcessed);
     }
 
@@ -65,9 +65,9 @@ public class OrderPaymentCheckTests
     public void Pedido_confirmado_nao_deve_virar_nao_processado()
     {
         var order = Pending();
-        order.ConfirmPayment(Guid.NewGuid());
+        order.ConfirmPayment(Guid.NewGuid(), 1);
 
-        order.MarkPaymentNotProcessed().Should().BeFalse();
+        order.MarkPaymentNotProcessed(1).Should().BeFalse();
         order.Status.Should().Be(OrderStatus.Confirmed);
     }
 }

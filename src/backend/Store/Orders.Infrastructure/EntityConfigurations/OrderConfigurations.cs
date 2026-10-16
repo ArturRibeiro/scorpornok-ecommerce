@@ -50,6 +50,9 @@
                 p.ToTable("OrderPayment");
                 p.WithOwner().HasForeignKey("OrderId");
                 p.HasKey("OrderId");
+                // Tentativa atual (allow-payment-retry): só o resultado dela muda o pedido.
+                p.Property(x => x.Attempt).HasColumnName("Attempt").HasDefaultValue(1);
+                p.Property(x => x.AttemptRequestedAt).HasColumnName("AttemptRequestedAt");
                 p.Property(x => x.PaymentId).HasColumnName("PaymentId");
                 p.Property(x => x.EmailSentAt).HasColumnName("EmailSentAt");
                 p.Property(x => x.StatusCheckedAt).HasColumnName("StatusCheckedAt");
