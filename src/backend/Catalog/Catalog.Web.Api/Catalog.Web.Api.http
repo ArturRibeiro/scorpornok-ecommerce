@@ -10,3 +10,9 @@ GET {{Catalog.Web.Api_HostAddress}}/GetProductById/1
 Accept: application/json
 
 ###
+
+# Vários produtos de uma vez (até 100 ids); os inexistentes não aparecem.
+GET {{Catalog.Web.Api_HostAddress}}/GetProductsByIds?ids=1&ids=2&ids=999999
+Accept: application/json
+
+###

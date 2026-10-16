@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Frameworker.EntityFrameworkCore;
 
 namespace Catalog.Queries.Products.Queries
@@ -8,5 +9,8 @@ namespace Catalog.Queries.Products.Queries
         Task<IPagedList<ProductItemMessageResponse>> GetAllProducts(PagingModel paging);
 
         Task<ProductItemMessageResponse> GetProductById(long id);
+
+        // Só os produtos encontrados; os ids inexistentes não aparecem no resultado.
+        Task<IReadOnlyList<ProductItemMessageResponse>> GetProductsByIds(IReadOnlyCollection<long> ids);
     }
 }

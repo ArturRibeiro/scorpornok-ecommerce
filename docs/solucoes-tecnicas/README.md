@@ -2,7 +2,7 @@
 
 Esta pasta explica, em linguagem de negócio, o que pode dar errado quando o cliente paga um pedido e o que propomos para cada caso. Os documentos estão divididos pela parte da loja que cada solução afeta.
 
-**Situação:** todas as soluções são **propostas** e ainda não estão em funcionamento. Os detalhes técnicos de cada uma ficam nas propostas do OpenSpec (`openspec/changes/`), indicadas ao fim de cada item.
+**Situação:** a solução 7 (preço conferido com o catálogo) está **em funcionamento**; as demais são **propostas** e ainda não estão em funcionamento. Os detalhes técnicos de cada uma ficam nas propostas do OpenSpec (`openspec/changes/`), indicadas ao fim de cada item.
 
 ## Resumo
 

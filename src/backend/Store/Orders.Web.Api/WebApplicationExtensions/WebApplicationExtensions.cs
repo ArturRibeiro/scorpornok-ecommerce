@@ -20,9 +20,14 @@ public static class WebApplicationExtensions
             return Results.Forbid();
 
         var result = await bus.RequestAsync(command with { UserId = customer.CustomerId, Email = customer.Email });
-        return result.Success
-            ? Results.Created($"/orders/{result.OrderNumber}",
-                new { result.OrderNumber, result.Status, result.Total })
-            : Results.BadRequest(new { result.Errors });
+        return result.Outcome switch
+        {
+            CreateOrderOutcome.Created => Results.Created($"/orders/{result.OrderNumber}",
+                new { result.OrderNumber, result.Status, result.Total }),
+            // O preço dos itens vem do Catalog: sem ele, nada é gravado nem cobrado.
+            CreateOrderOutcome.Unavailable => Results.Problem(statusCode: StatusCodes.Status503ServiceUnavailable,
+                title: "Catalog unavailable", detail: string.Join(" ", result.Errors)),
+            _ => Results.BadRequest(new { result.Errors })
+        };
     }
 }

@@ -21,6 +21,7 @@
     <PackageReference Include="MailKit" Version="$(MailKit)" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(ConfigurationJson)" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(OptionsConfigurationExtensions)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(MicrosoftExtensionsHttp)" />
   </ItemGroup>
 
   <ItemGroup>

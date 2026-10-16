@@ -4,6 +4,7 @@ global using MediatR;
 global using Microsoft.Extensions.Logging.Abstractions;
 global using Moq;
 global using NUnit.Framework;
+global using Orders.CommandHandlers.Orders;
 global using Orders.CommandHandlers.Orders.Imp.CommandHandlers;
 global using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Create;
 global using Orders.Domain.Order.Orders;

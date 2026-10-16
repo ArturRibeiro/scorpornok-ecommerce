@@ -1,6 +1,6 @@
 # Catálogo
 
-A parte da loja que guarda os produtos, com nome, foto, descrição e preço. A solução abaixo é uma **proposta**. Visão geral em [README.md](README.md).
+A parte da loja que guarda os produtos, com nome, foto, descrição e preço. A solução abaixo está **em funcionamento**. Visão geral em [README.md](README.md).
 
 ## 7. Preço conferido no momento da compra
 

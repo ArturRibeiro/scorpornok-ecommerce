@@ -22,6 +22,7 @@
         <NewtonsoftJson>13.0.4</NewtonsoftJson>
         <ConfigurationJson>10.0.12</ConfigurationJson>
         <OptionsConfigurationExtensions>10.0.12</OptionsConfigurationExtensions>
+        <MicrosoftExtensionsHttp>10.0.12</MicrosoftExtensionsHttp>
         <Swashbuckle>10.3.0</Swashbuckle>
         <FluentValidation>8.6.3</FluentValidation>
         <coverletcollector>3.0.2</coverletcollector>

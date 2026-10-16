@@ -1,6 +1,6 @@
 # Pedidos
 
-A parte da loja que registra o pedido, pede a cobrança, acompanha o resultado e avisa o cliente na tela e por e-mail. Todas as soluções abaixo são **propostas**. Visão geral em [README.md](README.md).
+A parte da loja que registra o pedido, pede a cobrança, acompanha o resultado e avisa o cliente na tela e por e-mail. As soluções abaixo são **propostas**, exceto a 7, que está **em funcionamento**. Visão geral em [README.md](README.md).
 
 ## 2. Pedido parado em "processando"
 

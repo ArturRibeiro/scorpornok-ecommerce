@@ -5,6 +5,9 @@ public class OrderHandlerTests
 {
     private Mock<IOrderRepository> _repository = null!;
     private Mock<IIntegrationEventPublisher> _publisher = null!;
+    private Mock<ICatalogProducts> _catalog = null!;
+    // O que o Catalog conhece: os itens dos testes usam os mesmos preços, salvo quando o teste adultera.
+    private Dictionary<int, CatalogProduct> _catalogProducts = null!;
     private OrderHandler _handler = null!;
     // Registra a ordem das chamadas: begin/commit da transação, add (Save), save (SaveEntitiesAsync), publish.
     private List<string> _calls = null!;
@@ -30,7 +33,17 @@ public class OrderHandlerTests
         _publisher = new Mock<IIntegrationEventPublisher>();
         _publisher.Setup(p => p.PublishAsync(It.IsAny<PaymentRequested>(), It.IsAny<CancellationToken>()))
             .Callback(() => _calls.Add("publish")).Returns(Task.CompletedTask);
-        _handler = new OrderHandler(_repository.Object, _publisher.Object, NullLogger<OrderHandler>.Instance);
+        _catalogProducts = new()
+        {
+            [42] = new CatalogProduct(42, "Camiseta", "/catalog-imgs/42.jpg", 10m),
+            [7] = new CatalogProduct(7, "Boné", "/catalog-imgs/7.jpg", 5m)
+        };
+        _catalog = new Mock<ICatalogProducts>();
+        _catalog.Setup(c => c.GetAsync(It.IsAny<IReadOnlyCollection<int>>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync((IReadOnlyCollection<int> ids, CancellationToken _) =>
+                ids.Where(_catalogProducts.ContainsKey).Distinct().ToDictionary(id => id, id => _catalogProducts[id]));
+        _handler = new OrderHandler(_repository.Object, _publisher.Object, _catalog.Object,
+            NullLogger<OrderHandler>.Instance);
     }
 
     private static OrderItemMessageResponse Item(int productId, decimal unitPrice, int units)
@@ -67,7 +80,7 @@ public class OrderHandlerTests
         var result = await _handler.Handle(
             Command(userId, items: [Item(42, 10m, 2), Item(7, 5m, 1)]), CancellationToken.None);
 
-        result.Success.Should().BeTrue();
+        result.Outcome.Should().Be(CreateOrderOutcome.Created);
         result.OrderNumber.Should().NotBeNullOrEmpty();
         result.Status.Should().Be(OrderStatus.Pending.Name);
         result.Total.Should().Be(25m);
@@ -83,7 +96,7 @@ public class OrderHandlerTests
     {
         var result = await _handler.Handle(Command(Guid.NewGuid(), city: "", items: []), CancellationToken.None);
 
-        result.Success.Should().BeFalse();
+        result.Outcome.Should().Be(CreateOrderOutcome.Invalid);
         result.OrderNumber.Should().BeNull();
         result.Errors.Should().Contain("O pedido não tem itens.");
         result.Errors.Should().Contain(error => error == "Informe a cidade.");
@@ -98,7 +111,7 @@ public class OrderHandlerTests
 
         var result = await _handler.Handle(command, CancellationToken.None);
 
-        result.Success.Should().BeFalse();
+        result.Outcome.Should().Be(CreateOrderOutcome.Invalid);
         result.Errors.Should().NotBeEmpty();
         _repository.Verify(r => r.Save(It.IsAny<Order>()), Times.Never);
     }
@@ -154,7 +167,7 @@ public class OrderHandlerTests
 
         var result = await _handler.Handle(command, CancellationToken.None);
 
-        result.Success.Should().BeTrue();
+        result.Outcome.Should().Be(CreateOrderOutcome.Created);
         _calls.Should().Equal("begin", "add", "save", "commit");
     }
 
@@ -164,6 +177,64 @@ public class OrderHandlerTests
         await _handler.Handle(Command(Guid.NewGuid(), items: []), CancellationToken.None);
 
         _repository.Verify(r => r.ExecuteInTransactionAsync(It.IsAny<Func<Task>>(), It.IsAny<CancellationToken>()),
+            Times.Never);
+    }
+
+    [Test]
+    public async Task Preco_nome_e_foto_devem_vir_do_Catalog_e_nao_do_pedido()
+    {
+        Order? saved = null;
+        _repository.Setup(r => r.Save(It.IsAny<Order>())).Callback((Order o) => saved = o).Returns((Order o) => o);
+        var tampered = Item(42, 0.01m, 2);
+        tampered.ProductName = "Brinde";
+        tampered.PictureUrl = "http://outra-imagem";
+
+        var result = await _handler.Handle(Command(Guid.NewGuid(), items: [tampered]), CancellationToken.None);
+
+        result.Outcome.Should().Be(CreateOrderOutcome.Created);
+        result.Total.Should().Be(20m);
+        var item = saved!.Items.Single();
+        item.UnitPrice.Should().Be(10m);
+        item.ProductName.Should().Be("Camiseta");
+        item.PictureUrl.Should().Be("/catalog-imgs/42.jpg");
+        _publisher.Verify(p => p.PublishAsync(It.Is<PaymentRequested>(m => m.Amount == 20m),
+            It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Test]
+    public async Task Produto_inexistente_no_Catalog_deve_invalidar_sem_abrir_transacao()
+    {
+        var result = await _handler.Handle(
+            Command(Guid.NewGuid(), items: [Item(42, 10m, 1), Item(999, 1m, 1)]), CancellationToken.None);
+
+        result.Outcome.Should().Be(CreateOrderOutcome.Invalid);
+        result.Errors.Should().Contain("Produto 999 não encontrado.");
+        _repository.Verify(r => r.ExecuteInTransactionAsync(It.IsAny<Func<Task>>(), It.IsAny<CancellationToken>()),
+            Times.Never);
+        _publisher.Verify(p => p.PublishAsync(It.IsAny<PaymentRequested>(), It.IsAny<CancellationToken>()), Times.Never);
+    }
+
+    [Test]
+    public async Task Catalog_indisponivel_deve_devolver_Unavailable_sem_gravar_nem_publicar()
+    {
+        _catalog.Setup(c => c.GetAsync(It.IsAny<IReadOnlyCollection<int>>(), It.IsAny<CancellationToken>()))
+            .ThrowsAsync(new CatalogUnavailableException("fora do ar"));
+
+        var result = await _handler.Handle(Command(Guid.NewGuid(), items: [Item(42, 10m, 1)]), CancellationToken.None);
+
+        result.Outcome.Should().Be(CreateOrderOutcome.Unavailable);
+        result.OrderNumber.Should().BeNull();
+        _repository.Verify(r => r.ExecuteInTransactionAsync(It.IsAny<Func<Task>>(), It.IsAny<CancellationToken>()),
+            Times.Never);
+        _publisher.Verify(p => p.PublishAsync(It.IsAny<PaymentRequested>(), It.IsAny<CancellationToken>()), Times.Never);
+    }
+
+    [Test]
+    public async Task Pedido_sem_itens_nao_deve_consultar_o_Catalog()
+    {
+        await _handler.Handle(Command(Guid.NewGuid(), items: []), CancellationToken.None);
+
+        _catalog.Verify(c => c.GetAsync(It.IsAny<IReadOnlyCollection<int>>(), It.IsAny<CancellationToken>()),
             Times.Never);
     }
 }

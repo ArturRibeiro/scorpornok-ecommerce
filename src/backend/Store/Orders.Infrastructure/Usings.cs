@@ -18,6 +18,7 @@ global using Orders.CommandHandlers.Orders.Imp.CommandHandlers;
 global using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Create;
 global using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Payments;
 global using Orders.Domain.Order.Orders;
+global using Orders.Infrastructure.Catalog;
 global using Orders.Infrastructure.Consumers;
 global using Orders.CommandHandlers.Orders;
 global using Orders.Infrastructure.Email;

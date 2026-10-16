@@ -31,6 +31,7 @@ app.UseCors();
 
 app.GetAllProducts();
 app.GetProductById();
+app.GetProductsByIds();
 // live: o processo responde (não executa checks); ready: dependências ok (banco).
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false });
 app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = check => check.Tags.Contains("ready") });

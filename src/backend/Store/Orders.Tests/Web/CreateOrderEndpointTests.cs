@@ -22,7 +22,7 @@ public class CreateOrderEndpointTests
         _bus = new Mock<IMemoryBus>();
         _bus.Setup(b => b.RequestAsync(It.IsAny<Message<CreateOrderResult>>()))
             .Callback((Message<CreateOrderResult> command) => _sent = (CreateCommand)command)
-            .ReturnsAsync(new CreateOrderResult(true, "A123", "Pending", 25m, []));
+            .ReturnsAsync(new CreateOrderResult(CreateOrderOutcome.Created, "A123", "Pending", 25m, []));
     }
 
     private static CreateCommand Body()
@@ -50,5 +50,18 @@ public class CreateOrderEndpointTests
 
         result.Should().BeOfType<ForbidHttpResult>();
         _sent.Should().BeNull();
+    }
+
+    [Test]
+    public async Task Catalog_indisponivel_deve_responder_503()
+    {
+        _bus.Setup(b => b.RequestAsync(It.IsAny<Message<CreateOrderResult>>()))
+            .ReturnsAsync(CreateOrderResult.Unavailable("O catálogo está indisponível."));
+
+        var result = await CreateOrderAsync(_bus.Object, Body(),
+            Token(("sub", TokenCustomer.ToString()), ("email", "cliente@exemplo.com"), ("email_verified", "true")));
+
+        result.Should().BeAssignableTo<IStatusCodeHttpResult>()
+            .Which.StatusCode.Should().Be(StatusCodes.Status503ServiceUnavailable);
     }
 }

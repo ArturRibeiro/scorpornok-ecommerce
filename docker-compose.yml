@@ -38,6 +38,8 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__ConnectionString: Host=orders-db;Port=5432;Database=orders;Username=sa;Password=sa
+      # Preço, nome e foto dos itens do pedido vêm do Catalog, pela rede interna.
+      Catalog__BaseAddress: http://catalog-api:8080
       RabbitMq__Host: rabbitmq
       # O emissor dos tokens é o endereço público (localhost:8080, do appsettings.json);
       # de dentro do container, a descoberta e as chaves vêm de keycloak:8080.
@@ -53,6 +55,8 @@ services:
     ports:
       - 5224:8080
     depends_on:
+      catalog-api:
+        condition: service_started
       orders-db:
         condition: service_healthy
       rabbitmq:

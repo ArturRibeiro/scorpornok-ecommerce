@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -41,5 +42,12 @@ namespace Catalog.Queries.Products.Queries.Impl
                 .Where(x => x.Id == id)
                 .Select(ToResponse)
                 .FirstOrDefaultAsync();
+
+        public async Task<IReadOnlyList<ProductItemMessageResponse>> GetProductsByIds(IReadOnlyCollection<long> ids)
+            => await _context.DbSet<Product>().AsNoTracking()
+                .Where(x => ids.Contains(x.Id))
+                .OrderBy(x => x.Id)
+                .Select(ToResponse)
+                .ToListAsync();
     }
 }

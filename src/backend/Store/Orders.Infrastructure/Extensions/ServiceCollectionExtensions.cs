@@ -18,6 +18,14 @@ public static class ServiceCollectionExtensions
         services.Configure<SmtpOptions>(configuration.GetSection(SmtpOptions.Section));
         services.AddScoped<IOrderEmailSender, SmtpOrderEmailSender>();
         services.AddHostedService<OrderEmailDispatcher>();
+        // Preço, nome e foto dos itens vêm do Catalog (obrigatório, como a connection string).
+        var catalogAddress = configuration[$"{HttpCatalogProducts.Section}:BaseAddress"]
+            ?? throw new InvalidOperationException("Catalog:BaseAddress não configurado.");
+        services.AddHttpClient<ICatalogProducts, HttpCatalogProducts>(client =>
+        {
+            client.BaseAddress = new Uri(catalogAddress.TrimEnd('/') + "/");
+            client.Timeout = HttpCatalogProducts.Timeout;
+        });
         // Npgsql 6+ só aceita DateTime UTC em "timestamp with time zone"; mantém o comportamento
         // anterior porque Order.OrderDate usa DateTime.Now. Remover ao migrar o domínio para UTC.
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
