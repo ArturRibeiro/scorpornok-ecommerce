@@ -3,32 +3,48 @@
 **Ator:** Cliente
 **Objetivo:** Transformar o carrinho em um pedido de compra.
 
-## Pré-condição
+## Pré-condições
 
-O carrinho tem pelo menos um item (UC02).
+- O carrinho tem pelo menos um item (UC02).
+- O cliente está logado (Login-UC07) com o e-mail confirmado (Login-UC06).
 
 ## Fluxo principal
 
 1. O cliente solicita a finalização da compra.
-2. O cliente informa o endereço de entrega.
-3. O cliente informa os dados do cartão de crédito e o número de parcelas.
-4. O sistema confere os produtos, os preços e o total.
-5. O sistema registra o pedido com a situação **Pendente** e gera o número do pedido.
-6. O sistema segue para o pagamento (UC04).
+2. O sistema exibe os itens, o total e o e-mail da conta, para onde vai o resultado do pagamento.
+3. O cliente informa o endereço de entrega.
+4. O cliente informa os dados do cartão de crédito e o número de parcelas.
+5. O cliente confirma o pedido.
+6. O sistema registra o pedido com a situação **Pendente**, na conta do cliente, e gera o número do pedido.
+7. O sistema exibe o número do pedido, informa que o pagamento está em processamento e esvazia o carrinho.
+8. O sistema segue para o pagamento (UC04).
 
 ## Fluxos alternativos
 
-- **2a. Endereço incompleto:** o sistema solicita os dados que faltam.
-- **4a. Produto indisponível ou preço alterado:** o sistema avisa o cliente e volta ao carrinho.
+- **1a. Cliente sem sessão:** o sistema pede o login (Login-UC07) e, depois dele, volta à finalização com o carrinho como estava.
+- **1b. Carrinho vazio:** o sistema leva o cliente ao carrinho.
+- **2a. Editar o carrinho:** o cliente volta ao carrinho (UC02) com os mesmos itens.
+- **3a. Endereço incompleto:** o sistema indica os campos obrigatórios que faltam e não envia o pedido.
+- **4a. Cartão inválido:** número, CVV ou validade fora das regras; o sistema indica o campo e não envia o pedido.
+- **6a. Pedido recusado pelo sistema:** o sistema exibe os motivos e mantém o carrinho e os dados preenchidos.
+- **6b. Sessão expirada:** o pedido não é registrado; o sistema pede o login de novo e mantém o carrinho e os dados preenchidos.
+- **6c. E-mail da conta não confirmado:** o pedido não é registrado.
+- **6d. Serviço de pedidos indisponível:** o sistema informa que não conseguiu enviar o pedido e mantém o carrinho e os dados preenchidos.
 
 ## Regras de negócio
 
 - RN01: O endereço de entrega exige rua, cidade, estado, país e CEP.
-- RN02: O pedido pertence ao cliente que o finalizou.
-- RN03: O preço considerado é o do catálogo no momento da finalização.
-- RN04: A data do pedido é a data da finalização.
-- RN05: O pedido só é confirmado após o pagamento aprovado.
+- RN02: O cartão exige titular, número de 13 a 19 dígitos, mês e ano de validade (não vencida), CVV de 3 ou 4 dígitos e parcelas (padrão: 1).
+- RN03: O pedido pertence ao cliente logado e usa o e-mail da conta; nenhum dos dois é digitado na finalização.
+- RN04: O total do pedido é calculado pelo sistema (preço unitário × quantidade de cada item).
+- RN05: A data do pedido é a data da finalização.
+- RN06: O pedido só é confirmado após o pagamento aprovado (UC04).
+- RN07: O registro do pedido não depende do serviço de pagamentos estar no ar; a cobrança é feita quando ele voltar.
+
+## Limitações conhecidas
+
+- O preço unitário de cada item vem do carrinho e não é conferido com o catálogo no momento da finalização. Também não há verificação de estoque.
 
 ## Pós-condição
 
-Pedido registrado como **Pendente**, aguardando pagamento.
+Pedido registrado como **Pendente**, aguardando o pagamento.

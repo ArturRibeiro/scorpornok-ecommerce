@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Visão geral
 
-Scorponok é um backend de e-commerce modular em .NET, feito para estudo e demonstração (DDD, CQRS, MediatR, domain notifications, integration events com outbox). Todos os projetos da solution são **net10.0** (`<TargetFramework>` vem do `Directory.Build.props`). Comentários no código, o `use-case.md` e parte da documentação estão em português.
+Scorponok é um backend de e-commerce modular em .NET, feito para estudo e demonstração (DDD, CQRS, MediatR, domain notifications, integration events com outbox). Todos os projetos da solution são **net10.0** (`<TargetFramework>` vem do `Directory.Build.props`). Comentários no código, os casos de uso (`usecases/`, um arquivo por caso de uso; os de conta do cliente têm o prefixo `Login-`) e parte da documentação estão em português.
 
 ## Comandos
 
