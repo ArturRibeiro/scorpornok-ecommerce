@@ -18,6 +18,6 @@ public class MemoryBusTests
         var response = await bus.RequestAsync(command);
 
         response.Should().Be("pong");
-        mediator.Verify(m => m.Send(It.Is<IRequest<string>>(r => r == command), It.IsAny<CancellationToken>()), Times.Once);
+        mediator.Verify(m => m.Send(It.Is<IRequest<string>>(r => ReferenceEquals(r, command)), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

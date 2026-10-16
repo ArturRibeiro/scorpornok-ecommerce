@@ -26,27 +26,11 @@
         }
 
 
+        // Igualdade e hash do ValueObject: dois status são iguais quando têm o mesmo código e nome.
         protected override IEnumerable<object> GetValues()
         {
-            yield return Pending;
-            yield return Confirmed;
-            yield return Processing;
-            yield return Shipped;
-            yield return Delivered;
-            yield return Cancelled;
-            yield return Returned;
-            yield return Refunded;
-            yield return OnHold;
-            yield return PartiallyShipped;
-            yield return Failed;
-        }
-
-        public override bool Equals(object obj)
-        {
-            var status = ((OrderStatus)obj);
-
-            return this.Code.Equals(status.Code)
-                   && this.Name.Equals(status.Name);
+            yield return Code;
+            yield return Name;
         }
     }
 }

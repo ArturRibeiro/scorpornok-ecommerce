@@ -54,8 +54,7 @@ namespace Programming.Functional.Tests.Results
 
         private static void CreateLog(Result result)
         {
-            if (result.IsNone)
-                ; //TODO: Create log
+            //TODO: Create log when result.IsNone
         }
 
         #endregion
