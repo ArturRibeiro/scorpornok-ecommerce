@@ -121,6 +121,11 @@ Ao receber o resultado do pagamento, a API de Orders DEVE atualizar o pedido pen
 - **WHEN** chega de novo um resultado para A123
 - **THEN** o pedido continua confirmado, sem mudanças
 
+#### Scenario: Resultado depois de não processado
+- **GIVEN** o pedido A123 está com pagamento não processado
+- **WHEN** chega um resultado "recusado" para A123
+- **THEN** o pedido continua com pagamento não processado
+
 ### Requirement: Notificação do resultado à loja
 Depois de atualizar o pedido com o resultado do pagamento, a API de Orders DEVE enviar o número do pedido e se foi aprovado a quem o acompanha; quem começar a acompanhar um pedido já resolvido DEVE receber o resultado na hora. Só o dono autenticado, a partir das origens configuradas da loja, DEVE poder acompanhar o pedido.
 
@@ -271,3 +276,42 @@ Um resultado de pagamento cuja aplicação ao pedido falhe por indisponibilidade
 - **GIVEN** o resultado de A123 está em novas tentativas
 - **WHEN** a API de Orders é reiniciada
 - **THEN** o resultado não se perde e é aplicado quando ela voltar
+
+### Requirement: Verificação do pedido pendente
+A API de Orders DEVE consultar o Payments sobre o pagamento de um pedido que continua pendente além do prazo configurado, e repetir a consulta a cada intervalo enquanto não houver resposta definitiva. Ela NÃO DEVE mudar o status do pedido sem a resposta do Payments.
+
+#### Scenario: Prazo esgotado
+- **GIVEN** o prazo é de 15 minutos e o pedido A123 está pendente há 16 minutos
+- **WHEN** a verificação roda
+- **THEN** o Payments é consultado sobre o pagamento de A123
+
+#### Scenario: Payments sem resposta
+- **GIVEN** o pedido A123 passou do prazo e o Payments está parado
+- **WHEN** a verificação roda
+- **THEN** o pedido A123 continua pendente e é consultado de novo no intervalo seguinte
+
+### Requirement: Desfecho da verificação
+A API de Orders DEVE aplicar ao pedido pendente a resposta da consulta: aprovado → confirmado; recusado → falha no pagamento; sem pagamento → pagamento não processado; em processamento → continua pendente.
+
+#### Scenario: Pagamento aprovado e resultado perdido
+- **GIVEN** o pagamento de A123 foi aprovado, mas o resultado não chegou ao Orders
+- **WHEN** a consulta de A123 responde "aprovado"
+- **THEN** o pedido A123 fica confirmado com o identificador do pagamento
+
+#### Scenario: Solicitação nunca processada
+- **GIVEN** a solicitação de pagamento de A123 nunca foi processada
+- **WHEN** a consulta de A123 responde "sem pagamento"
+- **THEN** o pedido A123 fica com pagamento não processado
+
+#### Scenario: Pagamento em andamento
+- **GIVEN** o pagamento de A123 está em processamento
+- **WHEN** a consulta de A123 responde "em processamento"
+- **THEN** o pedido A123 continua pendente
+
+### Requirement: Pagamento não processado avisado à loja
+Quem acompanha um pedido com pagamento não processado DEVE receber esse desfecho, distinto de "pagamento recusado".
+
+#### Scenario: Acompanhamento de pedido não processado
+- **GIVEN** o pedido A123 está com pagamento não processado
+- **WHEN** o dono começa a acompanhar A123
+- **THEN** a loja recebe na hora A123 com pagamento não processado, e não como recusado
