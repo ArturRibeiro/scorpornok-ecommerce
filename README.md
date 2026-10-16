@@ -34,6 +34,12 @@ O front-end (`src/frontend/`) é a loja: catálogo, carrinho, login e cadastro p
 3. O Payments consome a mensagem, cobra no gateway e publica `PaymentApproved` ou `PaymentRejected`.
 4. O Orders passa o pedido para `Confirmed` ou `Failed`, avisa a loja pelo SignalR e envia o resultado por e-mail.
 
+O passo 3, dentro do contexto Payments:
+
+![Fluxo de pagamento no contexto Payments](docs/diagrams/fluxo-pagamento.png)
+
+Fonte editável: [`docs/diagrams/fluxo-pagamento.drawio`](docs/diagrams/fluxo-pagamento.drawio). As melhorias propostas para as falhas nesse fluxo estão em [`docs/solucoes-tecnicas/`](docs/solucoes-tecnicas/README.md).
+
 ## Tecnologias
 
 **Backend**

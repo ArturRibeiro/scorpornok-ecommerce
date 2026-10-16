@@ -41,8 +41,8 @@ Uma solicitação repetida para uma tentativa que já tem pagamento registrado N
 - **THEN** nenhum novo pagamento é registrado
 - **AND** o contexto de pedidos recebe outra vez "aprovado" com o mesmo identificador de pagamento
 
-#### Scenario: Reentrega com pagamento em processamento
-- **GIVEN** o pagamento do pedido A123 está em processamento e o gateway já aprovou a cobrança
-- **WHEN** a mesma solicitação chega de novo
-- **THEN** o pagamento é completado como aprovado, sem nova cobrança
-- **AND** o contexto de pedidos recebe "aprovado" para A123
+#### Scenario: Falha depois da cobrança, antes de registrar o resultado
+- **GIVEN** o gateway devolveu a aprovação da cobrança do pedido A123, mas o registro do pagamento ficou "em processamento" porque o Payments falhou antes de gravar o resultado
+- **WHEN** a mesma solicitação de pagamento chega de novo
+- **THEN** o gateway devolve a aprovação original, sem cobrar o cartão outra vez
+- **AND** o pagamento fica registrado como aprovado e o contexto de pedidos recebe "aprovado" para A123
