@@ -22,12 +22,11 @@ public class PaymentRequestedConsumerTests
         var harness = provider.GetRequiredService<ITestHarness>();
         await harness.Start();
 
-        var card = new CardData("Fulano de Tal", "4111111111111111", "12", "2030", "123");
-        await harness.Bus.Publish(new PaymentRequested(7, "A123", Guid.NewGuid(), 25m, 2, card));
+        await harness.Bus.Publish(new PaymentRequested(7, "A123", Guid.NewGuid(), 25m, 2, "tok_abc"));
 
         (await harness.GetConsumerHarness<PaymentRequestedConsumer>().Consumed.Any<PaymentRequested>()).Should().BeTrue();
         // AggregateId é gerado por mensagem, então a comparação é campo a campo.
         bus.Verify(b => b.SendAsync(It.Is<ProcessPaymentCommand>(c =>
-            c.OrderId == 7 && c.OrderNumber == "A123" && c.Amount == 25m && c.Installments == 2 && c.Card == card)), Times.Once);
+            c.OrderId == 7 && c.OrderNumber == "A123" && c.Amount == 25m && c.Installments == 2 && c.CardToken == "tok_abc")), Times.Once);
     }
 }

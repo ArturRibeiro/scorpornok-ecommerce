@@ -1,31 +1,18 @@
-﻿namespace Orders.CommandHandlers.Orders.Imp.CommandHandlers.Create;
+namespace Orders.CommandHandlers.Orders.Imp.CommandHandlers.Create;
 
+/// <param name="Payment">Pagamento do pedido (JSON <c>payment</c>); nulo registra o pedido sem solicitar cobrança.</param>
 public record CreateCommand(
     Guid UserId,
     OrderAddressMessageResponse Address,
     IList<OrderItemMessageResponse> Items,
-    CreditCardPaymentCommand Card,
+    PaymentMethod? Payment,
     string? Email = null)
     : Message<CreateOrderResult>;
 
 /// <summary>
-/// Command que representa os dados necessários para processar um pagamento via cartão de crédito.
+/// Como o pedido será pago. O cartão nunca chega ao Orders: o navegador o troca por um token no
+/// POST /card-tokens do Payments, e só o token segue na solicitação de pagamento.
 /// </summary>
-/// <param name="OrderId">Identificador único da ordem de compra associada ao pagamento.</param>
-/// <param name="CardHolderName">Nome do titular do cartão, conforme impresso no cartão.</param>
-/// <param name="CardNumber">Número do cartão de crédito (em produção, deve ser tokenizado ou criptografado).</param>
-/// <param name="ExpirationMonth">Mês de expiração do cartão (formato MM).</param>
-/// <param name="ExpirationYear">Ano de expiração do cartão (formato AAAA).</param>
-/// <param name="Cvv">Código de segurança do cartão (CVV/CVC).</param>
-/// <param name="Amount">Valor total a ser cobrado no cartão.</param>
-/// <param name="Installments">Quantidade de parcelas para o pagamento (padrão: 1).</param>
-public record CreditCardPaymentCommand(
-    Guid OrderId,
-    string CardHolderName,
-    string CardNumber,
-    string ExpirationMonth,
-    string ExpirationYear,
-    string Cvv,
-    decimal Amount,
-    int Installments = 1
-);
+/// <param name="CardToken">Token do cartão gerado pelo Payments (tok_...).</param>
+/// <param name="Installments">Quantidade de parcelas (padrão: 1).</param>
+public record PaymentMethod(string? CardToken, int Installments = 1);

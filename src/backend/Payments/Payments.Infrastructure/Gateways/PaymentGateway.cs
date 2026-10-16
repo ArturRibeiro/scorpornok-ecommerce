@@ -18,11 +18,9 @@ public class PaymentGateway : IPaymentGateway
     public Task<PaymentResult> SendProcessPaymentAsync(PaymentRequest request)
         => Task.FromResult(_results.GetOrAdd(request.IdempotencyKey, _ => Charge(request)));
 
+    // O cartão chega tokenizado: os 4 últimos dígitos bastam para a regra do 0000.
     private static PaymentResult Charge(PaymentRequest request)
-    {
-        var digits = new string((request.CardNumber ?? "").Where(char.IsDigit).ToArray());
-        return digits.EndsWith("0000")
+        => request.CardLast4 == "0000"
             ? new PaymentResult(false, RejectedReason)
             : new PaymentResult(true);
-    }
 }

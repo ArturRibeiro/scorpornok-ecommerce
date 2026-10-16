@@ -11,13 +11,13 @@ import { useCart, type CartItem } from "@/context/CartContext";
 import {
   EMPTY_ADDRESS,
   EMPTY_PAYMENT,
-  onlyDigits,
   validateCheckout,
   type CheckoutErrors,
   type CheckoutField,
   type PaymentDetails,
   type ShippingAddress,
 } from "@/lib/checkout";
+import { tokenizeCard } from "@/lib/payments";
 import {
   createOrder,
   SessionExpiredError,
@@ -30,12 +30,17 @@ import { Link, Navigate } from "react-router";
 
 const NETWORK_ERROR =
   "O serviço de pedidos está indisponível. Tente de novo em instantes.";
+const CARD_SERVICE_ERROR =
+  "Não foi possível validar o cartão agora. Tente de novo em instantes.";
+
+// A tokenização falhou por rede ou erro do serviço: nada foi enviado ao Orders.
+class CardServiceError extends Error {}
 
 const toRequest = (
   cart: CartItem[],
   address: ShippingAddress,
-  payment: PaymentDetails,
-  total: number
+  cardToken: string,
+  installments: string
 ): CreateOrderRequest => ({
   address,
   items: cart.map((item) => ({
@@ -46,16 +51,7 @@ const toRequest = (
     discount: 0,
     units: item.quantity,
   })),
-  card: {
-    orderId: "00000000-0000-0000-0000-000000000000",
-    cardHolderName: payment.cardHolderName.trim(),
-    cardNumber: onlyDigits(payment.cardNumber),
-    expirationMonth: payment.expirationMonth.padStart(2, "0"),
-    expirationYear: payment.expirationYear,
-    cvv: payment.cvv,
-    amount: total,
-    installments: Number(payment.installments),
-  },
+  payment: { cardToken, installments: Number(installments) },
 });
 
 export default function CheckoutPage() {
@@ -112,7 +108,20 @@ export default function CheckoutPage() {
       // no modal, sem sair do checkout (carrinho e formulário continuam).
       const token = await getAccessToken();
       if (!token || !email) throw new SessionExpiredError();
-      const result = await createOrder(toRequest(cart, address, payment, total), token);
+
+      // O cartão vai só para o Payments, que devolve um token; ao Orders vai o token.
+      const tokenized = await tokenizeCard(payment).catch(() => {
+        throw new CardServiceError();
+      });
+      if (!tokenized.ok) {
+        setErrors(tokenized.errors);
+        return;
+      }
+
+      const result = await createOrder(
+        toRequest(cart, address, tokenized.token.token, payment.installments),
+        token
+      );
       if (result.ok) {
         clearCart();
         setPlaced({ order: result.order, email });
@@ -124,7 +133,7 @@ export default function CheckoutPage() {
         await expireSession();
         return;
       }
-      setSubmitErrors([NETWORK_ERROR]);
+      setSubmitErrors([error instanceof CardServiceError ? CARD_SERVICE_ERROR : NETWORK_ERROR]);
     } finally {
       setSubmitting(false);
     }

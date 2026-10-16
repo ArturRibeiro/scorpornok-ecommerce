@@ -34,7 +34,8 @@ Existe um pedido **Pendente** (UC03).
 - RN01: O valor cobrado é o total calculado pelo sistema para o pedido.
 - RN02: O pagamento é feito à vista ou parcelado no cartão de crédito.
 - RN03: Só pedidos **Pendentes** mudam de situação; um resultado repetido não altera o pedido.
-- RN04: O serviço de pagamentos guarda só os 4 últimos dígitos do cartão e o titular; nunca o número completo nem o CVV.
+- RN04: O cartão é trocado por um código descartável (token) assim que o cliente confirma a compra; só esse código segue para os pedidos e para a cobrança. O serviço de pagamentos guarda só os 4 últimos dígitos e o titular; o número completo e o CVV não são guardados em lugar nenhum.
+- RN09: O token vale 24 horas e uma única cobrança; vencido, desconhecido ou já usado, o pagamento é recusado com o motivo "Token do cartão inválido ou vencido." e o cliente é avisado como numa recusa.
 - RN05: Cada resultado gera um único e-mail ao cliente.
 - RN06: Só o dono do pedido acompanha o resultado na tela.
 - RN07: O sistema de pedidos nunca dá um desfecho ao pagamento por conta própria: depois do prazo, a resposta vem sempre do serviço de pagamentos.
@@ -43,7 +44,6 @@ Existe um pedido **Pendente** (UC03).
 ## Limitações conhecidas
 
 - O serviço de pagamentos é simulado: recusa cartões terminados em `0000` e aprova os demais.
-- Até a solicitação de cobrança ser entregue ao serviço de pagamentos, os dados completos do cartão, inclusive o CVV, ficam guardados temporariamente no serviço de pedidos.
 
 ## Pós-condição
 

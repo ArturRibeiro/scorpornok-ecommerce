@@ -41,13 +41,13 @@ Detalhes técnicos: `add-messaging-retry-backoff` (arquivada em `openspec/change
 
 ## 4. Proteção dos dados do cartão
 
-**Problema:** hoje os dados completos do cartão, inclusive o código de segurança, passam por vários sistemas internos e podem ficar guardados neles. As regras de segurança de cartões proíbem guardar o código de segurança.
+**Problema:** os dados completos do cartão, inclusive o código de segurança, passavam por vários sistemas internos e podiam ficar guardados neles. As regras de segurança de cartões proíbem guardar o código de segurança.
 
-**Solução:** assim que o cliente digita o cartão, ele é trocado por um código descartável, como fazem os meios de pagamento reais. Só esse código circula pela loja. Ele vale por 24 horas e serve para uma única cobrança. O código de segurança e o número completo do cartão nunca são guardados. Se o código descartável estiver vencido ou já tiver sido usado, o pagamento é recusado com uma explicação clara, e o cliente é avisado.
+**Solução:** assim que o cliente digita o cartão, ele é trocado por um código descartável, como fazem os meios de pagamento reais. Só esse código circula pela loja. Ele vale por 24 horas e serve para uma única cobrança. O código de segurança e o número completo do cartão nunca são guardados. Se o código descartável estiver vencido ou já tiver sido usado, o pagamento é recusado com uma explicação clara, e o cliente é avisado. Mesmo que o mesmo código chegue em duas cobranças ao mesmo tempo, só uma é aceita.
 
-**Situação:** proposta.
+**Situação:** em funcionamento.
 
-Detalhes técnicos: `tokenize-card-data`.
+Detalhes técnicos: `tokenize-card-data` (arquivada em `openspec/changes/archive/`).
 
 ## 5. Mais de uma tentativa no mesmo pedido
 

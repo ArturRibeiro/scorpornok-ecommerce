@@ -88,10 +88,10 @@ public class CheckPaymentStatusHandlerTests
     {
         await _handler.Handle(Query(), CancellationToken.None);
         var gateway = new Mock<IPaymentGateway>(MockBehavior.Strict);
-        var process = new ProcessPaymentHandler(_repository, gateway.Object, _publisher.Object);
+        var process = new ProcessPaymentHandler(_repository, _repository, gateway.Object, _publisher.Object);
 
-        await process.Handle(new ProcessPaymentCommand(7, "A123", 25m, 1,
-            new CardData("Fulano de Tal", "4111111111111111", "12", "2030", "123")), CancellationToken.None);
+        await process.Handle(new ProcessPaymentCommand(7, "A123", 25m, 1, _repository.SeedToken("4111111111111111")),
+            CancellationToken.None);
 
         _repository.Saved.Single().Status.Should().Be(PaymentStatus.Voided);
         _publisher.Verify(p => p.PublishAsync(new PaymentRejected("A123", Payment.VoidedReason), It.IsAny<CancellationToken>()), Times.Once);

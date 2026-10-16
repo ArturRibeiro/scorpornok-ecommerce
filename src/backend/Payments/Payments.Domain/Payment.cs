@@ -40,7 +40,7 @@ public class Payment : Entity<Guid>, IAggregateRoot
     public static string KeyFor(string orderNumber, int attempt) => $"{orderNumber}-{attempt}";
 
     /// <summary>Registra o pagamento em processamento, antes de cobrar.</summary>
-    /// <param name="cardNumber">Número completo, usado só para extrair os 4 últimos dígitos.</param>
+    /// <param name="cardNumber">Os 4 últimos dígitos do token (ou um número de onde extraí-los); nunca é guardado inteiro.</param>
     public static Payment Start(int orderId, string orderNumber, int attempt, decimal amount, int installments,
         string cardHolderName, string cardNumber)
     {

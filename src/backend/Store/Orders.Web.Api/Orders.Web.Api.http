@@ -4,6 +4,9 @@
 # "oidc.user:http://localhost:8080/realms/scorponok:scorponok-web" do localStorage
 # (DevTools → Application → Local Storage). O client não aceita usuário e senha direto.
 @token = cole-o-access-token-aqui
+# Token do cartão: gere no Payments.Web.Api.http (POST /card-tokens). Vale 24 h e uma cobrança;
+# o cartão (número e CVV) nunca é enviado ao Orders.
+@cardToken = cole-o-token-do-cartao-aqui
 
 ### Sem token: 401
 POST {{Orders.Web.Api_HostAddress}}/createOrder
@@ -30,14 +33,8 @@ Authorization: Bearer {{token}}
     { "productId": 1, "productName": "Produto 1", "pictureUrl": "https://picsum.photos/200", "unitPrice": 10.00, "discount": 0, "units": 2 },
     { "productId": 2, "productName": "Produto 2", "pictureUrl": "https://picsum.photos/200", "unitPrice": 5.00, "discount": 0, "units": 1 }
   ],
-  "card": {
-    "orderId": "00000000-0000-0000-0000-000000000000",
-    "cardHolderName": "Fulano de Tal",
-    "cardNumber": "4111111111111111",
-    "expirationMonth": "12",
-    "expirationYear": "2030",
-    "cvv": "123",
-    "amount": 25.00,
+  "payment": {
+    "cardToken": "{{cardToken}}",
     "installments": 1
   }
 }
@@ -57,14 +54,8 @@ Authorization: Bearer {{token}}
     "zipCode": "01000-000"
   },
   "items": [],
-  "card": {
-    "orderId": "00000000-0000-0000-0000-000000000000",
-    "cardHolderName": "Fulano de Tal",
-    "cardNumber": "4111111111111111",
-    "expirationMonth": "12",
-    "expirationYear": "2030",
-    "cvv": "123",
-    "amount": 0,
+  "payment": {
+    "cardToken": "{{cardToken}}",
     "installments": 1
   }
 }

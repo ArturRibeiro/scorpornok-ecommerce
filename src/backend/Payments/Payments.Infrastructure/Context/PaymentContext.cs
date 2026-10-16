@@ -3,6 +3,7 @@ namespace Payments.Infrastructure.Context;
 public class PaymentContext(DbContextOptions<PaymentContext> options) : DbContext(options), IUnitOfWork
 {
     public DbSet<Domain.Payment> Payments { get; set; }
+    public DbSet<CardToken> CardTokens { get; set; }
 
     public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
         => await base.SaveChangesAsync(cancellationToken) > 0;
@@ -11,5 +12,6 @@ public class PaymentContext(DbContextOptions<PaymentContext> options) : DbContex
     {
         modelBuilder.HasDefaultSchema("payment");
         modelBuilder.ApplyConfiguration(new PaymentConfiguration());
+        modelBuilder.ApplyConfiguration(new CardTokenConfiguration());
     }
 }

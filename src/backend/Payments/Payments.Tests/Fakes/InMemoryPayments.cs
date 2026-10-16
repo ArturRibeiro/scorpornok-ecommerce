@@ -7,7 +7,9 @@ namespace Payments.Tests.Fakes;
 // grava nada), o que foi adicionado ou lido só é persistido no SaveEntitiesAsync, e uma
 // gravação que falha descarta as mudanças, como a retentativa do MassTransit num escopo novo.
 // FailNextSave simula a queda; a chave duplicada falha como o índice único.
-internal sealed class InMemoryPayments : IPaymentRepository, IUnitOfWork
+// Também guarda os tokens do cartão, na mesma unidade de trabalho (como o PaymentContext real):
+// marcar o token como usado só vale se a gravação do pagamento der certo.
+internal sealed class InMemoryPayments : IPaymentRepository, ICardTokenRepository, IUnitOfWork
 {
     private static readonly MethodInfo Clone =
         typeof(object).GetMethod("MemberwiseClone", BindingFlags.NonPublic | BindingFlags.Instance)!;
@@ -15,6 +17,8 @@ internal sealed class InMemoryPayments : IPaymentRepository, IUnitOfWork
     private readonly Dictionary<string, Payment> _saved = new();
     private readonly List<Payment> _added = [];
     private readonly List<Payment> _tracked = [];
+    private readonly Dictionary<string, CardToken> _tokens = new();
+    private readonly List<CardToken> _trackedTokens = [];
     public List<string> Calls { get; } = [];
     public bool FailNextSave { get; set; }
 
@@ -22,6 +26,27 @@ internal sealed class InMemoryPayments : IPaymentRepository, IUnitOfWork
     public IReadOnlyCollection<Payment> Saved => _saved.Values;
 
     private static Payment Copy(Payment payment) => (Payment)Clone.Invoke(payment, null)!;
+    private static CardToken Copy(CardToken token) => (CardToken)Clone.Invoke(token, null)!;
+
+    public IReadOnlyCollection<CardToken> Tokens => _tokens.Values;
+
+    public Task<CardToken> GetAsync(string id, CancellationToken cancellationToken = default)
+    {
+        if (id is null || !_tokens.TryGetValue(id, out var saved)) return Task.FromResult<CardToken>(null!);
+        var loaded = Copy(saved);
+        _trackedTokens.Add(loaded);
+        return Task.FromResult(loaded);
+    }
+
+    public void Add(CardToken token) => _tokens[token.Id] = Copy(token);
+
+    // Cria e grava um token para o cartão, como o POST /card-tokens; devolve o id.
+    public string SeedToken(string cardNumber, DateTime? createdAt = null)
+    {
+        var token = CardToken.Create("Fulano de Tal", cardNumber, "12", "2030", createdAt ?? DateTime.UtcNow);
+        _tokens[token.Id] = Copy(token);
+        return token.Id;
+    }
 
     public Task<Payment> GetByIdempotencyKeyAsync(string idempotencyKey, CancellationToken cancellationToken = default)
     {
@@ -51,6 +76,8 @@ internal sealed class InMemoryPayments : IPaymentRepository, IUnitOfWork
                 throw new InvalidOperationException("violação do índice único em IdempotencyKey");
             foreach (var payment in changing)
                 _saved[payment.IdempotencyKey] = Copy(payment);
+            foreach (var token in _trackedTokens)
+                _tokens[token.Id] = Copy(token);
             _tracked.AddRange(_added);
             _added.Clear();
             return Task.FromResult(true);
@@ -59,6 +86,7 @@ internal sealed class InMemoryPayments : IPaymentRepository, IUnitOfWork
         {
             _added.Clear();
             _tracked.Clear();
+            _trackedTokens.Clear();
             throw;
         }
     }

@@ -5,21 +5,17 @@ namespace Shared.Code.IntegrationEvents;
 
 /// <summary>Orders → Payments: cobrar o pedido.</summary>
 /// <param name="Amount">Total calculado pelo pedido, não o valor enviado pelo cliente.</param>
+/// <param name="CardToken">
+/// Token gerado pelo POST /card-tokens do Payments: o cartão (número e CVV) nunca passa pelo
+/// Orders nem pelas filas.
+/// </param>
 public record PaymentRequested(
     int OrderId,
     string OrderNumber,
     Guid CustomerId,
     decimal Amount,
     int Installments,
-    CardData Card);
-
-/// <summary>Dados do cartão. Trafegam na fila, mas o Payments não os persiste.</summary>
-public record CardData(
-    string CardHolderName,
-    string CardNumber,
-    string ExpirationMonth,
-    string ExpirationYear,
-    string Cvv);
+    string CardToken);
 
 /// <summary>Payments → Orders: pagamento aprovado.</summary>
 public record PaymentApproved(string OrderNumber, Guid PaymentId);

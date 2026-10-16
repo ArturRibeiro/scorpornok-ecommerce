@@ -34,13 +34,21 @@ public class ProcessPaymentHandlerTests
     public void SetUp()
     {
         _repository = new InMemoryPayments();
+        _tokens.Clear();
         _gateway = new SpyGateway(_repository.Calls);
         _publisher = new Mock<IIntegrationEventPublisher>();
-        _handler = new ProcessPaymentHandler(_repository, _gateway, _publisher.Object);
+        _handler = new ProcessPaymentHandler(_repository, _repository, _gateway, _publisher.Object);
     }
 
-    private static ProcessPaymentCommand Command(string cardNumber = "4111111111111111")
-        => new(7, "A123", 25m, 1, new CardData("Fulano de Tal", cardNumber, "12", "2030", "123"));
+    // Um token por cartão, criado uma vez: a reentrega traz a mesma mensagem, com o mesmo token.
+    private readonly Dictionary<string, string> _tokens = new();
+
+    private ProcessPaymentCommand Command(string cardNumber = "4111111111111111", string orderNumber = "A123")
+    {
+        if (!_tokens.TryGetValue(cardNumber, out var token))
+            _tokens[cardNumber] = token = _repository.SeedToken(cardNumber);
+        return new(7, orderNumber, 25m, 1, token);
+    }
 
     [Test]
     public async Task Deve_gravar_em_processamento_antes_de_cobrar_e_depois_completar()
@@ -80,7 +88,7 @@ public class ProcessPaymentHandlerTests
     {
         // 1ª entrega: grava "em processamento", cobra e cai na segunda gravação (a do resultado).
         var failingOnResult = new FailOnSecondSave(_repository);
-        var handler = new ProcessPaymentHandler(failingOnResult, _gateway, _publisher.Object);
+        var handler = new ProcessPaymentHandler(failingOnResult, _repository, _gateway, _publisher.Object);
         await ((Func<Task>)(() => handler.Handle(Command(), CancellationToken.None)))
             .Should().ThrowAsync<InvalidOperationException>();
         _repository.Saved.Single().Status.Should().Be(PaymentStatus.Processing);
@@ -101,7 +109,7 @@ public class ProcessPaymentHandlerTests
     {
         // A outra entrega gravou "em processamento" depois que esta já tinha consultado a chave.
         var stale = new StaleLookup(_repository);
-        var handler = new ProcessPaymentHandler(stale, _gateway, _publisher.Object);
+        var handler = new ProcessPaymentHandler(stale, _repository, _gateway, _publisher.Object);
         _repository.Seed(Payment.Start(7, "A123", 1, 25m, 1, "Fulano de Tal", "4111111111111111"));
 
         await ((Func<Task>)(() => handler.Handle(Command(), CancellationToken.None)))
@@ -127,6 +135,71 @@ public class ProcessPaymentHandlerTests
         _gateway.Keys.Should().BeEmpty();
         _repository.Calls.Should().BeEmpty();
         _publisher.Verify(p => p.PublishAsync(new PaymentApproved("A123", existing.Id), It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Test]
+    public async Task Token_valido_deve_ser_marcado_como_usado_na_gravacao_do_pagamento()
+    {
+        var command = Command();
+
+        await _handler.Handle(command, CancellationToken.None);
+
+        _repository.Tokens.Single(t => t.Id == command.CardToken).UsedAt.Should().NotBeNull();
+        _repository.Saved.Single().CardHolderName.Should().Be("Fulano de Tal");
+    }
+
+    [Test]
+    public async Task Falha_ao_gravar_o_pagamento_nao_deve_gastar_o_token()
+    {
+        var command = Command();
+        _repository.FailNextSave = true;
+
+        await ((Func<Task>)(() => _handler.Handle(command, CancellationToken.None)))
+            .Should().ThrowAsync<InvalidOperationException>();
+
+        _repository.Tokens.Single().UsedAt.Should().BeNull();
+        _gateway.Keys.Should().BeEmpty();
+    }
+
+    [Test]
+    public async Task Token_desconhecido_deve_recusar_sem_gateway_nem_erro()
+    {
+        await _handler.Handle(new ProcessPaymentCommand(7, "A123", 25m, 1, "tok_inexistente"), CancellationToken.None);
+
+        AssertRejectedByToken();
+    }
+
+    [Test]
+    public async Task Token_vencido_deve_recusar_sem_gateway()
+    {
+        var expired = _repository.SeedToken("4111111111111111", createdAt: DateTime.UtcNow.AddHours(-25));
+
+        await _handler.Handle(new ProcessPaymentCommand(7, "A123", 25m, 1, expired), CancellationToken.None);
+
+        AssertRejectedByToken();
+    }
+
+    [Test]
+    public async Task Token_usado_por_outro_pedido_deve_recusar()
+    {
+        var token = Command().CardToken;
+        await _handler.Handle(new ProcessPaymentCommand(8, "B456", 25m, 1, token), CancellationToken.None);
+        _gateway.Keys.Clear();
+        _publisher.Invocations.Clear();
+
+        await _handler.Handle(new ProcessPaymentCommand(7, "A123", 25m, 1, token), CancellationToken.None);
+
+        AssertRejectedByToken();
+    }
+
+    private void AssertRejectedByToken()
+    {
+        var payment = _repository.Saved.Single(p => p.OrderNumber == "A123");
+        payment.Status.Should().Be(PaymentStatus.Rejected);
+        payment.Reason.Should().Be(ProcessPaymentHandler.InvalidTokenReason);
+        _gateway.Keys.Should().BeEmpty();
+        _publisher.Verify(p => p.PublishAsync(new PaymentRejected("A123", ProcessPaymentHandler.InvalidTokenReason),
+            It.IsAny<CancellationToken>()), Times.Once);
     }
 
     // Deixa a primeira gravação passar e derruba a segunda (a do resultado, depois de cobrar).

@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Payments.Infrastructure\Payments.Infrastructure.csproj" />
     <ProjectReference Include="..\Payments.CommandHandlers\Payments.CommandHandlers.csproj" />
+    <ProjectReference Include="..\Payments.Web.Api\Payments.Web.Api.csproj" />
   </ItemGroup>
 
 </Project>

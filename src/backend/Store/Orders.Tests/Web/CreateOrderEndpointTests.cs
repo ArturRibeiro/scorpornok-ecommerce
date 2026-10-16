@@ -64,4 +64,17 @@ public class CreateOrderEndpointTests
         result.Should().BeAssignableTo<IStatusCodeHttpResult>()
             .Which.StatusCode.Should().Be(StatusCodes.Status503ServiceUnavailable);
     }
+
+    [Test]
+    public async Task Pagamento_sem_token_deve_responder_400()
+    {
+        _bus.Setup(b => b.RequestAsync(It.IsAny<Message<CreateOrderResult>>()))
+            .ReturnsAsync(CreateOrderResult.Invalid(["Informe o cartão."]));
+
+        var result = await CreateOrderAsync(_bus.Object, Body() with { Payment = new PaymentMethod(null) },
+            Token(("sub", TokenCustomer.ToString()), ("email", "cliente@exemplo.com"), ("email_verified", "true")));
+
+        result.Should().BeAssignableTo<IStatusCodeHttpResult>()
+            .Which.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+    }
 }

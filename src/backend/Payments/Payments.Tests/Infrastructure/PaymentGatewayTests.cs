@@ -5,8 +5,9 @@ namespace Payments.Tests.Infrastructure;
 [TestFixture]
 public class PaymentGatewayTests
 {
+    // O gateway recebe o cartão tokenizado: titular e 4 últimos dígitos.
     private static PaymentRequest Request(string cardNumber, string key = "A123-1")
-        => new(key, 25m, "Fulano de Tal", cardNumber, "12", "2030", "123", 1);
+        => new(key, 25m, "Fulano de Tal", cardNumber[^4..], 1);
 
     [TestCase("4111111111111111")]
     [TestCase("4111 1111 1111 1234")]

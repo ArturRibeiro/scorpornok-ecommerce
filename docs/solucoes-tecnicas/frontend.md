@@ -4,13 +4,13 @@ O site onde o cliente navega, monta o carrinho, paga e acompanha o resultado. Ca
 
 ## 4. Proteção dos dados do cartão
 
-**Problema:** hoje o site envia o número completo do cartão e o código de segurança junto com o pedido.
+**Problema:** o site enviava o número completo do cartão e o código de segurança junto com o pedido.
 
-**Solução:** quando o cliente confirma a compra, o site primeiro troca o cartão por um código descartável e só então envia o pedido, apenas com esse código. Para o cliente, nada muda na tela. Se o cartão for inválido, o erro aparece no próprio campo do cartão, e o formulário continua preenchido.
+**Solução:** quando o cliente confirma a compra, o site primeiro troca o cartão por um código descartável e só então envia o pedido, apenas com esse código. Para o cliente, nada muda na tela. Se o cartão for inválido, o erro aparece no próprio campo do cartão, e o formulário continua preenchido. Se a parte da loja que valida o cartão estiver fora do ar, o site avisa que não conseguiu validar o cartão, nada é registrado nem cobrado, e o carrinho continua preenchido.
 
-**Situação:** proposta.
+**Situação:** em funcionamento.
 
-Detalhes técnicos: `tokenize-card-data`.
+Detalhes técnicos: `tokenize-card-data` (arquivada em `openspec/changes/archive/`).
 
 ## 5. Carrinho e nova tentativa
 

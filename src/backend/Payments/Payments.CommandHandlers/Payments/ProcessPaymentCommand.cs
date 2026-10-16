@@ -6,4 +6,4 @@ public record ProcessPaymentCommand(
     string OrderNumber,
     decimal Amount,
     int Installments,
-    CardData Card) : Message;
+    string CardToken) : Message;

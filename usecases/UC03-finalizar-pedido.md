@@ -15,6 +15,7 @@
 3. O cliente informa o endereço de entrega.
 4. O cliente informa os dados do cartão de crédito e o número de parcelas.
 5. O cliente confirma o pedido.
+5.1. O sistema troca o cartão por um código descartável (token) junto ao serviço de pagamentos; o número e o CVV não seguem para o pedido.
 6. O sistema registra o pedido com a situação **Pendente**, na conta do cliente, e gera o número do pedido.
 7. O sistema exibe o número do pedido, informa que o pagamento está em processamento e esvazia o carrinho.
 8. O sistema segue para o pagamento (UC04).
@@ -26,6 +27,7 @@
 - **2a. Editar o carrinho:** o cliente volta ao carrinho (UC02) com os mesmos itens.
 - **3a. Endereço incompleto:** o sistema indica os campos obrigatórios que faltam e não envia o pedido.
 - **4a. Cartão inválido:** número, CVV ou validade fora das regras; o sistema indica o campo e não envia o pedido.
+- **5.1a. Serviço de pagamentos indisponível ao confirmar:** o cartão não pode ser validado; o pedido não é registrado nem cobrado, e o sistema informa que não foi possível validar o cartão, mantendo o carrinho e os dados preenchidos.
 - **6a. Pedido recusado pelo sistema:** o sistema exibe os motivos e mantém o carrinho e os dados preenchidos.
 - **6b. Sessão expirada:** o pedido não é registrado; o sistema pede o login de novo e mantém o carrinho e os dados preenchidos.
 - **6c. E-mail da conta não confirmado:** o pedido não é registrado.
@@ -41,7 +43,8 @@
 - RN04: O preço, o nome e a foto de cada item vêm do catálogo no momento da finalização; os valores enviados pela loja são ignorados. O total é calculado pelo sistema (preço unitário × quantidade de cada item).
 - RN05: A data do pedido é a data da finalização.
 - RN06: O pedido só é confirmado após o pagamento aprovado (UC04).
-- RN07: O registro do pedido não depende do serviço de pagamentos estar no ar; a cobrança é feita quando ele voltar.
+- RN07: Para registrar o pedido, o serviço de pagamentos precisa estar no ar no momento da confirmação, para trocar o cartão pelo token. Depois do registro, a cobrança não depende dele estar no ar: é feita quando ele voltar (o token vale 24 horas).
+- RN08: O cartão completo e o CVV nunca chegam ao serviço de pedidos; só o token.
 
 ## Limitações conhecidas
 

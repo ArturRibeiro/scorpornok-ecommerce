@@ -16,7 +16,7 @@ public class TransientRetryTests
     private static readonly TimeSpan[] Short = Enumerable.Repeat(TimeSpan.FromMilliseconds(10), 7).ToArray();
 
     private static PaymentRequested Request()
-        => new(7, "A123", Guid.NewGuid(), 25m, 1, new CardData("Fulano", "4111111111111111", "12", "2030", "123"));
+        => new(7, "A123", Guid.NewGuid(), 25m, 1, "tok_teste");
 
     private static async Task<(ServiceProvider Provider, ITestHarness Harness)> StartAsync(IMemoryBus bus)
     {

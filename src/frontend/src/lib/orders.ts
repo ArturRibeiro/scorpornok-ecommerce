@@ -5,7 +5,8 @@ export const ORDERS_API_URL =
   import.meta.env.VITE_ORDERS_API_URL ?? "http://localhost:5224";
 
 // Formato do CreateCommand no backend. O cliente e o e-mail (para onde vai o
-// resultado do pagamento) não vão no corpo: o Orders os lê do token.
+// resultado do pagamento) não vão no corpo: o Orders os lê do token. O cartão também
+// não: vai só o token gerado pelo Payments (tokenizeCard, em payments.ts).
 export interface CreateOrderRequest {
   address: {
     street: string;
@@ -22,15 +23,8 @@ export interface CreateOrderRequest {
     discount: number;
     units: number;
   }[];
-  card: {
-    // O servidor ainda não usa o OrderId do pagamento.
-    orderId: string;
-    cardHolderName: string;
-    cardNumber: string;
-    expirationMonth: string;
-    expirationYear: string;
-    cvv: string;
-    amount: number;
+  payment: {
+    cardToken: string;
     installments: number;
   };
 }

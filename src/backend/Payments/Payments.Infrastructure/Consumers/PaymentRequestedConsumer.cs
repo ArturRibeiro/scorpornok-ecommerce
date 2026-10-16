@@ -9,6 +9,6 @@ public class PaymentRequestedConsumer(IMemoryBus bus) : IConsumer<PaymentRequest
     {
         var message = context.Message;
         return bus.SendAsync(new ProcessPaymentCommand(message.OrderId, message.OrderNumber, message.Amount,
-            message.Installments, message.Card));
+            message.Installments, message.CardToken));
     }
 }

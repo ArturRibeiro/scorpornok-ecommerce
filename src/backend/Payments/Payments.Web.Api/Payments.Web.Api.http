@@ -1,7 +1,32 @@
 @Payments.Web.Api_HostAddress = http://localhost:5220
 
-# O Payments não tem endpoints de negócio: ele consome PaymentRequested do RabbitMQ.
-# Para disparar um pagamento, crie um pedido pelo Orders.Web.Api.http.
+# O Payments consome PaymentRequested do RabbitMQ; para disparar um pagamento, crie um pedido
+# pelo Orders.Web.Api.http com o token gerado abaixo. O único endpoint de negócio é a tokenização.
 
 ### Pronto para receber mensagens? (banco e broker)
 GET {{Payments.Web.Api_HostAddress}}/health/ready
+
+### Tokenizar o cartão (o checkout faz isso do navegador): 201 com token, last4 e expiresAt.
+### Final 0000 é recusado na cobrança. O número e o CVV não são guardados.
+POST {{Payments.Web.Api_HostAddress}}/card-tokens
+Content-Type: application/json
+
+{
+  "cardHolderName": "Fulano de Tal",
+  "cardNumber": "4111 1111 1111 1111",
+  "expirationMonth": "12",
+  "expirationYear": "2030",
+  "cvv": "123"
+}
+
+### Cartão inválido: 400 com os erros por campo
+POST {{Payments.Web.Api_HostAddress}}/card-tokens
+Content-Type: application/json
+
+{
+  "cardHolderName": "",
+  "cardNumber": "4111",
+  "expirationMonth": "13",
+  "expirationYear": "2030",
+  "cvv": "1"
+}

@@ -6,6 +6,7 @@ global using System.Linq;
 global using System.Text;
 global using System.Threading;
 global using System.Threading.Tasks;
+global using Payments.CommandHandlers.CardTokens;
 global using Payments.CommandHandlers.Payments;
 global using Payments.Infrastructure.Consumers;
 global using Payments.Infrastructure.Context;

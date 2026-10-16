@@ -56,8 +56,7 @@ public class OrderHandlerTests
             Units = units
         };
 
-    private static CreditCardPaymentCommand Card()
-        => new(Guid.Empty, "Fulano", "4111111111111111", "12", "2030", "123", 1m, 3);
+    private static PaymentMethod Payment() => new("tok_abc123", 3);
 
     private static CreateCommand Command(Guid userId, string city = "São Paulo", params OrderItemMessageResponse[] items)
         => new(
@@ -67,7 +66,7 @@ public class OrderHandlerTests
                 Street = "Rua A, 10", City = city, State = "SP", Country = "Brasil", ZipCode = "01000-000"
             },
             items,
-            Card(),
+            Payment(),
             "cliente@exemplo.com");
 
     [Test]
@@ -106,8 +105,7 @@ public class OrderHandlerTests
     [Test]
     public async Task Pedido_sem_endereco_e_sem_itens_deve_devolver_erros_sem_excecao()
     {
-        var command = new CreateCommand(Guid.NewGuid(), null!, null!,
-            new CreditCardPaymentCommand(Guid.Empty, "Fulano", "4111111111111111", "12", "2030", "123", 0m));
+        var command = new CreateCommand(Guid.NewGuid(), null!, null!, Payment());
 
         var result = await _handler.Handle(command, CancellationToken.None);
 
@@ -127,7 +125,7 @@ public class OrderHandlerTests
         _publisher.Verify(p => p.PublishAsync(
             It.Is<PaymentRequested>(m =>
                 m.OrderNumber == result.OrderNumber && m.CustomerId == userId && m.Amount == 25m
-                && m.Installments == 3 && m.Card.CardNumber == "4111111111111111" && m.Card.Cvv == "123"),
+                && m.Installments == 3 && m.CardToken == "tok_abc123"),
             It.IsAny<CancellationToken>()), Times.Once);
     }
 
@@ -163,7 +161,7 @@ public class OrderHandlerTests
     [Test]
     public async Task Pedido_sem_cartao_deve_ser_salvo_sem_solicitar_pagamento()
     {
-        var command = Command(Guid.NewGuid(), items: [Item(42, 10m, 1)]) with { Card = null! };
+        var command = Command(Guid.NewGuid(), items: [Item(42, 10m, 1)]) with { Payment = null };
 
         var result = await _handler.Handle(command, CancellationToken.None);
 
@@ -236,5 +234,37 @@ public class OrderHandlerTests
 
         _catalog.Verify(c => c.GetAsync(It.IsAny<IReadOnlyCollection<int>>(), It.IsAny<CancellationToken>()),
             Times.Never);
+    }
+
+    [Test]
+    public async Task Pagamento_sem_token_deve_ser_recusado_sem_abrir_transacao()
+    {
+        var command = Command(Guid.NewGuid(), items: [Item(42, 10m, 1)]) with { Payment = new PaymentMethod(null) };
+
+        var result = await _handler.Handle(command, CancellationToken.None);
+
+        result.Outcome.Should().Be(CreateOrderOutcome.Invalid);
+        result.Errors.Should().Contain("Informe o cartão.");
+        _repository.Verify(r => r.ExecuteInTransactionAsync(It.IsAny<Func<Task>>(), It.IsAny<CancellationToken>()),
+            Times.Never);
+        _publisher.Verify(p => p.PublishAsync(It.IsAny<PaymentRequested>(), It.IsAny<CancellationToken>()), Times.Never);
+    }
+
+    [Test]
+    public void Corpo_com_numero_e_CVV_nao_deve_levar_o_cartao_para_o_comando()
+    {
+        // Como o POST /createOrder desserializa o corpo (JsonSerializerDefaults.Web): o cartão antigo
+        // ("card") é ignorado, e do "payment" só existem token e parcelas.
+        var json = """
+            {"address":{},"items":[],
+             "card":{"cardNumber":"4111111111111111","cvv":"123"},
+             "payment":{"cardToken":"tok_abc123","installments":2,"cardNumber":"4111111111111111","cvv":"123"}}
+            """;
+
+        var command = System.Text.Json.JsonSerializer.Deserialize<CreateCommand>(json,
+            new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web))!;
+
+        command.Payment.Should().Be(new PaymentMethod("tok_abc123", 2));
+        System.Text.Json.JsonSerializer.Serialize(command).Should().NotContain("4111111111111111").And.NotContain("\"123\"");
     }
 }

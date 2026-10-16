@@ -37,9 +37,14 @@ public class OrderHandler
                 (item, builder) => CreateOrderItem(item, products[item.ProductId], builder))
             .Build();
 
+        // Pagamento informado sem token: o cartão não foi tokenizado (o Orders nunca recebe o cartão).
+        List<string> paymentErrors = command.Payment is { } payment && string.IsNullOrWhiteSpace(payment.CardToken)
+            ? ["Informe o cartão."]
+            : [];
+
         // IsValid() preenche order.Errors; por isso vem antes de juntar as mensagens.
-        if (!order.IsValid() || missing.Count > 0)
-            return CreateOrderResult.Invalid([.. missing, .. order.Errors]);
+        if (!order.IsValid() || missing.Count > 0 || paymentErrors.Count > 0)
+            return CreateOrderResult.Invalid([.. missing, .. order.Errors, .. paymentErrors]);
 
         // Pedido e solicitação de pagamento na mesma transação: ou os dois ficam gravados, ou nenhum.
         await orderRepository.ExecuteInTransactionAsync(async () =>
@@ -47,7 +52,7 @@ public class OrderHandler
             orderRepository.Save(order);
             // Primeiro SaveChanges: gera o order.Id, que vai no PaymentRequested.
             await orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
-            await RequestPaymentAsync(order, command.Card, cancellationToken);
+            await RequestPaymentAsync(order, command.Payment, cancellationToken);
         }, cancellationToken);
         return CreateOrderResult.Created(order);
     }
@@ -55,19 +60,17 @@ public class OrderHandler
     // O publicador grava a mensagem no outbox do Orders (não fala com o broker), e ela só é
     // persistida no SaveChanges seguinte. Publicar depois do último SaveChanges perderia a
     // mensagem sem erro. A entrega ao RabbitMQ acontece em segundo plano.
-    private async Task RequestPaymentAsync(Order order, CreditCardPaymentCommand card, CancellationToken cancellationToken)
+    private async Task RequestPaymentAsync(Order order, PaymentMethod? payment, CancellationToken cancellationToken)
     {
-        if (card is null)
+        if (payment is null)
         {
-            logger.LogWarning("Pedido {OrderNumber} criado sem cartão; o pagamento não foi solicitado.", order.OrderNumber);
+            logger.LogWarning("Pedido {OrderNumber} criado sem pagamento; a cobrança não foi solicitada.", order.OrderNumber);
             return;
         }
 
-        // O valor cobrado é o total do pedido, nunca o card.Amount enviado pelo cliente.
+        // O valor cobrado é o total do pedido; do cartão, só o token (nada de número nem CVV no outbox).
         await publisher.PublishAsync(new PaymentRequested(order.Id, order.OrderNumber, order.CustomerId,
-            order.Total, card.Installments,
-            new CardData(card.CardHolderName, card.CardNumber, card.ExpirationMonth, card.ExpirationYear, card.Cvv)),
-            cancellationToken);
+            order.Total, payment.Installments, payment.CardToken!), cancellationToken);
         await orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
     }
 
