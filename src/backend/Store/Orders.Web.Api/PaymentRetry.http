@@ -1,0 +1,229 @@
+@Orders = http://localhost:5224
+@Payments = http://localhost:5220
+# Cenários da nova tentativa de pagamento (UC04, fluxo 2a). Rode as requisições na ordem: as
+# seguintes leem o token e o número do pedido das respostas nomeadas (# @name), o que funciona no
+# Visual Studio 17.12+, no Rider e no REST Client do VS Code.
+#
+# Contas (cadastre pela loja e confirme no Mailpit, http://localhost:8025), senha Senha@123:
+#   A = cliente.a@exemplo.com (dono dos pedidos), B = cliente.b@exemplo.com (outro cliente).
+# Access token (vale 5 min): na loja, localStorage, chave
+# "oidc.user:http://localhost:8080/realms/scorponok:scorponok-web", campo access_token.
+@tokenA = cole-o-access-token-do-cliente-a
+@tokenB = cole-o-access-token-do-cliente-b
+#
+# O gateway simulado recusa cartão terminado em 0000. Cada token de cartão vale uma cobrança.
+# Itens: produto 1 (R$ 399,99) x2 + produto 2 (R$ 449,99) x1 = total R$ 1.249,97 em todas as tentativas.
+# Não há GET do pedido: confira o status pela tela da loja, pelo e-mail no Mailpit ou no orders-db.
+# Depois de cada pedido ou nova tentativa, espere alguns segundos pelo resultado antes de seguir.
+
+
+######## Cenário 1: recusado na tentativa 1, aprovado na tentativa 2 ########
+
+# @name tok1Recusado
+POST {{Payments}}/card-tokens
+Content-Type: application/json
+
+{ "cardHolderName": "Fulano de Tal", "cardNumber": "4000 0000 0000 0000", "expirationMonth": "12", "expirationYear": "2030", "cvv": "123" }
+
+### 201 { orderNumber, status: Pending, total: 1249.97, attempt: 1, maxAttempts: 3 } → depois Failed
+# @name pedido1
+POST {{Orders}}/createOrder
+Content-Type: application/json
+Authorization: Bearer {{tokenA}}
+
+{
+  "address": { "street": "Rua das Flores, 100", "city": "São Paulo", "state": "SP", "country": "Brasil", "zipCode": "01000-000" },
+  "items": [ { "productId": 1, "units": 2 }, { "productId": 2, "units": 1 } ],
+  "payment": { "cardToken": "{{tok1Recusado.response.body.$.token}}", "installments": 1 }
+}
+
+###
+# @name tok1Aprovado
+POST {{Payments}}/card-tokens
+Content-Type: application/json
+
+{ "cardHolderName": "Fulano de Tal", "cardNumber": "4111 1111 1111 1111", "expirationMonth": "12", "expirationYear": "2030", "cvv": "123" }
+
+### 202 { orderNumber, status: Pending, attempt: 2 } → depois Confirmed; Mailpit: e-mail da recusa e da confirmação
+POST {{Orders}}/orders/{{pedido1.response.body.$.orderNumber}}/payment
+Content-Type: application/json
+Authorization: Bearer {{tokenA}}
+
+{ "cardToken": "{{tok1Aprovado.response.body.$.token}}", "installments": 1 }
+
+
+######## Cenário 4: pedido não recusado ########
+
+###
+# @name tok4
+POST {{Payments}}/card-tokens
+Content-Type: application/json
+
+{ "cardHolderName": "Fulano de Tal", "cardNumber": "5555 5555 5555 4444", "expirationMonth": "12", "expirationYear": "2030", "cvv": "456" }
+
+### 409: o pedido 1 está confirmado
+POST {{Orders}}/orders/{{pedido1.response.body.$.orderNumber}}/payment
+Content-Type: application/json
+Authorization: Bearer {{tokenA}}
+
+{ "cardToken": "{{tok4.response.body.$.token}}", "installments": 1 }
+
+
+######## Cenários 2 e 3: três recusas esgotam as tentativas ########
+
+###
+# @name tok2a
+POST {{Payments}}/card-tokens
+Content-Type: application/json
+
+{ "cardHolderName": "Fulano de Tal", "cardNumber": "4000 0000 0000 0000", "expirationMonth": "12", "expirationYear": "2030", "cvv": "123" }
+
+### 201 → Failed na tentativa 1
+# @name pedido2
+POST {{Orders}}/createOrder
+Content-Type: application/json
+Authorization: Bearer {{tokenA}}
+
+{
+  "address": { "street": "Rua das Flores, 100", "city": "São Paulo", "state": "SP", "country": "Brasil", "zipCode": "01000-000" },
+  "items": [ { "productId": 1, "units": 2 }, { "productId": 2, "units": 1 } ],
+  "payment": { "cardToken": "{{tok2a.response.body.$.token}}", "installments": 1 }
+}
+
+###
+# @name tok2b
+POST {{Payments}}/card-tokens
+Content-Type: application/json
+
+{ "cardHolderName": "Fulano de Tal", "cardNumber": "5555 0000 0000 0000", "expirationMonth": "12", "expirationYear": "2030", "cvv": "123" }
+
+### 202 attempt 2 → Failed; o e-mail diz que resta 1 tentativa
+POST {{Orders}}/orders/{{pedido2.response.body.$.orderNumber}}/payment
+Content-Type: application/json
+Authorization: Bearer {{tokenA}}
+
+{ "cardToken": "{{tok2b.response.body.$.token}}", "installments": 1 }
+
+###
+# @name tok2c
+POST {{Payments}}/card-tokens
+Content-Type: application/json
+
+{ "cardHolderName": "Fulano de Tal", "cardNumber": "4000 0000 0000 0000", "expirationMonth": "12", "expirationYear": "2030", "cvv": "123" }
+
+### 202 attempt 3 → Failed; o e-mail diz que as tentativas acabaram
+POST {{Orders}}/orders/{{pedido2.response.body.$.orderNumber}}/payment
+Content-Type: application/json
+Authorization: Bearer {{tokenA}}
+
+{ "cardToken": "{{tok2c.response.body.$.token}}", "installments": 1 }
+
+###
+# @name tok3
+POST {{Payments}}/card-tokens
+Content-Type: application/json
+
+{ "cardHolderName": "Fulano de Tal", "cardNumber": "4111 1111 1111 1111", "expirationMonth": "12", "expirationYear": "2030", "cvv": "123" }
+
+### 409: as 3 tentativas acabaram (nada é cobrado, mesmo com cartão aprovável)
+POST {{Orders}}/orders/{{pedido2.response.body.$.orderNumber}}/payment
+Content-Type: application/json
+Authorization: Bearer {{tokenA}}
+
+{ "cardToken": "{{tok3.response.body.$.token}}", "installments": 1 }
+
+
+######## Cenários 5, 7 e 8: pedido recusado com tentativas sobrando ########
+
+###
+# @name tok5
+POST {{Payments}}/card-tokens
+Content-Type: application/json
+
+{ "cardHolderName": "Fulano de Tal", "cardNumber": "4000 0000 0000 0000", "expirationMonth": "12", "expirationYear": "2030", "cvv": "123" }
+
+### 201 → Failed na tentativa 1
+# @name pedido3
+POST {{Orders}}/createOrder
+Content-Type: application/json
+Authorization: Bearer {{tokenA}}
+
+{
+  "address": { "street": "Rua das Flores, 100", "city": "São Paulo", "state": "SP", "country": "Brasil", "zipCode": "01000-000" },
+  "items": [ { "productId": 1, "units": 2 }, { "productId": 2, "units": 1 } ],
+  "payment": { "cardToken": "{{tok5.response.body.$.token}}", "installments": 1 }
+}
+
+###
+# @name tok5b
+POST {{Payments}}/card-tokens
+Content-Type: application/json
+
+{ "cardHolderName": "Ciclano de Tal", "cardNumber": "4111 1111 1111 1111", "expirationMonth": "12", "expirationYear": "2030", "cvv": "123" }
+
+### Cenário 5 — 404: o pedido é do cliente A
+POST {{Orders}}/orders/{{pedido3.response.body.$.orderNumber}}/payment
+Content-Type: application/json
+Authorization: Bearer {{tokenB}}
+
+{ "cardToken": "{{tok5b.response.body.$.token}}", "installments": 1 }
+
+### Cenário 7 — 400: sem cartão
+POST {{Orders}}/orders/{{pedido3.response.body.$.orderNumber}}/payment
+Content-Type: application/json
+Authorization: Bearer {{tokenA}}
+
+{ "installments": 1 }
+
+### Cenário 8 — 202 attempt 2, depois Failed com "Token do cartão inválido ou vencido." (token da tentativa 1, já usado)
+POST {{Orders}}/orders/{{pedido3.response.body.$.orderNumber}}/payment
+Content-Type: application/json
+Authorization: Bearer {{tokenA}}
+
+{ "cardToken": "{{tok5.response.body.$.token}}", "installments": 1 }
+
+
+######## Cenário 6 e erros de entrada ########
+
+### 404: pedido inexistente
+POST {{Orders}}/orders/A000000000000/payment
+Content-Type: application/json
+Authorization: Bearer {{tokenA}}
+
+{ "cardToken": "tok_inexistente", "installments": 1 }
+
+### 401: sem access token
+POST {{Orders}}/orders/A000000000000/payment
+Content-Type: application/json
+
+{ "cardToken": "tok_inexistente", "installments": 1 }
+
+### 400 "Cartão vencido" (vale até o fim do mês de validade)
+POST {{Payments}}/card-tokens
+Content-Type: application/json
+
+{ "cardHolderName": "Fulano de Tal", "cardNumber": "4111 1111 1111 1111", "expirationMonth": "09", "expirationYear": "2026", "cvv": "123" }
+
+### 400 com erro em cardHolderName, cardNumber, expirationMonth e cvv
+POST {{Payments}}/card-tokens
+Content-Type: application/json
+
+{ "cardHolderName": "", "cardNumber": "4111", "expirationMonth": "13", "expirationYear": "2030", "cvv": "1" }
+
+###
+# @name tokProduto
+POST {{Payments}}/card-tokens
+Content-Type: application/json
+
+{ "cardHolderName": "Fulano de Tal", "cardNumber": "4111 1111 1111 1111", "expirationMonth": "12", "expirationYear": "2030", "cvv": "123" }
+
+### 400 "Produto 9999 não encontrado." (nada é gravado nem cobrado)
+POST {{Orders}}/createOrder
+Content-Type: application/json
+Authorization: Bearer {{tokenA}}
+
+{
+  "address": { "street": "Rua das Flores, 100", "city": "São Paulo", "state": "SP", "country": "Brasil", "zipCode": "01000-000" },
+  "items": [ { "productId": 9999, "units": 1 } ],
+  "payment": { "cardToken": "{{tokProduto.response.body.$.token}}", "installments": 1 }
+}
