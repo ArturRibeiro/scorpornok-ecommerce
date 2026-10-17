@@ -30,7 +30,7 @@ Quando o resultado do pagamento atualiza um pedido, a API de Orders DEVE enviar 
 - **THEN** o cliente recebe o e-mail com o resultado do pedido A123
 
 ### Requirement: Um e-mail por resultado
-O cliente DEVE receber o e-mail do resultado mesmo que os primeiros envios falhem temporariamente, até o limite de tentativas, e NÃO DEVE receber um segundo e-mail quando o mesmo resultado chega de novo. Uma falha no envio NÃO DEVE desfazer nem atrasar a atualização do status do pedido.
+O cliente DEVE receber o e-mail do resultado de cada tentativa de pagamento mesmo que os primeiros envios falhem temporariamente, até o limite de tentativas do envio, e NÃO DEVE receber um segundo e-mail quando o mesmo resultado chega de novo. Uma falha no envio NÃO DEVE desfazer nem atrasar a atualização do status do pedido.
 
 #### Scenario: Servidor de e-mail indisponível
 - **GIVEN** o servidor de e-mail está fora do ar
@@ -42,6 +42,11 @@ O cliente DEVE receber o e-mail do resultado mesmo que os primeiros envios falhe
 - **GIVEN** o cliente já recebeu o e-mail de confirmação do pedido A123
 - **WHEN** o resultado "aprovado" do pedido A123 chega de novo
 - **THEN** nenhum novo e-mail é enviado
+
+#### Scenario: Recusa e aprovação na nova tentativa
+- **GIVEN** o cliente recebeu o e-mail da recusa da tentativa 1 do pedido A123
+- **WHEN** a tentativa 2 de A123 é aprovada
+- **THEN** o cliente recebe o e-mail de confirmação de A123
 
 ### Requirement: Limite de tentativas do e-mail
 A API de Orders DEVE espaçar as tentativas de envio do e-mail de um pedido com intervalo crescente e DEVE encerrar o envio como falha definitiva depois de um número máximo de tentativas, ou na primeira recusa permanente do destinatário. Um pedido em falha definitiva NÃO DEVE ser tentado de novo.

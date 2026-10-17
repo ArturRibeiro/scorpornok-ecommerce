@@ -55,10 +55,10 @@ Depois de registrar o pagamento, o Payments DEVE comunicar ao contexto de pedido
 - **THEN** o contexto de pedidos recebe "recusado" para A123 com o motivo
 
 ### Requirement: Solicitação repetida
-Uma solicitação repetida para uma tentativa que já tem pagamento registrado NÃO DEVE gerar uma nova cobrança. Se o pagamento tiver resultado, o Payments DEVE comunicá-lo de novo; se estiver em processamento, DEVE obter do gateway o resultado da cobrança original e então comunicá-lo.
+Uma solicitação repetida para uma tentativa de pagamento que já tem pagamento registrado NÃO DEVE gerar uma nova cobrança. Se o pagamento tiver resultado, o Payments DEVE comunicá-lo de novo; se estiver em processamento, DEVE obter do gateway o resultado da cobrança original e então comunicá-lo. Uma nova tentativa do mesmo pedido DEVE ser processada como um novo pagamento.
 
 #### Scenario: Mesma solicitação entregue duas vezes
-- **GIVEN** o pagamento do pedido A123 já foi aprovado e registrado
+- **GIVEN** o pagamento da tentativa 1 do pedido A123 já foi aprovado e registrado
 - **WHEN** a mesma solicitação chega de novo
 - **THEN** nenhum novo pagamento é registrado
 - **AND** o contexto de pedidos recebe outra vez "aprovado" com o mesmo identificador de pagamento
@@ -68,6 +68,12 @@ Uma solicitação repetida para uma tentativa que já tem pagamento registrado N
 - **WHEN** a mesma solicitação de pagamento chega de novo
 - **THEN** o gateway devolve a aprovação original, sem cobrar o cartão outra vez
 - **AND** o pagamento fica registrado como aprovado e o contexto de pedidos recebe "aprovado" para A123
+
+#### Scenario: Nova tentativa do mesmo pedido
+- **GIVEN** o pagamento da tentativa 1 do pedido A123 foi recusado
+- **WHEN** chega a solicitação da tentativa 2 de A123
+- **THEN** o pagamento é processado e registrado como tentativa 2
+- **AND** o resultado é comunicado com o número da tentativa
 
 ### Requirement: Independência da disponibilidade
 Solicitações feitas enquanto o Payments está fora do ar NÃO DEVEM ser perdidas. O Payments DEVE processá-las quando voltar.
