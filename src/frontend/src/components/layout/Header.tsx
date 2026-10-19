@@ -202,6 +202,11 @@ export default function Header() {
                       Meu cadastro
                     </Link>
                   </Button>
+                  <Button variant="outline" className="w-full text-sm" asChild>
+                    <Link to="/account/orders" onClick={closeMobileMenu}>
+                      Meus pedidos
+                    </Link>
+                  </Button>
                   <Button variant="outline" className="w-full text-sm" onClick={logout}>
                     Sair
                   </Button>

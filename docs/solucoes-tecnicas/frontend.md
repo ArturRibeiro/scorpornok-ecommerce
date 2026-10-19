@@ -46,3 +46,18 @@ Detalhes técnicos: `handle-stuck-payments` (arquivada em `openspec/changes/arch
 **Situação:** em funcionamento.
 
 Detalhes técnicos: `add-customer-profile` (arquivada em `openspec/changes/archive/`).
+
+## 10. Meus pedidos
+
+**Problema:** o cliente não tinha onde rever as compras. Se fechasse a tela da confirmação, só sobrava o e-mail, e um pedido recusado não podia mais ser pago com outro cartão.
+
+**Solução:**
+- O menu da conta ganha **"Meus pedidos"**, e a confirmação da compra ganha o link "Ver meus pedidos".
+- A lista mostra número, data, situação, total, quantidade de itens e a foto de um produto, do mais recente para o mais antigo, com "Carregar mais" para os pedidos mais antigos. Quem ainda não comprou vê "Você ainda não fez nenhuma compra", com um caminho de volta para a loja.
+- Ao abrir um pedido, o cliente vê os itens (com preço unitário, quantidade, subtotal e o desconto, quando houver), o total, o endereço de entrega e a situação: "Aguardando pagamento", "Pago", "Pagamento recusado" ou "Pagamento não processado".
+- Um pedido aguardando pagamento se atualiza sozinho quando o resultado chega. Um pedido recusado mostra quantas tentativas restam e permite pagar com outro cartão ali mesmo; sem tentativas, a tela orienta a refazer a compra.
+- Um número de pedido que não é do cliente aparece como "Pedido não encontrado".
+
+**Situação:** em funcionamento.
+
+Detalhes técnicos: `add-order-history` (arquivada em `openspec/changes/archive/`).

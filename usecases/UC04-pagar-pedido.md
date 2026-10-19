@@ -28,7 +28,7 @@ Existe um pedido **Pendente** (UC03).
 - **2e. Serviço de pagamentos indisponível além do prazo:** o pedido continua **Pendente**, e a equipe é avisada pelo monitoramento até ele ter um desfecho.
 - **2c. Mesma cobrança solicitada de novo:** o serviço de pagamentos não cobra outra vez e repete o resultado já registrado.
 - **4a. Resultado demora mais de 10 segundos:** o sistema informa que o pagamento está pendente e que o resultado será enviado por e-mail.
-- **4b. Cliente saiu da loja:** o resultado chega só pelo e-mail.
+- **4b. Cliente saiu da loja:** o resultado chega pelo e-mail e fica em "Meus pedidos" (Login-UC10), de onde o cliente também pode pagar de novo um pedido recusado.
 - **5a. Servidor de e-mail indisponível:** a situação do pedido é atualizada mesmo assim, e o e-mail é enviado quando o servidor voltar.
 
 ## Regras de negócio

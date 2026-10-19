@@ -5,6 +5,13 @@
         Order Save(Order order);
         Task<Order> GetByNumberAsync(string orderNumber, CancellationToken cancellationToken = default);
 
+        // Histórico do cliente (só leitura, com os itens): do mais recente para o mais antigo.
+        Task<IReadOnlyList<Order>> GetCustomerOrdersAsync(Guid customerId, int skip, int take,
+            CancellationToken cancellationToken = default);
+        // Um pedido do histórico, com os itens; nulo se o número não existe ou é de outro cliente.
+        Task<Order> GetCustomerOrderAsync(Guid customerId, string orderNumber,
+            CancellationToken cancellationToken = default);
+
         // Pedidos com resultado de pagamento cujo e-mail ainda não foi enviado, dos mais antigos aos mais novos.
         Task<IReadOnlyList<Order>> GetAwaitingPaymentEmailAsync(DateTime now, int limit,
             CancellationToken cancellationToken = default);

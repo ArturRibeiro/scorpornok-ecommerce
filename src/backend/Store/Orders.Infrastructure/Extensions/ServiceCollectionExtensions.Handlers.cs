@@ -14,6 +14,9 @@ public static partial class ServiceCollectionExtensions
         services.AddScoped<IRequestHandler<MarkOrderPaymentNotProcessedCommand>, OrderPaymentHandlers>();
         services.AddScoped<IRequestHandler<GetOrderStatusQuery, OrderPaymentState?>, OrderPaymentHandlers>();
         services.AddScoped<IRequestHandler<RetryOrderPaymentCommand, RetryOrderPaymentResult>, RetryOrderPaymentHandler>();
+        // Histórico do cliente: só leitura.
+        services.AddScoped<IRequestHandler<GetCustomerOrdersQuery, CustomerOrderPage>, CustomerOrdersHandler>();
+        services.AddScoped<IRequestHandler<GetCustomerOrderQuery, CustomerOrderDetail?>, CustomerOrdersHandler>();
         return services;
     }
 }

@@ -87,3 +87,18 @@ Detalhes técnicos: `unique-order-number` (arquivada em `openspec/changes/archiv
 **Situação:** em funcionamento.
 
 Detalhes técnicos: `add-customer-profile` (arquivada em `openspec/changes/archive/`).
+
+## 10. Consulta dos pedidos do cliente
+
+**Problema:** a loja registrava os pedidos, mas não deixava o cliente consultá-los. Depois da tela da confirmação, só restava o e-mail com o resultado, e um pedido recusado não podia mais ser pago de novo se o cliente tivesse fechado aquela tela.
+
+**Solução:**
+- A loja passa a responder ao cliente a lista dos seus pedidos, do mais recente para o mais antigo, aos poucos, e o detalhe de cada um.
+- O pedido aparece como foi comprado: os produtos, os preços e o endereço gravados na compra, mesmo que o produto tenha mudado de preço ou saído do catálogo, ou que o cadastro tenha outro endereço.
+- Só o dono vê o pedido. Um pedido de outro cliente recebe a mesma resposta de um número que não existe ("pedido não encontrado"), sem revelar que o número existe.
+- A consulta não devolve CPF, telefone, dados do cartão nem detalhes internos do pagamento ou do envio do e-mail.
+- O detalhe diz se o cliente ainda pode pagar de novo, com a mesma regra das tentativas (item 5).
+
+**Situação:** em funcionamento.
+
+Detalhes técnicos: `add-order-history` (arquivada em `openspec/changes/archive/`).

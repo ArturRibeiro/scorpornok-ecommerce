@@ -1,8 +1,8 @@
-import { ChevronDown, LogOut, UserRound } from "lucide-react";
+import { ChevronDown, LogOut, Package, UserRound } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 
-// Menu da conta no cabeçalho (desktop): o e-mail abre "Meu cadastro" e "Sair".
+// Menu da conta no cabeçalho (desktop): o e-mail abre "Meu cadastro", "Meus pedidos" e "Sair".
 // Fecha com Esc, com um clique fora ou ao escolher uma opção.
 export default function AccountMenu({ email, onLogout }: { email: string | null; onLogout: () => void }) {
   const [open, setOpen] = useState(false);
@@ -50,6 +50,15 @@ export default function AccountMenu({ email, onLogout }: { email: string | null;
           >
             <UserRound className="h-4 w-4" />
             Meu cadastro
+          </Link>
+          <Link
+            role="menuitem"
+            to="/account/orders"
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          >
+            <Package className="h-4 w-4" />
+            Meus pedidos
           </Link>
           <button
             role="menuitem"

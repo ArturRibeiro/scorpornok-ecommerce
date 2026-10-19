@@ -43,6 +43,8 @@ app.UseAuthorization();
 
 app.CreateOrder();
 app.RetryOrderPayment();
+app.GetMyOrders();
+app.GetMyOrder();
 app.MapHub<OrderHub>(OrderHub.Path);
 // live: o processo responde (não executa checks); ready: pode registrar pedidos (banco);
 // bus: conexão com o RabbitMQ, fora do ready porque o outbox segura as mensagens.

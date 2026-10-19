@@ -126,3 +126,92 @@ export async function retryOrderPayment(
   }
   throw new Error(`Orders API respondeu ${response.status} em orders/payment`);
 }
+
+// Histórico do cliente (GET /orders e GET /orders/{orderNumber}): o pedido como foi comprado.
+// status é o nome do status do pedido (Pending, Confirmed, Failed, NotProcessed); o texto
+// para o cliente vem de orderStatus.ts.
+export interface OrderSummary {
+  orderNumber: string;
+  orderDate: string;
+  status: string;
+  total: number;
+  // Soma das quantidades dos itens.
+  itemCount: number;
+  pictureUrl: string | null;
+}
+
+export interface OrderPage {
+  items: OrderSummary[];
+  page: number;
+  pageSize: number;
+  hasMore: boolean;
+}
+
+export interface OrderDetail {
+  orderNumber: string;
+  orderDate: string;
+  status: string;
+  total: number;
+  attempt: number;
+  maxAttempts: number;
+  // Pagamento recusado com tentativas restantes: o cliente pode pagar de novo com outro cartão.
+  canRetryPayment: boolean;
+  address: {
+    street: string;
+    number: string;
+    complement: string | null;
+    district: string;
+    city: string;
+    state: string;
+    zipCode: string;
+  };
+  items: {
+    productId: number;
+    productName: string;
+    pictureUrl: string | null;
+    unitPrice: number;
+    discount: number;
+    quantity: number;
+    subtotal: number;
+  }[];
+}
+
+const authorized = (accessToken: string, signal?: AbortSignal): RequestInit => ({
+  headers: { Accept: "application/json", Authorization: `Bearer ${accessToken}` },
+  signal,
+});
+
+// Pedidos por página em "Meus pedidos".
+export const ORDERS_PAGE_SIZE = 10;
+
+// Uma página dos pedidos do cliente do token, do mais recente para o mais antigo.
+// 401 vira SessionExpiredError; falha de rede e outros status viram exceção.
+export async function getMyOrders(
+  page: number,
+  accessToken: string,
+  signal?: AbortSignal
+): Promise<OrderPage> {
+  const response = await fetch(
+    `${ORDERS_API_URL}/orders?page=${page}&pageSize=${ORDERS_PAGE_SIZE}`,
+    authorized(accessToken, signal)
+  );
+  if (response.status === 401) throw new SessionExpiredError();
+  if (!response.ok) throw new Error(`Orders API respondeu ${response.status} em orders`);
+  return response.json();
+}
+
+// Um pedido do cliente; null no 404 (pedido de outro cliente ou inexistente: a API não distingue).
+export async function getMyOrder(
+  orderNumber: string,
+  accessToken: string,
+  signal?: AbortSignal
+): Promise<OrderDetail | null> {
+  const response = await fetch(
+    `${ORDERS_API_URL}/orders/${encodeURIComponent(orderNumber)}`,
+    authorized(accessToken, signal)
+  );
+  if (response.status === 401) throw new SessionExpiredError();
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error(`Orders API respondeu ${response.status} em orders/{orderNumber}`);
+  return response.json();
+}

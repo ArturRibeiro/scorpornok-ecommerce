@@ -6,15 +6,15 @@ Testes manuais do fluxo do pedido e do pagamento, de ponta a ponta, com o ambien
 
 - Suba tudo: `docker compose up -d --build` (loja em http://localhost:3000, painel do RabbitMQ em http://localhost:15672, guest/guest).
 - Os e-mails saem por um SMTP de verdade (ex.: Gmail): configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_FROM`, `SMTP_USERNAME`, `SMTP_PASSWORD` e `SMTP_USE_STARTTLS=true` no `.env` da raiz. Os e-mails do pedido chegam na caixa de `arturrj@gmail.com` (confira também o spam).
-- Não há `GET` do pedido: confira o status pela tela da loja, pelo e-mail recebido ou na tabela do `orders-db`.
+- Confira o status em "Meus pedidos" na loja (menu da conta), pelo e-mail recebido, pelo `GET /orders/{orderNumber}` ou na tabela do `orders-db`.
 - Anote o número de cada pedido (tela de confirmação da loja ou `orderNumber` da resposta do `POST /createOrder`): os cenários seguintes usam os pedidos pelos apelidos abaixo (P1, P2, ...).
-- As chamadas diretas à API estão em `src/backend/Store/Orders.Web.Api/PaymentRetry.http` (pedido) e `src/backend/Customers/Customers.Web.Api/Customers.Web.Api.http` (cadastro). Os cenários marcados com **API** não dão para fazer pela loja.
+- As chamadas diretas à API estão em `src/backend/Store/Orders.Web.Api/PaymentRetry.http` (nova tentativa), `src/backend/Store/Orders.Web.Api/Orders.Web.Api.http` (pedido e histórico) e `src/backend/Customers/Customers.Web.Api/Customers.Web.Api.http` (cadastro). Os cenários marcados com **API** não dão para fazer pela loja.
 
 ## Dados comuns
 
 ### Contas
 
-Todos os cenários usam a conta A logada na loja. A conta B só entra no cenário 10; cadastre-a pela loja e confirme pelo link no e-mail.
+Todos os cenários usam a conta A logada na loja. A conta B entra nos cenários 10, 17, 22, 23 e 27; cadastre-a pela loja e confirme pelo link no e-mail.
 
 | Conta | E-mail | Senha |
 |---|---|---|
@@ -300,3 +300,47 @@ Tentativa do cliente B:
 
 1. Com o token da conta A, `GET /customers/me` no `Customers.Web.Api.http`; repita com o token da conta B.
 2. **Esperado:** cada conta vê só o próprio cadastro; não há como informar outra conta na rota ou no corpo.
+
+### 23. Meus pedidos
+
+Use a conta A depois dos cenários anteriores (vários pedidos: aprovados, recusados e não processados) e a conta B do cenário 17.
+
+1. Com a conta A, abra "Meus pedidos" no menu da conta.
+2. **Esperado:** os pedidos de A, do mais recente para o mais antigo, cada um com número, data, situação ("Pago", "Pagamento recusado", "Pagamento não processado"), total, quantidade de itens e foto; nenhum pedido de B.
+3. Se houver mais de 10 pedidos, acione "Carregar mais" até o botão sumir.
+4. **Esperado:** todos os pedidos aparecem uma vez só, e o botão some no último bloco.
+5. Abra P1.
+6. **Esperado:** os itens com preço unitário, quantidade e subtotal (sem desconto, que hoje é sempre zero), o total, o endereço de entrega do checkout e a situação "Pago".
+7. Com uma conta nova, sem compras, abra "Meus pedidos".
+8. **Esperado:** "Você ainda não fez nenhuma compra", com o link para a loja.
+
+### 24. Acompanhar o pagamento pelo pedido
+
+1. `docker compose stop payment-api` e finalize uma compra com cartão aprovado (P24).
+2. Na confirmação, acione "Ver meus pedidos" e abra P24.
+3. **Esperado:** "Aguardando pagamento", com o aviso de que a página será atualizada.
+4. `docker compose start payment-api`, sem recarregar a página.
+5. **Esperado:** em alguns segundos, P24 passa a "Pago" sozinho.
+
+### 25. Pagar de novo pelo pedido
+
+1. Finalize uma compra com o cartão recusado do cenário 2 (P25) e saia da tela da confirmação.
+2. Em "Meus pedidos", abra P25.
+3. **Esperado:** "Pagamento recusado", restam 2 tentativas, e o formulário "Tentar com outro cartão".
+4. Informe o cartão aprovado do cenário 1 e confirme.
+5. **Esperado:** P25 volta a "Aguardando pagamento" e passa a "Pago" sem recarregar; e-mail de pagamento aprovado.
+6. Abra um pedido com as 3 tentativas recusadas (cenário 7).
+7. **Esperado:** "Pagamento recusado", sem o formulário, com a orientação de refazer a compra.
+
+### 26. Pedido como foi comprado
+
+1. Com P1 já registrado, altere o endereço em "Meu cadastro" e salve.
+2. Abra P1 em "Meus pedidos".
+3. **Esperado:** o endereço de entrega do pedido continua o do checkout, não o novo do cadastro.
+
+### 27. Pedido de outro cliente
+
+1. Com a conta B, abra `http://localhost:3000/account/orders/{P1}` (pedido de A).
+2. **Esperado:** "Pedido não encontrado", igual a abrir um número que não existe (`/account/orders/A000000000000`).
+3. **API:** com o token de B, `GET /orders/{P1}` no `Orders.Web.Api.http`.
+4. **Esperado:** `404` com `Pedido não encontrado.`; sem token, `401`.

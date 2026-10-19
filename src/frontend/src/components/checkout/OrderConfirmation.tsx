@@ -1,19 +1,12 @@
-import PaymentForm from "@/components/checkout/PaymentForm";
+import RetryPaymentForm from "@/components/orders/RetryPaymentForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
-import {
-  EMPTY_PAYMENT,
-  validatePayment,
-  type CheckoutErrors,
-  type PaymentDetails,
-} from "@/lib/checkout";
 import { watchOrderPayment } from "@/lib/orderHub";
-import { retryOrderPayment, SessionExpiredError, type CreatedOrder } from "@/lib/orders";
-import { tokenizeCard } from "@/lib/payments";
+import { type CreatedOrder } from "@/lib/orders";
 import { formatPrice } from "@/lib/utils";
-import { AlertCircle, CheckCircle2, Clock, Loader2, RotateCcw, XCircle } from "lucide-react";
+import { AlertCircle, CheckCircle2, Clock, Loader2, XCircle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 
@@ -29,9 +22,6 @@ const PAYMENT_ICON: Record<PaymentState, React.ReactNode> = {
   notProcessed: <AlertCircle className="h-16 w-16 text-amber-500 mx-auto" />,
   pending: <Clock className="h-16 w-16 text-muted-foreground mx-auto" />,
 };
-
-const RETRY_ERROR =
-  "Não foi possível enviar a nova tentativa agora. Tente de novo em instantes.";
 
 const paymentView = (
   state: PaymentState,
@@ -152,101 +142,27 @@ export default function OrderConfirmation({
             <dd className="font-semibold">{formatPrice(order.total)}</dd>
           </dl>
           {payment === "declined" && remainingAttempts > 0 ? (
-            <RetryPaymentForm orderNumber={order.orderNumber} onRetried={handleRetried} />
+            <RetryPaymentForm
+              orderNumber={order.orderNumber}
+              onRetried={handleRetried}
+              secondary={
+                <Button variant="outline" asChild>
+                  <Link to="/cart">Voltar ao carrinho</Link>
+                </Button>
+              }
+            />
           ) : (
-            <Button asChild>
-              <Link to="/">Continuar comprando</Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button asChild>
+                <Link to="/">Continuar comprando</Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link to="/account/orders">Ver meus pedidos</Link>
+              </Button>
+            </div>
           )}
         </CardContent>
       </Card>
     </div>
-  );
-}
-
-// Nova tentativa do mesmo pedido com outro cartão: o cartão é tokenizado no Payments e só o token
-// vai ao Orders, como no checkout. O endereço e os itens não mudam.
-function RetryPaymentForm({
-  orderNumber,
-  onRetried,
-}: {
-  orderNumber: string;
-  onRetried: (attempt: number) => void;
-}) {
-  const { expireSession, getAccessToken } = useAuth();
-  const [payment, setPayment] = useState<PaymentDetails>(EMPTY_PAYMENT);
-  const [errors, setErrors] = useState<CheckoutErrors>({});
-  const [submitErrors, setSubmitErrors] = useState<string[]>([]);
-  const [submitting, setSubmitting] = useState(false);
-
-  const updatePayment = (field: keyof PaymentDetails, value: string) => {
-    setPayment((prev) => ({ ...prev, [field]: value }));
-    setErrors((prev) => {
-      const next = { ...prev };
-      delete next[field];
-      return next;
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const found = validatePayment(payment);
-    setErrors(found);
-    if (Object.keys(found).length > 0) return;
-
-    setSubmitting(true);
-    setSubmitErrors([]);
-    try {
-      const token = await getAccessToken();
-      if (!token) throw new SessionExpiredError();
-
-      const tokenized = await tokenizeCard(payment);
-      if (!tokenized.ok) {
-        setErrors(tokenized.errors);
-        return;
-      }
-
-      const result = await retryOrderPayment(
-        orderNumber,
-        { cardToken: tokenized.token.token, installments: Number(payment.installments) },
-        token
-      );
-      if (result.ok) onRetried(result.attempt);
-      else setSubmitErrors(result.errors);
-    } catch (error) {
-      if (error instanceof SessionExpiredError) {
-        await expireSession();
-        return;
-      }
-      setSubmitErrors([RETRY_ERROR]);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  return (
-    <form noValidate onSubmit={handleSubmit} className="space-y-4 text-left">
-      <PaymentForm payment={payment} errors={errors} onChange={updatePayment} />
-      {submitErrors.length > 0 && (
-        <ul role="alert" className="list-disc pl-5 text-sm text-destructive space-y-1">
-          {submitErrors.map((error) => (
-            <li key={error}>{error}</li>
-          ))}
-        </ul>
-      )}
-      <div className="flex flex-col sm:flex-row gap-3 justify-center">
-        <Button type="submit" disabled={submitting}>
-          {submitting ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <RotateCcw className="h-4 w-4" />
-          )}
-          Tentar com outro cartão
-        </Button>
-        <Button variant="outline" asChild>
-          <Link to="/cart">Voltar ao carrinho</Link>
-        </Button>
-      </div>
-    </form>
   );
 }

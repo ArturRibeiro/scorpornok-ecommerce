@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Orders.CommandHandlers.Orders.Imp.CommandHandlers.History;
 using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Payments;
 using Orders.Domain.Order.Orders;
 
@@ -57,5 +58,40 @@ public static class WebApplicationExtensions
             RetryOrderPaymentOutcome.Conflict => Results.Conflict(new { result.Errors }),
             _ => Results.BadRequest(new { result.Errors })
         };
+    }
+
+    // Histórico do cliente do token: os pedidos dele, do mais recente para o mais antigo, em páginas
+    // (pageSize de 1 a 50, padrão 10). 200 com { items, page, pageSize, hasMore }.
+    public static void GetMyOrders(this WebApplication app)
+        => app.MapGet("/orders"
+            , ([FromServices] IMemoryBus bus, ClaimsPrincipal user, int? page, int? pageSize)
+                => GetMyOrdersAsync(bus, user, page, pageSize))
+            .RequireAuthorization(CustomerAuthentication.VerifiedCustomerPolicy);
+
+    public static async Task<IResult> GetMyOrdersAsync(IMemoryBus bus, ClaimsPrincipal user, int? page, int? pageSize)
+    {
+        if (CustomerIdentity.From(user) is not { } customer)
+            return Results.Forbid();
+
+        return Results.Ok(await bus.RequestAsync(new GetCustomerOrdersQuery(customer.CustomerId, page ?? 1,
+            pageSize ?? CustomerOrdersHandler.DefaultPageSize)));
+    }
+
+    // Um pedido do histórico, como foi comprado. 404 para pedido inexistente ou de outro cliente, com a
+    // mesma mensagem da nova tentativa: não revela que o número existe.
+    public static void GetMyOrder(this WebApplication app)
+        => app.MapGet("/orders/{orderNumber}"
+            , ([FromServices] IMemoryBus bus, string orderNumber, ClaimsPrincipal user)
+                => GetMyOrderAsync(bus, orderNumber, user))
+            .RequireAuthorization(CustomerAuthentication.VerifiedCustomerPolicy);
+
+    public static async Task<IResult> GetMyOrderAsync(IMemoryBus bus, string orderNumber, ClaimsPrincipal user)
+    {
+        if (CustomerIdentity.From(user) is not { } customer)
+            return Results.Forbid();
+
+        return await bus.RequestAsync(new GetCustomerOrderQuery(customer.CustomerId, orderNumber)) is { } order
+            ? Results.Ok(order)
+            : Results.NotFound(new { Errors = RetryOrderPaymentResult.NotFound.Errors });
     }
 }

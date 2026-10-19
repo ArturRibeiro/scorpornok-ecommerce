@@ -20,6 +20,7 @@ Descrevem o que a loja faz hoje, do ponto de vista de quem a usa. As regras deta
 | [Login-UC07](Login-UC07-fazer-login.md) | Fazer login | Visitante |
 | [Login-UC08](Login-UC08-esqueci-minha-senha.md) | Esqueci minha senha | Visitante |
 | [Login-UC09](Login-UC09-sair.md) | Sair | Cliente |
+| [Login-UC10](Login-UC10-consultar-pedidos.md) | Consultar meus pedidos | Cliente |
 
 **Visitante** é quem navega sem sessão; **cliente** é quem entrou com uma conta de e-mail confirmado. O cadastro, o login e a senha ficam no Keycloak, que a loja abre num modal sem sair da página.
 
@@ -47,7 +48,6 @@ Itens que aparecem na loja sem comportamento de verdade, ou que ainda não exist
 - **Busca** no cabeçalho: o campo existe, mas não pesquisa.
 - **Lista de desejos** ("Adicionar aos favoritos"): só alterna o ícone; nada é guardado.
 - **Contato:** o formulário simula o envio; nenhuma mensagem é entregue.
-- **Histórico de pedidos:** o cliente não consulta os pedidos anteriores; o resultado chega na tela do checkout e por e-mail.
 - **Cancelamento, devolução e reembolso.**
 - **Estoque, frete, impostos e descontos.**
 - **Pagamento real:** o serviço de pagamentos é simulado (veja o UC04).

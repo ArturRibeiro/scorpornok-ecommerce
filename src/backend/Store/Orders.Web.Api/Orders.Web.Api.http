@@ -7,6 +7,8 @@
 # Token do cartão: gere no Payments.Web.Api.http (POST /card-tokens). Vale 24 h e uma cobrança;
 # o cartão (número e CVV) nunca é enviado ao Orders.
 @cardToken = cole-o-token-do-cartao-aqui
+# Número de um pedido seu (orderNumber da resposta do POST /createOrder).
+@orderNumber = cole-o-numero-do-pedido-aqui
 
 ### Sem token: 401
 POST {{Orders.Web.Api_HostAddress}}/createOrder
@@ -93,5 +95,21 @@ Authorization: Bearer {{token}}
   "cardToken": "{{cardToken}}",
   "installments": 1
 }
+
+###
+
+### Meus pedidos: os pedidos do cliente do token, do mais recente para o mais antigo. 200 com
+### { items, page, pageSize, hasMore }; pageSize de 1 a 50 (padrão 10); 401 sem token.
+GET {{Orders.Web.Api_HostAddress}}/orders?page=1&pageSize=10
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### Um pedido do histórico, como foi comprado: itens, endereço, situação e se pode pagar de novo
+### (canRetryPayment). 404 "Pedido não encontrado." para pedido de outro cliente ou inexistente.
+GET {{Orders.Web.Api_HostAddress}}/orders/{{orderNumber}}
+Accept: application/json
+Authorization: Bearer {{token}}
 
 ###

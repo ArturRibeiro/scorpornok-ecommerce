@@ -15,6 +15,24 @@
         public Task<Order?> GetByNumberAsync(string orderNumber, CancellationToken cancellationToken = default)
             => _context.Orders.FirstOrDefaultAsync(o => o.OrderNumber == orderNumber, cancellationToken);
 
+        // O dono entra no filtro da consulta: um pedido de outro cliente nem chega a ser lido.
+        // Id desc desempata pedidos da mesma data, para a paginação não repetir nem pular nenhum.
+        public async Task<IReadOnlyList<Order>> GetCustomerOrdersAsync(Guid customerId, int skip, int take,
+            CancellationToken cancellationToken = default)
+            => await CustomerOrders(customerId)
+                .OrderByDescending(o => o.OrderDate)
+                .ThenByDescending(o => o.Id)
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync(cancellationToken);
+
+        public Task<Order?> GetCustomerOrderAsync(Guid customerId, string orderNumber,
+            CancellationToken cancellationToken = default)
+            => CustomerOrders(customerId).FirstOrDefaultAsync(o => o.OrderNumber == orderNumber, cancellationToken);
+
+        private IQueryable<Order> CustomerOrders(Guid customerId)
+            => _context.Orders.AsNoTracking().Include(o => o.Items).Where(o => o.CustomerId == customerId);
+
         public async Task<IReadOnlyList<Order>> GetAwaitingPaymentEmailAsync(DateTime now, int limit,
             CancellationToken cancellationToken = default)
             // Mesmo critério de Order.IsAwaitingPaymentEmailAt, escrito para o EF traduzir em SQL. Os que

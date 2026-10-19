@@ -31,6 +31,10 @@
                 .HasColumnName("Date")
                 .IsRequired();
 
+            // Histórico do cliente (add-order-history): pedidos de um cliente, do mais recente ao mais antigo.
+            // Sem migrations, só entra em banco novo; num orders_data antigo as consultas funcionam sem ele.
+            builder.HasIndex(x => new { x.CustomerId, x.OrderDate });
+
             builder.Property(x => x.Total)
                 .HasColumnName("Total")
                 .IsRequired();

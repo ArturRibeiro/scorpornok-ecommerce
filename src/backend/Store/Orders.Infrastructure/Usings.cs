@@ -18,6 +18,7 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Orders.CommandHandlers.Orders.Imp.CommandHandlers;
 global using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Create;
 global using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Payments;
+global using Orders.CommandHandlers.Orders.Imp.CommandHandlers.History;
 global using Orders.Domain.Order.Orders;
 global using Orders.Infrastructure.Catalog;
 global using Orders.Infrastructure.Consumers;

@@ -9,6 +9,8 @@ import CheckoutPage from "@/pages/CheckoutPage";
 import ContactPage from "@/pages/ContactPage";
 import HomePage from "@/pages/HomePage";
 import NotFoundPage from "@/pages/NotFoundPage";
+import OrderDetailPage from "@/pages/OrderDetailPage";
+import OrdersPage from "@/pages/OrdersPage";
 import ProductPage from "@/pages/ProductPage";
 import ProfilePage from "@/pages/ProfilePage";
 import { Route, Routes } from "react-router";
@@ -26,6 +28,8 @@ export default function App() {
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/account/profile" element={<ProfilePage />} />
+            <Route path="/account/orders" element={<OrdersPage />} />
+            <Route path="/account/orders/:orderNumber" element={<OrderDetailPage />} />
             <Route path={AUTH_CALLBACK_PATH} element={<AuthCallbackPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
