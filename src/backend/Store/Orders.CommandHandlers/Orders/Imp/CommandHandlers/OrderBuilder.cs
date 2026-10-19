@@ -14,9 +14,10 @@ public class OrderBuilder
         return new OrderBuilder(order);
     }
 
-    public OrderBuilder AddAddress(string? street, string? city, string? state, string? country, string? zipCode)
+    public OrderBuilder AddAddress(string? street, string? number, string? complement, string? district, string? city,
+        string? state, string? zipCode)
     {
-        _address = OrderAddress.Factory.Create(street, city, state, country, zipCode);
+        _address = OrderAddress.Factory.Create(street, number, complement, district, city, state, zipCode);
         return this;
     }
     

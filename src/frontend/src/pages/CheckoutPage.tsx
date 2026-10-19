@@ -1,4 +1,5 @@
 import AccountEmail from "@/components/checkout/AccountEmail";
+import BuyerForm from "@/components/checkout/BuyerForm";
 import CheckoutItems from "@/components/checkout/CheckoutItems";
 import CheckoutSummary from "@/components/checkout/CheckoutSummary";
 import OrderConfirmation from "@/components/checkout/OrderConfirmation";
@@ -9,14 +10,20 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 import { useCart, type CartItem } from "@/context/CartContext";
 import {
+  addressFromProfile,
+  buyerFromProfile,
   EMPTY_ADDRESS,
+  EMPTY_BUYER,
   EMPTY_PAYMENT,
+  fillEmpty,
   validateCheckout,
+  type BuyerDetails,
   type CheckoutErrors,
   type CheckoutField,
   type PaymentDetails,
   type ShippingAddress,
 } from "@/lib/checkout";
+import { getProfile } from "@/lib/customers";
 import { tokenizeCard } from "@/lib/payments";
 import {
   createOrder,
@@ -25,7 +32,7 @@ import {
   type CreateOrderRequest,
 } from "@/lib/orders";
 import { ArrowLeft } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import { Link, Navigate } from "react-router";
 
 const NETWORK_ERROR =
@@ -38,11 +45,13 @@ class CardServiceError extends Error {}
 
 const toRequest = (
   cart: CartItem[],
+  buyer: BuyerDetails,
   address: ShippingAddress,
   cardToken: string,
   installments: string
 ): CreateOrderRequest => ({
   address,
+  customer: buyer,
   items: cart.map((item) => ({
     productId: item.id,
     productName: item.name,
@@ -56,7 +65,8 @@ const toRequest = (
 
 export default function CheckoutPage() {
   const { cart } = useCart();
-  const { email, expireSession, getAccessToken } = useAuth();
+  const { user, email, expireSession, getAccessToken } = useAuth();
+  const [buyer, setBuyer] = useState(EMPTY_BUYER);
   const [address, setAddress] = useState(EMPTY_ADDRESS);
   const [payment, setPayment] = useState(EMPTY_PAYMENT);
   const [errors, setErrors] = useState<CheckoutErrors>({});
@@ -64,6 +74,28 @@ export default function CheckoutPage() {
   const [submitting, setSubmitting] = useState(false);
   // Guarda o e-mail com o pedido: é para ele que o resultado foi enviado.
   const [placed, setPlaced] = useState<{ order: CreatedOrder; email: string } | null>(null);
+
+  // Com sessão, preenche comprador e endereço com o cadastro, só nos campos ainda vazios. O que o
+  // cliente mudar vale só para este pedido. Sem cadastro ou com o Customers fora, os campos ficam
+  // em branco e o checkout segue normal.
+  const loadProfile = useEffectEvent(async (signal: AbortSignal) => {
+    const token = await getAccessToken();
+    return token ? getProfile(token, signal) : null;
+  });
+  const userId = user?.profile.sub;
+  useEffect(() => {
+    if (!userId) return;
+    const controller = new AbortController();
+    loadProfile(controller.signal).then(
+      (profile) => {
+        if (!profile || controller.signal.aborted) return;
+        if (profile.fullName) setBuyer((prev) => fillEmpty(prev, buyerFromProfile(profile)));
+        if (profile.address) setAddress((prev) => fillEmpty(prev, addressFromProfile(profile.address)));
+      },
+      () => {}
+    );
+    return () => controller.abort();
+  }, [userId]);
 
   // Vem antes do redirecionamento: a confirmação esvazia o carrinho na aprovação (ou no pendente).
   if (placed) {
@@ -84,6 +116,11 @@ export default function CheckoutPage() {
       return next;
     });
 
+  const updateBuyer = (field: keyof BuyerDetails, value: string) => {
+    setBuyer((prev) => ({ ...prev, [field]: value }));
+    clearError(field);
+  };
+
   const updateAddress = (field: keyof ShippingAddress, value: string) => {
     setAddress((prev) => ({ ...prev, [field]: value }));
     clearError(field);
@@ -97,7 +134,7 @@ export default function CheckoutPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const found = validateCheckout(address, payment);
+    const found = validateCheckout(buyer, address, payment);
     setErrors(found);
     if (Object.keys(found).length > 0) return;
 
@@ -119,7 +156,7 @@ export default function CheckoutPage() {
       }
 
       const result = await createOrder(
-        toRequest(cart, address, tokenized.token.token, payment.installments),
+        toRequest(cart, buyer, address, tokenized.token.token, payment.installments),
         token
       );
       if (result.ok) {
@@ -167,6 +204,7 @@ export default function CheckoutPage() {
           <div className="lg:col-span-2 space-y-6">
             <CheckoutItems items={cart} />
             {email && <AccountEmail email={email} />}
+            <BuyerForm title="Comprador" buyer={buyer} errors={errors} onChange={updateBuyer} />
             <ShippingAddressForm
               address={address}
               errors={errors}

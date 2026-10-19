@@ -23,14 +23,15 @@ O backend fica em `src/backend/` e é dividido em contextos. Cada um é dividido
 | **Catalog** | Lado de leitura: lista e detalha os produtos |
 | **Orders** | Lado de escrita: registra o pedido do cliente autenticado, acompanha o pagamento e envia o resultado por e-mail e pela loja (SignalR) |
 | **Payments** | Recebe a solicitação de pagamento pelo RabbitMQ, decide, grava e devolve o resultado (o gateway é um stub) |
+| **Customers** | Cadastro do cliente (nome, telefone, CPF e endereço), criado na primeira compra, e o histórico dos endereços de entrega dos pedidos |
 | **Shared / Frameworker** | Blocos de DDD/CQRS, contratos de integração, paginação, tipos funcionais e bases de teste |
 
-O front-end (`src/frontend/`) é a loja: catálogo, carrinho, login e cadastro pelo Keycloak e checkout.
+O front-end (`src/frontend/`) é a loja: catálogo, carrinho, login e cadastro pelo Keycloak, "Meu cadastro" e checkout.
 
 ### Fluxo de um pedido
 
-1. O cliente entra pela loja (Keycloak) e confirma o pedido no checkout.
-2. O Orders grava o pedido como `Pending` e, na mesma transação, a mensagem `PaymentRequested` (outbox). A resposta não depende do broker.
+1. O cliente entra pela loja (Keycloak) e confirma o pedido no checkout, com os dados de quem compra e o endereço de entrega (preenchidos pelo cadastro, se houver).
+2. O Orders grava o pedido como `Pending` e, na mesma transação, as mensagens `PaymentRequested` e `OrderPlaced` (outbox). A resposta não depende do broker. O Customers consome o `OrderPlaced`: guarda o endereço no histórico e, na primeira compra, cria o cadastro.
 3. O Payments consome a mensagem, cobra no gateway e publica `PaymentApproved` ou `PaymentRejected`.
 4. O Orders passa o pedido para `Confirmed` ou `Failed`, avisa a loja pelo SignalR e envia o resultado por e-mail.
 
@@ -90,7 +91,7 @@ Fonte editável: [`docs/diagrams/fluxo-pagamento.drawio`](docs/diagrams/fluxo-pa
 docker compose up -d --build
 ```
 
-Isso sobe as três APIs, os bancos, o RabbitMQ, o Mailpit, o Keycloak e a loja. Na primeira vez, o Keycloak leva alguns segundos para importar o realm.
+Isso sobe as quatro APIs, os bancos, o RabbitMQ, o Mailpit, o Keycloak e a loja. Na primeira vez, o Keycloak leva alguns segundos para importar o realm.
 
 | Serviço | Endereço |
 |---|---|
@@ -98,6 +99,7 @@ Isso sobe as três APIs, os bancos, o RabbitMQ, o Mailpit, o Keycloak e a loja. 
 | Catalog API (Swagger) | http://localhost:5064/swagger |
 | Orders API (Swagger) | http://localhost:5224/swagger |
 | Payments API (Swagger) | http://localhost:5220/swagger |
+| Customers API (Swagger) | http://localhost:5230/swagger |
 | Keycloak (console: `admin`/`admin`) | http://localhost:8080 |
 | Mailpit (caixa de entrada de desenvolvimento) | http://localhost:8025 |
 | RabbitMQ (painel: `guest`/`guest`) | http://localhost:15672 |
@@ -117,6 +119,7 @@ docker compose -f docker-compose.identity.yml up -d     # Keycloak
 dotnet run --project src/backend/Catalog/Catalog.Web.Api
 dotnet run --project src/backend/Store/Orders.Web.Api
 dotnet run --project src/backend/Payments/Payments.Web.Api
+dotnet run --project src/backend/Customers/Customers.Web.Api
 ```
 
 O front-end tem as instruções próprias em `src/frontend/` (`npm install` e `npm run dev`).
@@ -159,5 +162,6 @@ Cada API tem dois endpoints que informam se ela está funcionando:
 | Catalog | 5064 | Banco de produtos |
 | Orders | 5224 | Banco de pedidos |
 | Payments | 5220 | Banco de pagamentos e RabbitMQ |
+| Customers | 5230 | Banco de cadastros |
 
-O Orders tem também o `/health/bus`, que verifica o RabbitMQ. Ele fica fora do `/health/ready` porque o registro de pedidos não depende do broker: com o RabbitMQ fora, o pedido é aceito e a solicitação de pagamento sai quando ele volta.
+O Orders tem também o `/health/bus`, que verifica o RabbitMQ. Ele fica fora do `/health/ready` porque o registro de pedidos não depende do broker: com o RabbitMQ fora, o pedido é aceito e a solicitação de pagamento sai quando ele volta. O Customers tem o mesmo `/health/bus`, fora do `/health/ready`: o cadastro funciona sem o broker.

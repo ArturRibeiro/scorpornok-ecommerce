@@ -3,8 +3,9 @@ namespace Orders.Tests.Domain;
 [TestFixture]
 public class OrderValidationTests
 {
-    private static OrderAddress ValidAddress(string city = "São Paulo")
-        => OrderAddress.Factory.Create("Rua A, 10", city, "SP", "Brasil", "01000-000");
+    private static OrderAddress ValidAddress(string city = "São Paulo", string state = "SP", string zipCode = "01000-000",
+        string? number = "10")
+        => OrderAddress.Factory.Create("Rua A", number, null, "Centro", city, state, zipCode);
 
     private static OrderItem Item(int quantity = 1, decimal unitPrice = 10m)
         => OrderItem.Create(42, "Produto", unitPrice, 0m, "http://img", quantity);
@@ -77,5 +78,43 @@ public class OrderValidationTests
 
         order.IsValid().Should().BeTrue();
         order.Email.Should().Be("cliente@exemplo.com");
+    }
+
+    [Test]
+    public void Endereco_e_sempre_no_Brasil_com_UF_e_CEP_normalizados()
+    {
+        var address = ValidAddress(state: "sp", zipCode: "01000-000");
+
+        address.Country.Should().Be("Brasil");
+        address.State.Should().Be("SP");
+        address.ZipCode.Should().Be("01000000");
+        address.IsValid().Should().BeTrue();
+    }
+
+    [Test]
+    public void Uf_invalida_deve_invalidar_o_pedido()
+    {
+        var order = CreateOrder(ValidAddress(state: "XX"), Item());
+
+        order.IsValid().Should().BeFalse();
+        order.Errors.Should().Contain("UF inválida.");
+    }
+
+    [Test]
+    public void Cep_invalido_deve_invalidar_o_pedido()
+    {
+        var order = CreateOrder(ValidAddress(zipCode: "1234-567"), Item());
+
+        order.IsValid().Should().BeFalse();
+        order.Errors.Should().Contain("CEP inválido: informe 8 dígitos.");
+    }
+
+    [Test]
+    public void Endereco_sem_numero_deve_invalidar_o_pedido()
+    {
+        var order = CreateOrder(ValidAddress(number: null), Item());
+
+        order.IsValid().Should().BeFalse();
+        order.Errors.Should().Contain("Informe o número.");
     }
 }

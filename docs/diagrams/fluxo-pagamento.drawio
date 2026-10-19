@@ -52,7 +52,7 @@
                 <mxCell id="falha" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Exceção" vertex="1">
                     <mxGeometry height="40" width="100" x="560" y="452" as="geometry"/>
                 </mxCell>
-                <mxCell id="repetir" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Repetir a mensagem&lt;br&gt;&lt;i&gt;(até 3 vezes, 1 s entre elas)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;MassTransit&lt;/font&gt;" vertex="1">
+                <mxCell id="repetir" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Repetir a mensagem&lt;br&gt;&lt;i&gt;(por cerca de 5 min, pausas de 3 s a 2 min)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;MassTransit&lt;/font&gt;" vertex="1">
                     <mxGeometry height="70" width="180" x="700" y="437" as="geometry"/>
                 </mxCell>
                 <mxCell id="certo" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Deu certo?" vertex="1">
@@ -61,7 +61,7 @@
                 <mxCell id="segue" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Segue o fluxo normal" vertex="1">
                     <mxGeometry height="60" width="150" x="1080" y="442" as="geometry"/>
                 </mxCell>
-                <mxCell id="fila-erro" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Mensagem vai para a fila payment-requested_error&lt;br&gt;&lt;i&gt;(ninguém reprocessa)&lt;/i&gt;" vertex="1">
+                <mxCell id="fila-erro" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Mensagem vai para a fila payment-requested_error&lt;br&gt;&lt;i&gt;(acusada no /health/ops; runbook de filas de erro)&lt;/i&gt;" vertex="1">
                     <mxGeometry height="70" width="170" x="895" y="562" as="geometry"/>
                 </mxCell>
                 <mxCell id="e-inicio-receber" edge="1" parent="1" source="inicio" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="receber" value="">

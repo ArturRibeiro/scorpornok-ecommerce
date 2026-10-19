@@ -10,6 +10,7 @@ import ContactPage from "@/pages/ContactPage";
 import HomePage from "@/pages/HomePage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import ProductPage from "@/pages/ProductPage";
+import ProfilePage from "@/pages/ProfilePage";
 import { Route, Routes } from "react-router";
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/account/profile" element={<ProfilePage />} />
             <Route path={AUTH_CALLBACK_PATH} element={<AuthCallbackPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

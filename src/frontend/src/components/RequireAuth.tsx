@@ -6,7 +6,14 @@ import { useEffect, useRef } from "react";
 // Mostra o conteúdo só com sessão; sem ela, abre o login no modal, sobre a mesma
 // página (o carrinho continua no localStorage). Fechando o modal, o cliente pode
 // abri-lo de novo por aqui.
-export default function RequireAuth({ children }: { children: React.ReactNode }) {
+export default function RequireAuth({
+  children,
+  message = "Você precisa de uma conta para finalizar a compra. Seu carrinho está salvo.",
+}: {
+  children: React.ReactNode;
+  // Por que a página pede login, mostrado se o cliente fechar o modal.
+  message?: string;
+}) {
   const { user, loading, login, register } = useAuth();
   // O StrictMode roda o efeito duas vezes em dev; abrir uma vez basta.
   const opened = useRef(false);
@@ -22,9 +29,7 @@ export default function RequireAuth({ children }: { children: React.ReactNode })
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
       <h1 className="text-2xl font-bold text-foreground mb-2">Entre para continuar</h1>
-      <p className="text-muted-foreground mb-6">
-        Você precisa de uma conta para finalizar a compra. Seu carrinho está salvo.
-      </p>
+      <p className="text-muted-foreground mb-6">{message}</p>
       <div className="flex justify-center gap-3">
         <Button onClick={login}>Entrar</Button>
         <Button variant="outline" onClick={register}>

@@ -74,3 +74,16 @@ Detalhes técnicos: `use-catalog-price-in-orders` (arquivada em `openspec/change
 **Situação:** em funcionamento.
 
 Detalhes técnicos: `unique-order-number` (arquivada em `openspec/changes/archive/`).
+
+## 9. Dados de quem compra e endereço completo
+
+**Problema:** o pedido não sabia quem estava comprando além do e-mail da conta, e o endereço de entrega era um texto livre (rua, cidade, estado, país), sem número, bairro ou conferência do CEP e do estado.
+
+**Solução:**
+- O pedido exige nome completo, telefone e CPF de quem compra, conferidos com as mesmas regras do cadastro. Um pedido com CPF ou telefone inválido é recusado com uma mensagem clara, sem registrar nem cobrar nada. Esses dados não ficam guardados no pedido: seguem só para o cadastro do cliente (veja [Cadastro do cliente](customers.md)).
+- O endereço de entrega passa a ter rua, número, complemento (opcional), bairro, cidade, estado e CEP, sempre no Brasil, e acompanha o pedido. Ele pode ser diferente do endereço do cadastro.
+- Ao registrar o pedido, a loja avisa o cadastro do cliente, junto com o registro do pedido: ou os dois acontecem, ou nenhum. Se o cadastro estiver fora do ar, o aviso espera, e o pedido segue normalmente.
+
+**Situação:** em funcionamento.
+
+Detalhes técnicos: `add-customer-profile` (arquivada em `openspec/changes/archive/`).

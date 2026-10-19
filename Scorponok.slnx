@@ -24,6 +24,13 @@
     <Project Path="src/backend/Payments/Payments.Domain/Payments.Domain.csproj" />
     <Project Path="src/backend/Payments/Payments.Web.Api/Payments.Web.Api.csproj" />
   </Folder>
+  <Folder Name="/backend/6 - Customers/">
+    <Project Path="src/backend/Customers/Customers.CommandHandlers/Customers.CommandHandlers.csproj" />
+    <Project Path="src/backend/Customers/Customers.Domain/Customers.Domain.csproj" />
+    <Project Path="src/backend/Customers/Customers.Infrastructure/Customers.Infrastructure.csproj" />
+    <Project Path="src/backend/Customers/Customers.Tests/Customers.Tests.csproj" />
+    <Project Path="src/backend/Customers/Customers.Web.Api/Customers.Web.Api.csproj" />
+  </Folder>
   <Folder Name="/backend/4 - Shared/">
     <Project Path="src/backend/Frameworker/Frameworker.EntityFrameworkCore/Frameworker.EntityFrameworkCore.csproj" />
     <Project Path="src/backend/Frameworker/Frameworker.Integration.Tests/Frameworker.Integration.Tests.csproj" />

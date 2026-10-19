@@ -8,12 +8,21 @@ export const ORDERS_API_URL =
 // resultado do pagamento) não vão no corpo: o Orders os lê do token. O cartão também
 // não: vai só o token gerado pelo Payments (tokenizeCard, em payments.ts).
 export interface CreateOrderRequest {
+  // Sempre no Brasil: o Orders fixa o país.
   address: {
     street: string;
+    number: string;
+    complement: string;
+    district: string;
     city: string;
     state: string;
-    country: string;
     zipCode: string;
+  };
+  // Comprador obrigatório; não fica no pedido, segue para o Customers.
+  customer: {
+    fullName: string;
+    phone: string;
+    cpf: string;
   };
   items: {
     productId: number;

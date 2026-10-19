@@ -2,7 +2,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 // O e-mail da conta, para onde o Orders envia o resultado do pagamento. Não é
 // editável: vem do token do Keycloak.
-export default function AccountEmail({ email }: { email: string }) {
+export default function AccountEmail({
+  email,
+  description = "Vamos enviar o resultado do pagamento para este e-mail.",
+}: {
+  email: string;
+  description?: string;
+}) {
   return (
     <Card>
       <CardHeader>
@@ -12,9 +18,7 @@ export default function AccountEmail({ email }: { email: string }) {
         <p className="text-sm font-medium text-foreground" data-testid="account-email">
           {email}
         </p>
-        <p className="text-xs text-muted-foreground">
-          Vamos enviar o resultado do pagamento para este e-mail.
-        </p>
+        <p className="text-xs text-muted-foreground">{description}</p>
       </CardContent>
     </Card>
   );

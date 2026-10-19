@@ -15,7 +15,9 @@ Content-Type: application/json
 {}
 
 ### Pedido válido: 201 com orderNumber, status e total. O cliente e o e-mail do pedido
-### vêm do token (o resultado do pagamento vai para o e-mail da conta), não do corpo.
+### vêm do token (o resultado do pagamento vai para o e-mail da conta), não do corpo. O endereço
+### é sempre no Brasil (complemento opcional); o comprador (customer) é obrigatório, não fica no
+### pedido e segue para o Customers no OrderPlaced.
 POST {{Orders.Web.Api_HostAddress}}/createOrder
 Content-Type: application/json
 Accept: application/json
@@ -23,11 +25,18 @@ Authorization: Bearer {{token}}
 
 {
   "address": {
-    "street": "Rua das Flores, 100",
+    "street": "Rua das Flores",
+    "number": "100",
+    "complement": "Apto 12",
+    "district": "Centro",
     "city": "São Paulo",
     "state": "SP",
-    "country": "Brasil",
     "zipCode": "01000-000"
+  },
+  "customer": {
+    "fullName": "Maria Souza",
+    "phone": "(11) 99999-8888",
+    "cpf": "529.982.247-25"
   },
   "items": [
     { "productId": 1, "productName": "Produto 1", "pictureUrl": "https://picsum.photos/200", "unitPrice": 10.00, "discount": 0, "units": 2 },
@@ -39,7 +48,7 @@ Authorization: Bearer {{token}}
   }
 }
 
-### Pedido inválido (sem cidade e sem itens): 400 com errors
+### Pedido inválido (sem cidade, CPF inválido e sem itens): 400 com errors
 POST {{Orders.Web.Api_HostAddress}}/createOrder
 Content-Type: application/json
 Accept: application/json
@@ -47,11 +56,17 @@ Authorization: Bearer {{token}}
 
 {
   "address": {
-    "street": "Rua das Flores, 100",
+    "street": "Rua das Flores",
+    "number": "100",
+    "district": "Centro",
     "city": "",
     "state": "SP",
-    "country": "Brasil",
     "zipCode": "01000-000"
+  },
+  "customer": {
+    "fullName": "Maria Souza",
+    "phone": "(11) 99999-8888",
+    "cpf": "111.111.111-11"
   },
   "items": [],
   "payment": {

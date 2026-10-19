@@ -1,13 +1,14 @@
 # Runbook: mensagens nas filas de erro
 
-Quando um consumidor esgota as retentativas (cerca de 5 minutos, veja o `TransientRetry`), o MassTransit move a mensagem para a fila `<fila>_error`, que ninguém lê. O `/health/ops` do Orders e do Payments acusa isso com `503` e cita a fila e a quantidade.
+Quando um consumidor esgota as retentativas (cerca de 5 minutos, veja o `TransientRetry`), o MassTransit move a mensagem para a fila `<fila>_error`, que ninguém lê. O `/health/ops` do Orders e do Payments acusa isso com `503` e cita a fila e a quantidade. O Customers não tem `/health/ops`: a fila `order-placed_error` deve ser olhada no painel do RabbitMQ.
 
 | API | `/health/ops` | Filas de erro verificadas |
 |---|---|---|
 | Orders | http://localhost:5224/health/ops | `payment-approved_error`, `payment-rejected_error`, `payment-not-processed_error`, `payment-status-pending_error` (e pedidos presos) |
 | Payments | http://localhost:5220/health/ops | `payment-requested_error`, `payment-status-requested_error` |
+| Customers | (sem `/health/ops`; painel do RabbitMQ) | `order-placed_error` |
 
-Mesmo sem ninguém mexer na fila de erro, o pedido não fica preso para sempre: depois do prazo (`PaymentCheck:TimeoutMinutes`), o Orders consulta o Payments, que republica o resultado registrado ou anula o pedido sem cobrar. O runbook serve para limpar a fila de erro e entender a causa.
+Mesmo sem ninguém mexer na fila de erro, o pedido não fica preso para sempre: depois do prazo (`PaymentCheck:TimeoutMinutes`), o Orders consulta o Payments, que republica o resultado registrado ou anula o pedido sem cobrar. O runbook serve para limpar a fila de erro e entender a causa. A exceção é a `order-placed_error`: nada a reprocessa sozinho, e o endereço do pedido (e o cadastro, na primeira compra) só chega ao Customers quando a mensagem volta para a fila `order-placed`.
 
 ## 1. Entender a causa
 
@@ -22,7 +23,8 @@ Mesmo sem ninguém mexer na fila de erro, o pedido não fica preso para sempre: 
 
 É seguro reprocessar:
 - o Payments não cobra de novo uma tentativa já registrada (chave de idempotência `{pedido}-{tentativa}`);
-- o Orders ignora resultado para pedido que já tem desfecho (confirmado, recusado ou não processado).
+- o Orders ignora resultado para pedido que já tem desfecho (confirmado, recusado ou não processado);
+- o Customers ignora pedido já registrado no histórico (número do pedido único) e nunca altera um cadastro existente.
 
 **Opção A: script, sem plugin** (a imagem do compose não traz o shovel habilitado):
 

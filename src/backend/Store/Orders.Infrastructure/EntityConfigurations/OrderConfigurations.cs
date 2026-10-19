@@ -38,6 +38,10 @@
             builder.OwnsOne(o => o.Address, r =>
             {
                 r.Property(p => p.Street).HasColumnName("AddressStreet");
+                // Formato do cadastro (add-customer-profile): colunas novas exigem recriar o orders_data.
+                r.Property(p => p.Number).HasColumnName("AddressNumber");
+                r.Property(p => p.Complement).HasColumnName("AddressComplement");
+                r.Property(p => p.District).HasColumnName("AddressDistrict");
                 r.Property(p => p.City).HasColumnName("AddressCity");
                 r.Property(p => p.State).HasColumnName("AddressState");
                 r.Property(p => p.Country).HasColumnName("AddressCountry");

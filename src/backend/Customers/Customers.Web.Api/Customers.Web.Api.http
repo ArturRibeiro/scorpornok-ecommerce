@@ -1,0 +1,57 @@
+@Customers.Web.Api_HostAddress = http://localhost:5230
+# Access token do Keycloak (vale 5 min), com o audience customers-api. Entre na loja
+# (http://localhost:3000) com uma conta confirmada e copie o access_token da chave
+# "oidc.user:http://localhost:8080/realms/scorponok:scorponok-web" do localStorage
+# (DevTools → Application → Local Storage).
+@token = cole-o-access-token-aqui
+
+### Sem token: 401
+GET {{Customers.Web.Api_HostAddress}}/customers/me
+
+### Cadastro do cliente do token: 200. Sem cadastro salvo, só o e-mail e o resto null.
+GET {{Customers.Web.Api_HostAddress}}/customers/me
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Salvar (cria ou substitui): 200 com o cadastro. Pontuação aceita; telefone, CPF e CEP
+### voltam só com dígitos. O complemento é o único campo opcional.
+PUT {{Customers.Web.Api_HostAddress}}/customers/me
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "fullName": "Maria Souza",
+  "phone": "(21) 99999-8888",
+  "cpf": "529.982.247-25",
+  "address": {
+    "street": "Rua das Flores",
+    "number": "100",
+    "complement": "Apto 12",
+    "district": "Centro",
+    "city": "Rio de Janeiro",
+    "state": "RJ",
+    "zipCode": "20040-020"
+  }
+}
+
+### Inválido (CPF e endereço incompleto): 400 com { errors: { "cpf": [...], "address.number": [...] } }
+PUT {{Customers.Web.Api_HostAddress}}/customers/me
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "fullName": "Maria Souza",
+  "phone": "(21) 99999-8888",
+  "cpf": "111.111.111-11",
+  "address": {
+    "street": "Rua das Flores",
+    "zipCode": "20040-020"
+  }
+}
+
+### Saúde: live (processo), ready (banco) e bus (RabbitMQ, 503 sem o broker)
+GET {{Customers.Web.Api_HostAddress}}/health/ready
+
+###

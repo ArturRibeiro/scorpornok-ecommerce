@@ -1,87 +1,18 @@
-﻿namespace Orders.Infrastructure.Extensions;
+namespace Orders.Infrastructure.Extensions;
 
-public static class ServiceCollectionExtensions
+// Registro da infraestrutura do Orders, um arquivo por contexto (ServiceCollectionExtensions.<Contexto>.cs).
+public static partial class ServiceCollectionExtensions
 {
     public static void AddInfrastructure(this IServiceCollection services, string connectionString,
         IConfiguration configuration)
     {
-        services.AddMediatR(x => x.RegisterServicesFromAssembly(typeof(ServiceCollectionExtensions).Assembly));
-        services.AddScoped<IMemoryBus, MemoryBus>();
-        services.AddScoped<IOrderRepository, OrderRepository>();
-        services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
-        services.AddScoped<IRequestHandler<CreateCommand, CreateOrderResult>, OrderHandler>();
-        services.AddScoped<IRequestHandler<ConfirmOrderPaymentCommand>, OrderPaymentHandlers>();
-        services.AddScoped<IRequestHandler<FailOrderPaymentCommand>, OrderPaymentHandlers>();
-        services.AddScoped<IRequestHandler<MarkOrderPaymentNotProcessedCommand>, OrderPaymentHandlers>();
-        services.AddScoped<IRequestHandler<GetOrderStatusQuery, OrderPaymentState?>, OrderPaymentHandlers>();
-        services.AddScoped<IRequestHandler<RetryOrderPaymentCommand, RetryOrderPaymentResult>, RetryOrderPaymentHandler>();
-        services.AddScoped<IIntegrationEventPublisher, MassTransitIntegrationEventPublisher>();
-        // E-mail com o resultado do pagamento (seção Smtp; Mailpit no compose).
-        services.AddOptions<SmtpOptions>()
-            .Bind(configuration.GetSection(SmtpOptions.Section))
-            .Validate(o => o.IsValid, "Smtp: PollSeconds, MaxEmailAttempts, RetryBaseSeconds e RetryMaxSeconds devem ser positivos.")
-            .ValidateOnStart();
-        // Estado do envio (servidor de e-mail fora ou não), lido pelo /health/email.
-        services.AddSingleton<EmailDeliveryState>();
-        services.AddHealthChecks().AddCheck<EmailDeliveryHealthCheck>(EmailDeliveryHealthCheck.Name, tags: ["email"]);
-        services.AddScoped<IOrderEmailSender, SmtpOrderEmailSender>();
-        services.AddHostedService<OrderEmailDispatcher>();
-        // Pedido pendente além do prazo: consulta o Payments (seção PaymentCheck).
-        services.Configure<PaymentCheckOptions>(configuration.GetSection(PaymentCheckOptions.Section));
-        services.AddHostedService<PendingOrderWatcher>();
-        // /health/ops: mensagens paradas nas filas de erro dos consumidores do Orders.
-        var queues = KebabCaseEndpointNameFormatter.Instance;
-        services.AddErrorQueuesHealthCheck(configuration,
-            queues.Consumer<PaymentApprovedConsumer>(), queues.Consumer<PaymentRejectedConsumer>(),
-            queues.Consumer<PaymentNotProcessedConsumer>(), queues.Consumer<PaymentStatusPendingConsumer>());
-        // /health/ops: pedidos pendentes além do prazo e da tolerância.
-        services.AddHealthChecks().AddCheck<StuckOrdersHealthCheck>(StuckOrdersHealthCheck.Name, tags: ["ops"]);
-        // Preço, nome e foto dos itens vêm do Catalog (obrigatório, como a connection string).
-        var catalogAddress = configuration[$"{HttpCatalogProducts.Section}:BaseAddress"]
-            ?? throw new InvalidOperationException("Catalog:BaseAddress não configurado.");
-        services.AddHttpClient<ICatalogProducts, HttpCatalogProducts>(client =>
-        {
-            client.BaseAddress = new Uri(catalogAddress.TrimEnd('/') + "/");
-            client.Timeout = HttpCatalogProducts.Timeout;
-        });
-        // Npgsql 6+ só aceita DateTime UTC em "timestamp with time zone"; mantém o comportamento
-        // anterior porque Order.OrderDate usa DateTime.Now. Remover ao migrar o domínio para UTC.
-        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-        services.AddDbContext<OrderContext>(x => x.UseNpgsql(connectionString));
-
-        // Publica PaymentRequested e consome o resultado do pagamento (RabbitMq no appsettings).
-        services.AddMassTransit(x =>
-        {
-            x.SetKebabCaseEndpointNameFormatter();
-            x.AddConsumer<PaymentApprovedConsumer>();
-            x.AddConsumer<PaymentRejectedConsumer>();
-            x.AddConsumer<PaymentNotProcessedConsumer>();
-            x.AddConsumer<PaymentStatusPendingConsumer>();
-            // Bus outbox: o IPublishEndpoint da requisição grava a mensagem no OrderContext
-            // (no SaveChanges) e um serviço em segundo plano a entrega quando o broker responde.
-            x.AddEntityFrameworkOutbox<OrderContext>(o =>
-            {
-                o.UsePostgres();
-                o.UseBusOutbox();
-            });
-            // O check do bus vem com a tag "ready"; com o outbox, o pedido não depende do broker,
-            // então ele sai do /health/ready e fica só no /health/bus.
-            x.ConfigureHealthCheckOptions(o =>
-            {
-                o.Tags.Clear();
-                o.Tags.Add("bus");
-            });
-            x.UsingRabbitMq((context, cfg) =>
-            {
-                var rabbitMq = configuration.GetSection("RabbitMq");
-                cfg.Host(rabbitMq["Host"] ?? "localhost", "/", h =>
-                {
-                    h.Username(rabbitMq["Username"] ?? "guest");
-                    h.Password(rabbitMq["Password"] ?? "guest");
-                });
-                cfg.UseTransientRetry();
-                cfg.ConfigureEndpoints(context);
-            });
-        });
+        services
+            .AddOrderHandlers()
+            .AddPersistence(connectionString)
+            .AddCatalog(configuration)
+            .AddPaymentResultEmail(configuration)
+            .AddPaymentCheck(configuration)
+            .AddMonitoring(configuration)
+            .AddMessaging(configuration);
     }
 }

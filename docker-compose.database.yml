@@ -51,10 +51,22 @@ services:
     volumes:
       - payment_data:/var/lib/postgresql/data
 
+  customers-db:
+    <<: *postgres
+    container_name: customers_db
+    environment:
+      <<: *postgres-env
+      POSTGRES_DB: customers
+    ports:
+      - 5437:5432
+    volumes:
+      - customers_data:/var/lib/postgresql/data
+
 volumes:
   catalog_data:
   orders_data:
   payment_data:
+  customers_data:
 
 networks:
   ecommerce-networks:

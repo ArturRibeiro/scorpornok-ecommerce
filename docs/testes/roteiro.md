@@ -8,7 +8,7 @@ Testes manuais do fluxo do pedido e do pagamento, de ponta a ponta, com o ambien
 - Os e-mails saem por um SMTP de verdade (ex.: Gmail): configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_FROM`, `SMTP_USERNAME`, `SMTP_PASSWORD` e `SMTP_USE_STARTTLS=true` no `.env` da raiz. Os e-mails do pedido chegam na caixa de `arturrj@gmail.com` (confira também o spam).
 - Não há `GET` do pedido: confira o status pela tela da loja, pelo e-mail recebido ou na tabela do `orders-db`.
 - Anote o número de cada pedido (tela de confirmação da loja ou `orderNumber` da resposta do `POST /createOrder`): os cenários seguintes usam os pedidos pelos apelidos abaixo (P1, P2, ...).
-- As chamadas diretas à API estão em `src/backend/Store/Orders.Web.Api/PaymentRetry.http`. Os cenários marcados com **API** não dão para fazer pela loja.
+- As chamadas diretas à API estão em `src/backend/Store/Orders.Web.Api/PaymentRetry.http` (pedido) e `src/backend/Customers/Customers.Web.Api/Customers.Web.Api.http` (cadastro). Os cenários marcados com **API** não dão para fazer pela loja.
 
 ## Dados comuns
 
@@ -22,6 +22,17 @@ Todos os cenários usam a conta A logada na loja. A conta B só entra no cenári
 | B | um segundo e-mail seu (precisa receber o link de confirmação) | a definida no cadastro |
 
 Access token (para o `.http`, vale 5 min): na loja, `localStorage`, chave `oidc.user:http://localhost:8080/realms/scorponok:scorponok-web`, campo `access_token`.
+
+### Comprador e endereço
+
+O checkout pede nome, telefone e CPF e o endereço no formato do cadastro (sempre no Brasil, complemento opcional). Com o cadastro salvo, os campos já vêm preenchidos; na primeira compra, preencha com os dados abaixo (eles criam o cadastro).
+
+| Campo | Valor |
+|---|---|
+| Nome completo | Fulano de Tal |
+| Telefone | (21) 99999-8888 |
+| CPF | 529.982.247-25 |
+| Endereço | Rua das Flores, 100, Centro, Rio de Janeiro, RJ, CEP 20040-020 |
 
 ### Regra dos cartões
 
@@ -246,3 +257,46 @@ Tentativa do cliente B:
 
 1. Gere o token do cartão e chame `POST /orders/{P4b}/payment` com ele.
 2. **Esperado:** `409`; P4b continua `NotProcessed`, e a loja orienta a refazer a compra.
+
+### 17. Cadastro vazio e primeira compra
+
+1. Com a conta B (sem compras e sem cadastro), abra "Meu cadastro" no menu da conta (o e-mail no cabeçalho).
+2. **Esperado:** o e-mail da conta só para leitura e todos os campos em branco, sem erro.
+3. Finalize uma compra com cartão aprovado, informando o comprador e o endereço de "Dados comuns".
+4. **Esperado:** depois do pedido, "Meu cadastro" mostra o nome, o telefone, o CPF e o endereço informados no checkout.
+
+### 18. Validação do cadastro
+
+1. Em "Meu cadastro", informe o CPF `111.111.111-11` e salve.
+2. **Esperado:** nada é salvo e o CPF é indicado como inválido.
+3. Apague o número, o bairro e a cidade do endereço e salve.
+4. **Esperado:** nada é salvo e os três campos são indicados como obrigatórios.
+5. Corrija tudo (complemento vazio) e salve.
+6. **Esperado:** "Cadastro salvo."; ao recarregar a página, os mesmos valores, com a pontuação.
+
+### 19. Checkout pré-preenchido e entrega em outro endereço
+
+1. Com o cadastro salvo no Rio de Janeiro, coloque um item no carrinho e abra o checkout.
+2. **Esperado:** comprador e endereço já preenchidos com o cadastro.
+3. Troque o endereço para Av. Paulista, 1000, Bela Vista, São Paulo, SP, CEP 01310-100 e o telefone para (11) 98888-7777, e finalize com cartão aprovado.
+4. **Esperado:** o pedido é registrado com o endereço de São Paulo (tabela `OrderAddress` do `orders-db`, país `Brasil`); "Meu cadastro" continua com o Rio de Janeiro e o telefone anterior; o endereço de São Paulo entra no histórico (tabela `customer."DeliveryAddresses"` do `customers-db`, com o número do pedido).
+
+### 20. Customers fora do ar
+
+1. `docker compose stop customers-api` e abra o checkout.
+2. **Esperado:** comprador e endereço em branco, e o checkout funciona normalmente; "Meu cadastro" mostra que não foi possível carregar.
+3. Finalize uma compra com cartão aprovado.
+4. **Esperado:** o pedido é registrado e aprovado; o `OrderPlaced` espera na fila `order-placed` (painel do RabbitMQ).
+5. `docker compose start customers-api`.
+6. **Esperado:** o endereço do pedido entra no histórico (e o cadastro é criado, se for a primeira compra da conta).
+
+### 21. Falha ao salvar o cadastro
+
+1. Abra "Meu cadastro", `docker compose stop customers-api`, altere um campo e salve.
+2. **Esperado:** a mensagem de que não foi possível salvar, com os campos como foram digitados.
+3. `docker compose start customers-api`.
+
+### 22. Cadastro só do dono (API)
+
+1. Com o token da conta A, `GET /customers/me` no `Customers.Web.Api.http`; repita com o token da conta B.
+2. **Esperado:** cada conta vê só o próprio cadastro; não há como informar outra conta na rota ou no corpo.

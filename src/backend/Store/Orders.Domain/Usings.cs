@@ -9,4 +9,4 @@ global using System.Threading.Tasks;
 global using FluentValidation;
 global using Orders.Domain.Order.Orders;
 global using Orders.Domain.Order.Orders.Validations;
-global using Shared.Code.Models;
+global using Shared.Code.Models;global using Shared.Code.Validation;

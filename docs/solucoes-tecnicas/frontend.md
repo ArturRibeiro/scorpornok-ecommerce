@@ -33,3 +33,16 @@ Detalhes técnicos: `allow-payment-retry` (arquivada em `openspec/changes/archiv
 **Situação:** em funcionamento.
 
 Detalhes técnicos: `handle-stuck-payments` (arquivada em `openspec/changes/archive/`).
+
+## 9. Meu cadastro e checkout preenchido
+
+**Problema:** o cliente digitava o endereço a cada compra, e a loja não tinha onde mostrar ou corrigir os dados dele.
+
+**Solução:**
+- O e-mail no topo da loja vira o menu da conta, com **"Meu cadastro"** e "Sair". Na página do cadastro, o cliente vê e altera nome, telefone, CPF e endereço; o e-mail da conta aparece só para leitura. Os erros aparecem no próprio campo, e, se o serviço estiver fora, a loja avisa que não conseguiu salvar e mantém o que foi digitado.
+- O checkout pede nome, telefone e CPF e o endereço completo (com número, bairro e o estado numa lista), e abre com esses campos já preenchidos pelo cadastro. O que o cliente muda ali vale só para aquele pedido.
+- Sem cadastro, ou com o serviço de cadastro fora do ar, os campos vêm em branco e a compra funciona normalmente.
+
+**Situação:** em funcionamento.
+
+Detalhes técnicos: `add-customer-profile` (arquivada em `openspec/changes/archive/`).

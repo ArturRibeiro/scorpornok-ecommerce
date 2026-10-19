@@ -33,6 +33,8 @@ public class OrderHandlerTests
         _publisher = new Mock<IIntegrationEventPublisher>();
         _publisher.Setup(p => p.PublishAsync(It.IsAny<PaymentRequested>(), It.IsAny<CancellationToken>()))
             .Callback(() => _calls.Add("publish")).Returns(Task.CompletedTask);
+        _publisher.Setup(p => p.PublishAsync(It.IsAny<OrderPlaced>(), It.IsAny<CancellationToken>()))
+            .Callback(() => _calls.Add("placed")).Returns(Task.CompletedTask);
         _catalogProducts = new()
         {
             [42] = new CatalogProduct(42, "Camiseta", "/catalog-imgs/42.jpg", 10m),
@@ -58,16 +60,21 @@ public class OrderHandlerTests
 
     private static PaymentMethod Payment() => new("tok_abc123", 3);
 
+    private static OrderBuyerMessage Buyer(string? cpf = "529.982.247-25")
+        => new("Maria Souza", "(21) 99999-8888", cpf);
+
     private static CreateCommand Command(Guid userId, string city = "São Paulo", params OrderItemMessageResponse[] items)
         => new(
             userId,
             new OrderAddressMessageResponse
             {
-                Street = "Rua A, 10", City = city, State = "SP", Country = "Brasil", ZipCode = "01000-000"
+                Street = "Rua A", Number = "10", Complement = "Apto 1", District = "Centro", City = city, State = "SP",
+                ZipCode = "01000-000"
             },
             items,
             Payment(),
-            "cliente@exemplo.com");
+            "cliente@exemplo.com",
+            Buyer());
 
     [Test]
     public async Task Pedido_valido_deve_ser_salvo_para_o_cliente_informado()
@@ -142,8 +149,8 @@ public class OrderHandlerTests
     {
         await _handler.Handle(Command(Guid.NewGuid(), items: [Item(42, 10m, 1)]), CancellationToken.None);
 
-        // O primeiro save gera o Id do pedido; a mensagem do outbox só é gravada no save seguinte.
-        _calls.Should().Equal("begin", "add", "save", "publish", "save", "commit");
+        // O primeiro save gera o Id do pedido; as mensagens do outbox só são gravadas no save seguinte.
+        _calls.Should().Equal("begin", "add", "save", "placed", "publish", "save", "commit");
     }
 
     [Test]
@@ -165,8 +172,9 @@ public class OrderHandlerTests
 
         var result = await _handler.Handle(command, CancellationToken.None);
 
+        // Sem cartão não há cobrança, mas o Customers recebe o pedido registrado.
         result.Outcome.Should().Be(CreateOrderOutcome.Created);
-        _calls.Should().Equal("begin", "add", "save", "commit");
+        _calls.Should().Equal("begin", "add", "save", "placed", "save", "commit");
     }
 
     [Test]
@@ -248,6 +256,80 @@ public class OrderHandlerTests
         _repository.Verify(r => r.ExecuteInTransactionAsync(It.IsAny<Func<Task>>(), It.IsAny<CancellationToken>()),
             Times.Never);
         _publisher.Verify(p => p.PublishAsync(It.IsAny<PaymentRequested>(), It.IsAny<CancellationToken>()), Times.Never);
+    }
+
+    [Test]
+    public async Task Pedido_valido_deve_publicar_OrderPlaced_com_o_comprador_e_o_endereco_do_pedido()
+    {
+        var userId = Guid.NewGuid();
+        OrderPlaced? placed = null;
+        _publisher.Setup(p => p.PublishAsync(It.IsAny<OrderPlaced>(), It.IsAny<CancellationToken>()))
+            .Callback((OrderPlaced m, CancellationToken _) => placed = m).Returns(Task.CompletedTask);
+
+        var result = await _handler.Handle(Command(userId, city: "Rio de Janeiro", items: [Item(42, 10m, 1)]),
+            CancellationToken.None);
+
+        placed.Should().NotBeNull();
+        placed!.OrderNumber.Should().Be(result.OrderNumber);
+        placed.CustomerId.Should().Be(userId);
+        placed.Email.Should().Be("cliente@exemplo.com");
+        placed.FullName.Should().Be("Maria Souza");
+        placed.Phone.Should().Be("21999998888");
+        placed.Cpf.Should().Be("52998224725");
+        placed.ShippingAddress.Should().Be(
+            new ShippingAddress("Rua A", "10", "Apto 1", "Centro", "Rio de Janeiro", "SP", "01000000"));
+    }
+
+    [Test]
+    public async Task Falha_ao_gravar_nao_deve_publicar_OrderPlaced()
+    {
+        _repository.Setup(r => r.UnitOfWork.SaveEntitiesAsync(It.IsAny<CancellationToken>()))
+            .ThrowsAsync(new InvalidOperationException("banco fora"));
+
+        var act = () => _handler.Handle(Command(Guid.NewGuid(), items: [Item(42, 10m, 1)]), CancellationToken.None);
+
+        await act.Should().ThrowAsync<InvalidOperationException>();
+        _publisher.Verify(p => p.PublishAsync(It.IsAny<OrderPlaced>(), It.IsAny<CancellationToken>()), Times.Never);
+    }
+
+    [Test]
+    public async Task Cpf_invalido_do_comprador_deve_recusar_sem_abrir_transacao()
+    {
+        var command = Command(Guid.NewGuid(), items: [Item(42, 10m, 1)]) with { Customer = Buyer(cpf: "111.111.111-11") };
+
+        var result = await _handler.Handle(command, CancellationToken.None);
+
+        result.Outcome.Should().Be(CreateOrderOutcome.Invalid);
+        result.Errors.Should().Contain("CPF inválido.");
+        _repository.Verify(r => r.ExecuteInTransactionAsync(It.IsAny<Func<Task>>(), It.IsAny<CancellationToken>()),
+            Times.Never);
+    }
+
+    [Test]
+    public async Task Pedido_sem_comprador_deve_pedir_nome_telefone_e_cpf()
+    {
+        var command = Command(Guid.NewGuid(), items: [Item(42, 10m, 1)]) with { Customer = null };
+
+        var result = await _handler.Handle(command, CancellationToken.None);
+
+        result.Outcome.Should().Be(CreateOrderOutcome.Invalid);
+        result.Errors.Should().Contain(["Informe o nome completo.", "Informe o telefone.", "Informe o CPF."]);
+    }
+
+    [Test]
+    public void Corpo_com_country_e_comprador_deve_ser_lido_pelo_comando()
+    {
+        var json = """
+            {"address":{"street":"Rua A","number":"10","district":"Centro","city":"Rio","state":"RJ","country":"Portugal","zipCode":"20040-020"},
+             "items":[],"customer":{"fullName":"Maria Souza","phone":"(21) 99999-8888","cpf":"529.982.247-25"}}
+            """;
+
+        var command = System.Text.Json.JsonSerializer.Deserialize<CreateCommand>(json,
+            new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web))!;
+
+        command.Customer.Should().Be(new OrderBuyerMessage("Maria Souza", "(21) 99999-8888", "529.982.247-25"));
+        command.Address.Number.Should().Be("10");
+        command.Address.District.Should().Be("Centro");
     }
 
     [Test]

@@ -1,4 +1,4 @@
-# Aplicação: sobe as APIs junto com os bancos de docker-compose.database.yml,
+# Aplicação: sobe as APIs (Catalog, Orders, Payments e Customers) junto com os bancos de docker-compose.database.yml,
 # o RabbitMQ de docker-compose.messaging.yml, o Mailpit de docker-compose.mail.yml,
 # o Keycloak de docker-compose.identity.yml e o front-end de docker-compose.frontend.yml.
 #   docker compose up -d --build
@@ -72,6 +72,10 @@ services:
         condition: service_started
       keycloak:
         condition: service_healthy
+      # A fila order-placed é criada quando o customers-api sobe; o OrderPlaced publicado antes
+      # disso seria descartado.
+      customers-api:
+        condition: service_started
     networks:
       - ecommerce-networks
 
@@ -94,6 +98,32 @@ services:
       payment-db:
         condition: service_healthy
       rabbitmq:
+        condition: service_healthy
+    networks:
+      - ecommerce-networks
+
+  customers-api:
+    build:
+      context: .
+      args:
+        PROJECT: src/backend/Customers/Customers.Web.Api/Customers.Web.Api.csproj
+        ASSEMBLY: Customers.Web.Api
+    container_name: customers_api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__ConnectionString: Host=customers-db;Port=5432;Database=customers;Username=sa;Password=sa
+      # Consome o OrderPlaced do Orders (histórico de endereços e cadastro da primeira compra).
+      RabbitMq__Host: rabbitmq
+      # Mesmo emissor público dos tokens; a descoberta e as chaves vêm de keycloak:8080.
+      Keycloak__MetadataAddress: http://keycloak:8080/realms/scorponok/.well-known/openid-configuration
+    ports:
+      - 5230:8080
+    depends_on:
+      customers-db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      keycloak:
         condition: service_healthy
     networks:
       - ecommerce-networks

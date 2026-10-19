@@ -5,6 +5,7 @@ import { Menu, Search, ShoppingCart, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
 import { Button } from "../ui/button";
+import AccountMenu from "./AccountMenu";
 
 export default function Header() {
   const { cart } = useCart();
@@ -136,14 +137,7 @@ export default function Header() {
 
             <div className="hidden sm:flex items-center space-x-2">
               {user ? (
-                <>
-                  <span className="text-sm text-gray-700 max-w-48 truncate" title={email ?? undefined}>
-                    {email}
-                  </span>
-                  <Button variant="ghost" size="sm" className="text-sm" onClick={logout}>
-                    Sair
-                  </Button>
-                </>
+                <AccountMenu email={email} onLogout={logout} />
               ) : (
                 <>
                   <Button variant="ghost" size="sm" className="text-sm" onClick={signIn}>
@@ -203,6 +197,11 @@ export default function Header() {
               {user ? (
                 <>
                   <span className="text-sm text-gray-700 truncate">{email}</span>
+                  <Button variant="outline" className="w-full text-sm" asChild>
+                    <Link to="/account/profile" onClick={closeMobileMenu}>
+                      Meu cadastro
+                    </Link>
+                  </Button>
                   <Button variant="outline" className="w-full text-sm" onClick={logout}>
                     Sair
                   </Button>
