@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "chillicream.nitro.commandline": {
+      "version": "16.6.9",
+      "commands": [
+        "nitro"
+      ],
+      "rollForward": false
+    }
+  }
+}

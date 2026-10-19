@@ -7,8 +7,8 @@ RUN npm ci
 COPY . .
 # As URLs são embutidas no JavaScript durante o build e usadas pelo navegador,
 # por isso apontam para a porta publicada no host, não para o container.
-ARG VITE_CATALOG_API_URL=http://localhost:5064
-ENV VITE_CATALOG_API_URL=$VITE_CATALOG_API_URL
+ARG VITE_GRAPHQL_URL=http://localhost:5200/graphql
+ENV VITE_GRAPHQL_URL=$VITE_GRAPHQL_URL
 ARG VITE_ORDERS_API_URL=http://localhost:5224
 ENV VITE_ORDERS_API_URL=$VITE_ORDERS_API_URL
 ARG VITE_KEYCLOAK_URL=http://localhost:8080

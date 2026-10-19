@@ -4,7 +4,6 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Folder Name="/3 - Payments/" />
   <Folder Name="/backend/" />
   <Folder Name="/backend/1 - Catalog/">
     <Project Path="src/backend/Catalog/Catalog.Domain/Catalog.Domain.csproj" />
@@ -30,6 +29,10 @@
     <Project Path="src/backend/Customers/Customers.Infrastructure/Customers.Infrastructure.csproj" />
     <Project Path="src/backend/Customers/Customers.Tests/Customers.Tests.csproj" />
     <Project Path="src/backend/Customers/Customers.Web.Api/Customers.Web.Api.csproj" />
+  </Folder>
+  <Folder Name="/backend/7 - Gateway/">
+    <Project Path="src/backend/Gateway/Gateway.Tests/Gateway.Tests.csproj" />
+    <Project Path="src/backend/Gateway/Gateway.Web.Api/Gateway.Web.Api.csproj" />
   </Folder>
   <Folder Name="/backend/4 - Shared/">
     <Project Path="src/backend/Frameworker/Frameworker.EntityFrameworkCore/Frameworker.EntityFrameworkCore.csproj" />

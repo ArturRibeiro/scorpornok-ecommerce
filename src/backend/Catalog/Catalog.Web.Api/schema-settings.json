@@ -1,0 +1,16 @@
+{
+  "name": "catalog",
+  "transports": {
+    "http": {
+      "url": "{{CATALOG_URL}}"
+    }
+  },
+  "environments": {
+    "local": {
+      "CATALOG_URL": "http://localhost:5064/graphql"
+    },
+    "compose": {
+      "CATALOG_URL": "http://catalog-api:8080/graphql"
+    }
+  }
+}

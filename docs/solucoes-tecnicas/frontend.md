@@ -61,3 +61,13 @@ Detalhes técnicos: `add-customer-profile` (arquivada em `openspec/changes/archi
 **Situação:** em funcionamento.
 
 Detalhes técnicos: `add-order-history` (arquivada em `openspec/changes/archive/`).
+
+## 11. Catálogo pelo ponto de entrada único
+
+**Problema:** o site chamava cada parte da loja por um endereço próprio, inclusive o catálogo.
+
+**Solução:** a home e a página de produto passam a ler o catálogo pelo ponto de entrada único (veja [Catálogo](catalog.md)). Para o cliente, nada muda: a mesma grade, a mesma paginação e a mesma página de produto. Se o catálogo ou o ponto de entrada estiverem fora do ar, a loja mostra que não conseguiu carregar os produtos e oferece tentar de novo, como antes.
+
+**Situação:** em funcionamento (1ª etapa).
+
+Detalhes técnicos: `add-graphql-gateway` (em `openspec/changes/`).

@@ -18,14 +18,15 @@ Esta pasta explica, em linguagem de negócio, o que podia dar errado quando o cl
 | 8 | Dois pedidos podiam receber o mesmo número, e um pedido novo podia ser confundido com um antigo e confirmado sem pagamento | Cada pedido recebe um número sorteado que não se repete, e a loja recusa registrar um número já usado | Em funcionamento |
 | 9 | A loja não guardava os dados do cliente, que digitava o endereço de novo a cada compra | O cliente tem um cadastro (criado na primeira compra), o checkout já vem preenchido e cada pedido guarda o seu endereço de entrega no histórico | Em funcionamento |
 | 10 | O cliente não tinha onde rever os pedidos já feitos, e quem fechava a tela da confirmação perdia o caminho para pagar de novo um pedido recusado | "Meus pedidos" lista as compras do cliente, mostra cada pedido como foi comprado, acompanha o pagamento e permite pagar de novo um pedido recusado | Em funcionamento |
+| 11 | A loja fala com cada API por um endereço e um formato próprios, e cada nova tela multiplica as chamadas | Um ponto de entrada único (GraphQL) junta as APIs; o catálogo é o primeiro a passar por ele, protegido contra consultas abusivas | Em funcionamento (1ª etapa) |
 
 ## Por parte da loja
 
 - [Pagamentos](payments.md): itens 1, 2, 3, 4 e 5.
 - [Pedidos](orders.md): itens 2, 3, 5, 6, 7, 8, 9 e 10.
-- [Loja (site)](frontend.md): itens 2, 4, 5, 9 e 10.
+- [Loja (site)](frontend.md): itens 2, 4, 5, 9, 10 e 11.
 - [Cadastro do cliente](customers.md): item 9.
-- [Catálogo](catalog.md): item 7.
+- [Catálogo](catalog.md): itens 7 e 11.
 
 ## Ordem de implementação
 
@@ -41,5 +42,6 @@ Esta pasta explica, em linguagem de negócio, o que podia dar errado quando o cl
 | 8 | Nova tentativa com outro cartão (5) | Em funcionamento |
 | 9 | Cadastro do cliente (9) | Em funcionamento |
 | 10 | Meus pedidos (10) | Em funcionamento |
+| 11 | Ponto de entrada único, 1ª etapa: catálogo (11) | Em funcionamento |
 
-As soluções foram implementadas nesta ordem. O número que não se repete veio antes da cobrança única porque a cobrança única identifica cada cobrança pelo número do pedido: com números repetidos, ela confundiria dois pedidos. A cobrança única vem cedo porque várias outras soluções dependem dela, e a nova tentativa com outro cartão vem depois porque depende da cobrança única e da proteção do cartão. O cadastro do cliente veio depois: ele não muda o pagamento, só acrescenta os dados de quem compra. "Meus pedidos" veio por último porque reaproveita a nova tentativa com outro cartão e só lê os pedidos, sem mudar o registro nem a cobrança.
+As soluções foram implementadas nesta ordem. O número que não se repete veio antes da cobrança única porque a cobrança única identifica cada cobrança pelo número do pedido: com números repetidos, ela confundiria dois pedidos. A cobrança única vem cedo porque várias outras soluções dependem dela, e a nova tentativa com outro cartão vem depois porque depende da cobrança única e da proteção do cartão. O cadastro do cliente veio depois: ele não muda o pagamento, só acrescenta os dados de quem compra. "Meus pedidos" veio depois porque reaproveita a nova tentativa com outro cartão e só lê os pedidos, sem mudar o registro nem a cobrança. O ponto de entrada único começou pelo catálogo, que só é lido e não exige login; cadastro e pedidos passam por ele nas próximas etapas.

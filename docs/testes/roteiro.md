@@ -8,7 +8,7 @@ Testes manuais do fluxo do pedido e do pagamento, de ponta a ponta, com o ambien
 - Os e-mails saem por um SMTP de verdade (ex.: Gmail): configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_FROM`, `SMTP_USERNAME`, `SMTP_PASSWORD` e `SMTP_USE_STARTTLS=true` no `.env` da raiz. Os e-mails do pedido chegam na caixa de `arturrj@gmail.com` (confira também o spam).
 - Confira o status em "Meus pedidos" na loja (menu da conta), pelo e-mail recebido, pelo `GET /orders/{orderNumber}` ou na tabela do `orders-db`.
 - Anote o número de cada pedido (tela de confirmação da loja ou `orderNumber` da resposta do `POST /createOrder`): os cenários seguintes usam os pedidos pelos apelidos abaixo (P1, P2, ...).
-- As chamadas diretas à API estão em `src/backend/Store/Orders.Web.Api/PaymentRetry.http` (nova tentativa), `src/backend/Store/Orders.Web.Api/Orders.Web.Api.http` (pedido e histórico) e `src/backend/Customers/Customers.Web.Api/Customers.Web.Api.http` (cadastro). Os cenários marcados com **API** não dão para fazer pela loja.
+- As chamadas diretas à API estão em `src/backend/Store/Orders.Web.Api/PaymentRetry.http` (nova tentativa), `src/backend/Store/Orders.Web.Api/Orders.Web.Api.http` (pedido e histórico), `src/backend/Gateway/Gateway.Web.Api/Gateway.Web.Api.http` (catálogo pelo gateway GraphQL) e `src/backend/Customers/Customers.Web.Api/Customers.Web.Api.http` (cadastro). Os cenários marcados com **API** não dão para fazer pela loja.
 
 ## Dados comuns
 
@@ -36,7 +36,7 @@ O checkout pede nome, telefone e CPF e o endereço no formato do cadastro (sempr
 
 ### Regra dos cartões
 
-O gateway simulado recusa cartão terminado em `0000` e aprova os demais. A validade precisa ser do mês atual em diante e o CVV ter 3 ou 4 dígitos. Cada cartão digitado vira um token novo, que vale uma cobrança só.
+O meio de pagamento simulado recusa cartão terminado em `0000` e aprova os demais. A validade precisa ser do mês atual em diante e o CVV ter 3 ou 4 dígitos. Cada cartão digitado vira um token novo, que vale uma cobrança só.
 
 ## Cenários
 
@@ -344,3 +344,21 @@ Use a conta A depois dos cenários anteriores (vários pedidos: aprovados, recus
 2. **Esperado:** "Pedido não encontrado", igual a abrir um número que não existe (`/account/orders/A000000000000`).
 3. **API:** com o token de B, `GET /orders/{P1}` no `Orders.Web.Api.http`.
 4. **Esperado:** `404` com `Pedido não encontrado.`; sem token, `401`.
+
+### 28. Catálogo pelo gateway GraphQL
+
+1. Abra a home e o DevTools (aba Network); navegue até a página 2 e abra um produto.
+2. **Esperado:** a mesma grade (18 por página), a mesma paginação e a mesma página de produto de antes; as chamadas são `POST` para `http://localhost:5200/graphql`, nenhuma para `localhost:5064`.
+3. Abra `http://localhost:3000/product/999999`.
+4. **Esperado:** "produto não encontrado".
+5. `docker compose stop catalog-api` e recarregue a home.
+6. **Esperado:** a mensagem de que não foi possível carregar os produtos, com "Tentar de novo"; `http://localhost:5200/health/ready` continua `200`.
+7. `docker compose start catalog-api` e finalize uma compra.
+8. **Esperado:** o pedido é registrado com o preço do catálogo, como antes (o Orders continua usando o REST do Catalog).
+
+### 29. Limites do gateway (API)
+
+1. No `Gateway.Web.Api.http`, envie uma consulta com mais de 200 campos (por exemplo, 40 vezes `productById(id: 1) { id name sku price description pictureUri }` com aliases).
+2. **Esperado:** erro `MAX_FIELDS_EXCEEDED`, sem chamada ao Catalog (nada no log do `catalog-api`).
+3. Envie a consulta de introspecção do `.http`.
+4. **Esperado:** o schema em Development (o compose); fora dele, erro `HC0046`.

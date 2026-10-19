@@ -13,3 +13,17 @@ Com isso, registrar um pedido passa a depender do catálogo estar no ar. Se ele 
 **Situação:** em funcionamento.
 
 Detalhes técnicos: `use-catalog-price-in-orders` (arquivada em `openspec/changes/archive/`).
+
+## 11. Catálogo pelo ponto de entrada único
+
+**Problema:** a loja consultava cada parte do sistema por um endereço próprio, com formatos e erros diferentes. Juntar dados de várias partes numa tela exigia várias chamadas, e não havia proteção contra consultas grandes demais.
+
+**Solução:**
+- A loja ganha um ponto de entrada único (GraphQL), que encaminha cada consulta à parte dona dos dados. O catálogo é o primeiro a passar por ele: a lista de produtos, com as mesmas páginas de antes (até 20 produtos), e os dados de um produto.
+- O catálogo responde igual pelos dois caminhos: os mesmos produtos, na mesma ordem e com os mesmos preços. O caminho antigo continua, porque o registro de pedidos o usa para conferir os preços.
+- Uma consulta grande demais (profunda demais ou com campos demais) é recusada logo na entrada, sem chegar ao catálogo. A descrição completa das consultas disponíveis só aparece em ambiente de desenvolvimento.
+- Com o catálogo fora do ar, o ponto de entrada continua no ar e responde com erro só para as consultas do catálogo.
+
+**Situação:** em funcionamento (1ª etapa). Cadastro do cliente e pedidos passam pelo ponto de entrada nas próximas etapas.
+
+Detalhes técnicos: `add-graphql-gateway` (em `openspec/changes/`).

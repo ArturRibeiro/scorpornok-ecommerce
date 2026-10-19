@@ -1,20 +1,20 @@
 # Front-end React + Vite (src/frontend), servido pelo nginx em http://localhost:3000.
-# O navegador chama o catalog-api, o orders-api, o payment-api (tokenização do cartão) e o
-# customers-api (cadastro do cliente), do docker-compose.yml, direto em http://localhost:5064,
-# http://localhost:5224, http://localhost:5220 e http://localhost:5230, e o Keycloak
-# (docker-compose.identity.yml) em http://localhost:8080, por isso as URLs não usam o nome do
-# container. Para trocá-las, mude os build args VITE_CATALOG_API_URL, VITE_ORDERS_API_URL,
+# O navegador chama o gateway GraphQL (o catálogo vem por ele), o orders-api, o payment-api
+# (tokenização do cartão) e o customers-api (cadastro do cliente), do docker-compose.yml, direto em
+# http://localhost:5200/graphql, http://localhost:5224, http://localhost:5220 e http://localhost:5230,
+# e o Keycloak (docker-compose.identity.yml) em http://localhost:8080, por isso as URLs não usam o
+# nome do container. Para trocá-las, mude os build args VITE_GRAPHQL_URL, VITE_ORDERS_API_URL,
 # VITE_PAYMENTS_API_URL, VITE_CUSTOMERS_API_URL e VITE_KEYCLOAK_URL (embutidos no build) e
 # libere a origem no CORS da API e no client do Keycloak.
 #
-# Só o front-end (as páginas de produto mostram erro até o catalog-api subir):
+# Só o front-end (as páginas de produto mostram erro até o gateway-api e o catalog-api subirem):
 #   docker compose -f docker-compose.frontend.yml up -d --build
 services:
   frontend:
     build:
       context: src/frontend
       args:
-        VITE_CATALOG_API_URL: http://localhost:5064
+        VITE_GRAPHQL_URL: http://localhost:5200/graphql
         VITE_ORDERS_API_URL: http://localhost:5224
         VITE_KEYCLOAK_URL: http://localhost:8080
         VITE_PAYMENTS_API_URL: http://localhost:5220

@@ -1,0 +1,87 @@
+schema {
+  query: Query
+}
+
+type Query {
+  products(page: Int, pageSize: Int): ProductPage! @cost(weight: "10")
+  productById(id: Long!): Product @lookup @cost(weight: "10")
+}
+
+type Product @key(fields: "id") {
+  id: Long!
+  name: String!
+  sku: String!
+  pictureUri: String!
+  price: Decimal!
+  description: String!
+}
+
+type ProductPage {
+  items: [Product!]!
+  pageInfo: ProductPageInfo!
+}
+
+type ProductPageInfo {
+  currentPage: Int!
+  pageSize: Int!
+  totalItems: Int!
+  totalPages: Int!
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
+}
+
+enum ScalarSerializationType {
+  STRING
+  BOOLEAN
+  INT
+  FLOAT
+  OBJECT
+  LIST
+}
+
+"The `Decimal` scalar type represents a decimal floating-point number with high precision."
+scalar Decimal
+  @serializeAs(type: FLOAT)
+  @specifiedBy(url: "https://scalars.graphql.org/chillicream/decimal.html")
+
+scalar FieldSelectionSet
+
+"The `Long` scalar type represents a signed 64-bit integer."
+scalar Long
+  @serializeAs(type: INT)
+  @specifiedBy(url: "https://scalars.graphql.org/chillicream/long.html")
+
+"The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."
+directive @cost(
+  "The `weight` argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc."
+  weight: String!
+) on
+  | SCALAR
+  | OBJECT
+  | FIELD_DEFINITION
+  | ARGUMENT_DEFINITION
+  | ENUM
+  | INPUT_FIELD_DEFINITION
+
+"""
+The @key directive is used to designate an entity's unique key,
+which identifies how to uniquely reference an instance of
+an entity across different source schemas.
+"""
+directive @key("The field selection set syntax." fields: FieldSelectionSet!) repeatable on
+  | OBJECT
+  | INTERFACE
+
+"""
+The @lookup directive is used within a source schema to specify output fields
+that can be used by the distributed GraphQL executor to resolve an entity by
+a stable key.
+"""
+directive @lookup on FIELD_DEFINITION
+
+directive @serializeAs(
+  "The primitive type a scalar is serialized to."
+  type: [ScalarSerializationType!]!
+  "The ECMA-262 regex pattern that the serialized scalar value conforms to."
+  pattern: String
+) on SCALAR

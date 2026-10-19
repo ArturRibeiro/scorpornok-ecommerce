@@ -16,3 +16,25 @@ GET {{Catalog.Web.Api_HostAddress}}/GetProductsByIds?ids=1&ids=2&ids=999999
 Accept: application/json
 
 ###
+
+# GraphQL (subgraph do gateway): a mesma página do GET /Products, com as mesmas regras.
+POST {{Catalog.Web.Api_HostAddress}}/graphql
+Content-Type: application/json
+
+{
+  "query": "query($page: Int, $pageSize: Int) { products(page: $page, pageSize: $pageSize) { pageInfo { currentPage pageSize totalItems totalPages hasPreviousPage hasNextPage } items { id name sku pictureUri price description } } }",
+  "variables": { "page": 1, "pageSize": 10 }
+}
+
+###
+
+# Produto por id no GraphQL: null (sem erro) para id inexistente.
+POST {{Catalog.Web.Api_HostAddress}}/graphql
+Content-Type: application/json
+
+{
+  "query": "query($id: Long!) { productById(id: $id) { id name sku pictureUri price description } }",
+  "variables": { "id": 1 }
+}
+
+###

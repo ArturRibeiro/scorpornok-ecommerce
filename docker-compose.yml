@@ -1,4 +1,4 @@
-# Aplicação: sobe as APIs (Catalog, Orders, Payments e Customers) junto com os bancos de docker-compose.database.yml,
+# Aplicação: sobe as APIs (Catalog, Orders, Payments e Customers) e o gateway GraphQL junto com os bancos de docker-compose.database.yml,
 # o RabbitMQ de docker-compose.messaging.yml, o Mailpit de docker-compose.mail.yml,
 # o Keycloak de docker-compose.identity.yml e o front-end de docker-compose.frontend.yml.
 #   docker compose up -d --build
@@ -25,6 +25,27 @@ services:
     depends_on:
       catalog-db:
         condition: service_healthy
+    networks:
+      - ecommerce-networks
+
+  # Ponto de entrada GraphQL único da loja (Fusion): junta os subgraphs (hoje, o Catalog) em /graphql.
+  # O gateway.compose.far tem o endereço do Catalog na rede interna (catalog-api:8080); veja o
+  # scripts/compose-gateway.sh.
+  gateway-api:
+    build:
+      context: .
+      args:
+        PROJECT: src/backend/Gateway/Gateway.Web.Api/Gateway.Web.Api.csproj
+        ASSEMBLY: Gateway.Web.Api
+    container_name: gateway_api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      Fusion__Archive: gateway.compose.far
+    ports:
+      - 5200:8080
+    depends_on:
+      catalog-api:
+        condition: service_started
     networks:
       - ecommerce-networks
 

@@ -1,13 +1,11 @@
+import { graphqlRequest } from "@/lib/graphql";
 import type { PagedList, Product } from "@/types/product";
 
-// Cliente do Catalog.Web.Api. Roda no navegador, então as chamadas aparecem
-// na aba Network do DevTools e a API precisa liberar a origem do front no
-// CORS. A URL é a que o navegador enxerga (porta publicada no host), não o
-// nome do container; o Vite a embute no build a partir de VITE_CATALOG_API_URL.
-const CATALOG_API_URL =
-  import.meta.env.VITE_CATALOG_API_URL ?? "http://localhost:5064";
+// Catálogo pelo gateway GraphQL (subgraph do Catalog). Roda no navegador, então as chamadas
+// aparecem na aba Network como POST /graphql. As regras são as do GET /Products do Catalog:
+// página a partir de 1 e até 20 produtos por página.
 
-// Formato de ProductItemMessageResponse no backend.
+// Formato do tipo Product do schema do Catalog.
 interface ProductResponse {
   id: number;
   name: string;
@@ -17,41 +15,47 @@ interface ProductResponse {
   price: number;
 }
 
+const PRODUCT_FIELDS = "id name sku pictureUri price description";
+
 const toProduct = ({ pictureUri, ...product }: ProductResponse): Product => ({
   ...product,
   image: pictureUri,
 });
 
-const request = (path: string, signal?: AbortSignal) =>
-  fetch(`${CATALOG_API_URL}${path}`, { signal });
+const PRODUCTS_QUERY = `query Products($page: Int, $pageSize: Int) {
+  products(page: $page, pageSize: $pageSize) {
+    pageInfo { currentPage pageSize totalItems totalPages hasPreviousPage hasNextPage }
+    items { ${PRODUCT_FIELDS} }
+  }
+}`;
 
-// A API limita pageSize a 20.
+// O gateway limita pageSize a 20.
 export async function getProducts(
   pageNumber = 1,
   pageSize = 20,
   signal?: AbortSignal
 ): Promise<PagedList<Product>> {
-  const response = await request(
-    `/Products?pageNumber=${pageNumber}&pageSize=${pageSize}`,
+  const { products } = await graphqlRequest<{ products: PagedList<ProductResponse> }>(
+    PRODUCTS_QUERY,
+    { page: pageNumber, pageSize },
     signal
   );
-  if (!response.ok) {
-    throw new Error(`Catalog API respondeu ${response.status} em Products`);
-  }
-
-  const data: PagedList<ProductResponse> = await response.json();
-  return { pageInfo: data.pageInfo, items: data.items.map(toProduct) };
+  return { pageInfo: products.pageInfo, items: products.items.map(toProduct) };
 }
 
+const PRODUCT_QUERY = `query Product($id: Long!) {
+  productById(id: $id) { ${PRODUCT_FIELDS} }
+}`;
+
+// null quando o produto não existe (o gateway devolve productById nulo, sem erro).
 export async function getProduct(
   id: number,
   signal?: AbortSignal
 ): Promise<Product | null> {
-  const response = await request(`/GetProductById/${id}`, signal);
-  if (response.status === 404) return null;
-  if (!response.ok) {
-    throw new Error(`Catalog API respondeu ${response.status} em GetProductById`);
-  }
-
-  return toProduct(await response.json());
+  const { productById } = await graphqlRequest<{ productById: ProductResponse | null }>(
+    PRODUCT_QUERY,
+    { id },
+    signal
+  );
+  return productById ? toProduct(productById) : null;
 }

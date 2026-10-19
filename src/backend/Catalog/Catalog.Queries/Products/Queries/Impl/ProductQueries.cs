@@ -27,15 +27,14 @@ namespace Catalog.Queries.Products.Queries.Impl
                 Description = x.Description
             };
 
-        public async Task<IPagedList<ProductItemMessageResponse>> GetAllProducts(PagingModel paging)
-        {
-            // A ordenação garante páginas estáveis entre uma chamada e outra.
-            var result = await _context.DbSet<Product>().AsNoTracking()
+        // A ordenação garante páginas estáveis entre uma chamada e outra.
+        public IQueryable<ProductItemMessageResponse> QueryProducts()
+            => _context.DbSet<Product>().AsNoTracking()
                 .OrderBy(x => x.Id)
-                .Select(ToResponse)
-                .ToPagedList(paging.Page(), paging.Size());
-            return result;
-        }
+                .Select(ToResponse);
+
+        public async Task<IPagedList<ProductItemMessageResponse>> GetAllProducts(PagingModel paging)
+            => await QueryProducts().ToPagedList(paging.Page(), paging.Size());
 
         public async Task<ProductItemMessageResponse> GetProductById(long id)
             => await _context.DbSet<Product>().AsNoTracking()
