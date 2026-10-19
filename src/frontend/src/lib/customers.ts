@@ -1,10 +1,7 @@
-import { SessionExpiredError } from "./orders";
+import { graphqlRequest } from "./graphql";
 
-// Cliente do Customers.Web.Api (cadastro do cliente). Como o orders.ts, roda no navegador: a URL é a
-// porta publicada no host (VITE_CUSTOMERS_API_URL, embutida no build) e a API precisa liberar a
-// origem da loja no CORS. O cliente vem do token: não há id na rota.
-const CUSTOMERS_API_URL =
-  import.meta.env.VITE_CUSTOMERS_API_URL ?? "http://localhost:5230";
+// Cadastro do cliente pelo gateway GraphQL (subgraph do Customers). O cliente vem do token: não há id
+// na consulta. Sem sessão válida, as funções lançam SessionExpiredError (de graphql.ts).
 
 export interface CustomerAddress {
   street: string;
@@ -30,38 +27,39 @@ export type SaveProfileRequest = Omit<CustomerProfile, "email">;
 
 export type SaveProfileResult =
   | { ok: true; profile: CustomerProfile }
-  // 400: erros por campo, nas chaves do JSON ("cpf", "address.zipCode").
+  // Erros por campo, nas chaves de sempre ("cpf", "address.zipCode").
   | { ok: false; errors: Record<string, string[]> };
 
-// 401 vira SessionExpiredError; falha de rede e outros status viram exceção.
+const PROFILE_FIELDS =
+  "email fullName phone cpf address { street number complement district city state zipCode }";
+
 export async function getProfile(accessToken: string, signal?: AbortSignal): Promise<CustomerProfile> {
-  const response = await fetch(`${CUSTOMERS_API_URL}/customers/me`, {
-    headers: { Authorization: `Bearer ${accessToken}` },
+  const { me } = await graphqlRequest<{ me: CustomerProfile }>(`query Me { me { ${PROFILE_FIELDS} } }`, undefined, {
+    accessToken,
     signal,
   });
-  if (response.status === 401) throw new SessionExpiredError();
-  if (!response.ok) throw new Error(`Customers API respondeu ${response.status} em customers/me`);
-  return response.json();
+  return me;
 }
 
-// 200 devolve o cadastro salvo e 400 os erros por campo, sem nada gravado.
+const UPDATE_PROFILE = `mutation UpdateMyProfile($input: UpdateMyProfileInput!) {
+  updateMyProfile(input: $input) {
+    profile { ${PROFILE_FIELDS} }
+    errors { field messages }
+  }
+}`;
+
+// O cadastro salvo, ou os erros por campo sem nada gravado.
 export async function saveProfile(
   profile: SaveProfileRequest,
   accessToken: string
 ): Promise<SaveProfileResult> {
-  const response = await fetch(`${CUSTOMERS_API_URL}/customers/me`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify(profile),
-  });
-  if (response.status === 401) throw new SessionExpiredError();
-  if (response.status === 200) return { ok: true, profile: await response.json() };
-  if (response.status === 400) {
-    const body: { errors?: Record<string, string[]> } = await response.json();
-    return { ok: false, errors: body.errors ?? {} };
-  }
-  throw new Error(`Customers API respondeu ${response.status} em customers/me`);
+  const { updateMyProfile } = await graphqlRequest<{
+    updateMyProfile: { profile: CustomerProfile | null; errors: { field: string; messages: string[] }[] };
+  }>(UPDATE_PROFILE, { input: profile }, { accessToken });
+
+  if (updateMyProfile.profile) return { ok: true, profile: updateMyProfile.profile };
+  return {
+    ok: false,
+    errors: Object.fromEntries(updateMyProfile.errors.map((e) => [e.field, e.messages])),
+  };
 }

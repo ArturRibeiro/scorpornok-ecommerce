@@ -1,0 +1,16 @@
+{
+  "name": "orders",
+  "transports": {
+    "http": {
+      "url": "{{ORDERS_URL}}"
+    }
+  },
+  "environments": {
+    "local": {
+      "ORDERS_URL": "http://localhost:5224/graphql"
+    },
+    "compose": {
+      "ORDERS_URL": "http://orders-api:8080/graphql"
+    }
+  }
+}

@@ -68,6 +68,6 @@ Detalhes técnicos: `add-order-history` (arquivada em `openspec/changes/archive/
 
 **Solução:** a home e a página de produto passam a ler o catálogo pelo ponto de entrada único (veja [Catálogo](catalog.md)). Para o cliente, nada muda: a mesma grade, a mesma paginação e a mesma página de produto. Se o catálogo ou o ponto de entrada estiverem fora do ar, a loja mostra que não conseguiu carregar os produtos e oferece tentar de novo, como antes.
 
-**Situação:** em funcionamento (1ª etapa).
+**Situação:** em funcionamento. "Meu cadastro", o preenchimento do checkout, o registro do pedido, a nova tentativa e "Meus pedidos" também passam pelo ponto de entrada (veja [Cadastro do cliente](customers.md) e [Pedidos](orders.md)); o acompanhamento do pagamento continua pelo canal de antes.
 
-Detalhes técnicos: `add-graphql-gateway` (em `openspec/changes/`).
+Detalhes técnicos: `add-graphql-gateway`, `add-customers-subgraph` e `add-orders-subgraph` (arquivadas em `openspec/changes/archive/`).

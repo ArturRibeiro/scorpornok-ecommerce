@@ -17,6 +17,8 @@ GATEWAY="$ROOT/src/backend/Gateway/Gateway.Web.Api"
 # projeto do subgraph:nome do schema (o "name" do schema-settings.json).
 SUBGRAPHS=(
   "src/backend/Catalog/Catalog.Web.Api:catalog"
+  "src/backend/Customers/Customers.Web.Api:customers"
+  "src/backend/Store/Orders.Web.Api:orders"
 )
 
 cd "$ROOT"

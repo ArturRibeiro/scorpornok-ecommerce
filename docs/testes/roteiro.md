@@ -6,9 +6,9 @@ Testes manuais do fluxo do pedido e do pagamento, de ponta a ponta, com o ambien
 
 - Suba tudo: `docker compose up -d --build` (loja em http://localhost:3000, painel do RabbitMQ em http://localhost:15672, guest/guest).
 - Os e-mails saem por um SMTP de verdade (ex.: Gmail): configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_FROM`, `SMTP_USERNAME`, `SMTP_PASSWORD` e `SMTP_USE_STARTTLS=true` no `.env` da raiz. Os e-mails do pedido chegam na caixa de `arturrj@gmail.com` (confira também o spam).
-- Confira o status em "Meus pedidos" na loja (menu da conta), pelo e-mail recebido, pelo `GET /orders/{orderNumber}` ou na tabela do `orders-db`.
+- Confira o status em "Meus pedidos" na loja (menu da conta), pelo e-mail recebido, pelo `myOrder` no gateway (ou o `GET /orders/{orderNumber}` do REST) ou na tabela do `orders-db`.
 - Anote o número de cada pedido (tela de confirmação da loja ou `orderNumber` da resposta do `POST /createOrder`): os cenários seguintes usam os pedidos pelos apelidos abaixo (P1, P2, ...).
-- As chamadas diretas à API estão em `src/backend/Store/Orders.Web.Api/PaymentRetry.http` (nova tentativa), `src/backend/Store/Orders.Web.Api/Orders.Web.Api.http` (pedido e histórico), `src/backend/Gateway/Gateway.Web.Api/Gateway.Web.Api.http` (catálogo pelo gateway GraphQL) e `src/backend/Customers/Customers.Web.Api/Customers.Web.Api.http` (cadastro). Os cenários marcados com **API** não dão para fazer pela loja.
+- As chamadas diretas à API estão em `src/backend/Store/Orders.Web.Api/PaymentRetry.http` (nova tentativa), `src/backend/Store/Orders.Web.Api/Orders.Web.Api.http` (pedido e histórico), `src/backend/Gateway/Gateway.Web.Api/Gateway.Web.Api.http` (catálogo, cadastro e pedidos pelo gateway GraphQL) e `src/backend/Customers/Customers.Web.Api/Customers.Web.Api.http` (cadastro). Os cenários marcados com **API** não dão para fazer pela loja.
 
 ## Dados comuns
 
@@ -362,3 +362,24 @@ Use a conta A depois dos cenários anteriores (vários pedidos: aprovados, recus
 2. **Esperado:** erro `MAX_FIELDS_EXCEEDED`, sem chamada ao Catalog (nada no log do `catalog-api`).
 3. Envie a consulta de introspecção do `.http`.
 4. **Esperado:** o schema em Development (o compose); fora dele, erro `HC0046`.
+
+### 30. Cadastro pelo gateway GraphQL
+
+1. Com a conta A logada, abra "Meu cadastro" e o checkout com o DevTools (aba Network).
+2. **Esperado:** os mesmos dados de antes; as chamadas são `POST` para `http://localhost:5200/graphql` (`me` e `updateMyProfile`), nenhuma para `localhost:5230`.
+3. Salve o CPF `111.111.111-11`.
+4. **Esperado:** o CPF indicado como inválido e nada salvo, como no cenário 18.
+5. No `localStorage`, troque o `access_token` da chave `oidc.user:...` por um valor qualquer e recarregue "Meu cadastro".
+6. **Esperado:** a loja pede o login de novo (o gateway responde `401`).
+7. **API:** decodifique o `access_token` (jwt.io) e confira que o `aud` tem `gateway-api`.
+
+### 31. Pedidos pelo gateway GraphQL
+
+1. Com a conta A, faça uma compra aprovada e outra recusada (cartões dos cenários 1 e 2), com o DevTools (aba Network) aberto.
+2. **Esperado:** o registro é um `POST` para `http://localhost:5200/graphql` (`placeOrder`), nenhum para `localhost:5224/createOrder`; a confirmação acompanha o pagamento pelo hub (`localhost:5224/hubs/orders`), como antes.
+3. Na recusa, pague com outro cartão.
+4. **Esperado:** `retryOrderPayment` pelo gateway e o resultado na mesma tela.
+5. `docker compose stop catalog-api` e confirme outra compra.
+6. **Esperado:** a mensagem de que não foi possível enviar o pedido, com o carrinho mantido; nada registrado. `docker compose start catalog-api`.
+7. Abra "Meus pedidos" e um pedido; com a conta B, abra o endereço de um pedido de A.
+8. **Esperado:** a mesma lista e o mesmo detalhe de antes (`myOrders`/`myOrder` pelo gateway); para B, "Pedido não encontrado".

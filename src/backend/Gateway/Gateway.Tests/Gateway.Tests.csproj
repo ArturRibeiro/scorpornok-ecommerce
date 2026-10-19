@@ -18,8 +18,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Gateway.Web.Api\Gateway.Web.Api.csproj" />
-    <!-- O Catalog também declara um Program global: o alias separa os dois. -->
+    <!-- Os subgraphs também declaram um Program global: os aliases separam todos. -->
     <ProjectReference Include="..\..\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj" Aliases="catalog" />
+    <ProjectReference Include="..\..\Customers\Customers.Web.Api\Customers.Web.Api.csproj" Aliases="customers" />
+    <ProjectReference Include="..\..\Store\Orders.Web.Api\Orders.Web.Api.csproj" Aliases="orders" />
   </ItemGroup>
 
 </Project>

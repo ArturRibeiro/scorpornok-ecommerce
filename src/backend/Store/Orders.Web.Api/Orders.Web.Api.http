@@ -113,3 +113,41 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 ###
+
+# GraphQL (subgraph do gateway; a loja usa o gateway em http://localhost:5200/graphql). Mesmos handlers do
+# REST; os desfechos viram errors { code message }: VALIDATION, CATALOG_UNAVAILABLE, NOT_FOUND, CONFLICT.
+POST {{Orders.Web.Api_HostAddress}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "query": "mutation($input: PlaceOrderInput!) { placeOrder(input: $input) { order { orderNumber status total attempt maxAttempts } errors { code message } } }",
+  "variables": { "input": {
+    "address": { "street": "Rua das Flores", "number": "100", "district": "Centro", "city": "São Paulo", "state": "SP", "zipCode": "01000-000" },
+    "customer": { "fullName": "Maria Souza", "phone": "(11) 99999-8888", "cpf": "529.982.247-25" },
+    "items": [ { "productId": 1, "units": 2 } ],
+    "payment": { "cardToken": "{{cardToken}}", "installments": 1 } } }
+}
+
+###
+
+# Nova tentativa pelo GraphQL: NOT_FOUND (outro cliente ou inexistente) e CONFLICT (não recusado ou sem tentativas).
+POST {{Orders.Web.Api_HostAddress}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "query": "mutation($input: RetryOrderPaymentInput!) { retryOrderPayment(input: $input) { orderNumber status attempt errors { code message } } }",
+  "variables": { "input": { "orderNumber": "{{orderNumber}}", "cardToken": "{{cardToken}}", "installments": 1 } }
+}
+
+###
+
+# Meus pedidos e um pedido (nulo para pedido de outro cliente ou inexistente).
+POST {{Orders.Web.Api_HostAddress}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{ "query": "{ myOrders(page: 1, pageSize: 10) { hasMore items { orderNumber orderDate status total itemCount } } }" }
+
+###

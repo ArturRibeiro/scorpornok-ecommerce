@@ -19,6 +19,8 @@ builder.Services.AddInfrastructure(connectionString, builder.Configuration);
 builder.Services.AddCustomerAuthentication(builder.Configuration, builder.Environment);
 // Avisa o navegador do resultado do pagamento (hub /hubs/orders).
 builder.Services.AddSignalR();
+// Subgraph do gateway federado (Fusion): os pedidos do cliente em /graphql, com a mesma política do REST.
+builder.Services.AddGraphQLServer(SubgraphName).AddAuthorization().AddApiTypes();
 builder.Services.AddScoped<IOrderPaymentNotifier, SignalROrderPaymentNotifier>();
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<OrderContext>(tags: ["ready"]);
@@ -46,6 +48,7 @@ app.RetryOrderPayment();
 app.GetMyOrders();
 app.GetMyOrder();
 app.MapHub<OrderHub>(OrderHub.Path);
+app.MapGraphQL(schemaName: SubgraphName);
 // live: o processo responde (não executa checks); ready: pode registrar pedidos (banco);
 // bus: conexão com o RabbitMQ, fora do ready porque o outbox segura as mensagens.
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false });
@@ -88,8 +91,21 @@ app.MapHealthChecks("/health/bus", new HealthCheckOptions
     }
 });
 
+// "schema export" (scripts/compose-gateway.sh) só gera o schema: não precisa do banco nem da seed.
+if (args is ["schema", ..])
+{
+    await app.RunWithGraphQLCommandsAsync(args);
+    return;
+}
+
 using (var scope = app.Services.CreateScope()) 
     await scope.ServiceProvider.GetRequiredService<OrderContext>().Seed();
 Console.WriteLine("Database created successfully!");
 
 app.Run();
+
+public partial class Program
+{
+    // Nome do subgraph no gateway (name do schema-settings.json).
+    public const string SubgraphName = "orders";
+}

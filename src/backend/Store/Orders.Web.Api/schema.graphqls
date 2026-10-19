@@ -1,0 +1,174 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  myOrders(page: Int, pageSize: Int): CustomerOrderPage!
+    @authorize(policy: "VerifiedCustomer")
+    @cost(weight: "10")
+  myOrder(orderNumber: String!): CustomerOrderDetail
+    @authorize(policy: "VerifiedCustomer")
+    @cost(weight: "10")
+}
+
+type Mutation {
+  placeOrder(input: PlaceOrderInput!): PlaceOrderPayload!
+    @authorize(policy: "VerifiedCustomer")
+    @cost(weight: "10")
+  retryOrderPayment(input: RetryOrderPaymentInput!): RetryOrderPaymentPayload!
+    @authorize(policy: "VerifiedCustomer")
+    @cost(weight: "10")
+}
+
+type CustomerOrderAddress {
+  street: String!
+  number: String!
+  complement: String
+  district: String!
+  city: String!
+  state: String!
+  zipCode: String!
+}
+
+type CustomerOrderDetail {
+  orderNumber: String!
+  orderDate: DateTime!
+  status: String!
+  total: Decimal!
+  attempt: Int!
+  maxAttempts: Int!
+  canRetryPayment: Boolean!
+  address: CustomerOrderAddress!
+  items: [CustomerOrderItem!]!
+}
+
+type CustomerOrderItem {
+  productId: Int!
+  productName: String!
+  pictureUrl: String
+  unitPrice: Decimal!
+  discount: Decimal!
+  quantity: Int!
+  subtotal: Decimal!
+}
+
+type CustomerOrderPage {
+  items: [CustomerOrderSummary!]!
+  page: Int!
+  pageSize: Int!
+  hasMore: Boolean!
+}
+
+type CustomerOrderSummary {
+  orderNumber: String!
+  orderDate: DateTime!
+  status: String!
+  total: Decimal!
+  itemCount: Int!
+  pictureUrl: String
+}
+
+type PlacedOrder {
+  orderNumber: String!
+  status: String!
+  total: Decimal!
+  attempt: Int!
+  maxAttempts: Int!
+}
+
+type PlaceOrderPayload {
+  order: PlacedOrder
+  errors: [UserError!]!
+}
+
+type RetryOrderPaymentPayload {
+  orderNumber: String
+  status: String
+  attempt: Int
+  errors: [UserError!]!
+}
+
+type UserError {
+  code: String!
+  message: String!
+}
+
+input OrderAddressInput {
+  street: String
+  number: String
+  complement: String
+  district: String
+  city: String
+  state: String
+  zipCode: String
+}
+
+input OrderBuyerInput {
+  fullName: String
+  phone: String
+  cpf: String
+}
+
+input OrderItemInput {
+  productId: Int!
+  units: Int!
+}
+
+input PaymentInput {
+  cardToken: String
+  installments: Int! = 1
+}
+
+input PlaceOrderInput {
+  address: OrderAddressInput
+  customer: OrderBuyerInput
+  items: [OrderItemInput!]
+  payment: PaymentInput
+}
+
+input RetryOrderPaymentInput {
+  orderNumber: String!
+  cardToken: String
+  installments: Int! = 1
+}
+
+"Defines when a policy shall be executed."
+enum ApplyPolicy {
+  "Before the resolver was executed."
+  BEFORE_RESOLVER
+  "After the resolver was executed."
+  AFTER_RESOLVER
+  "The policy is applied in the validation step before the execution."
+  VALIDATION
+}
+
+"The `DateTime` scalar type represents a date and time with time zone offset information."
+scalar DateTime
+  @specifiedBy(url: "https://scalars.graphql.org/chillicream/date-time.html")
+
+"The `Decimal` scalar type represents a decimal floating-point number with high precision."
+scalar Decimal
+  @specifiedBy(url: "https://scalars.graphql.org/chillicream/decimal.html")
+
+"The authorize directive."
+directive @authorize(
+  "The name of the authorization policy that determines access to the annotated resource."
+  policy: String
+  "Roles that are allowed to access the annotated resource."
+  roles: [String!]
+  "Defines when the authorize directive shall be applied. By default the authorize directive is applied before the resolver is executed."
+  apply: ApplyPolicy! = BEFORE_RESOLVER
+) repeatable on OBJECT | FIELD_DEFINITION
+
+"The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."
+directive @cost(
+  "The `weight` argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc."
+  weight: String!
+) on
+  | SCALAR
+  | OBJECT
+  | FIELD_DEFINITION
+  | ARGUMENT_DEFINITION
+  | ENUM
+  | INPUT_FIELD_DEFINITION

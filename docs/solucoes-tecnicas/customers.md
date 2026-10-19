@@ -16,3 +16,16 @@ A parte da loja que guarda os dados de quem compra: nome, telefone, CPF, o ender
 **Situação:** em funcionamento.
 
 Detalhes técnicos: `add-customer-profile` (arquivada em `openspec/changes/archive/`).
+
+## 11. Cadastro pelo ponto de entrada único
+
+**Problema:** a página "Meu cadastro" e o checkout chamavam o serviço de cadastro direto, e o ponto de entrada único só atendia o catálogo, que não exige login.
+
+**Solução:**
+- O ponto de entrada passa a identificar o cliente pela sessão da conta e a repassá-la ao cadastro, que continua decidindo quem pode ver e alterar o quê: só o próprio cliente, com o e-mail confirmado.
+- Uma sessão vencida ou inválida é recusada logo na entrada, e a loja pede o login de novo. Sem sessão, o catálogo continua aberto.
+- "Meu cadastro" e o checkout leem e salvam o cadastro pelo ponto de entrada, com as mesmas regras e os mesmos erros por campo de antes. Para o cliente, nada muda.
+
+**Situação:** em funcionamento.
+
+Detalhes técnicos: `add-customers-subgraph` (arquivada em `openspec/changes/archive/`).

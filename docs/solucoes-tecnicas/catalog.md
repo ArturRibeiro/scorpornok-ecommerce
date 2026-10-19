@@ -24,6 +24,6 @@ Detalhes técnicos: `use-catalog-price-in-orders` (arquivada em `openspec/change
 - Uma consulta grande demais (profunda demais ou com campos demais) é recusada logo na entrada, sem chegar ao catálogo. A descrição completa das consultas disponíveis só aparece em ambiente de desenvolvimento.
 - Com o catálogo fora do ar, o ponto de entrada continua no ar e responde com erro só para as consultas do catálogo.
 
-**Situação:** em funcionamento (1ª etapa). Cadastro do cliente e pedidos passam pelo ponto de entrada nas próximas etapas.
+**Situação:** em funcionamento. O cadastro do cliente e os pedidos também passam pelo ponto de entrada (veja [Cadastro do cliente](customers.md) e [Pedidos](orders.md)).
 
-Detalhes técnicos: `add-graphql-gateway` (em `openspec/changes/`).
+Detalhes técnicos: `add-graphql-gateway` (arquivada em `openspec/changes/archive/`).

@@ -28,9 +28,9 @@ services:
     networks:
       - ecommerce-networks
 
-  # Ponto de entrada GraphQL único da loja (Fusion): junta os subgraphs (hoje, o Catalog) em /graphql.
-  # O gateway.compose.far tem o endereço do Catalog na rede interna (catalog-api:8080); veja o
-  # scripts/compose-gateway.sh.
+  # Ponto de entrada GraphQL único da loja (Fusion): junta os subgraphs (Catalog, Customers e Orders) em /graphql.
+  # O gateway.compose.far tem o endereço deles na rede interna (catalog-api, customers-api e orders-api, porta 8080); veja o
+  # scripts/compose-gateway.sh. Valida o token do Keycloak (audience gateway-api) e o repassa aos subgraphs.
   gateway-api:
     build:
       context: .
@@ -41,11 +41,19 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       Fusion__Archive: gateway.compose.far
+      # Mesmo emissor público dos tokens; a descoberta e as chaves vêm de keycloak:8080.
+      Keycloak__MetadataAddress: http://keycloak:8080/realms/scorponok/.well-known/openid-configuration
     ports:
       - 5200:8080
     depends_on:
       catalog-api:
         condition: service_started
+      customers-api:
+        condition: service_started
+      orders-api:
+        condition: service_started
+      keycloak:
+        condition: service_healthy
     networks:
       - ecommerce-networks
 

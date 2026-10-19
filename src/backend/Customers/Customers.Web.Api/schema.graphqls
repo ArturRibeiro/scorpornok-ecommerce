@@ -1,0 +1,93 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  me: CustomerProfile!
+    @authorize(policy: "VerifiedCustomer")
+    @cost(weight: "10")
+}
+
+type Mutation {
+  updateMyProfile(input: UpdateMyProfileInput!): UpdateMyProfilePayload!
+    @authorize(policy: "VerifiedCustomer")
+    @cost(weight: "10")
+}
+
+type CustomerAddress {
+  street: String
+  number: String
+  complement: String
+  district: String
+  city: String
+  state: String
+  zipCode: String
+}
+
+type CustomerProfile {
+  email: String!
+  fullName: String
+  phone: String
+  cpf: String
+  address: CustomerAddress
+}
+
+type FieldError {
+  field: String!
+  messages: [String!]!
+}
+
+type UpdateMyProfilePayload {
+  profile: CustomerProfile
+  errors: [FieldError!]!
+}
+
+input CustomerAddressInput {
+  street: String
+  number: String
+  complement: String
+  district: String
+  city: String
+  state: String
+  zipCode: String
+}
+
+input UpdateMyProfileInput {
+  fullName: String
+  phone: String
+  cpf: String
+  address: CustomerAddressInput
+}
+
+"Defines when a policy shall be executed."
+enum ApplyPolicy {
+  "Before the resolver was executed."
+  BEFORE_RESOLVER
+  "After the resolver was executed."
+  AFTER_RESOLVER
+  "The policy is applied in the validation step before the execution."
+  VALIDATION
+}
+
+"The authorize directive."
+directive @authorize(
+  "The name of the authorization policy that determines access to the annotated resource."
+  policy: String
+  "Roles that are allowed to access the annotated resource."
+  roles: [String!]
+  "Defines when the authorize directive shall be applied. By default the authorize directive is applied before the resolver is executed."
+  apply: ApplyPolicy! = BEFORE_RESOLVER
+) repeatable on OBJECT | FIELD_DEFINITION
+
+"The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."
+directive @cost(
+  "The `weight` argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc."
+  weight: String!
+) on
+  | SCALAR
+  | OBJECT
+  | FIELD_DEFINITION
+  | ARGUMENT_DEFINITION
+  | ENUM
+  | INPUT_FIELD_DEFINITION

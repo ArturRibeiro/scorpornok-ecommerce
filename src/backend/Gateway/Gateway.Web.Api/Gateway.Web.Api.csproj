@@ -9,6 +9,7 @@
     <ItemGroup>
         <!-- Gateway federado: junta os subgraphs (hoje, o Catalog) num único /graphql. -->
         <PackageReference Include="HotChocolate.Fusion.AspNetCore" Version="$(HotChocolate)" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(AspNetCoreAuthenticationJwtBearer)" />
     </ItemGroup>
 
     <ItemGroup>

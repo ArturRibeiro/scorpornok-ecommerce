@@ -55,3 +55,26 @@ Authorization: Bearer {{token}}
 GET {{Customers.Web.Api_HostAddress}}/health/ready
 
 ###
+
+# GraphQL (subgraph do gateway; a loja usa o gateway em http://localhost:5200/graphql). Mesma regra do
+# REST: sem token → AUTH_NOT_AUTHENTICATED; e-mail não confirmado → AUTH_NOT_AUTHORIZED.
+POST {{Customers.Web.Api_HostAddress}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{ "query": "{ me { email fullName phone cpf address { street number complement district city state zipCode } } }" }
+
+###
+
+# Salvar: os erros voltam por campo (errors { field messages }), com profile nulo e nada gravado.
+POST {{Customers.Web.Api_HostAddress}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "query": "mutation($input: UpdateMyProfileInput!) { updateMyProfile(input: $input) { profile { email fullName cpf } errors { field messages } } }",
+  "variables": { "input": { "fullName": "Maria Souza", "phone": "(11) 99999-8888", "cpf": "111.111.111-11",
+    "address": { "street": "Rua das Flores", "number": "100", "district": "Centro", "city": "São Paulo", "state": "SP", "zipCode": "01000-000" } } }
+}
+
+###

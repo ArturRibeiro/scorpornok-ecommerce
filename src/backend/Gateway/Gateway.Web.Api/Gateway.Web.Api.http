@@ -1,4 +1,7 @@
 @Gateway.Web.Api_HostAddress = http://localhost:5200
+# Access token do Keycloak (audience gateway-api), como no Orders.Web.Api.http: na loja, localStorage,
+# chave "oidc.user:http://localhost:8080/realms/scorponok:scorponok-web", campo access_token.
+@token = cole-o-access-token-aqui
 
 # Ponto de entrada único da loja: a consulta vai ao subgraph dono dos dados (hoje, o Catalog).
 # Mesmas regras do GET /Products do Catalog: página a partir de 1, até 20 por página.
@@ -20,6 +23,26 @@ Content-Type: application/json
   "query": "query($id: Long!) { productById(id: $id) { id name price } }",
   "variables": { "id": 999999 }
 }
+
+###
+
+# Cadastro do cliente do token (subgraph do Customers). Sem token: AUTH_NOT_AUTHENTICATED; token
+# inválido ou expirado: 401, sem chamar o Customers.
+POST {{Gateway.Web.Api_HostAddress}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{ "query": "{ me { email fullName phone cpf address { street number complement district city state zipCode } } }" }
+
+###
+
+# Meus pedidos (subgraph do Orders). Os desfechos das mutations (placeOrder, retryOrderPayment) vêm em
+# errors { code message }: VALIDATION, CATALOG_UNAVAILABLE, NOT_FOUND, CONFLICT.
+POST {{Gateway.Web.Api_HostAddress}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{ "query": "{ myOrders(page: 1, pageSize: 10) { hasMore items { orderNumber orderDate status total itemCount } } }" }
 
 ###
 

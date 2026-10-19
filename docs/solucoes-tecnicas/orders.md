@@ -102,3 +102,16 @@ Detalhes técnicos: `add-customer-profile` (arquivada em `openspec/changes/archi
 **Situação:** em funcionamento.
 
 Detalhes técnicos: `add-order-history` (arquivada em `openspec/changes/archive/`).
+
+## 11. Pedidos pelo ponto de entrada único
+
+**Problema:** o checkout, a nova tentativa com outro cartão e "Meus pedidos" chamavam o serviço de pedidos direto, enquanto o catálogo e o cadastro já passavam pelo ponto de entrada único.
+
+**Solução:**
+- Registrar o pedido, pagar de novo um pedido recusado e consultar os próprios pedidos passam pelo ponto de entrada, com as mesmas regras de antes e a mesma identificação do cliente.
+- Cada desfecho que não registra ou não altera o pedido chega à loja com um código e a mensagem de antes: pedido inválido (ex.: "CPF inválido."), catálogo fora do ar (nada é registrado nem cobrado), pedido não encontrado (também para pedido de outro cliente, sem revelar que o número existe) e pagamento que não pode ser refeito.
+- O acompanhamento do pagamento na tela continua pelo canal de antes, sem consultas repetidas ao pedido.
+
+**Situação:** em funcionamento.
+
+Detalhes técnicos: `add-orders-subgraph` (arquivada em `openspec/changes/archive/`).

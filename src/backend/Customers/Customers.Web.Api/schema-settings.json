@@ -1,0 +1,16 @@
+{
+  "name": "customers",
+  "transports": {
+    "http": {
+      "url": "{{CUSTOMERS_URL}}"
+    }
+  },
+  "environments": {
+    "local": {
+      "CUSTOMERS_URL": "http://localhost:5230/graphql"
+    },
+    "compose": {
+      "CUSTOMERS_URL": "http://customers-api:8080/graphql"
+    }
+  }
+}
