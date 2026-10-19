@@ -2,14 +2,26 @@ schema: spec-driven
 
 context: |
   Tech stack:
-  - Back-end: .NET 10 (C# latest), ASP.NET Core Minimal APIs, Swagger (Swashbuckle)
+
+  Back-end (src/backend):
+  - Plataforma: .NET 10 (C# latest), ASP.NET Core Minimal APIs, Swagger (Swashbuckle)
   - Arquitetura: DDD, CQRS com MediatR, domain notifications, event sourcing (Payments)
   - Validação: FluentValidation
   - Persistência: EF Core 10 + Npgsql (PostgreSQL 16), sem migrations (EnsureCreated + seeds)
-  - Front-end: React 19 + TypeScript, Vite, React Router 7, Tailwind CSS 4, Radix UI
   - Testes: NUnit, FluentAssertions, Moq, SpecFlow (BDD), WebApplicationFactory + Testcontainers
-  - Infra: Docker Compose (uma API e um Postgres por bounded context)
   - Versões de pacotes .NET centralizadas no Directory.Build.props
+
+  Front-end (src/frontend):
+  - Plataforma: SPA em React 19 + TypeScript 5.9, Vite 8, React Router 7, sem SSR
+  - UI: Tailwind CSS 4 (@tailwindcss/vite, tokens em src/index.css), componentes shadcn/ui sobre Radix UI, ícones lucide-react, textos em pt-BR
+  - Autenticação: oidc-client-ts (Keycloak, Authorization Code + PKCE, login num modal)
+  - Tempo real: @microsoft/signalr (resultado do pagamento pelo hub do Orders, sem polling)
+  - Dados: fetch direto do navegador para as APIs (URLs VITE_*_API_URL), hook useRequest; carrinho no localStorage
+  - Qualidade: ESLint 9 (typescript-eslint, react-hooks); sem framework de testes, verificação por npm run build e npm run lint
+  - Produção: build estático servido por nginx no compose (porta 3000)
+
+  Infra:
+  - Docker Compose (uma API e um Postgres por bounded context, mais a loja)
 
 # Per-artifact rules (optional)
 # Add custom rules for specific artifacts.
