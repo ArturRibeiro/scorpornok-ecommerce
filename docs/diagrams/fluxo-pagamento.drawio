@@ -1,154 +1,218 @@
 <mxfile host="65bd71144e">
     <diagram id="fluxo-pagamento" name="Fluxo de pagamento (Payments)">
-        <mxGraphModel dx="1910" dy="806" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1260" pageHeight="680" math="0" shadow="0">
+        <mxGraphModel dx="1910" dy="806" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1520" pageHeight="1000" math="0" shadow="0">
             <root>
-                <mxCell id="0"/>
-                <mxCell id="1" parent="0"/>
-                <mxCell id="titulo" parent="1" style="text;html=1;align=left;verticalAlign=top;fontSize=18;fontStyle=1;" value="Fluxo de pagamento: contexto Payments&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal&quot; color=&quot;#666666&quot;&gt;Como funciona hoje: da solicitação recebida do Orders ao resultado publicado.&lt;/font&gt;" vertex="1">
-                    <mxGeometry height="45" width="1000" x="20" as="geometry"/>
+                <mxCell id="0" />
+                <mxCell id="1" parent="0" />
+                <mxCell id="titulo" parent="1" style="text;html=1;align=left;verticalAlign=top;fontSize=18;fontStyle=1;" value="Fluxo de pagamento: contexto Payments&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal&quot; color=&quot;#666666&quot;&gt;Como funciona hoje: da solicitação recebida do Orders ao resultado publicado. Cada tentativa de pagamento do pedido tem a sua chave (pedido-tentativa) e é cobrada no máximo uma vez.&lt;/font&gt;" vertex="1">
+                    <mxGeometry x="20" y="0" width="1200" height="45" as="geometry" />
                 </mxCell>
                 <mxCell id="secao-fluxo" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#333333;" value="Processamento de uma solicitação" vertex="1">
-                    <mxGeometry height="20" width="290" x="20" y="50" as="geometry"/>
+                    <mxGeometry x="20" y="55" width="290" height="20" as="geometry" />
                 </mxCell>
                 <mxCell id="inicio" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Início" vertex="1">
-                    <mxGeometry height="40" width="90" x="20" y="102" as="geometry"/>
+                    <mxGeometry x="20" y="130" width="90" height="40" as="geometry" />
                 </mxCell>
-                <mxCell id="receber" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="1. Receber a solicitação&lt;br&gt;&lt;i&gt;(fila payment-requested)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;PaymentRequestedConsumer&lt;/font&gt;" vertex="1">
-                    <mxGeometry height="70" width="170" x="140" y="87" as="geometry"/>
+                <mxCell id="receber" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="1. Receber a solicitação&lt;br&gt;&lt;i&gt;(fila payment-requested: pedido, tentativa, total e token do cartão)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;PaymentRequestedConsumer&lt;/font&gt;" vertex="1">
+                    <mxGeometry x="140" y="100" width="170" height="100" as="geometry" />
                 </mxCell>
-                <mxCell id="jatem" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="A mesma solicitação&lt;br&gt;de pagamento&lt;br&gt;chegou de novo?" vertex="1">
-                    <mxGeometry height="120" width="200" x="330" y="62" as="geometry"/>
+                <mxCell id="existe" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Já existe pagamento desta tentativa?&lt;br&gt;&lt;i&gt;(chave pedido-tentativa)&lt;/i&gt;" vertex="1">
+                    <mxGeometry x="340" y="90" width="200" height="120" as="geometry" />
                 </mxCell>
-                <mxCell id="cobrar" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="2. Cobrar no gateway&lt;br&gt;&lt;i&gt;(simulado)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;PaymentGateway&lt;/font&gt;" vertex="1">
-                    <mxGeometry height="70" width="160" x="594" y="87" as="geometry"/>
+                <mxCell id="emproc" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Ainda em&lt;br&gt;processamento?" vertex="1">
+                    <mxGeometry x="590" y="95" width="180" height="110" as="geometry" />
                 </mxCell>
-                <mxCell id="final" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Cartão termina&lt;br&gt;em 0000?" vertex="1">
-                    <mxGeometry height="100" width="150" x="802" y="72" as="geometry"/>
+                <mxCell id="cobrar" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="3. Cobrar no gateway com a chave&lt;br&gt;&lt;i&gt;(simulado: recusa cartão final 0000; com a mesma chave, devolve a resposta original)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;PaymentGateway&lt;/font&gt;" vertex="1">
+                    <mxGeometry x="830" y="95" width="210" height="110" as="geometry" />
                 </mxCell>
-                <mxCell id="aprovada" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Cobrança aprovada" vertex="1">
-                    <mxGeometry height="60" width="130" x="1033" y="92" as="geometry"/>
-                </mxCell>
-                <mxCell id="recusada" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Cobrança recusada&lt;br&gt;&lt;i&gt;(motivo gravado)&lt;/i&gt;" vertex="1">
-                    <mxGeometry height="60" width="140" x="807" y="262" as="geometry"/>
-                </mxCell>
-                <mxCell id="gravar" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="3. Gravar o pagamento&lt;br&gt;&lt;i&gt;(últimos 4 dígitos, sem CVV)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;PaymentRepository&lt;/font&gt;" vertex="1">
-                    <mxGeometry height="70" width="160" x="570" y="257" as="geometry"/>
+                <mxCell id="gravar" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="4. Gravar o resultado&lt;br&gt;&lt;i&gt;(aprovado, ou recusado com o motivo)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;PaymentRepository&lt;/font&gt;" vertex="1">
+                    <mxGeometry x="1080" y="110" width="170" height="80" as="geometry" />
                 </mxCell>
                 <mxCell id="aprovado" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Aprovado?" vertex="1">
-                    <mxGeometry height="100" width="130" x="365" y="242" as="geometry"/>
+                    <mxGeometry x="1290" y="100" width="140" height="100" as="geometry" />
                 </mxCell>
-                <mxCell id="pub-aprovado" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="4. Publicar PaymentApproved&lt;br&gt;&lt;i&gt;(com o id do pagamento)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;→ RabbitMQ&lt;/font&gt;" vertex="1">
-                    <mxGeometry height="60" width="170" x="150" y="262" as="geometry"/>
+                <mxCell id="token" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Token do cartão válido?&lt;br&gt;&lt;i&gt;(existe, no prazo e ainda não usado)&lt;/i&gt;" vertex="1">
+                    <mxGeometry x="340" y="270" width="200" height="120" as="geometry" />
                 </mxCell>
-                <mxCell id="pub-recusado" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="4. Publicar PaymentRejected&lt;br&gt;&lt;i&gt;(com o motivo)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;→ RabbitMQ&lt;/font&gt;" vertex="1">
-                    <mxGeometry height="60" width="170" x="340" y="402" as="geometry"/>
+                <mxCell id="processando" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="2. Gravar &quot;em processamento&quot; e marcar o token como usado&lt;br&gt;&lt;i&gt;(antes de cobrar; últimos 4 dígitos, sem CVV)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;PaymentRepository&lt;/font&gt;" vertex="1">
+                    <mxGeometry x="600" y="280" width="200" height="100" as="geometry" />
+                </mxCell>
+                <mxCell id="recusa-token" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Gravar o pagamento recusado, sem cobrar&lt;br&gt;&lt;i&gt;(Token do cartão inválido ou vencido.)&lt;/i&gt;" vertex="1">
+                    <mxGeometry x="340" y="440" width="200" height="70" as="geometry" />
+                </mxCell>
+                <mxCell id="pub-aprovado" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="5. Publicar PaymentApproved&lt;br&gt;&lt;i&gt;(com o id do pagamento e a tentativa)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;→ RabbitMQ&lt;/font&gt;" vertex="1">
+                    <mxGeometry x="1270" y="290" width="190" height="75" as="geometry" />
                 </mxCell>
                 <mxCell id="fim" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Fim" vertex="1">
-                    <mxGeometry height="40" width="90" x="190" y="412" as="geometry"/>
+                    <mxGeometry x="1110" y="380" width="90" height="40" as="geometry" />
                 </mxCell>
-                <mxCell id="secao-falha" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#333333;" value="Falha técnica em qualquer etapa" vertex="1">
-                    <mxGeometry height="20" width="300" x="560" y="410" as="geometry"/>
-                </mxCell>
-                <mxCell id="falha" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Exceção" vertex="1">
-                    <mxGeometry height="40" width="100" x="560" y="452" as="geometry"/>
-                </mxCell>
-                <mxCell id="repetir" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Repetir a mensagem&lt;br&gt;&lt;i&gt;(por cerca de 5 min, pausas de 3 s a 2 min)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;MassTransit&lt;/font&gt;" vertex="1">
-                    <mxGeometry height="70" width="180" x="700" y="437" as="geometry"/>
-                </mxCell>
-                <mxCell id="certo" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Deu certo?" vertex="1">
-                    <mxGeometry height="100" width="120" x="920" y="422" as="geometry"/>
-                </mxCell>
-                <mxCell id="segue" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Segue o fluxo normal" vertex="1">
-                    <mxGeometry height="60" width="150" x="1080" y="442" as="geometry"/>
-                </mxCell>
-                <mxCell id="fila-erro" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Mensagem vai para a fila payment-requested_error&lt;br&gt;&lt;i&gt;(acusada no /health/ops; runbook de filas de erro)&lt;/i&gt;" vertex="1">
-                    <mxGeometry height="70" width="170" x="895" y="562" as="geometry"/>
+                <mxCell id="pub-recusado" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="5. Publicar PaymentRejected&lt;br&gt;&lt;i&gt;(com o motivo e a tentativa)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;→ RabbitMQ&lt;/font&gt;" vertex="1">
+                    <mxGeometry x="1270" y="435" width="190" height="70" as="geometry" />
                 </mxCell>
                 <mxCell id="e-inicio-receber" edge="1" parent="1" source="inicio" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="receber" value="">
-                    <mxGeometry relative="1" as="geometry"/>
+                    <mxGeometry relative="1" as="geometry" />
                 </mxCell>
-                <mxCell id="e-receber-jatem" edge="1" parent="1" source="receber" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="jatem" value="">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="e-receber-existe" edge="1" parent="1" source="receber" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="existe" value="">
+                    <mxGeometry relative="1" as="geometry" />
                 </mxCell>
-                <mxCell id="e-jatem-cobrar" edge="1" parent="1" source="jatem" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="cobrar" value="Não">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="e-existe-emproc" edge="1" parent="1" source="existe" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="emproc" value="Sim">
+                    <mxGeometry relative="1" as="geometry" />
                 </mxCell>
-                <mxCell id="e-jatem-aprovado" edge="1" parent="1" source="jatem" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="aprovado" value="Sim: reaproveita o resultado,&lt;br&gt;sem cobrar de novo">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="e-existe-token" edge="1" parent="1" source="existe" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="token" value="Não">
+                    <mxGeometry relative="1" as="geometry" />
                 </mxCell>
-                <mxCell id="e-cobrar-final" edge="1" parent="1" source="cobrar" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="final" value="">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="e-emproc-cobrar" edge="1" parent="1" source="emproc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="cobrar" value="Sim">
+                    <mxGeometry relative="1" as="geometry" />
                 </mxCell>
-                <mxCell id="e-final-aprovada" edge="1" parent="1" source="final" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="aprovada" value="Não">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="e-final-recusada" edge="1" parent="1" source="final" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="recusada" value="Sim">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="e-aprovada-gravar" edge="1" parent="1" source="aprovada" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="gravar" value="">
-                    <mxGeometry relative="1" x="0.0014" as="geometry">
+                <mxCell id="e-emproc-aprovado" edge="1" parent="1" source="emproc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="aprovado" value="Não: publica de novo o resultado registrado, sem cobrar">
+                    <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="1098" y="370"/>
-                            <mxPoint x="650" y="370"/>
+                            <mxPoint x="680" y="70" />
+                            <mxPoint x="1360" y="70" />
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="e-recusada-gravar" edge="1" parent="1" source="recusada" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="gravar" value="">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="e-token-processando" edge="1" parent="1" source="token" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="processando" value="Sim">
+                    <mxGeometry relative="1" as="geometry" />
                 </mxCell>
-                <mxCell id="e-gravar-aprovado" edge="1" parent="1" source="gravar" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="aprovado" value="">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="e-token-recusa-token" edge="1" parent="1" source="token" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="recusa-token" value="Não">
+                    <mxGeometry relative="1" as="geometry" />
                 </mxCell>
-                <mxCell id="e-aprovado-pub-aprovado" edge="1" parent="1" source="aprovado" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="pub-aprovado" value="Sim">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="e-processando-cobrar" edge="1" parent="1" source="processando" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="cobrar" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="935" y="330" />
+                        </Array>
+                    </mxGeometry>
                 </mxCell>
-                <mxCell id="e-aprovado-pub-recusado" edge="1" parent="1" source="aprovado" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="pub-recusado" value="Não">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="e-cobrar-gravar" edge="1" parent="1" source="cobrar" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="gravar" value="">
+                    <mxGeometry relative="1" as="geometry" />
                 </mxCell>
-                <mxCell id="e-pub-aprovado-fim" edge="1" parent="1" source="pub-aprovado" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="fim" value="">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="e-gravar-aprovado" edge="1" parent="1" source="gravar" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="aprovado" value="">
+                    <mxGeometry relative="1" as="geometry" />
                 </mxCell>
-                <mxCell id="e-pub-recusado-fim" edge="1" parent="1" source="pub-recusado" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="fim" value="">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="e-aprovado-pub-aprovado" edge="1" parent="1" source="aprovado" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="pub-aprovado" value="Sim">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="e-aprovado-pub-recusado" edge="1" parent="1" source="aprovado" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="pub-recusado" value="Não">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1490" y="150" />
+                            <mxPoint x="1490" y="470" />
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-recusa-token-pub-recusado" edge="1" parent="1" source="recusa-token" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="pub-recusado" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="440" y="540" />
+                            <mxPoint x="1365" y="540" />
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-pub-aprovado-fim" edge="1" parent="1" source="pub-aprovado" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="fim" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1155" y="327" />
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-pub-recusado-fim" edge="1" parent="1" source="pub-recusado" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="fim" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1155" y="470" />
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="secao-falha" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#333333;" value="Falha técnica em qualquer etapa" vertex="1">
+                    <mxGeometry x="20" y="590" width="300" height="20" as="geometry" />
+                </mxCell>
+                <mxCell id="falha" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Exceção" vertex="1">
+                    <mxGeometry x="20" y="655" width="100" height="40" as="geometry" />
+                </mxCell>
+                <mxCell id="repetir" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Repetir a mensagem&lt;br&gt;&lt;i&gt;(por cerca de 5 min, pausas de 3 s a 2 min)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;MassTransit&lt;/font&gt;" vertex="1">
+                    <mxGeometry x="150" y="640" width="180" height="70" as="geometry" />
+                </mxCell>
+                <mxCell id="certo" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Deu certo?" vertex="1">
+                    <mxGeometry x="370" y="625" width="120" height="100" as="geometry" />
+                </mxCell>
+                <mxCell id="segue" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Segue o fluxo normal" vertex="1">
+                    <mxGeometry x="530" y="645" width="150" height="60" as="geometry" />
+                </mxCell>
+                <mxCell id="fila-erro" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Mensagem vai para a fila payment-requested_error&lt;br&gt;&lt;i&gt;(acusada no /health/ops)&lt;/i&gt;" vertex="1">
+                    <mxGeometry x="345" y="770" width="170" height="70" as="geometry" />
                 </mxCell>
                 <mxCell id="e-falha-repetir" edge="1" parent="1" source="falha" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="repetir" value="">
-                    <mxGeometry relative="1" as="geometry"/>
+                    <mxGeometry relative="1" as="geometry" />
                 </mxCell>
                 <mxCell id="e-repetir-certo" edge="1" parent="1" source="repetir" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="certo" value="">
-                    <mxGeometry relative="1" as="geometry"/>
+                    <mxGeometry relative="1" as="geometry" />
                 </mxCell>
                 <mxCell id="e-certo-segue" edge="1" parent="1" source="certo" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="segue" value="Sim">
-                    <mxGeometry relative="1" as="geometry"/>
+                    <mxGeometry relative="1" as="geometry" />
                 </mxCell>
                 <mxCell id="e-certo-fila-erro" edge="1" parent="1" source="certo" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="fila-erro" value="Não">
-                    <mxGeometry relative="1" as="geometry"/>
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="secao-consulta" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#333333;" value="Consulta de um pedido parado (o Orders pergunta depois do prazo)" vertex="1">
+                    <mxGeometry x="740" y="590" width="460" height="20" as="geometry" />
+                </mxCell>
+                <mxCell id="consulta" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Receber a consulta&lt;br&gt;&lt;i&gt;(fila payment-status-requested: pedido e tentativa)&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#555555&quot;&gt;PaymentStatusRequestedConsumer&lt;/font&gt;" vertex="1">
+                    <mxGeometry x="740" y="640" width="180" height="80" as="geometry" />
+                </mxCell>
+                <mxCell id="consulta-existe" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Pagamento desta tentativa?" vertex="1">
+                    <mxGeometry x="960" y="620" width="160" height="120" as="geometry" />
+                </mxCell>
+                <mxCell id="consulta-registrado" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Aprovado ou recusado: publica de novo PaymentApproved ou PaymentRejected" vertex="1">
+                    <mxGeometry x="1170" y="615" width="300" height="40" as="geometry" />
+                </mxCell>
+                <mxCell id="consulta-pendente" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Em processamento: publica PaymentStatusPending (o Orders pergunta de novo)" vertex="1">
+                    <mxGeometry x="1170" y="665" width="300" height="40" as="geometry" />
+                </mxCell>
+                <mxCell id="consulta-anulado" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Não existe: grava o pagamento anulado (Voided), que nunca será cobrado, e publica PaymentNotProcessed" vertex="1">
+                    <mxGeometry x="1170" y="715" width="300" height="55" as="geometry" />
+                </mxCell>
+                <mxCell id="e-consulta-consulta-existe" edge="1" parent="1" source="consulta" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="consulta-existe" value="">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="e-consulta-existe-consulta-registrado" edge="1" parent="1" source="consulta-existe" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="consulta-registrado" value="">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="e-consulta-existe-consulta-pendente" edge="1" parent="1" source="consulta-existe" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="consulta-pendente" value="">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="e-consulta-existe-consulta-anulado" edge="1" parent="1" source="consulta-existe" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="consulta-anulado" value="">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="nota-anulado" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#555555;" value="Uma solicitação que chegue depois da anulação encontra o pagamento anulado: é recusada sem passar pelo gateway (o Orders já não a aplica)." vertex="1">
+                    <mxGeometry x="740" y="790" width="710" height="30" as="geometry" />
                 </mxCell>
                 <mxCell id="legenda" parent="1" style="text;html=1;align=left;fontSize=11;" value="&lt;b&gt;Legenda&lt;/b&gt;" vertex="1">
-                    <mxGeometry height="20" width="200" x="20" y="510" as="geometry"/>
+                    <mxGeometry x="20" y="860" width="200" height="20" as="geometry" />
                 </mxCell>
                 <mxCell id="legenda-0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
-                    <mxGeometry height="22" width="36" x="20" y="535" as="geometry"/>
+                    <mxGeometry x="20" y="885" width="36" height="22" as="geometry" />
                 </mxCell>
                 <mxCell id="legenda-0-txt" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="Etapa do Payments" vertex="1">
-                    <mxGeometry height="22" width="240" x="64" y="535" as="geometry"/>
+                    <mxGeometry x="64" y="885" width="240" height="22" as="geometry" />
                 </mxCell>
                 <mxCell id="legenda-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="" vertex="1">
-                    <mxGeometry height="22" width="36" x="20" y="567" as="geometry"/>
+                    <mxGeometry x="20" y="917" width="36" height="22" as="geometry" />
                 </mxCell>
                 <mxCell id="legenda-1-txt" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="Mensagem publicada no RabbitMQ" vertex="1">
-                    <mxGeometry height="22" width="240" x="64" y="567" as="geometry"/>
+                    <mxGeometry x="64" y="917" width="240" height="22" as="geometry" />
                 </mxCell>
                 <mxCell id="legenda-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="" vertex="1">
-                    <mxGeometry height="22" width="36" x="20" y="599" as="geometry"/>
+                    <mxGeometry x="20" y="949" width="36" height="22" as="geometry" />
                 </mxCell>
                 <mxCell id="legenda-2-txt" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="Tratamento de falha" vertex="1">
-                    <mxGeometry height="22" width="240" x="64" y="599" as="geometry"/>
+                    <mxGeometry x="64" y="949" width="240" height="22" as="geometry" />
                 </mxCell>
                 <mxCell id="legenda-3" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="" vertex="1">
-                    <mxGeometry height="22" width="36" x="20" y="631" as="geometry"/>
+                    <mxGeometry x="20" y="981" width="36" height="22" as="geometry" />
                 </mxCell>
                 <mxCell id="legenda-3-txt" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="Decisão" vertex="1">
-                    <mxGeometry height="22" width="240" x="64" y="631" as="geometry"/>
+                    <mxGeometry x="64" y="981" width="240" height="22" as="geometry" />
                 </mxCell>
             </root>
         </mxGraphModel>

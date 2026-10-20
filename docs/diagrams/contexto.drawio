@@ -1,35 +1,124 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <mxfile host="drawio" version="26.0.0">
   <diagram id="contexto" name="Contexto">
     <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1290" pageHeight="1220" math="0" shadow="0">
       <root>
-        <mxCell id="0"/>
-        <mxCell id="1" parent="0"/>
-        <mxCell id="titulo" value="Loja Scorponok: diagrama de contexto&lt;br&gt;&lt;font style=&quot;font-size:12px;font-weight:normal&quot; color=&quot;#666666&quot;&gt;Quem usa o sistema, os contextos que o compõem e os sistemas externos com que ele conversa.&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=#1A1A1A;" vertex="1" parent="1"><mxGeometry x="40" y="10" width="1000" height="60" as="geometry"/></mxCell>
-        <mxCell id="loja" value="&lt;b&gt;Loja Scorponok&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Sistema de software]&lt;/font&gt;" style="rounded=1;arcSize=2;dashed=1;dashPattern=8 4;fillColor=none;strokeColor=#666666;html=1;whiteSpace=wrap;fontColor=#333333;fontSize=12;align=left;verticalAlign=top;spacingLeft=12;spacingTop=6;container=1;collapsible=0;" vertex="1" parent="1"><mxGeometry x="40" y="320" width="860" height="650" as="geometry"/></mxCell>
-        <mxCell id="cliente" value="&lt;b&gt;Cliente&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Pessoa]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Navega no catálogo, compra tênis e acompanha o pagamento.&lt;/font&gt;" style="shape=mxgraph.c4.person2;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#083F75;strokeColor=#06315C;" vertex="1" parent="1"><mxGeometry x="440" y="90" width="200" height="180" as="geometry"/></mxCell>
-        <mxCell id="frontend" value="&lt;b&gt;Front-end da loja&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Contexto: React + Vite]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Catálogo, carrinho, checkout, cadastro do cliente e acompanhamento do pagamento no navegador.&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#23A2D9;strokeColor=#0E7DAD;" vertex="1" parent="loja"><mxGeometry x="290" y="60" width="220" height="110" as="geometry"/></mxCell>
-        <mxCell id="catalog" value="&lt;b&gt;Catalog&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Contexto: .NET + PostgreSQL]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Consulta de produtos e preços (lado de leitura).&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#23A2D9;strokeColor=#0E7DAD;" vertex="1" parent="loja"><mxGeometry x="30" y="300" width="220" height="110" as="geometry"/></mxCell>
-        <mxCell id="orders" value="&lt;b&gt;Orders&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Contexto: .NET + PostgreSQL]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Registra o pedido, acompanha o pagamento e avisa o cliente.&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#23A2D9;strokeColor=#0E7DAD;" vertex="1" parent="loja"><mxGeometry x="290" y="300" width="220" height="110" as="geometry"/></mxCell>
-        <mxCell id="payments" value="&lt;b&gt;Payments&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Contexto: .NET + PostgreSQL]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Cobra o cartão (gateway simulado) e devolve o resultado.&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#23A2D9;strokeColor=#0E7DAD;" vertex="1" parent="loja"><mxGeometry x="620" y="300" width="220" height="110" as="geometry"/></mxCell>
-        <mxCell id="customers" value="&lt;b&gt;Customers&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Contexto: .NET + PostgreSQL]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Cadastro do cliente e histórico dos endereços de entrega.&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#23A2D9;strokeColor=#0E7DAD;" vertex="1" parent="loja"><mxGeometry x="620" y="500" width="220" height="110" as="geometry"/></mxCell>
-        <mxCell id="keycloak" value="&lt;b&gt;Keycloak&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Sistema externo]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Provedor de identidade: cadastro, confirmação de e-mail, login, recuperação de senha e emissão dos tokens.&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#8C8496;strokeColor=#736782;" vertex="1" parent="1"><mxGeometry x="990" y="375" width="260" height="130" as="geometry"/></mxCell>
-        <mxCell id="smtp" value="&lt;b&gt;Servidor de e-mail&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Sistema externo]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;SMTP (Gmail, ou Mailpit em desenvolvimento). Entrega os e-mails ao cliente.&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#8C8496;strokeColor=#736782;" vertex="1" parent="1"><mxGeometry x="990" y="610" width="260" height="130" as="geometry"/></mxCell>
-        <mxCell id="rel-cliente-frontend" value="Navega e compra&lt;br&gt;[HTTPS]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;" edge="1" parent="1" source="cliente" target="frontend"><mxGeometry x="-0.45" relative="1" as="geometry"></mxGeometry></mxCell>
-        <mxCell id="rel-cliente-keycloak" value="Cadastra-se, confirma o e-mail&lt;br&gt;e faz login&lt;br&gt;[HTTPS, modal da loja]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;" edge="1" parent="1" source="cliente" target="keycloak"><mxGeometry x="-0.35" relative="1" as="geometry"></mxGeometry></mxCell>
-        <mxCell id="rel-frontend-catalog" value="Lista os produtos&lt;br&gt;[HTTPS/JSON]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;" edge="1" parent="1" source="frontend" target="catalog"><mxGeometry relative="1" as="geometry"></mxGeometry></mxCell>
-        <mxCell id="rel-frontend-orders" value="Cria o pedido e&lt;br&gt;acompanha o pagamento&lt;br&gt;[HTTPS + SignalR]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;" edge="1" parent="1" source="frontend" target="orders"><mxGeometry relative="1" as="geometry"></mxGeometry></mxCell>
-        <mxCell id="rel-orders-payments" value="Solicita o&lt;br&gt;pagamento e&lt;br&gt;recebe o&lt;br&gt;resultado&lt;br&gt;[RabbitMQ]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;startArrow=blockThin;startFill=1;startSize=10;" edge="1" parent="1" source="orders" target="payments"><mxGeometry relative="1" as="geometry"></mxGeometry></mxCell>
-        <mxCell id="rel-frontend-customers" value="Lê e salva&lt;br&gt;o cadastro&lt;br&gt;[HTTPS/JSON]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="frontend" target="customers"><mxGeometry x="0.62" relative="1" as="geometry"><Array as="points"><mxPoint x="945" y="435"/><mxPoint x="945" y="875"/></Array></mxGeometry></mxCell>
-        <mxCell id="rel-orders-customers" value="Envia o pedido registrado&lt;br&gt;(comprador e endereço)&lt;br&gt;[RabbitMQ]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="orders" target="customers"><mxGeometry x="0.2" relative="1" as="geometry"><Array as="points"><mxPoint x="495" y="875"/></Array></mxGeometry></mxCell>
-        <mxCell id="rel-orders-keycloak" value="Valida os tokens&lt;br&gt;[OIDC / JWT]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;" edge="1" parent="1" source="orders" target="keycloak"><mxGeometry relative="1" as="geometry"></mxGeometry></mxCell>
-        <mxCell id="rel-orders-smtp" value="Envia o resultado do pagamento [SMTP]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="orders" target="smtp"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="440" y="1010"/><mxPoint x="1120" y="1010"/></Array></mxGeometry></mxCell>
-        <mxCell id="rel-keycloak-smtp" value="Envia confirmação de cadastro&lt;br&gt;e troca de senha&lt;br&gt;[SMTP]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;" edge="1" parent="1" source="keycloak" target="smtp"><mxGeometry relative="1" as="geometry"></mxGeometry></mxCell>
-        <mxCell id="legenda" value="&lt;b&gt;Legenda&lt;/b&gt;" style="text;html=1;align=left;fontSize=11;fontColor=#404040;" vertex="1" parent="1"><mxGeometry x="990" y="1040" width="200" height="20" as="geometry"/></mxCell>
-        <mxCell id="legenda-0" value="Pessoa" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#083F75;strokeColor=#06315C;fontSize=10;" vertex="1" parent="1"><mxGeometry x="990" y="1065" width="200" height="28" as="geometry"/></mxCell>
-        <mxCell id="legenda-1" value="Contexto deste projeto" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#23A2D9;strokeColor=#0E7DAD;fontSize=10;" vertex="1" parent="1"><mxGeometry x="990" y="1101" width="200" height="28" as="geometry"/></mxCell>
-        <mxCell id="legenda-2" value="Sistema externo" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#8C8496;strokeColor=#736782;fontSize=10;" vertex="1" parent="1"><mxGeometry x="990" y="1137" width="200" height="28" as="geometry"/></mxCell>
-        <mxCell id="legenda-3" value="Fronteira do sistema" style="rounded=1;arcSize=2;dashed=1;dashPattern=8 4;fillColor=none;strokeColor=#666666;html=1;whiteSpace=wrap;fontColor=#333333;fontSize=12;align=center;fontSize=10;" vertex="1" parent="1"><mxGeometry x="990" y="1173" width="200" height="28" as="geometry"/></mxCell>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="titulo" value="Loja Scorponok: diagrama de contexto&lt;br&gt;&lt;font style=&quot;font-size:12px;font-weight:normal&quot; color=&quot;#666666&quot;&gt;Quem usa o sistema, os contextos que o compõem e os sistemas externos com que ele conversa.&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="40" y="10" width="1000" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="loja" value="&lt;b&gt;Loja Scorponok&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Sistema de software]&lt;/font&gt;" style="rounded=1;arcSize=2;dashed=1;dashPattern=8 4;fillColor=none;strokeColor=#666666;html=1;whiteSpace=wrap;fontColor=#333333;fontSize=12;align=left;verticalAlign=top;spacingLeft=12;spacingTop=6;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="320" width="860" height="780.0" as="geometry" />
+        </mxCell>
+        <mxCell id="cliente" value="&lt;b&gt;Cliente&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Pessoa]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Navega no catálogo, compra tênis e acompanha o pagamento.&lt;/font&gt;" style="shape=mxgraph.c4.person2;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#083F75;strokeColor=#06315C;" vertex="1" parent="1">
+          <mxGeometry x="440" y="90" width="200" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="frontend" value="&lt;b&gt;Front-end da loja&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Contexto: React + Vite]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Catálogo, carrinho, checkout, cadastro do cliente e acompanhamento do pagamento no navegador.&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#23A2D9;strokeColor=#0E7DAD;" vertex="1" parent="loja">
+          <mxGeometry x="290" y="60" width="220" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="catalog" value="&lt;b&gt;Catalog&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Contexto: .NET + PostgreSQL]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Consulta de produtos e preços (lado de leitura).&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#23A2D9;strokeColor=#0E7DAD;" vertex="1" parent="loja">
+          <mxGeometry x="30" y="420.0" width="220" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="orders" value="&lt;b&gt;Orders&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Contexto: .NET + PostgreSQL]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Registra o pedido, acompanha o pagamento e avisa o cliente.&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#23A2D9;strokeColor=#0E7DAD;" vertex="1" parent="loja">
+          <mxGeometry x="290" y="420.0" width="220" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="payments" value="&lt;b&gt;Payments&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Contexto: .NET + PostgreSQL]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Tokeniza o cartão, cobra (gateway simulado) e devolve o resultado.&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#23A2D9;strokeColor=#0E7DAD;" vertex="1" parent="loja">
+          <mxGeometry x="620" y="420.0" width="220" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="customers" value="&lt;b&gt;Customers&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Contexto: .NET + PostgreSQL]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Cadastro do cliente e histórico dos endereços de entrega.&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#23A2D9;strokeColor=#0E7DAD;" vertex="1" parent="loja">
+          <mxGeometry x="620" y="620.0" width="220" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="gateway" parent="loja" vertex="1" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#23A2D9;strokeColor=#0E7DAD;" value="&lt;b&gt;Gateway GraphQL&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Contexto: .NET + Hot Chocolate Fusion]&lt;/font&gt;&lt;br&gt;&lt;br&gt;Ponto de entrada único da loja: valida o token e encaminha a cada contexto.">
+          <mxGeometry x="290" y="250" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="keycloak" value="&lt;b&gt;Keycloak&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Sistema externo]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Provedor de identidade: cadastro, confirmação de e-mail, login, recuperação de senha e emissão dos tokens.&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#8C8496;strokeColor=#736782;" vertex="1" parent="1">
+          <mxGeometry x="990" y="375" width="260" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="smtp" value="&lt;b&gt;Servidor de e-mail&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Sistema externo]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;SMTP (Gmail, ou Mailpit em desenvolvimento). Entrega os e-mails ao cliente.&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#8C8496;strokeColor=#736782;" vertex="1" parent="1">
+          <mxGeometry x="990" y="610" width="260" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="rel-cliente-frontend" value="Navega e compra&lt;br&gt;[HTTPS]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;" edge="1" parent="1" source="cliente" target="frontend">
+          <mxGeometry x="-0.45" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel-cliente-keycloak" value="Cadastra-se, confirma o e-mail&lt;br&gt;e faz login&lt;br&gt;[HTTPS, modal da loja]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;" edge="1" parent="1" source="cliente" target="keycloak">
+          <mxGeometry x="-0.35" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel-frontend-gateway" parent="1" edge="1" source="frontend" target="gateway" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;" value="Catálogo, cadastro, pedidos e cartão&lt;br&gt;[GraphQL + token]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel-frontend-orders" parent="1" edge="1" source="frontend" target="orders" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" value="Acompanha o pagamento&lt;br&gt;[SignalR]">
+          <mxGeometry relative="1" as="geometry" x="0.38">
+            <Array as="points">
+              <mxPoint x="310" y="462" />
+              <mxPoint x="310" y="795" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-gateway-catalog" parent="1" edge="1" source="gateway" target="catalog" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="[GraphQL]">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="615" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-gateway-orders" parent="1" edge="1" source="gateway" target="orders" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;" value="[GraphQL + token]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel-gateway-payments" parent="1" edge="1" source="gateway" target="payments" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="Tokeniza o cartão&lt;br&gt;[GraphQL]">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="770" y="633" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-gateway-customers" parent="1" edge="1" source="gateway" target="customers" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" value="Lê e salva o cadastro&lt;br&gt;[GraphQL + token]">
+          <mxGeometry relative="1" as="geometry" x="0.55">
+            <Array as="points">
+              <mxPoint x="945" y="597" />
+              <mxPoint x="945" y="995" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-gateway-keycloak" parent="1" edge="1" source="gateway" target="keycloak" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;" value="Valida os tokens (o Orders e o&lt;br&gt;Customers também) [OIDC / JWT]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel-orders-payments" value="Solicita o&lt;br&gt;pagamento e&lt;br&gt;recebe o&lt;br&gt;resultado&lt;br&gt;[RabbitMQ]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;startArrow=blockThin;startFill=1;startSize=10;" edge="1" parent="1" source="orders" target="payments">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel-orders-customers" value="Envia o pedido registrado&lt;br&gt;(comprador e endereço)&lt;br&gt;[RabbitMQ]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="orders" target="customers">
+          <mxGeometry x="0.2" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="495" y="995.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-orders-smtp" value="Envia o resultado do pagamento [SMTP]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="orders" target="smtp">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="1140.0" />
+              <mxPoint x="1120" y="1140.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-keycloak-smtp" value="Envia confirmação de cadastro&lt;br&gt;e troca de senha&lt;br&gt;[SMTP]" style="endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=11;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=0;" edge="1" parent="1" source="keycloak" target="smtp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="legenda" value="&lt;b&gt;Legenda&lt;/b&gt;" style="text;html=1;align=left;fontSize=11;fontColor=#404040;" vertex="1" parent="1">
+          <mxGeometry x="990" y="1170.0" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legenda-0" value="Pessoa" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#083F75;strokeColor=#06315C;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="990" y="1195.0" width="200" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="legenda-1" value="Contexto deste projeto" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#23A2D9;strokeColor=#0E7DAD;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="990" y="1231.0" width="200" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="legenda-2" value="Sistema externo" style="rounded=1;arcSize=10;html=1;whiteSpace=wrap;fontSize=12;fontColor=#ffffff;align=center;fillColor=#8C8496;strokeColor=#736782;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="990" y="1267.0" width="200" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="legenda-3" value="Fronteira do sistema" style="rounded=1;arcSize=2;dashed=1;dashPattern=8 4;fillColor=none;strokeColor=#666666;html=1;whiteSpace=wrap;fontColor=#333333;fontSize=12;align=center;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="990" y="1303.0" width="200" height="28" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
