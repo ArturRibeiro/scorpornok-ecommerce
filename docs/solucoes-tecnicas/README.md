@@ -18,11 +18,11 @@ Esta pasta explica, em linguagem de negócio, o que podia dar errado quando o cl
 | 8 | Dois pedidos podiam receber o mesmo número, e um pedido novo podia ser confundido com um antigo e confirmado sem pagamento | Cada pedido recebe um número sorteado que não se repete, e a loja recusa registrar um número já usado | Em funcionamento |
 | 9 | A loja não guardava os dados do cliente, que digitava o endereço de novo a cada compra | O cliente tem um cadastro (criado na primeira compra), o checkout já vem preenchido e cada pedido guarda o seu endereço de entrega no histórico | Em funcionamento |
 | 10 | O cliente não tinha onde rever os pedidos já feitos, e quem fechava a tela da confirmação perdia o caminho para pagar de novo um pedido recusado | "Meus pedidos" lista as compras do cliente, mostra cada pedido como foi comprado, acompanha o pagamento e permite pagar de novo um pedido recusado | Em funcionamento |
-| 11 | A loja fala com cada API por um endereço e um formato próprios, e cada nova tela multiplica as chamadas | Um ponto de entrada único (GraphQL) junta as APIs, identifica o cliente e barra consultas abusivas; catálogo, cadastro e pedidos passam por ele | Em funcionamento (3ª etapa) |
+| 11 | A loja fala com cada API por um endereço e um formato próprios, e cada nova tela multiplica as chamadas | Um ponto de entrada único (GraphQL) junta as APIs, identifica o cliente e barra consultas abusivas; catálogo, cadastro, pedidos e a validação do cartão passam por ele | Em funcionamento (4ª etapa) |
 
 ## Por parte da loja
 
-- [Pagamentos](payments.md): itens 1, 2, 3, 4 e 5.
+- [Pagamentos](payments.md): itens 1, 2, 3, 4, 5 e 11.
 - [Pedidos](orders.md): itens 2, 3, 5, 6, 7, 8, 9, 10 e 11.
 - [Loja (site)](frontend.md): itens 2, 4, 5, 9, 10 e 11.
 - [Cadastro do cliente](customers.md): itens 9 e 11.
@@ -45,5 +45,6 @@ Esta pasta explica, em linguagem de negócio, o que podia dar errado quando o cl
 | 11 | Ponto de entrada único, 1ª etapa: catálogo (11) | Em funcionamento |
 | 12 | Ponto de entrada único, 2ª etapa: cadastro e identificação do cliente (11) | Em funcionamento |
 | 13 | Ponto de entrada único, 3ª etapa: pedidos (11) | Em funcionamento |
+| 14 | Ponto de entrada único, 4ª etapa: validação do cartão (11) | Em funcionamento |
 
-As soluções foram implementadas nesta ordem. O número que não se repete veio antes da cobrança única porque a cobrança única identifica cada cobrança pelo número do pedido: com números repetidos, ela confundiria dois pedidos. A cobrança única vem cedo porque várias outras soluções dependem dela, e a nova tentativa com outro cartão vem depois porque depende da cobrança única e da proteção do cartão. O cadastro do cliente veio depois: ele não muda o pagamento, só acrescenta os dados de quem compra. "Meus pedidos" veio depois porque reaproveita a nova tentativa com outro cartão e só lê os pedidos, sem mudar o registro nem a cobrança. O ponto de entrada único começou pelo catálogo, que só é lido e não exige login; depois veio o cadastro, que trouxe a identificação do cliente no ponto de entrada, e por último os pedidos, que reaproveitam essa identificação. O acompanhamento do pagamento na tela ainda usa o canal de antes.
+As soluções foram implementadas nesta ordem. O número que não se repete veio antes da cobrança única porque a cobrança única identifica cada cobrança pelo número do pedido: com números repetidos, ela confundiria dois pedidos. A cobrança única vem cedo porque várias outras soluções dependem dela, e a nova tentativa com outro cartão vem depois porque depende da cobrança única e da proteção do cartão. O cadastro do cliente veio depois: ele não muda o pagamento, só acrescenta os dados de quem compra. "Meus pedidos" veio depois porque reaproveita a nova tentativa com outro cartão e só lê os pedidos, sem mudar o registro nem a cobrança. O ponto de entrada único começou pelo catálogo, que só é lido e não exige login; depois veio o cadastro, que trouxe a identificação do cliente no ponto de entrada, depois os pedidos, que reaproveitam essa identificação, e por último a validação do cartão, que exigiu cuidado extra porque os dados do cartão passam a atravessar o ponto de entrada. O acompanhamento do pagamento na tela ainda usa o canal de antes.

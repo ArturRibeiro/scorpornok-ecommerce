@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace Gateway.Tests;
@@ -13,7 +14,8 @@ namespace Gateway.Tests;
 /// Gateway em memória, com o gateway.local.far. As chamadas aos subgraphs passam pelo <see cref="Subgraphs"/>,
 /// que as conta e responde no lugar do Catalog (ou simula o Catalog fora do ar).
 /// </summary>
-public sealed class GatewayFactory(string environment = "Development", IDictionary<string, string?>? settings = null)
+public sealed class GatewayFactory(string environment = "Development", IDictionary<string, string?>? settings = null,
+    CapturedLogs? logs = null)
     : WebApplicationFactory<Program>
 {
     public FakeSubgraphs Subgraphs { get; } = new();
@@ -23,6 +25,11 @@ public sealed class GatewayFactory(string environment = "Development", IDictiona
         builder.UseEnvironment(environment);
         foreach (var (key, value) in settings ?? new Dictionary<string, string?>())
             builder.UseSetting(key, value);
+        if (logs is not null)
+            // Filtro do próprio provedor: vale mais que os do appsettings (ex.: Microsoft.AspNetCore em Warning),
+            // para a captura ver tudo o que qualquer categoria registraria.
+            builder.ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Trace).AddProvider(logs)
+                .AddFilter<CapturedLogs>(category: null, level: LogLevel.Trace));
         builder.ConfigureTestServices(services =>
         {
             services.AddHttpClient("fusion").ConfigurePrimaryHttpMessageHandler(() => Subgraphs);
@@ -74,5 +81,32 @@ public sealed class FakeSubgraphs : HttpMessageHandler
         {
             Content = new StringContent(Respond, System.Text.Encoding.UTF8, "application/json")
         });
+    }
+}
+
+/// <summary>Guarda tudo o que o gateway registra em log (mensagem e exceção), em qualquer nível.</summary>
+public sealed class CapturedLogs : ILoggerProvider
+{
+    private readonly System.Collections.Concurrent.ConcurrentQueue<string> _entries = new();
+
+    public string All => string.Join('\n', _entries);
+
+    public ILogger CreateLogger(string categoryName) => new Logger(categoryName, _entries);
+
+    public void Dispose() { }
+
+    private sealed class Logger(string category, System.Collections.Concurrent.ConcurrentQueue<string> entries) : ILogger
+    {
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull
+        {
+            entries.Enqueue($"{category} scope: {state}");
+            return null;
+        }
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
+            Func<TState, Exception?, string> formatter)
+            => entries.Enqueue($"{category} [{logLevel}] {formatter(state, exception)} {exception}");
     }
 }

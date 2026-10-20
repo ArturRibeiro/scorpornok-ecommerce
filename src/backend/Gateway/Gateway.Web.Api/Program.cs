@@ -29,7 +29,14 @@ builder.Services.AddHttpClient("fusion", client => client.Timeout = TimeSpan.Fro
 builder.AddGraphQLGateway()
     .AddFileSystemConfiguration(archive)
     .AddMaxExecutionDepthRule(limits.MaxDepth, skipIntrospectionFields: true)
-    .AddValidationRule((_, _) => new MaxFieldsRule(limits.MaxFields));
+    .AddValidationRule((_, _) => new MaxFieldsRule(limits.MaxFields))
+    // O cartão passa por aqui (tokenizeCard): nada da requisição vai para erros ou telemetria. Explícito, para
+    // não depender dos padrões de uma versão futura (add-payments-subgraph; o Gateway.Tests confere).
+    .ModifyRequestOptions(options =>
+    {
+        options.IncludeExceptionDetails = false;
+        options.CollectOperationPlanTelemetry = false;
+    });
 
 builder.Services.AddHealthChecks()
     .AddCheck<FusionSchemaHealthCheck>("fusion-schema", tags: ["ready"]);

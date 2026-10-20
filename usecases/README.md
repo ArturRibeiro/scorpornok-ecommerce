@@ -26,9 +26,7 @@ Descrevem o que a loja faz hoje, do ponto de vista de quem a usa. As regras deta
 
 ## Fluxo
 
-![Fluxo de compra](../docs/diagrams/fluxo-compra.png)
-
-Fonte editável: [`docs/diagrams/fluxo-compra.drawio`](../docs/diagrams/fluxo-compra.drawio) (abre no draw.io ou no diagrams.net).
+Diagrama: [`docs/diagrams/fluxo-compra.drawio`](../docs/diagrams/fluxo-compra.drawio) (abre no draw.io, no diagrams.net ou na extensão Draw.io Integration do VS Code).
 
 ## Situação do pedido
 

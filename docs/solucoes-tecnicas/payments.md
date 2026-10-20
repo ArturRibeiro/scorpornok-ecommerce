@@ -58,3 +58,16 @@ Detalhes técnicos: `tokenize-card-data` (arquivada em `openspec/changes/archive
 **Situação:** em funcionamento.
 
 Detalhes técnicos: `allow-payment-retry` (arquivada em `openspec/changes/archive/`).
+
+## 11. Cartão validado pelo ponto de entrada único
+
+**Problema:** a validação do cartão era a única operação do site que ainda chamava a área de pagamentos direto, fora do ponto de entrada único.
+
+**Solução:**
+- O site passa a validar o cartão pelo ponto de entrada, com as mesmas regras e os mesmos erros por campo de antes. Para o cliente, nada muda.
+- Essa foi uma decisão de segurança consciente: antes, o número e o código de segurança só tocavam a área de pagamentos; agora eles também atravessam o ponto de entrada. Por isso o ponto de entrada foi configurado para nunca registrar esses dados (em logs, mensagens de erro ou monitoramento), e um teste automático confere isso, inclusive quando a validação falha.
+- Continua valendo o principal: o cartão não é guardado em lugar nenhum, e só o código descartável segue para o pedido e para a cobrança.
+
+**Situação:** em funcionamento.
+
+Detalhes técnicos: `add-payments-subgraph` (em `openspec/changes/`).

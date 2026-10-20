@@ -19,6 +19,7 @@ SUBGRAPHS=(
   "src/backend/Catalog/Catalog.Web.Api:catalog"
   "src/backend/Customers/Customers.Web.Api:customers"
   "src/backend/Store/Orders.Web.Api:orders"
+  "src/backend/Payments/Payments.Web.Api:payments"
 )
 
 cd "$ROOT"

@@ -46,6 +46,18 @@ Authorization: Bearer {{token}}
 
 ###
 
+# Tokenização do cartão (subgraph do Payments), sem login. O cartão passa pelo gateway, que não o registra
+# em log nem em erros (CardDataTests). Erros por campo em errors { field message }.
+POST {{Gateway.Web.Api_HostAddress}}/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation($input: TokenizeCardInput!) { tokenizeCard(input: $input) { token { token last4 expiresAt } errors { field message } } }",
+  "variables": { "input": { "cardHolderName": "Fulano de Tal", "cardNumber": "4111111111111111", "expirationMonth": "12", "expirationYear": "2030", "cvv": "123" } }
+}
+
+###
+
 # Introspecção: só em Development; fora dele, erro HC0046.
 POST {{Gateway.Web.Api_HostAddress}}/graphql
 Content-Type: application/json

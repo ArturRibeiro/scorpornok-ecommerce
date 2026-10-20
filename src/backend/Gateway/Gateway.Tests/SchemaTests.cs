@@ -1,6 +1,7 @@
 extern alias catalog;
 extern alias customers;
 extern alias orders;
+extern alias payments;
 using System.IO.Compression;
 using HotChocolate.Execution;
 using HotChocolate.Execution.Configuration;
@@ -9,6 +10,7 @@ using Moq;
 using CatalogTypes = catalog::Microsoft.Extensions.DependencyInjection.ApiTypesRequestExecutorBuilderExtensions;
 using CustomersTypes = customers::Microsoft.Extensions.DependencyInjection.ApiTypesRequestExecutorBuilderExtensions;
 using OrdersTypes = orders::Microsoft.Extensions.DependencyInjection.ApiTypesRequestExecutorBuilderExtensions;
+using PaymentsTypes = payments::Microsoft.Extensions.DependencyInjection.ApiTypesRequestExecutorBuilderExtensions;
 
 namespace Gateway.Tests;
 
@@ -41,6 +43,10 @@ public class SchemaTests
             (Func<IRequestExecutorBuilder, IRequestExecutorBuilder>)(b => OrdersTypes.AddApiTypes(b.AddAuthorization())),
             (Action<IServiceCollection>)(s => s.AddSingleton(Mock.Of<Shared.Code.IMemoryBus>())))
             .SetName("Orders");
+        yield return new TestCaseData(payments::Program.SubgraphName, "src/backend/Payments/Payments.Web.Api/schema.graphqls",
+            (Func<IRequestExecutorBuilder, IRequestExecutorBuilder>)(b => PaymentsTypes.AddApiTypes(b.ModifyOptions(o => o.StrictValidation = false))),
+            (Action<IServiceCollection>)(s => s.AddSingleton(Mock.Of<Shared.Code.IMemoryBus>())))
+            .SetName("Payments");
     }
 
     [TestCaseSource(nameof(Subgraphs))]
@@ -59,7 +65,8 @@ public class SchemaTests
     public async Task Far_tem_os_schemas_versionados([Values("local", "compose")] string env,
         [Values("catalog:src/backend/Catalog/Catalog.Web.Api/schema.graphqls",
             "customers:src/backend/Customers/Customers.Web.Api/schema.graphqls",
-            "orders:src/backend/Store/Orders.Web.Api/schema.graphqls")] string subgraph)
+            "orders:src/backend/Store/Orders.Web.Api/schema.graphqls",
+            "payments:src/backend/Payments/Payments.Web.Api/schema.graphqls")] string subgraph)
     {
         var (name, schemaFile) = (subgraph.Split(':')[0], subgraph.Split(':')[1]);
         using var archive = ZipFile.OpenRead(Archive(env));

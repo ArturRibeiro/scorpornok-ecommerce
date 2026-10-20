@@ -8,7 +8,7 @@ Testes manuais do fluxo do pedido e do pagamento, de ponta a ponta, com o ambien
 - Os e-mails saem por um SMTP de verdade (ex.: Gmail): configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_FROM`, `SMTP_USERNAME`, `SMTP_PASSWORD` e `SMTP_USE_STARTTLS=true` no `.env` da raiz. Os e-mails do pedido chegam na caixa de `arturrj@gmail.com` (confira também o spam).
 - Confira o status em "Meus pedidos" na loja (menu da conta), pelo e-mail recebido, pelo `myOrder` no gateway (ou o `GET /orders/{orderNumber}` do REST) ou na tabela do `orders-db`.
 - Anote o número de cada pedido (tela de confirmação da loja ou `orderNumber` da resposta do `POST /createOrder`): os cenários seguintes usam os pedidos pelos apelidos abaixo (P1, P2, ...).
-- As chamadas diretas à API estão em `src/backend/Store/Orders.Web.Api/PaymentRetry.http` (nova tentativa), `src/backend/Store/Orders.Web.Api/Orders.Web.Api.http` (pedido e histórico), `src/backend/Gateway/Gateway.Web.Api/Gateway.Web.Api.http` (catálogo, cadastro e pedidos pelo gateway GraphQL) e `src/backend/Customers/Customers.Web.Api/Customers.Web.Api.http` (cadastro). Os cenários marcados com **API** não dão para fazer pela loja.
+- As chamadas diretas à API estão em `src/backend/Store/Orders.Web.Api/PaymentRetry.http` (nova tentativa), `src/backend/Store/Orders.Web.Api/Orders.Web.Api.http` (pedido e histórico), `src/backend/Gateway/Gateway.Web.Api/Gateway.Web.Api.http` (catálogo, cadastro, pedidos e tokenização pelo gateway GraphQL) e `src/backend/Customers/Customers.Web.Api/Customers.Web.Api.http` (cadastro). Os cenários marcados com **API** não dão para fazer pela loja.
 
 ## Dados comuns
 
@@ -383,3 +383,12 @@ Use a conta A depois dos cenários anteriores (vários pedidos: aprovados, recus
 6. **Esperado:** a mensagem de que não foi possível enviar o pedido, com o carrinho mantido; nada registrado. `docker compose start catalog-api`.
 7. Abra "Meus pedidos" e um pedido; com a conta B, abra o endereço de um pedido de A.
 8. **Esperado:** a mesma lista e o mesmo detalhe de antes (`myOrders`/`myOrder` pelo gateway); para B, "Pedido não encontrado".
+
+### 32. Tokenização pelo gateway GraphQL
+
+1. Com o DevTools (aba Network) aberto, finalize uma compra com o cartão aprovado do cenário 1.
+2. **Esperado:** a tokenização é um `POST` para `http://localhost:5200/graphql` (`tokenizeCard`), nenhum para `localhost:5220/card-tokens`; o `placeOrder` leva só o token.
+3. Tente com o CVV `12`.
+4. **Esperado:** o CVV indicado como inválido no formulário, nada enviado ao Orders.
+5. `docker compose stop payment-api` e confirme de novo.
+6. **Esperado:** a mensagem de que não foi possível validar o cartão; `docker compose logs gateway-api | grep 4111` não encontra nada. `docker compose start payment-api`.

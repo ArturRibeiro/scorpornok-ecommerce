@@ -1,0 +1,16 @@
+{
+  "name": "payments",
+  "transports": {
+    "http": {
+      "url": "{{PAYMENTS_URL}}"
+    }
+  },
+  "environments": {
+    "local": {
+      "PAYMENTS_URL": "http://localhost:5220/graphql"
+    },
+    "compose": {
+      "PAYMENTS_URL": "http://payment-api:8080/graphql"
+    }
+  }
+}

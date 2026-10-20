@@ -10,9 +10,13 @@ O Scorponok é um e-commerce de código aberto, escrito em .NET 10 e React, feit
 
 Quem usa a loja, os contextos que a compõem e os sistemas externos com que ela conversa.
 
-![Diagrama de contexto da Loja Scorponok](docs/diagrams/contexto.png)
+Diagrama: [`docs/diagrams/contexto.drawio`](docs/diagrams/contexto.drawio) (abre no draw.io, no diagrams.net ou na extensão Draw.io Integration do VS Code). O fluxo de compra, do catálogo ao resultado do pagamento, está em [`usecases/`](usecases/README.md#fluxo).
 
-Fonte editável: [`docs/diagrams/contexto.drawio`](docs/diagrams/contexto.drawio) (abre no draw.io ou no diagrams.net). O fluxo de compra, do catálogo ao resultado do pagamento, está em [`usecases/`](usecases/README.md#fluxo).
+## Arquitetura
+
+O que roda no compose e como as partes conversam: a loja, o gateway GraphQL e os subgraphs (Catalog, Customers e Orders), o Payments, os bancos, o RabbitMQ, o Keycloak e o servidor de e-mail, com as portas no host.
+
+Diagrama: [`docs/diagrams/arquitetura.drawio`](docs/diagrams/arquitetura.drawio).
 
 ## Bounded contexts
 
@@ -37,9 +41,7 @@ O front-end (`src/frontend/`) é a loja: catálogo, carrinho, login e cadastro p
 
 O passo 3, dentro do contexto Payments:
 
-![Fluxo de pagamento no contexto Payments](docs/diagrams/fluxo-pagamento.png)
-
-Fonte editável: [`docs/diagrams/fluxo-pagamento.drawio`](docs/diagrams/fluxo-pagamento.drawio). As melhorias propostas para as falhas nesse fluxo estão em [`docs/solucoes-tecnicas/`](docs/solucoes-tecnicas/README.md).
+Diagrama: [`docs/diagrams/fluxo-pagamento.drawio`](docs/diagrams/fluxo-pagamento.drawio). As melhorias propostas para as falhas nesse fluxo estão em [`docs/solucoes-tecnicas/`](docs/solucoes-tecnicas/README.md).
 
 ## Tecnologias
 

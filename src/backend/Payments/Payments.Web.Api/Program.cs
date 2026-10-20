@@ -14,6 +14,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // Banco, gateway e o consumidor das solicitações de pagamento (RabbitMq no appsettings).
 builder.Services.AddInfrastructure(connectionString, builder.Configuration);
+// Subgraph do gateway federado (Fusion): a tokenização do cartão em /graphql. O subgraph só tem mutation; sem
+// a validação estrita, o schema não precisa de um tipo Query (as consultas vêm dos outros subgraphs).
+builder.Services.AddGraphQLServer(SubgraphName).ModifyOptions(o => o.StrictValidation = false).AddApiTypes();
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<PaymentContext>(tags: ["ready"]);
 
@@ -29,6 +32,7 @@ app.UseHttpsRedirection();
 app.UseCors();
 
 app.CreateCardToken();
+app.MapGraphQL(schemaName: SubgraphName);
 
 // live: o processo responde (não executa checks); ready: o banco responde (o broker não entra no check).
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false });
@@ -47,6 +51,13 @@ app.MapHealthChecks("/health/ops", new HealthCheckOptions
     })
 });
 
+// "schema export" (scripts/compose-gateway.sh) só gera o schema: não precisa do banco.
+if (args is ["schema", ..])
+{
+    await app.RunWithGraphQLCommandsAsync(args);
+    return;
+}
+
 using (var scope = app.Services.CreateScope())
     await scope.ServiceProvider.GetRequiredService<PaymentContext>().Database.EnsureCreatedAsync();
 Console.WriteLine("Database created successfully!");
@@ -55,4 +66,6 @@ app.Run();
 
 public partial class Program
 {
+    // Nome do subgraph no gateway (name do schema-settings.json).
+    public const string SubgraphName = "payments";
 }

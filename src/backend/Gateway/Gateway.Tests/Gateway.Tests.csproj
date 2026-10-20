@@ -22,6 +22,7 @@
     <ProjectReference Include="..\..\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj" Aliases="catalog" />
     <ProjectReference Include="..\..\Customers\Customers.Web.Api\Customers.Web.Api.csproj" Aliases="customers" />
     <ProjectReference Include="..\..\Store\Orders.Web.Api\Orders.Web.Api.csproj" Aliases="orders" />
+    <ProjectReference Include="..\..\Payments\Payments.Web.Api\Payments.Web.Api.csproj" Aliases="payments" />
   </ItemGroup>
 
 </Project>

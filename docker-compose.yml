@@ -28,8 +28,8 @@ services:
     networks:
       - ecommerce-networks
 
-  # Ponto de entrada GraphQL único da loja (Fusion): junta os subgraphs (Catalog, Customers e Orders) em /graphql.
-  # O gateway.compose.far tem o endereço deles na rede interna (catalog-api, customers-api e orders-api, porta 8080); veja o
+  # Ponto de entrada GraphQL único da loja (Fusion): junta os subgraphs (Catalog, Customers, Orders e Payments) em /graphql.
+  # O gateway.compose.far tem o endereço deles na rede interna (catalog-api, customers-api, orders-api e payment-api, porta 8080); veja o
   # scripts/compose-gateway.sh. Valida o token do Keycloak (audience gateway-api) e o repassa aos subgraphs.
   gateway-api:
     build:
@@ -51,6 +51,8 @@ services:
       customers-api:
         condition: service_started
       orders-api:
+        condition: service_started
+      payment-api:
         condition: service_started
       keycloak:
         condition: service_healthy
