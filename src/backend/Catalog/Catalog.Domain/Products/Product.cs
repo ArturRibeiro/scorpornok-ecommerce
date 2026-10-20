@@ -6,9 +6,10 @@
         {
             
         }
-        public Product(string product, string sku, string photo, decimal @decimal, string descriptionForProduct)
+        public Product(string product, string brand, string sku, string photo, decimal @decimal, string descriptionForProduct)
         {
             Name = product;
+            Brand = brand;
             Sku = sku;
             PictureUri = photo;
             Price = @decimal;
@@ -16,6 +17,8 @@
         }
         
         public string Name { get; private set; }
+
+        public string Brand { get; private set; }
 
         public string Sku { get; private set; }
 

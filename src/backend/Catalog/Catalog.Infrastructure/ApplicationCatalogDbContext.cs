@@ -18,6 +18,8 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // unaccent: a busca compara nome, marca e descrição sem acentos (EF.Functions.Unaccent).
+            modelBuilder.HasPostgresExtension("unaccent");
             modelBuilder.ApplyConfiguration(new ProductConfigurations());
 
             ConvertModelBuilderCase(modelBuilder);

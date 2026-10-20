@@ -6,7 +6,7 @@ Descrevem o que a loja faz hoje, do ponto de vista de quem a usa. As regras deta
 
 | ID | Caso de uso | Ator |
 |---|---|---|
-| [UC01](UC01-consultar-catalogo.md) | Consultar catálogo | Visitante |
+| [UC01](UC01-consultar-catalogo.md) | Consultar catálogo e buscar produtos | Visitante |
 | [UC02](UC02-gerenciar-carrinho.md) | Gerenciar carrinho | Visitante |
 | [UC03](UC03-finalizar-pedido.md) | Finalizar pedido | Cliente |
 | [UC04](UC04-pagar-pedido.md) | Pagar pedido | Cliente, serviço de pagamentos |

@@ -24,9 +24,9 @@ public static class CatalogDbContextSeed
             ?? throw new InvalidOperationException($"Recurso {ProductsResource} vazio.");
 
         return items
-            .Select(item => new Product(item.Name, item.Sku, item.PictureUri, item.Price, item.Description))
+            .Select(item => new Product(item.Name, item.Brand, item.Sku, item.PictureUri, item.Price, item.Description))
             .ToList();
     }
 
-    private sealed record SeedProduct(string Name, string Sku, string PictureUri, decimal Price, string Description);
+    private sealed record SeedProduct(string Name, string Brand, string Sku, string PictureUri, decimal Price, string Description);
 }

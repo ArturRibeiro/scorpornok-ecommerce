@@ -59,3 +59,52 @@ export async function getProduct(
   );
   return productById ? toProduct(productById) : null;
 }
+
+// Filtros da busca, todos opcionais e combináveis. O termo procura todas as palavras no nome, na marca e
+// na descrição, sem diferenciar maiúsculas e acentos, com os do nome primeiro; a faixa de preço inclui
+// os limites.
+export interface ProductSearchFilters {
+  term?: string;
+  brands?: string[];
+  minPrice?: number;
+  maxPrice?: number;
+}
+
+const SEARCH_QUERY = `query SearchProducts($term: String, $brands: [String!], $minPrice: Decimal, $maxPrice: Decimal, $page: Int, $pageSize: Int) {
+  searchProducts(term: $term, brands: $brands, minPrice: $minPrice, maxPrice: $maxPrice, page: $page, pageSize: $pageSize) {
+    pageInfo { currentPage pageSize totalItems totalPages hasPreviousPage hasNextPage }
+    items { ${PRODUCT_FIELDS} }
+  }
+}`;
+
+// Mesmas páginas do getProducts (até 20 por página). As sugestões do cabeçalho usam pageSize 5.
+export async function searchProducts(
+  filters: ProductSearchFilters,
+  pageNumber = 1,
+  pageSize = 20,
+  signal?: AbortSignal
+): Promise<PagedList<Product>> {
+  const { searchProducts } = await graphqlRequest<{ searchProducts: PagedList<ProductResponse> }>(
+    SEARCH_QUERY,
+    {
+      term: filters.term || null,
+      brands: filters.brands?.length ? filters.brands : null,
+      minPrice: filters.minPrice ?? null,
+      maxPrice: filters.maxPrice ?? null,
+      page: pageNumber,
+      pageSize,
+    },
+    signal
+  );
+  return { pageInfo: searchProducts.pageInfo, items: searchProducts.items.map(toProduct) };
+}
+
+// Marcas do catálogo, em ordem alfabética, para o filtro da busca.
+export async function getBrands(signal?: AbortSignal): Promise<string[]> {
+  const { productBrands } = await graphqlRequest<{ productBrands: string[] }>(
+    "query ProductBrands { productBrands }",
+    undefined,
+    signal
+  );
+  return productBrands;
+}

@@ -1,6 +1,7 @@
 [
   {
     "Name": "Tênis Nike Revolution 8 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0036-026",
     "PictureUri": "/catalog-imgs/SGL-0036-026.jpg",
     "Price": 399.99,
@@ -8,6 +9,7 @@
   },
   {
     "Name": "Tênis Adidas Latin Run 3 0",
+    "Brand": "Adidas",
     "Sku": "FBA-86EX-106",
     "PictureUri": "/catalog-imgs/FBA-86EX-106.jpg",
     "Price": 449.99,
@@ -15,6 +17,7 @@
   },
   {
     "Name": "Tênis Adidas Runfalcon 5 Masculino",
+    "Brand": "Adidas",
     "Sku": "FB9-8805-128",
     "PictureUri": "/catalog-imgs/FB9-8805-128.jpg",
     "Price": 437.8,
@@ -22,6 +25,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 4",
+    "Brand": "Olympikus",
     "Sku": "2I3-0603-933",
     "PictureUri": "/catalog-imgs/2I3-0603-933.jpg",
     "Price": 399.99,
@@ -29,6 +33,7 @@
   },
   {
     "Name": "Tênis Adidas Duramo RC 2 Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-7043-006",
     "PictureUri": "/catalog-imgs/FBA-7043-006.jpg",
     "Price": 246.99,
@@ -36,6 +41,7 @@
   },
   {
     "Name": "Tênis Nike Flex Experience 12 Masculino",
+    "Brand": "Nike",
     "Sku": "JD8-6830-006",
     "PictureUri": "/catalog-imgs/JD8-6830-006.jpg",
     "Price": 349.99,
@@ -43,6 +49,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 4 50 Anos",
+    "Brand": "Olympikus",
     "Sku": "SE7-07CG-004",
     "PictureUri": "/catalog-imgs/SE7-07CG-004.jpg",
     "Price": 599.99,
@@ -50,6 +57,7 @@
   },
   {
     "Name": "Tênis Adidas Boost Run",
+    "Brand": "Adidas",
     "Sku": "FBA-86ES-172",
     "PictureUri": "/catalog-imgs/FBA-86ES-172.jpg",
     "Price": 499.99,
@@ -57,6 +65,7 @@
   },
   {
     "Name": "Tênis Nike Run Defy Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0028-006",
     "PictureUri": "/catalog-imgs/SGL-0028-006.jpg",
     "Price": 349.99,
@@ -64,6 +73,7 @@
   },
   {
     "Name": "Tênis Adidas Adizero Drive Rc Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86EP-038",
     "PictureUri": "/catalog-imgs/FBA-86EP-038.jpg",
     "Price": 899.99,
@@ -71,6 +81,7 @@
   },
   {
     "Name": "Tênis Adidas Super Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86F0-026",
     "PictureUri": "/catalog-imgs/FBA-86F0-026.jpg",
     "Price": 599.99,
@@ -78,6 +89,7 @@
   },
   {
     "Name": "Tênis Adidas Adizero Drive Rc Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86EP-086",
     "PictureUri": "/catalog-imgs/FBA-86EP-086.jpg",
     "Price": 899.99,
@@ -85,6 +97,7 @@
   },
   {
     "Name": "Tênis New Balance Fresh Foam Arishi V'4 Masculino",
+    "Brand": "New Balance",
     "Sku": "39U-4706-150",
     "PictureUri": "/catalog-imgs/39U-4706-150.jpg",
     "Price": 499.99,
@@ -92,6 +105,7 @@
   },
   {
     "Name": "Tênis Nike Revolution 8 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0036-571",
     "PictureUri": "/catalog-imgs/SGL-0036-571.jpg",
     "Price": 399.99,
@@ -99,6 +113,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 5",
+    "Brand": "Olympikus",
     "Sku": "SE7-0803-026",
     "PictureUri": "/catalog-imgs/SE7-0803-026.jpg",
     "Price": 599.99,
@@ -106,6 +121,7 @@
   },
   {
     "Name": "Tênis Adidas Adizero Drive Rc Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-2251-014",
     "PictureUri": "/catalog-imgs/FBA-2251-014.jpg",
     "Price": 899.99,
@@ -113,6 +129,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Max",
+    "Brand": "Olympikus",
     "Sku": "2I3-0605-304",
     "PictureUri": "/catalog-imgs/2I3-0605-304.jpg",
     "Price": 359.99,
@@ -120,6 +137,7 @@
   },
   {
     "Name": "Tênis Asics Dynablast 5 Masculino",
+    "Brand": "Asics",
     "Sku": "2FW-2944-026",
     "PictureUri": "/catalog-imgs/2FW-2944-026.jpg",
     "Price": 427.49,
@@ -127,6 +145,7 @@
   },
   {
     "Name": "Tênis Mizuno Victory Masculino",
+    "Brand": "Mizuno",
     "Sku": "2FU-8274-042",
     "PictureUri": "/catalog-imgs/2FU-8274-042.jpg",
     "Price": 599.99,
@@ -134,6 +153,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 4",
+    "Brand": "Olympikus",
     "Sku": "2I3-0603-014",
     "PictureUri": "/catalog-imgs/2I3-0603-014.jpg",
     "Price": 399.99,
@@ -141,6 +161,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Venture 11 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01R2-076",
     "PictureUri": "/catalog-imgs/SG4-01R2-076.jpg",
     "Price": 599.99,
@@ -148,6 +169,7 @@
   },
   {
     "Name": "Tênis Olympikus Nuvem Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-07TQ-793",
     "PictureUri": "/catalog-imgs/SE7-07TQ-793.jpg",
     "Price": 399.99,
@@ -155,6 +177,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Vento 3",
+    "Brand": "Olympikus",
     "Sku": "SE7-07ZY-793",
     "PictureUri": "/catalog-imgs/SE7-07ZY-793.jpg",
     "Price": 499.99,
@@ -162,6 +185,7 @@
   },
   {
     "Name": "Tênis Nike Run Defy Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0028-128",
     "PictureUri": "/catalog-imgs/SGL-0028-128.jpg",
     "Price": 349.99,
@@ -169,6 +193,7 @@
   },
   {
     "Name": "Tênis Adidas Latin Run 3 0",
+    "Brand": "Adidas",
     "Sku": "FBA-86EX-206",
     "PictureUri": "/catalog-imgs/FBA-86EX-206.jpg",
     "Price": 449.99,
@@ -176,6 +201,7 @@
   },
   {
     "Name": "Tênis Olympikus Veloz 4",
+    "Brand": "Olympikus",
     "Sku": "SE7-08DV-793",
     "PictureUri": "/catalog-imgs/SE7-08DV-793.jpg",
     "Price": 379.99,
@@ -183,6 +209,7 @@
   },
   {
     "Name": "Tênis New Balance Fuelcell Rebel V5 Masculino",
+    "Brand": "New Balance",
     "Sku": "39V-24AJ-868",
     "PictureUri": "/catalog-imgs/39V-24AJ-868.jpg",
     "Price": 1099.99,
@@ -190,6 +217,7 @@
   },
   {
     "Name": "Tênis Nike Revolution 8 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0036-793",
     "PictureUri": "/catalog-imgs/SGL-0036-793.jpg",
     "Price": 399.99,
@@ -197,6 +225,7 @@
   },
   {
     "Name": "Tênis Mizuno Victory Masculino",
+    "Brand": "Mizuno",
     "Sku": "2FU-8274-094",
     "PictureUri": "/catalog-imgs/2FU-8274-094.jpg",
     "Price": 599.99,
@@ -204,6 +233,7 @@
   },
   {
     "Name": "Tênis New Balance Fresh Foam X Kaiha Road Masculino",
+    "Brand": "New Balance",
     "Sku": "39U-9437-304",
     "PictureUri": "/catalog-imgs/39U-9437-304.jpg",
     "Price": 699.99,
@@ -211,6 +241,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 5",
+    "Brand": "Olympikus",
     "Sku": "SE7-0803-040",
     "PictureUri": "/catalog-imgs/SE7-0803-040.jpg",
     "Price": 599.99,
@@ -218,6 +249,7 @@
   },
   {
     "Name": "Tênis Adidas Duramo RC 2 Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-7041-978",
     "PictureUri": "/catalog-imgs/FBA-7041-978.jpg",
     "Price": 218.49,
@@ -225,6 +257,7 @@
   },
   {
     "Name": "Tênis Nike Revolution 8 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0036-543",
     "PictureUri": "/catalog-imgs/SGL-0036-543.jpg",
     "Price": 399.99,
@@ -232,6 +265,7 @@
   },
   {
     "Name": "Tênis Nike Run Defy Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0028-026",
     "PictureUri": "/catalog-imgs/SGL-0028-026.jpg",
     "Price": 349.99,
@@ -239,6 +273,7 @@
   },
   {
     "Name": "Tênis Adidas Latin Run 3 0",
+    "Brand": "Adidas",
     "Sku": "FBA-86EX-026",
     "PictureUri": "/catalog-imgs/FBA-86EX-026.jpg",
     "Price": 449.99,
@@ -246,6 +281,7 @@
   },
   {
     "Name": "Tênis Nike Revolution 8 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0036-342",
     "PictureUri": "/catalog-imgs/SGL-0036-342.jpg",
     "Price": 399.99,
@@ -253,6 +289,7 @@
   },
   {
     "Name": "Tênis Asics Shinobi 3 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-02C6-140",
     "PictureUri": "/catalog-imgs/SG4-02C6-140.jpg",
     "Price": 294.49,
@@ -260,6 +297,7 @@
   },
   {
     "Name": "Tênis Asics Novablast 5 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01TU-260",
     "PictureUri": "/catalog-imgs/SG4-01TU-260.jpg",
     "Price": 599.99,
@@ -267,6 +305,7 @@
   },
   {
     "Name": "Tênis Adidas Boost Run Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-81RZ-142",
     "PictureUri": "/catalog-imgs/FBA-81RZ-142.jpg",
     "Price": 499.99,
@@ -274,6 +313,7 @@
   },
   {
     "Name": "Tênis Adidas Adizero Drive Rc Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86EP-492",
     "PictureUri": "/catalog-imgs/FBA-86EP-492.jpg",
     "Price": 854.99,
@@ -281,6 +321,7 @@
   },
   {
     "Name": "Tênis Adidas Super Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86F0-835",
     "PictureUri": "/catalog-imgs/FBA-86F0-835.jpg",
     "Price": 599.99,
@@ -288,6 +329,7 @@
   },
   {
     "Name": "Tênis Under Armour Ch. Wing 2 SE Masculino",
+    "Brand": "Under Armour",
     "Sku": "R5M-2AH9-006",
     "PictureUri": "/catalog-imgs/R5M-2AH9-006.jpg",
     "Price": 359.99,
@@ -295,6 +337,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Pulse 17 Se Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01R0-010",
     "PictureUri": "/catalog-imgs/SG4-01R0-010.jpg",
     "Price": 699.99,
@@ -302,6 +345,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Vento 3",
+    "Brand": "Olympikus",
     "Sku": "SE7-07ZY-876",
     "PictureUri": "/catalog-imgs/SE7-07ZY-876.jpg",
     "Price": 499.99,
@@ -309,6 +353,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Hypersonic 6 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01QW-008",
     "PictureUri": "/catalog-imgs/SG4-01QW-008.jpg",
     "Price": 284.99,
@@ -316,6 +361,7 @@
   },
   {
     "Name": "Tênis Under Armour Slight 3 Masculino",
+    "Brand": "Under Armour",
     "Sku": "R5M-298V-319",
     "PictureUri": "/catalog-imgs/R5M-298V-319.jpg",
     "Price": 319,
@@ -323,6 +369,7 @@
   },
   {
     "Name": "Tênis Adidas Duramo RC 2 Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-7041-000",
     "PictureUri": "/catalog-imgs/FBA-7041-000.jpg",
     "Price": 218.49,
@@ -330,6 +377,7 @@
   },
   {
     "Name": "Tênis Nike Journey Run Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-05W3-002",
     "PictureUri": "/catalog-imgs/SGL-05W3-002.jpg",
     "Price": 522.49,
@@ -337,6 +385,7 @@
   },
   {
     "Name": "Tênis Nike Revolution 8 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0036-123",
     "PictureUri": "/catalog-imgs/SGL-0036-123.jpg",
     "Price": 399.99,
@@ -344,6 +393,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Turbo",
+    "Brand": "Olympikus",
     "Sku": "SE7-07ZZ-876",
     "PictureUri": "/catalog-imgs/SE7-07ZZ-876.jpg",
     "Price": 629.91,
@@ -351,6 +401,7 @@
   },
   {
     "Name": "Tênis Adidas Super Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86F0-492",
     "PictureUri": "/catalog-imgs/FBA-86F0-492.jpg",
     "Price": 599.99,
@@ -358,6 +409,7 @@
   },
   {
     "Name": "Tênis Adidas Adizero Drive Rc Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86EP-106",
     "PictureUri": "/catalog-imgs/FBA-86EP-106.jpg",
     "Price": 899.99,
@@ -365,6 +417,7 @@
   },
   {
     "Name": "Tênis Adidas Super Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86F0-403",
     "PictureUri": "/catalog-imgs/FBA-86F0-403.jpg",
     "Price": 599.99,
@@ -372,6 +425,7 @@
   },
   {
     "Name": "Tênis Olympikus Nuvem Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-07TQ-006",
     "PictureUri": "/catalog-imgs/SE7-07TQ-006.jpg",
     "Price": 399.99,
@@ -379,6 +433,7 @@
   },
   {
     "Name": "Tênis Adidas Super Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86F0-028",
     "PictureUri": "/catalog-imgs/FBA-86F0-028.jpg",
     "Price": 599.99,
@@ -386,6 +441,7 @@
   },
   {
     "Name": "Tênis Asics Shinobi 3 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-02C6-387",
     "PictureUri": "/catalog-imgs/SG4-02C6-387.jpg",
     "Price": 459.99,
@@ -393,6 +449,7 @@
   },
   {
     "Name": "Tênis Nike Revolution 8 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0036-319",
     "PictureUri": "/catalog-imgs/SGL-0036-319.jpg",
     "Price": 399.99,
@@ -400,6 +457,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Pulse 17 Se Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01R0-392",
     "PictureUri": "/catalog-imgs/SG4-01R0-392.jpg",
     "Price": 341.99,
@@ -407,6 +465,7 @@
   },
   {
     "Name": "Tênis Fila Kr7 Pro Speed Tech Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-06DV-787",
     "PictureUri": "/catalog-imgs/SFK-06DV-787.jpg",
     "Price": 314.9,
@@ -414,6 +473,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Turbo",
+    "Brand": "Olympikus",
     "Sku": "SE7-07ZZ-784",
     "PictureUri": "/catalog-imgs/SE7-07ZZ-784.jpg",
     "Price": 699.99,
@@ -421,6 +481,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Vento 3",
+    "Brand": "Olympikus",
     "Sku": "SE7-07ZY-094",
     "PictureUri": "/catalog-imgs/SE7-07ZY-094.jpg",
     "Price": 499.99,
@@ -428,6 +489,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Prophecy 15",
+    "Brand": "Mizuno",
     "Sku": "SIC-00ER-252",
     "PictureUri": "/catalog-imgs/SIC-00ER-252.jpg",
     "Price": 1999.99,
@@ -435,6 +497,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Endeavor 3 Masculino",
+    "Brand": "Mizuno",
     "Sku": "2FV-1324-D40",
     "PictureUri": "/catalog-imgs/2FV-1324-D40.jpg",
     "Price": 799.99,
@@ -442,6 +505,7 @@
   },
   {
     "Name": "Tênis Olympikus Challenger 6 Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-07TA-793",
     "PictureUri": "/catalog-imgs/SE7-07TA-793.jpg",
     "Price": 329.99,
@@ -449,6 +513,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Turbo",
+    "Brand": "Olympikus",
     "Sku": "SE7-07ZZ-451",
     "PictureUri": "/catalog-imgs/SE7-07ZZ-451.jpg",
     "Price": 699.99,
@@ -456,6 +521,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Excite 11 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-014G-172",
     "PictureUri": "/catalog-imgs/SG4-014G-172.jpg",
     "Price": 499.99,
@@ -463,6 +529,7 @@
   },
   {
     "Name": "Tênis Olympikus Nuvem Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-07TQ-556",
     "PictureUri": "/catalog-imgs/SE7-07TQ-556.jpg",
     "Price": 399.99,
@@ -470,6 +537,7 @@
   },
   {
     "Name": "Tênis New Balance Fuelcell Rebel V5 Masculino",
+    "Brand": "New Balance",
     "Sku": "39V-24AJ-198",
     "PictureUri": "/catalog-imgs/39V-24AJ-198.jpg",
     "Price": 1099.99,
@@ -477,6 +545,7 @@
   },
   {
     "Name": "Tênis Adidas Boost Run",
+    "Brand": "Adidas",
     "Sku": "FBA-86ES-318",
     "PictureUri": "/catalog-imgs/FBA-86ES-318.jpg",
     "Price": 379.99,
@@ -484,6 +553,7 @@
   },
   {
     "Name": "Tênis New Balance Fresh Foam Arishi V'4 Masculino",
+    "Brand": "New Balance",
     "Sku": "39U-4706-852",
     "PictureUri": "/catalog-imgs/39U-4706-852.jpg",
     "Price": 499.99,
@@ -491,6 +561,7 @@
   },
   {
     "Name": "Tênis Adidas Adizero Evo Sl Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-83DK-026",
     "PictureUri": "/catalog-imgs/FBA-83DK-026.jpg",
     "Price": 1099.99,
@@ -498,6 +569,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 5",
+    "Brand": "Olympikus",
     "Sku": "SE7-0803-006",
     "PictureUri": "/catalog-imgs/SE7-0803-006.jpg",
     "Price": 599.99,
@@ -505,6 +577,7 @@
   },
   {
     "Name": "Tênis New Balance Fresh Foam Arishi V'4 Masculino",
+    "Brand": "New Balance",
     "Sku": "39U-4706-304",
     "PictureUri": "/catalog-imgs/39U-4706-304.jpg",
     "Price": 499.99,
@@ -512,6 +585,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Endeavor 3 Masculino",
+    "Brand": "Mizuno",
     "Sku": "2FV-1324-120",
     "PictureUri": "/catalog-imgs/2FV-1324-120.jpg",
     "Price": 799.99,
@@ -519,6 +593,7 @@
   },
   {
     "Name": "Tênis Mizuno Victory Masculino",
+    "Brand": "Mizuno",
     "Sku": "2FU-8274-026",
     "PictureUri": "/catalog-imgs/2FU-8274-026.jpg",
     "Price": 599.99,
@@ -526,6 +601,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Max",
+    "Brand": "Olympikus",
     "Sku": "2I3-0605-784",
     "PictureUri": "/catalog-imgs/2I3-0605-784.jpg",
     "Price": 359.99,
@@ -533,6 +609,7 @@
   },
   {
     "Name": "Tênis Nike Air Max Alpha Trainer 6 Masculino",
+    "Brand": "Nike",
     "Sku": "JD8-8100-006",
     "PictureUri": "/catalog-imgs/JD8-8100-006.jpg",
     "Price": 799.99,
@@ -540,6 +617,7 @@
   },
   {
     "Name": "Tênis Fila Speedzone 2 Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-08CO-318",
     "PictureUri": "/catalog-imgs/SFK-08CO-318.jpg",
     "Price": 539.99,
@@ -547,6 +625,7 @@
   },
   {
     "Name": "Tênis Fila Racer Carbon 3 Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-0355-028",
     "PictureUri": "/catalog-imgs/SFK-0355-028.jpg",
     "Price": 759.99,
@@ -554,6 +633,7 @@
   },
   {
     "Name": "Tênis Fila Comet 2 Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-066U-777",
     "PictureUri": "/catalog-imgs/SFK-066U-777.jpg",
     "Price": 218.49,
@@ -561,6 +641,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Cumulus 28 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01QN-118",
     "PictureUri": "/catalog-imgs/SG4-01QN-118.jpg",
     "Price": 899.99,
@@ -568,6 +649,7 @@
   },
   {
     "Name": "Tênis Puma Night Runner V3",
+    "Brand": "Puma",
     "Sku": "PI3-4284-016",
     "PictureUri": "/catalog-imgs/PI3-4284-016.jpg",
     "Price": 379.99,
@@ -575,6 +657,7 @@
   },
   {
     "Name": "Tênis Olympikus Veloz 4",
+    "Brand": "Olympikus",
     "Sku": "SE7-08DV-022",
     "PictureUri": "/catalog-imgs/SE7-08DV-022.jpg",
     "Price": 379.99,
@@ -582,6 +665,7 @@
   },
   {
     "Name": "Tênis Puma Dasher Lite",
+    "Brand": "Puma",
     "Sku": "PI3-75KD-793",
     "PictureUri": "/catalog-imgs/PI3-75KD-793.jpg",
     "Price": 399.99,
@@ -589,6 +673,7 @@
   },
   {
     "Name": "Tênis Nike Revolution 8 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0036-138",
     "PictureUri": "/catalog-imgs/SGL-0036-138.jpg",
     "Price": 399.99,
@@ -596,6 +681,7 @@
   },
   {
     "Name": "Tênis Puma Scend Pro 2",
+    "Brand": "Puma",
     "Sku": "PI3-6041-038",
     "PictureUri": "/catalog-imgs/PI3-6041-038.jpg",
     "Price": 499.99,
@@ -603,6 +689,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 5",
+    "Brand": "Olympikus",
     "Sku": "SE7-0803-833",
     "PictureUri": "/catalog-imgs/SE7-0803-833.jpg",
     "Price": 599.99,
@@ -610,6 +697,7 @@
   },
   {
     "Name": "Tênis Under Armour Ch. Wing 2 SE Masculino",
+    "Brand": "Under Armour",
     "Sku": "R5M-2AH9-260",
     "PictureUri": "/catalog-imgs/R5M-2AH9-260.jpg",
     "Price": 359.99,
@@ -617,6 +705,7 @@
   },
   {
     "Name": "Tênis Fila Speedrocker Skyfoam Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-07EH-788",
     "PictureUri": "/catalog-imgs/SFK-07EH-788.jpg",
     "Price": 849.99,
@@ -624,6 +713,7 @@
   },
   {
     "Name": "Tênis Asics Dynablast 5 Masculino",
+    "Brand": "Asics",
     "Sku": "2FW-2944-008",
     "PictureUri": "/catalog-imgs/2FW-2944-008.jpg",
     "Price": 427.49,
@@ -631,6 +721,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Vento 3",
+    "Brand": "Olympikus",
     "Sku": "SE7-07ZY-794",
     "PictureUri": "/catalog-imgs/SE7-07ZY-794.jpg",
     "Price": 499.99,
@@ -638,6 +729,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 5",
+    "Brand": "Olympikus",
     "Sku": "SE7-0803-114",
     "PictureUri": "/catalog-imgs/SE7-0803-114.jpg",
     "Price": 599.99,
@@ -645,6 +737,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Vento 3",
+    "Brand": "Olympikus",
     "Sku": "SE7-07ZY-162",
     "PictureUri": "/catalog-imgs/SE7-07ZY-162.jpg",
     "Price": 499.99,
@@ -652,6 +745,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 5",
+    "Brand": "Olympikus",
     "Sku": "SE7-0803-064",
     "PictureUri": "/catalog-imgs/SE7-0803-064.jpg",
     "Price": 599.99,
@@ -659,6 +753,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 5",
+    "Brand": "Olympikus",
     "Sku": "SE7-0803-793",
     "PictureUri": "/catalog-imgs/SE7-0803-793.jpg",
     "Price": 599.99,
@@ -666,6 +761,7 @@
   },
   {
     "Name": "Tênis Adidas Adizero Drive Rc Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86EP-074",
     "PictureUri": "/catalog-imgs/FBA-86EP-074.jpg",
     "Price": 899.99,
@@ -673,6 +769,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Prophecy 15",
+    "Brand": "Mizuno",
     "Sku": "SIC-00ER-174",
     "PictureUri": "/catalog-imgs/SIC-00ER-174.jpg",
     "Price": 1999.99,
@@ -680,6 +777,7 @@
   },
   {
     "Name": "Tênis Fila Fastness Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-066R-002",
     "PictureUri": "/catalog-imgs/SFK-066R-002.jpg",
     "Price": 208.99,
@@ -687,6 +785,7 @@
   },
   {
     "Name": "Tênis Asics Trabuco 14 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01QT-502",
     "PictureUri": "/catalog-imgs/SG4-01QT-502.jpg",
     "Price": 1099.99,
@@ -694,6 +793,7 @@
   },
   {
     "Name": "Tênis Nike Run Defy Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0028-010",
     "PictureUri": "/catalog-imgs/SGL-0028-010.jpg",
     "Price": 349.99,
@@ -701,6 +801,7 @@
   },
   {
     "Name": "Tênis Nike Revolution 8 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0036-226",
     "PictureUri": "/catalog-imgs/SGL-0036-226.jpg",
     "Price": 399.99,
@@ -708,6 +809,7 @@
   },
   {
     "Name": "Tênis Adidas Adizero Evo SL Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-6207-026",
     "PictureUri": "/catalog-imgs/FBA-6207-026.jpg",
     "Price": 1099.99,
@@ -715,6 +817,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 4",
+    "Brand": "Olympikus",
     "Sku": "2I3-0603-811",
     "PictureUri": "/catalog-imgs/2I3-0603-811.jpg",
     "Price": 599.99,
@@ -722,6 +825,7 @@
   },
   {
     "Name": "Tênis Adidas Runfalcon 6 Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86EZ-026",
     "PictureUri": "/catalog-imgs/FBA-86EZ-026.jpg",
     "Price": 469.9,
@@ -729,6 +833,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Prophecy 15",
+    "Brand": "Mizuno",
     "Sku": "SIC-00ER-006",
     "PictureUri": "/catalog-imgs/SIC-00ER-006.jpg",
     "Price": 1999.99,
@@ -736,6 +841,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Cumulus 28 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01QN-081",
     "PictureUri": "/catalog-imgs/SG4-01QN-081.jpg",
     "Price": 899.99,
@@ -743,6 +849,7 @@
   },
   {
     "Name": "Tênis Asics Dynablast 6 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-02C3-392",
     "PictureUri": "/catalog-imgs/SG4-02C3-392.jpg",
     "Price": 699.99,
@@ -750,6 +857,7 @@
   },
   {
     "Name": "Tênis Fila Speedzone 2 Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-08CO-006",
     "PictureUri": "/catalog-imgs/SFK-08CO-006.jpg",
     "Price": 539.99,
@@ -757,6 +865,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Trilha 3",
+    "Brand": "Olympikus",
     "Sku": "SE7-0805-244",
     "PictureUri": "/catalog-imgs/SE7-0805-244.jpg",
     "Price": 599.99,
@@ -764,6 +873,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 5",
+    "Brand": "Olympikus",
     "Sku": "SE7-0803-014",
     "PictureUri": "/catalog-imgs/SE7-0803-014.jpg",
     "Price": 599.99,
@@ -771,6 +881,7 @@
   },
   {
     "Name": "Tênis Olympikus Veloz 4",
+    "Brand": "Olympikus",
     "Sku": "SE7-08DV-040",
     "PictureUri": "/catalog-imgs/SE7-08DV-040.jpg",
     "Price": 360.99,
@@ -778,6 +889,7 @@
   },
   {
     "Name": "Tênis Fila Racer Carbon 3 Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-0355-643",
     "PictureUri": "/catalog-imgs/SFK-0355-643.jpg",
     "Price": 759.99,
@@ -785,6 +897,7 @@
   },
   {
     "Name": "Tênis Adidas Supernova Glide Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-83DE-844",
     "PictureUri": "/catalog-imgs/FBA-83DE-844.jpg",
     "Price": 899.99,
@@ -792,6 +905,7 @@
   },
   {
     "Name": "Tênis Under Armour Charged Quicker 2",
+    "Brand": "Under Armour",
     "Sku": "R5M-2413-180",
     "PictureUri": "/catalog-imgs/R5M-2413-180.jpg",
     "Price": 499.99,
@@ -799,6 +913,7 @@
   },
   {
     "Name": "Tênis Under Armour Charged Quicker 2",
+    "Brand": "Under Armour",
     "Sku": "R5M-2413-172",
     "PictureUri": "/catalog-imgs/R5M-2413-172.jpg",
     "Price": 499.99,
@@ -806,6 +921,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Vento 3",
+    "Brand": "Olympikus",
     "Sku": "SE7-07ZY-875",
     "PictureUri": "/catalog-imgs/SE7-07ZY-875.jpg",
     "Price": 499.99,
@@ -813,6 +929,7 @@
   },
   {
     "Name": "Tênis Adidas Response 2 Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-83DQ-016",
     "PictureUri": "/catalog-imgs/FBA-83DQ-016.jpg",
     "Price": 246.99,
@@ -820,6 +937,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Endeavor 3 Masculino",
+    "Brand": "Mizuno",
     "Sku": "2FV-1324-006",
     "PictureUri": "/catalog-imgs/2FV-1324-006.jpg",
     "Price": 799.99,
@@ -827,6 +945,7 @@
   },
   {
     "Name": "Tênis Adidas Adizero Evo SL Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-6207-028",
     "PictureUri": "/catalog-imgs/FBA-6207-028.jpg",
     "Price": 1099.99,
@@ -834,6 +953,7 @@
   },
   {
     "Name": "Tênis Olympikus Challenger 6 Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-07TA-006",
     "PictureUri": "/catalog-imgs/SE7-07TA-006.jpg",
     "Price": 265.32,
@@ -841,6 +961,7 @@
   },
   {
     "Name": "Tênis Mizuno Neo Pryzma Masculino",
+    "Brand": "Mizuno",
     "Sku": "SIC-00BM-012",
     "PictureUri": "/catalog-imgs/SIC-00BM-012.jpg",
     "Price": 360.99,
@@ -848,6 +969,7 @@
   },
   {
     "Name": "Tênis Under Armour Ch. Slight 4 Masculino",
+    "Brand": "Under Armour",
     "Sku": "R5M-2AHB-026",
     "PictureUri": "/catalog-imgs/R5M-2AHB-026.jpg",
     "Price": 399.99,
@@ -855,6 +977,7 @@
   },
   {
     "Name": "Tênis Adidas Runfalcon 6 Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86EZ-431",
     "PictureUri": "/catalog-imgs/FBA-86EZ-431.jpg",
     "Price": 449.99,
@@ -862,6 +985,7 @@
   },
   {
     "Name": "Tênis Asics Novablast 5 TR Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-025U-430",
     "PictureUri": "/catalog-imgs/SG4-025U-430.jpg",
     "Price": 599.99,
@@ -869,6 +993,7 @@
   },
   {
     "Name": "Tênis Asics Shinobi 3 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-02C6-026",
     "PictureUri": "/catalog-imgs/SG4-02C6-026.jpg",
     "Price": 459.99,
@@ -876,6 +1001,7 @@
   },
   {
     "Name": "Tênis Fila Breeze Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-08CG-254",
     "PictureUri": "/catalog-imgs/SFK-08CG-254.jpg",
     "Price": 284.99,
@@ -883,6 +1009,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 4",
+    "Brand": "Olympikus",
     "Sku": "2I3-0603-004",
     "PictureUri": "/catalog-imgs/2I3-0603-004.jpg",
     "Price": 399.99,
@@ -890,6 +1017,7 @@
   },
   {
     "Name": "Tênis Nike Journey Run Masculino",
+    "Brand": "Nike",
     "Sku": "JD8-7393-006",
     "PictureUri": "/catalog-imgs/JD8-7393-006.jpg",
     "Price": 699.99,
@@ -897,6 +1025,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 5",
+    "Brand": "Olympikus",
     "Sku": "SE7-0803-876",
     "PictureUri": "/catalog-imgs/SE7-0803-876.jpg",
     "Price": 599.99,
@@ -904,6 +1033,7 @@
   },
   {
     "Name": "Tênis New Balance Ellipse Masculino",
+    "Brand": "New Balance",
     "Sku": "39V-25OA-172",
     "PictureUri": "/catalog-imgs/39V-25OA-172.jpg",
     "Price": 854.99,
@@ -911,6 +1041,7 @@
   },
   {
     "Name": "Tênis Fila Racer Fastpace Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-0129-777",
     "PictureUri": "/catalog-imgs/SFK-0129-777.jpg",
     "Price": 284.99,
@@ -918,6 +1049,7 @@
   },
   {
     "Name": "Tênis Nike Revolution 8 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0036-240",
     "PictureUri": "/catalog-imgs/SGL-0036-240.jpg",
     "Price": 399.99,
@@ -925,6 +1057,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Grafeno 3",
+    "Brand": "Olympikus",
     "Sku": "2I3-1637-933",
     "PictureUri": "/catalog-imgs/2I3-1637-933.jpg",
     "Price": 799.99,
@@ -932,6 +1065,7 @@
   },
   {
     "Name": "Tênis Fila Speedzone 2 Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-08CO-304",
     "PictureUri": "/catalog-imgs/SFK-08CO-304.jpg",
     "Price": 599.99,
@@ -939,6 +1073,7 @@
   },
   {
     "Name": "Tênis Adidas Boost Run Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-81RZ-124",
     "PictureUri": "/catalog-imgs/FBA-81RZ-124.jpg",
     "Price": 499.99,
@@ -946,6 +1081,7 @@
   },
   {
     "Name": "Tênis New Balance Fresh Foam X Kaiha Road Masculino",
+    "Brand": "New Balance",
     "Sku": "39U-9437-012",
     "PictureUri": "/catalog-imgs/39U-9437-012.jpg",
     "Price": 699.99,
@@ -953,6 +1089,7 @@
   },
   {
     "Name": "Tênis Adidas Response 2 Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-83DQ-026",
     "PictureUri": "/catalog-imgs/FBA-83DQ-026.jpg",
     "Price": 499.99,
@@ -960,6 +1097,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Hypersonic 6 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01QW-058",
     "PictureUri": "/catalog-imgs/SG4-01QW-058.jpg",
     "Price": 599.99,
@@ -967,6 +1105,7 @@
   },
   {
     "Name": "Tênis Olympikus Challenger 6 Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-07TA-030",
     "PictureUri": "/catalog-imgs/SE7-07TA-030.jpg",
     "Price": 329.99,
@@ -974,6 +1113,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Endeavor 3 Masculino",
+    "Brand": "Mizuno",
     "Sku": "2FV-1324-375",
     "PictureUri": "/catalog-imgs/2FV-1324-375.jpg",
     "Price": 799.99,
@@ -981,6 +1121,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Nagoya 8 Twilight Blue-Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-022T-008",
     "PictureUri": "/catalog-imgs/SG4-022T-008.jpg",
     "Price": 351.9,
@@ -988,6 +1129,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Max",
+    "Brand": "Olympikus",
     "Sku": "2I3-0605-040",
     "PictureUri": "/catalog-imgs/2I3-0605-040.jpg",
     "Price": 359.99,
@@ -995,6 +1137,7 @@
   },
   {
     "Name": "Tênis Asics Novablast 5",
+    "Brand": "Asics",
     "Sku": "SG4-01QR-058",
     "PictureUri": "/catalog-imgs/SG4-01QR-058.jpg",
     "Price": 599.99,
@@ -1002,6 +1145,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Vento 3",
+    "Brand": "Olympikus",
     "Sku": "SE7-07ZY-849",
     "PictureUri": "/catalog-imgs/SE7-07ZY-849.jpg",
     "Price": 499.99,
@@ -1009,6 +1153,7 @@
   },
   {
     "Name": "Tênis Olympikus Nuvem Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-07TQ-128",
     "PictureUri": "/catalog-imgs/SE7-07TQ-128.jpg",
     "Price": 399.99,
@@ -1016,6 +1161,7 @@
   },
   {
     "Name": "Tênis Nike Flex Experience 12 Masculino",
+    "Brand": "Nike",
     "Sku": "JD8-6829-010",
     "PictureUri": "/catalog-imgs/JD8-6829-010.jpg",
     "Price": 349.99,
@@ -1023,6 +1169,7 @@
   },
   {
     "Name": "Tênis Adidas Runfalcon 6 Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86EZ-036",
     "PictureUri": "/catalog-imgs/FBA-86EZ-036.jpg",
     "Price": 284.99,
@@ -1030,6 +1177,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Excite 11 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-014G-010",
     "PictureUri": "/catalog-imgs/SG4-014G-010.jpg",
     "Price": 499.99,
@@ -1037,6 +1185,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Endeavor 3 Masculino",
+    "Brand": "Mizuno",
     "Sku": "2FV-1324-360",
     "PictureUri": "/catalog-imgs/2FV-1324-360.jpg",
     "Price": 799.99,
@@ -1044,6 +1193,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Turbo",
+    "Brand": "Olympikus",
     "Sku": "2I3-1640-933",
     "PictureUri": "/catalog-imgs/2I3-1640-933.jpg",
     "Price": 699.99,
@@ -1051,6 +1201,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Skyway Masculino",
+    "Brand": "Mizuno",
     "Sku": "SIC-00BQ-012",
     "PictureUri": "/catalog-imgs/SIC-00BQ-012.jpg",
     "Price": 427.49,
@@ -1058,6 +1209,7 @@
   },
   {
     "Name": "Tenis Fila Inclusion Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-0177-178",
     "PictureUri": "/catalog-imgs/SFK-0177-178.jpg",
     "Price": 359.99,
@@ -1065,6 +1217,7 @@
   },
   {
     "Name": "Tênis Nike Metro Tek Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-04D0-026",
     "PictureUri": "/catalog-imgs/SGL-04D0-026.jpg",
     "Price": 699.99,
@@ -1072,6 +1225,7 @@
   },
   {
     "Name": "Tênis Fila Aero Skyfoam Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-07EG-144",
     "PictureUri": "/catalog-imgs/SFK-07EG-144.jpg",
     "Price": 499.99,
@@ -1079,6 +1233,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Trilha 3",
+    "Brand": "Olympikus",
     "Sku": "SE7-0805-004",
     "PictureUri": "/catalog-imgs/SE7-0805-004.jpg",
     "Price": 599.99,
@@ -1086,6 +1241,7 @@
   },
   {
     "Name": "Tênis Nike Run Defy Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0028-396",
     "PictureUri": "/catalog-imgs/SGL-0028-396.jpg",
     "Price": 349.99,
@@ -1093,6 +1249,7 @@
   },
   {
     "Name": "Tênis Nike Downshifter 14 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-04O5-006",
     "PictureUri": "/catalog-imgs/SGL-04O5-006.jpg",
     "Price": 449.99,
@@ -1100,6 +1257,7 @@
   },
   {
     "Name": "Tênis Adidas Adizero Drive Rc Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-2251-042",
     "PictureUri": "/catalog-imgs/FBA-2251-042.jpg",
     "Price": 899.99,
@@ -1107,6 +1265,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Prophecy 15 SE",
+    "Brand": "Mizuno",
     "Sku": "SIC-00ET-038",
     "PictureUri": "/catalog-imgs/SIC-00ET-038.jpg",
     "Price": 2499.99,
@@ -1114,6 +1273,7 @@
   },
   {
     "Name": "Tênis Asics Dynablast 6 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-02C3-172",
     "PictureUri": "/catalog-imgs/SG4-02C3-172.jpg",
     "Price": 699.99,
@@ -1121,6 +1281,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 4",
+    "Brand": "Olympikus",
     "Sku": "2I3-0603-793",
     "PictureUri": "/catalog-imgs/2I3-0603-793.jpg",
     "Price": 399.99,
@@ -1128,6 +1289,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Sonoma TR62 Unissex",
+    "Brand": "Asics",
     "Sku": "SG4-01DN-010",
     "PictureUri": "/catalog-imgs/SG4-01DN-010.jpg",
     "Price": 899.99,
@@ -1135,6 +1297,7 @@
   },
   {
     "Name": "Tênis Fila Kr7 Pro Speed Tech Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-06DV-172",
     "PictureUri": "/catalog-imgs/SFK-06DV-172.jpg",
     "Price": 399.9,
@@ -1142,6 +1305,7 @@
   },
   {
     "Name": "Tênis Asics Superblast 2",
+    "Brand": "Asics",
     "Sku": "SG4-01UC-058",
     "PictureUri": "/catalog-imgs/SG4-01UC-058.jpg",
     "Price": 1599.99,
@@ -1149,6 +1313,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Turbo",
+    "Brand": "Olympikus",
     "Sku": "SE7-07ZZ-022",
     "PictureUri": "/catalog-imgs/SE7-07ZZ-022.jpg",
     "Price": 699.99,
@@ -1156,6 +1321,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 4 Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-08PA-006",
     "PictureUri": "/catalog-imgs/SE7-08PA-006.jpg",
     "Price": 599.99,
@@ -1163,6 +1329,7 @@
   },
   {
     "Name": "Tenis Fila Inclusion Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-0177-026",
     "PictureUri": "/catalog-imgs/SFK-0177-026.jpg",
     "Price": 359.99,
@@ -1170,6 +1337,7 @@
   },
   {
     "Name": "Tênis Fila Skywind Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-07EC-284",
     "PictureUri": "/catalog-imgs/SFK-07EC-284.jpg",
     "Price": 314.99,
@@ -1177,6 +1345,7 @@
   },
   {
     "Name": "Tênis Nike Air Max Nuaxis Masculino",
+    "Brand": "Nike",
     "Sku": "JD8-8101-824",
     "PictureUri": "/catalog-imgs/JD8-8101-824.jpg",
     "Price": 599.99,
@@ -1184,6 +1353,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Excite 11 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-014G-008",
     "PictureUri": "/catalog-imgs/SG4-014G-008.jpg",
     "Price": 499.99,
@@ -1191,6 +1361,7 @@
   },
   {
     "Name": "Tênis New Balance Fresh Foam Arishi V'4 Masculino",
+    "Brand": "New Balance",
     "Sku": "39U-4706-314",
     "PictureUri": "/catalog-imgs/39U-4706-314.jpg",
     "Price": 299.15,
@@ -1198,6 +1369,7 @@
   },
   {
     "Name": "Tênis Olympikus Nuvem Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-07TQ-162",
     "PictureUri": "/catalog-imgs/SE7-07TQ-162.jpg",
     "Price": 399.99,
@@ -1205,6 +1377,7 @@
   },
   {
     "Name": "Tênis Fila Endurance Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-06IR-C91",
     "PictureUri": "/catalog-imgs/SFK-06IR-C91.jpg",
     "Price": 399.99,
@@ -1212,6 +1385,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 4 Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-08PA-192",
     "PictureUri": "/catalog-imgs/SE7-08PA-192.jpg",
     "Price": 599.99,
@@ -1219,6 +1393,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Grafeno 3",
+    "Brand": "Olympikus",
     "Sku": "2I3-1637-988",
     "PictureUri": "/catalog-imgs/2I3-1637-988.jpg",
     "Price": 799.99,
@@ -1226,6 +1401,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Max",
+    "Brand": "Olympikus",
     "Sku": "2I3-0605-910",
     "PictureUri": "/catalog-imgs/2I3-0605-910.jpg",
     "Price": 549.99,
@@ -1233,6 +1409,7 @@
   },
   {
     "Name": "Tênis Fila Speedrocker Skyfoam Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-07EH-028",
     "PictureUri": "/catalog-imgs/SFK-07EH-028.jpg",
     "Price": 719.99,
@@ -1240,6 +1417,7 @@
   },
   {
     "Name": "Tênis Asics Magic Speed 5",
+    "Brand": "Asics",
     "Sku": "SG4-01QO-430",
     "PictureUri": "/catalog-imgs/SG4-01QO-430.jpg",
     "Price": 721.99,
@@ -1247,6 +1425,7 @@
   },
   {
     "Name": "Tênis Asics Noosa Tri 16 Masculino",
+    "Brand": "Asics",
     "Sku": "2FW-2376-058",
     "PictureUri": "/catalog-imgs/2FW-2376-058.jpg",
     "Price": 1099.99,
@@ -1254,6 +1433,7 @@
   },
   {
     "Name": "Tênis Nike Pacific LTR Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0460-026",
     "PictureUri": "/catalog-imgs/SGL-0460-026.jpg",
     "Price": 303.99,
@@ -1261,6 +1441,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 5",
+    "Brand": "Olympikus",
     "Sku": "SE7-0803-982",
     "PictureUri": "/catalog-imgs/SE7-0803-982.jpg",
     "Price": 599.99,
@@ -1268,6 +1449,7 @@
   },
   {
     "Name": "Tênis Nike Air inflo 12 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-056O-026",
     "PictureUri": "/catalog-imgs/SGL-056O-026.jpg",
     "Price": 699.99,
@@ -1275,6 +1457,7 @@
   },
   {
     "Name": "Tênis Fila Speedrocker Skyfoam Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-07EH-936",
     "PictureUri": "/catalog-imgs/SFK-07EH-936.jpg",
     "Price": 799.99,
@@ -1282,6 +1465,7 @@
   },
   {
     "Name": "Tênis Adidas Duramo Sl 2.0 Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-3229-026",
     "PictureUri": "/catalog-imgs/FBA-3229-026.jpg",
     "Price": 284.99,
@@ -1289,6 +1473,7 @@
   },
   {
     "Name": "Tênis Under Armour Ch. Wing 2 SE Masculino",
+    "Brand": "Under Armour",
     "Sku": "R5M-2AH9-008",
     "PictureUri": "/catalog-imgs/R5M-2AH9-008.jpg",
     "Price": 359.99,
@@ -1296,6 +1481,7 @@
   },
   {
     "Name": "Tênis Fila Breeze Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-08CG-044",
     "PictureUri": "/catalog-imgs/SFK-08CG-044.jpg",
     "Price": 284.99,
@@ -1303,6 +1489,7 @@
   },
   {
     "Name": "Tênis Olympikus Veloz 4",
+    "Brand": "Olympikus",
     "Sku": "SE7-08DV-004",
     "PictureUri": "/catalog-imgs/SE7-08DV-004.jpg",
     "Price": 360.99,
@@ -1310,6 +1497,7 @@
   },
   {
     "Name": "Tênis Asics Trabuco 14 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01QT-008",
     "PictureUri": "/catalog-imgs/SG4-01QT-008.jpg",
     "Price": 1099.99,
@@ -1317,6 +1505,7 @@
   },
   {
     "Name": "Tênis Adidas Adizero Drive Rc Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-2251-074",
     "PictureUri": "/catalog-imgs/FBA-2251-074.jpg",
     "Price": 899.99,
@@ -1324,6 +1513,7 @@
   },
   {
     "Name": "Tênis Fila Fastness Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-066R-387",
     "PictureUri": "/catalog-imgs/SFK-066R-387.jpg",
     "Price": 219.99,
@@ -1331,6 +1521,7 @@
   },
   {
     "Name": "Tênis Adidas Super Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86EY-392",
     "PictureUri": "/catalog-imgs/FBA-86EY-392.jpg",
     "Price": 599.99,
@@ -1338,6 +1529,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Nimbus 27 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01NH-068",
     "PictureUri": "/catalog-imgs/SG4-01NH-068.jpg",
     "Price": 719.91,
@@ -1345,6 +1537,7 @@
   },
   {
     "Name": "Tênis Fila Skywind Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-07EC-260",
     "PictureUri": "/catalog-imgs/SFK-07EC-260.jpg",
     "Price": 332.49,
@@ -1352,6 +1545,7 @@
   },
   {
     "Name": "Tênis Olympikus Voa 3 Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-07EJ-322",
     "PictureUri": "/catalog-imgs/SE7-07EJ-322.jpg",
     "Price": 289.99,
@@ -1359,6 +1553,7 @@
   },
   {
     "Name": "Tênis Fila Aero Skyfoam Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-07EG-172",
     "PictureUri": "/catalog-imgs/SFK-07EG-172.jpg",
     "Price": 449.99,
@@ -1366,6 +1561,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Grafeno 3",
+    "Brand": "Olympikus",
     "Sku": "2I3-1637-000",
     "PictureUri": "/catalog-imgs/2I3-1637-000.jpg",
     "Price": 499.99,
@@ -1373,6 +1569,7 @@
   },
   {
     "Name": "Tênis Asics Raiden 5 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-025O-172",
     "PictureUri": "/catalog-imgs/SG4-025O-172.jpg",
     "Price": 284.9,
@@ -1380,6 +1577,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Prophecy 15 SE",
+    "Brand": "Mizuno",
     "Sku": "SIC-00ET-120",
     "PictureUri": "/catalog-imgs/SIC-00ET-120.jpg",
     "Price": 2499.99,
@@ -1387,6 +1585,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 5",
+    "Brand": "Olympikus",
     "Sku": "SE7-0803-884",
     "PictureUri": "/catalog-imgs/SE7-0803-884.jpg",
     "Price": 599.99,
@@ -1394,6 +1593,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Cumulus 28 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01QN-318",
     "PictureUri": "/catalog-imgs/SG4-01QN-318.jpg",
     "Price": 899.99,
@@ -1401,6 +1601,7 @@
   },
   {
     "Name": "Tênis New Balance Fuelcell Rebel V5 Masculino",
+    "Brand": "New Balance",
     "Sku": "39V-24AJ-824",
     "PictureUri": "/catalog-imgs/39V-24AJ-824.jpg",
     "Price": 759.99,
@@ -1408,6 +1609,7 @@
   },
   {
     "Name": "Tênis Under Armour Ch. Slight 4 Masculino",
+    "Brand": "Under Armour",
     "Sku": "R5M-2AHB-054",
     "PictureUri": "/catalog-imgs/R5M-2AHB-054.jpg",
     "Price": 399.99,
@@ -1415,6 +1617,7 @@
   },
   {
     "Name": "Tênis Fila Breeze Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-08CG-180",
     "PictureUri": "/catalog-imgs/SFK-08CG-180.jpg",
     "Price": 379.99,
@@ -1422,6 +1625,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Pulse 17 Se Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01R0-172",
     "PictureUri": "/catalog-imgs/SG4-01R0-172.jpg",
     "Price": 398.99,
@@ -1429,6 +1633,7 @@
   },
   {
     "Name": "Tênis Asics Shinobi 3 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-02C6-240",
     "PictureUri": "/catalog-imgs/SG4-02C6-240.jpg",
     "Price": 459.99,
@@ -1436,6 +1641,7 @@
   },
   {
     "Name": "Tênis Adidas Runfalcon 6 Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86EZ-196",
     "PictureUri": "/catalog-imgs/FBA-86EZ-196.jpg",
     "Price": 284.99,
@@ -1443,6 +1649,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Nimbus 28 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01UE-054",
     "PictureUri": "/catalog-imgs/SG4-01UE-054.jpg",
     "Price": 1299.99,
@@ -1450,6 +1657,7 @@
   },
   {
     "Name": "Tênis Asics Novablast 5 ATC Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-022W-010",
     "PictureUri": "/catalog-imgs/SG4-022W-010.jpg",
     "Price": 599.99,
@@ -1457,6 +1665,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Vento 3",
+    "Brand": "Olympikus",
     "Sku": "SE7-07ZY-060",
     "PictureUri": "/catalog-imgs/SE7-07ZY-060.jpg",
     "Price": 499.99,
@@ -1464,6 +1673,7 @@
   },
   {
     "Name": "Tênis Fila Skywind Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-07EC-401",
     "PictureUri": "/catalog-imgs/SFK-07EC-401.jpg",
     "Price": 303.99,
@@ -1471,6 +1681,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Prophecy 15",
+    "Brand": "Mizuno",
     "Sku": "SIC-00ER-172",
     "PictureUri": "/catalog-imgs/SIC-00ER-172.jpg",
     "Price": 1999.99,
@@ -1478,6 +1689,7 @@
   },
   {
     "Name": "Tênis Asics Novablast 6 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-02CQ-318",
     "PictureUri": "/catalog-imgs/SG4-02CQ-318.jpg",
     "Price": 899.99,
@@ -1485,6 +1697,7 @@
   },
   {
     "Name": "Tênis Nike Winflo 12 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-05SM-058",
     "PictureUri": "/catalog-imgs/SGL-05SM-058.jpg",
     "Price": 699.99,
@@ -1492,6 +1705,7 @@
   },
   {
     "Name": "Tênis Olympikus Nuvem Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-07TQ-014",
     "PictureUri": "/catalog-imgs/SE7-07TQ-014.jpg",
     "Price": 399.99,
@@ -1499,6 +1713,7 @@
   },
   {
     "Name": "Tênis Puma Skyrocket Lite 2",
+    "Brand": "Puma",
     "Sku": "PI3-75K7-008",
     "PictureUri": "/catalog-imgs/PI3-75K7-008.jpg",
     "Price": 349.99,
@@ -1506,6 +1721,7 @@
   },
   {
     "Name": "Tênis Nike Run Defy Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-0028-028",
     "PictureUri": "/catalog-imgs/SGL-0028-028.jpg",
     "Price": 349.99,
@@ -1513,6 +1729,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Turbo",
+    "Brand": "Olympikus",
     "Sku": "2I3-1640-988",
     "PictureUri": "/catalog-imgs/2I3-1640-988.jpg",
     "Price": 699.99,
@@ -1520,6 +1737,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Max",
+    "Brand": "Olympikus",
     "Sku": "2I3-0605-072",
     "PictureUri": "/catalog-imgs/2I3-0605-072.jpg",
     "Price": 359.99,
@@ -1527,6 +1745,7 @@
   },
   {
     "Name": "Tênis Nike Flex Experience Run 12 Masculino",
+    "Brand": "Nike",
     "Sku": "JD8-7591-006",
     "PictureUri": "/catalog-imgs/JD8-7591-006.jpg",
     "Price": 349.99,
@@ -1534,6 +1753,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Grafeno 3",
+    "Brand": "Olympikus",
     "Sku": "2I3-1637-412",
     "PictureUri": "/catalog-imgs/2I3-1637-412.jpg",
     "Price": 799.99,
@@ -1541,6 +1761,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre 5 Vanderlei",
+    "Brand": "Olympikus",
     "Sku": "SE7-0806-070",
     "PictureUri": "/catalog-imgs/SE7-0806-070.jpg",
     "Price": 599.99,
@@ -1548,6 +1769,7 @@
   },
   {
     "Name": "Tênis Fila Endurance Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-06IR-244",
     "PictureUri": "/catalog-imgs/SFK-06IR-244.jpg",
     "Price": 208.99,
@@ -1555,6 +1777,7 @@
   },
   {
     "Name": "Tênis Fila Speedrocker Skyfoam Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-07EH-982",
     "PictureUri": "/catalog-imgs/SFK-07EH-982.jpg",
     "Price": 719.99,
@@ -1562,6 +1785,7 @@
   },
   {
     "Name": "Tênis New Balance Fresh Foam 680V9 Masculino",
+    "Brand": "New Balance",
     "Sku": "39V-24V2-844",
     "PictureUri": "/catalog-imgs/39V-24V2-844.jpg",
     "Price": 599.99,
@@ -1569,6 +1793,7 @@
   },
   {
     "Name": "Tenis Fila Inclusion Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-0177-036",
     "PictureUri": "/catalog-imgs/SFK-0177-036.jpg",
     "Price": 359.99,
@@ -1576,6 +1801,7 @@
   },
   {
     "Name": "Tênis New Balance Fresh Foam x More V6 Masculino",
+    "Brand": "New Balance",
     "Sku": "39V-24AH-172",
     "PictureUri": "/catalog-imgs/39V-24AH-172.jpg",
     "Price": 899.99,
@@ -1583,6 +1809,7 @@
   },
   {
     "Name": "Tênis Mizuno Neo Pryzma Masculino",
+    "Brand": "Mizuno",
     "Sku": "SIC-00BM-006",
     "PictureUri": "/catalog-imgs/SIC-00BM-006.jpg",
     "Price": 599.99,
@@ -1590,6 +1817,7 @@
   },
   {
     "Name": "Tênis New Balance Foam X Evoz V4 Masculino",
+    "Brand": "New Balance",
     "Sku": "39V-1381-026",
     "PictureUri": "/catalog-imgs/39V-1381-026.jpg",
     "Price": 649.99,
@@ -1597,6 +1825,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Vento 3",
+    "Brand": "Olympikus",
     "Sku": "SE7-07ZY-042",
     "PictureUri": "/catalog-imgs/SE7-07ZY-042.jpg",
     "Price": 499.99,
@@ -1604,6 +1833,7 @@
   },
   {
     "Name": "Tênis Fila Speedzone 2 Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-08CO-412",
     "PictureUri": "/catalog-imgs/SFK-08CO-412.jpg",
     "Price": 599.99,
@@ -1611,6 +1841,7 @@
   },
   {
     "Name": "Tênis Adidas Duramo RC 2 Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-7041-288",
     "PictureUri": "/catalog-imgs/FBA-7041-288.jpg",
     "Price": 199.49,
@@ -1618,6 +1849,7 @@
   },
   {
     "Name": "Tênis Adidas Adizero Evo Sl Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-83DK-030",
     "PictureUri": "/catalog-imgs/FBA-83DK-030.jpg",
     "Price": 1099.99,
@@ -1625,6 +1857,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Max",
+    "Brand": "Olympikus",
     "Sku": "2I3-0605-915",
     "PictureUri": "/catalog-imgs/2I3-0605-915.jpg",
     "Price": 359.99,
@@ -1632,6 +1865,7 @@
   },
   {
     "Name": "Tênis Nike Downshifter 14 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-04O5-026",
     "PictureUri": "/catalog-imgs/SGL-04O5-026.jpg",
     "Price": 449.99,
@@ -1639,6 +1873,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Skyway Masculino",
+    "Brand": "Mizuno",
     "Sku": "SIC-00BQ-006",
     "PictureUri": "/catalog-imgs/SIC-00BQ-006.jpg",
     "Price": 474.99,
@@ -1646,6 +1881,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Max",
+    "Brand": "Olympikus",
     "Sku": "2I3-0605-004",
     "PictureUri": "/catalog-imgs/2I3-0605-004.jpg",
     "Price": 399.99,
@@ -1653,6 +1889,7 @@
   },
   {
     "Name": "Tênis Adidas Adizero Drive RC Rio Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-85IC-198",
     "PictureUri": "/catalog-imgs/FBA-85IC-198.jpg",
     "Price": 899.99,
@@ -1660,6 +1897,7 @@
   },
   {
     "Name": "Tênis Under Armour Ch. Endless",
+    "Brand": "Under Armour",
     "Sku": "R5M-29WA-014",
     "PictureUri": "/catalog-imgs/R5M-29WA-014.jpg",
     "Price": 351.49,
@@ -1667,6 +1905,7 @@
   },
   {
     "Name": "Tênis Olympikus Nuvem Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-07TQ-446",
     "PictureUri": "/catalog-imgs/SE7-07TQ-446.jpg",
     "Price": 399.99,
@@ -1674,6 +1913,7 @@
   },
   {
     "Name": "Tênis Adidas Hyperboost Run Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86EU-026",
     "PictureUri": "/catalog-imgs/FBA-86EU-026.jpg",
     "Price": 1299.99,
@@ -1681,6 +1921,7 @@
   },
   {
     "Name": "Tênis Puma Scend Pro 2 Unissex",
+    "Brand": "Puma",
     "Sku": "PI3-74KQ-008",
     "PictureUri": "/catalog-imgs/PI3-74KQ-008.jpg",
     "Price": 449.99,
@@ -1688,6 +1929,7 @@
   },
   {
     "Name": "Tênis Mizuno Neo Vista 2 Masculino",
+    "Brand": "Mizuno",
     "Sku": "SIC-000Y-020",
     "PictureUri": "/catalog-imgs/SIC-000Y-020.jpg",
     "Price": 1299.99,
@@ -1695,6 +1937,7 @@
   },
   {
     "Name": "Tênis Skechers Go Run Consistent 2 Masculino",
+    "Brand": "Skechers",
     "Sku": "EUZ-9408-006",
     "PictureUri": "/catalog-imgs/EUZ-9408-006.jpg",
     "Price": 349,
@@ -1702,6 +1945,7 @@
   },
   {
     "Name": "Tênis New Balance Fuelcell Flite Masculino",
+    "Brand": "New Balance",
     "Sku": "39V-25P0-044",
     "PictureUri": "/catalog-imgs/39V-25P0-044.jpg",
     "Price": 699.99,
@@ -1709,6 +1953,7 @@
   },
   {
     "Name": "Tênis Skechers Max Cushioning Glide Step Masculino",
+    "Brand": "Skechers",
     "Sku": "SEM-03LI-342",
     "PictureUri": "/catalog-imgs/SEM-03LI-342.jpg",
     "Price": 379.99,
@@ -1716,6 +1961,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Cumulus 28 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01QN-144",
     "PictureUri": "/catalog-imgs/SG4-01QN-144.jpg",
     "Price": 899.99,
@@ -1723,6 +1969,7 @@
   },
   {
     "Name": "Tênis Puma Scend Pro 2 Unissex",
+    "Brand": "Puma",
     "Sku": "PI3-74KQ-014",
     "PictureUri": "/catalog-imgs/PI3-74KQ-014.jpg",
     "Price": 313.49,
@@ -1730,6 +1977,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Venture 11 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01R2-244",
     "PictureUri": "/catalog-imgs/SG4-01R2-244.jpg",
     "Price": 599.99,
@@ -1737,6 +1985,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Pulse 17 Se Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01R0-178",
     "PictureUri": "/catalog-imgs/SG4-01R0-178.jpg",
     "Price": 599.99,
@@ -1744,6 +1993,7 @@
   },
   {
     "Name": "Tênis Under Armour Ch. Endless",
+    "Brand": "Under Armour",
     "Sku": "R5M-29WA-128",
     "PictureUri": "/catalog-imgs/R5M-29WA-128.jpg",
     "Price": 499.99,
@@ -1751,6 +2001,7 @@
   },
   {
     "Name": "Tênis Olympikus Challenger 6 Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-07TA-942",
     "PictureUri": "/catalog-imgs/SE7-07TA-942.jpg",
     "Price": 329.99,
@@ -1758,6 +2009,7 @@
   },
   {
     "Name": "Tênis Asics Novablast 6 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-02CQ-058",
     "PictureUri": "/catalog-imgs/SG4-02CQ-058.jpg",
     "Price": 899.99,
@@ -1765,6 +2017,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Grafeno 3",
+    "Brand": "Olympikus",
     "Sku": "2I3-1637-424",
     "PictureUri": "/catalog-imgs/2I3-1637-424.jpg",
     "Price": 799.99,
@@ -1772,6 +2025,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Turbo",
+    "Brand": "Olympikus",
     "Sku": "2I3-1640-833",
     "PictureUri": "/catalog-imgs/2I3-1640-833.jpg",
     "Price": 699.99,
@@ -1779,6 +2033,7 @@
   },
   {
     "Name": "Tênis Nike Run Swift 3 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-05W2-002",
     "PictureUri": "/catalog-imgs/SGL-05W2-002.jpg",
     "Price": 399.99,
@@ -1786,6 +2041,7 @@
   },
   {
     "Name": "Tênis Nike Air Max Alpha Trainer 6 Masculino",
+    "Brand": "Nike",
     "Sku": "JD8-8100-002",
     "PictureUri": "/catalog-imgs/JD8-8100-002.jpg",
     "Price": 799.99,
@@ -1793,6 +2049,7 @@
   },
   {
     "Name": "Tênis New Balance Fuelcell Rebel V5 Masculino",
+    "Brand": "New Balance",
     "Sku": "39V-24AJ-390",
     "PictureUri": "/catalog-imgs/39V-24AJ-390.jpg",
     "Price": 799.9,
@@ -1800,6 +2057,7 @@
   },
   {
     "Name": "Tênis Adidas Zenboost Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-86EK-656",
     "PictureUri": "/catalog-imgs/FBA-86EK-656.jpg",
     "Price": 474.99,
@@ -1807,6 +2065,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Skyway Masculino",
+    "Brand": "Mizuno",
     "Sku": "SIC-00BQ-016",
     "PictureUri": "/catalog-imgs/SIC-00BQ-016.jpg",
     "Price": 799.99,
@@ -1814,6 +2073,7 @@
   },
   {
     "Name": "Tênis Asics Versablast 4 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-014E-D41",
     "PictureUri": "/catalog-imgs/SG4-014E-D41.jpg",
     "Price": 499.99,
@@ -1821,6 +2081,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Prophecy 15 Masculino",
+    "Brand": "Mizuno",
     "Sku": "SIC-00EU-H22",
     "PictureUri": "/catalog-imgs/SIC-00EU-H22.jpg",
     "Price": 1999.99,
@@ -1828,6 +2089,7 @@
   },
   {
     "Name": "Tênis Adidas Adizero Drive Rc Masculino",
+    "Brand": "Adidas",
     "Sku": "FBA-2251-884",
     "PictureUri": "/catalog-imgs/FBA-2251-884.jpg",
     "Price": 791.89,
@@ -1835,6 +2097,7 @@
   },
   {
     "Name": "Tênis Fila Racer Speedzone SE Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-081S-154",
     "PictureUri": "/catalog-imgs/SFK-081S-154.jpg",
     "Price": 427.49,
@@ -1842,6 +2105,7 @@
   },
   {
     "Name": "Tênis Under Armour Ch. Endless",
+    "Brand": "Under Armour",
     "Sku": "R5M-29WA-270",
     "PictureUri": "/catalog-imgs/R5M-29WA-270.jpg",
     "Price": 499.99,
@@ -1849,6 +2113,7 @@
   },
   {
     "Name": "Tênis Asics Kayano 33 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-02BZ-818",
     "PictureUri": "/catalog-imgs/SG4-02BZ-818.jpg",
     "Price": 1299.99,
@@ -1856,6 +2121,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Supra 2",
+    "Brand": "Olympikus",
     "Sku": "2I3-1639-042",
     "PictureUri": "/catalog-imgs/2I3-1639-042.jpg",
     "Price": 999.9,
@@ -1863,6 +2129,7 @@
   },
   {
     "Name": "Tênis Fila Speedrocker Skyfoam Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-07EH-172",
     "PictureUri": "/catalog-imgs/SFK-07EH-172.jpg",
     "Price": 799.99,
@@ -1870,6 +2137,7 @@
   },
   {
     "Name": "Tênis Fila Racer Speedzone Masculino",
+    "Brand": "Fila",
     "Sku": "I6E-8021-044",
     "PictureUri": "/catalog-imgs/I6E-8021-044.jpg",
     "Price": 418.41,
@@ -1877,6 +2145,7 @@
   },
   {
     "Name": "Tênis Asics Superblast 2",
+    "Brand": "Asics",
     "Sku": "SG4-01UC-977",
     "PictureUri": "/catalog-imgs/SG4-01UC-977.jpg",
     "Price": 1599.99,
@@ -1884,6 +2153,7 @@
   },
   {
     "Name": "Tênis Olympikus Corre Grafeno 3",
+    "Brand": "Olympikus",
     "Sku": "2I3-1637-064",
     "PictureUri": "/catalog-imgs/2I3-1637-064.jpg",
     "Price": 799.99,
@@ -1891,6 +2161,7 @@
   },
   {
     "Name": "Tênis Fila Speedzone 2 Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-08CO-691",
     "PictureUri": "/catalog-imgs/SFK-08CO-691.jpg",
     "Price": 599.99,
@@ -1898,6 +2169,7 @@
   },
   {
     "Name": "Tênis Fila Aero Skyfoam Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-07EG-395",
     "PictureUri": "/catalog-imgs/SFK-07EG-395.jpg",
     "Price": 499.99,
@@ -1905,6 +2177,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Prophecy 15 Masculino",
+    "Brand": "Mizuno",
     "Sku": "SIC-00EU-124",
     "PictureUri": "/catalog-imgs/SIC-00EU-124.jpg",
     "Price": 1999.99,
@@ -1912,6 +2185,7 @@
   },
   {
     "Name": "Tênis Nike Juniper Trail 3 Masculino",
+    "Brand": "Nike",
     "Sku": "SGL-05W6-288",
     "PictureUri": "/catalog-imgs/SGL-05W6-288.jpg",
     "Price": 799.99,
@@ -1919,6 +2193,7 @@
   },
   {
     "Name": "Tênis Asics Gel-Hypersonic 6 Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-01QW-076",
     "PictureUri": "/catalog-imgs/SG4-01QW-076.jpg",
     "Price": 341.99,
@@ -1926,6 +2201,7 @@
   },
   {
     "Name": "Tênis Fila Agile Masculino",
+    "Brand": "Fila",
     "Sku": "SFK-07E6-544",
     "PictureUri": "/catalog-imgs/SFK-07E6-544.jpg",
     "Price": 275.49,
@@ -1933,6 +2209,7 @@
   },
   {
     "Name": "Tênis Mizuno Wave Legend 5 Masculino",
+    "Brand": "Mizuno",
     "Sku": "SIC-00F1-010",
     "PictureUri": "/catalog-imgs/SIC-00F1-010.jpg",
     "Price": 699.99,
@@ -1940,6 +2217,7 @@
   },
   {
     "Name": "Tênis Olympikus Voa 3 Masculino",
+    "Brand": "Olympikus",
     "Sku": "SE7-07EJ-310",
     "PictureUri": "/catalog-imgs/SE7-07EJ-310.jpg",
     "Price": 379.99,
@@ -1947,6 +2225,7 @@
   },
   {
     "Name": "Tênis Asics Novablast 6 GTX Masculino",
+    "Brand": "Asics",
     "Sku": "SG4-02CP-274",
     "PictureUri": "/catalog-imgs/SG4-02CP-274.jpg",
     "Price": 1199.99,
@@ -1954,6 +2233,7 @@
   },
   {
     "Name": "Tênis Fila Float Maxxi 2 Pro Masculino",
+    "Brand": "Fila",
     "Sku": "I6E-6317-154",
     "PictureUri": "/catalog-imgs/I6E-6317-154.jpg",
     "Price": 617.49,
@@ -1961,6 +2241,7 @@
   },
   {
     "Name": "Tênis Puma Scend Pro 2 Unissex",
+    "Brand": "Puma",
     "Sku": "PI3-74KQ-118",
     "PictureUri": "/catalog-imgs/PI3-74KQ-118.jpg",
     "Price": 313.49,

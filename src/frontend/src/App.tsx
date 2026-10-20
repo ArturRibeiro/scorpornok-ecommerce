@@ -13,6 +13,7 @@ import OrderDetailPage from "@/pages/OrderDetailPage";
 import OrdersPage from "@/pages/OrdersPage";
 import ProductPage from "@/pages/ProductPage";
 import ProfilePage from "@/pages/ProfilePage";
+import SearchPage from "@/pages/SearchPage";
 import { Route, Routes } from "react-router";
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/search" element={<SearchPage />} />
             <Route path="/product/:productId" element={<ProductPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />

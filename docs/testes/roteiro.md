@@ -392,3 +392,24 @@ Use a conta A depois dos cenários anteriores (vários pedidos: aprovados, recus
 4. **Esperado:** o CVV indicado como inválido no formulário, nada enviado ao Orders.
 5. `docker compose stop payment-api` e confirme de novo.
 6. **Esperado:** a mensagem de que não foi possível validar o cartão; `docker compose logs gateway-api | grep 4111` não encontra nada. `docker compose start payment-api`.
+
+### 33. Busca de produtos
+
+Antes, com o código da busca, recrie o banco do Catalog (a coluna da marca e a extensão `unaccent` só entram num banco novo): `docker compose stop catalog-api catalog-db && docker compose rm -f catalog-db && docker volume rm scorpornok-ecommerce_catalog_data`, e depois `docker compose up -d --build catalog-api gateway-api frontend`.
+
+1. Sem login, digite "n" no campo "Buscar produtos..." do cabeçalho e depois "nike".
+2. **Esperado:** nada com "n"; com "nike", 5 sugestões com foto, nome e preço e "Ver todos os resultados (32)". Escolher uma sugestão abre o produto.
+3. Digite "revolution tenis nike" (sem acento, fora de ordem) e tecle Enter.
+4. **Esperado:** `/search?q=revolution tenis nike`, com os "Tênis Nike Revolution" primeiro e a quantidade encontrada.
+5. Digite "a malha" no campo e depois "xyz".
+6. **Esperado:** com "a malha" (só nas descrições), 5 sugestões e "Ver todos os resultados (20)", que abre os 20 tênis que citam "malha" na descrição; com "xyz", "Nenhum produto encontrado". Buscar "masculino" traz primeiro os que têm a palavra no nome e, nas últimas páginas, os que só a citam na descrição.
+7. Busque "tenis", marque Nike e Adidas e informe o preço de 399,99 a 500.
+8. **Esperado:** só Nike e Adidas nessa faixa, incluindo os de R$ 399,99; a URL guarda `brands`, `min` e `max`, e cada mudança volta à página 1. Abrir a mesma URL em outra aba mostra os mesmos resultados, os mesmos filtros e a mesma página.
+9. Informe mínimo 500 e máximo 200 e acione "Aplicar".
+10. **Esperado:** "A faixa é inválida", sem mudar os resultados nem a URL.
+11. Marque só Skechers, até R$ 200.
+12. **Esperado:** "Nenhum produto encontrado", com "Limpar filtros" (volta aos resultados do termo) e "Voltar à loja".
+13. No celular (DevTools, largura de 390 px), abra a busca pela lupa e os filtros pelo botão "Filtros".
+14. **Esperado:** as mesmas sugestões no painel, que fecha ao escolher; os filtros aparecem só ao tocar em "Filtros".
+15. `docker compose stop catalog-api`, busque "nike" e digite no campo.
+16. **Esperado:** a página de resultados mostra que não foi possível carregar os produtos, com "Tentar de novo"; as sugestões não aparecem, sem mensagem de erro. `docker compose start catalog-api`.

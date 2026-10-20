@@ -4,6 +4,15 @@ schema {
 
 type Query {
   products(page: Int, pageSize: Int): ProductPage! @cost(weight: "10")
+  searchProducts(
+    term: String
+    brands: [String!]
+    minPrice: Decimal
+    maxPrice: Decimal
+    page: Int
+    pageSize: Int
+  ): ProductPage! @cost(weight: "10")
+  productBrands: [String!]! @cost(weight: "10")
   productById(id: Long!): Product @lookup @cost(weight: "10")
 }
 

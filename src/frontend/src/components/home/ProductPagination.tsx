@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { PageInfo } from "@/types/product";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 
 // Páginas visíveis: a primeira, a última e duas de cada lado da atual;
 // os intervalos pulados viram reticências.
@@ -18,11 +18,19 @@ function visiblePages(current: number, total: number): (number | "...")[] {
   return pages;
 }
 
-const pageLink = (page: number) => ({ search: page > 1 ? `?page=${page}` : "" });
-
 export default function ProductPagination({ pageInfo }: { pageInfo: PageInfo }) {
+  const [searchParams] = useSearchParams();
   const { currentPage, totalPages, pageSize, totalItems } = pageInfo;
   if (totalPages <= 1) return null;
+
+  // Troca só a página e mantém os outros parâmetros da URL (o termo e os filtros da busca).
+  const pageLink = (page: number) => {
+    const params = new URLSearchParams(searchParams);
+    if (page > 1) params.set("page", String(page));
+    else params.delete("page");
+    const search = params.toString();
+    return { search: search ? `?${search}` : "" };
+  };
 
   const first = (currentPage - 1) * pageSize + 1;
   const last = Math.min(currentPage * pageSize, totalItems);
@@ -37,7 +45,7 @@ export default function ProductPagination({ pageInfo }: { pageInfo: PageInfo }) 
       </p>
 
       <div className="flex flex-wrap items-center justify-center gap-1">
-        <PageButton page={currentPage - 1} disabled={!pageInfo.hasPreviousPage}>
+        <PageButton to={pageLink(currentPage - 1)} disabled={!pageInfo.hasPreviousPage}>
           <ChevronLeft />
           <span className="sr-only sm:not-sr-only">Anterior</span>
         </PageButton>
@@ -53,7 +61,7 @@ export default function ProductPagination({ pageInfo }: { pageInfo: PageInfo }) 
           ) : (
             <PageButton
               key={page}
-              page={page}
+              to={pageLink(page)}
               active={page === currentPage}
             >
               {page}
@@ -61,7 +69,7 @@ export default function ProductPagination({ pageInfo }: { pageInfo: PageInfo }) 
           )
         )}
 
-        <PageButton page={currentPage + 1} disabled={!pageInfo.hasNextPage}>
+        <PageButton to={pageLink(currentPage + 1)} disabled={!pageInfo.hasNextPage}>
           <span className="sr-only sm:not-sr-only">Próxima</span>
           <ChevronRight />
         </PageButton>
@@ -71,12 +79,12 @@ export default function ProductPagination({ pageInfo }: { pageInfo: PageInfo }) 
 }
 
 function PageButton({
-  page,
+  to,
   active = false,
   disabled = false,
   children,
 }: {
-  page: number;
+  to: { search: string };
   active?: boolean;
   disabled?: boolean;
   children: React.ReactNode;
@@ -94,7 +102,7 @@ function PageButton({
 
   return (
     <Button variant={variant} className={className} asChild>
-      <Link to={pageLink(page)} aria-current={active ? "page" : undefined}>
+      <Link to={to} aria-current={active ? "page" : undefined}>
         {children}
       </Link>
     </Button>

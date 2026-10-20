@@ -20,7 +20,9 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 [Binding]
 public sealed class Hook
 {
-    private static CustomWebApplicationFactory Factory => new CustomWebApplicationFactory();
+    // Um host só para todos os cenários: criar uma factory por requisição abre um FileSystemWatcher por host e
+    // esgota o limite de inotify do sistema nos passos que percorrem o catálogo página a página.
+    private static readonly CustomWebApplicationFactory Factory = new();
     public static HttpClient Client => Factory.CreateClient();
 
     [BeforeScenario]

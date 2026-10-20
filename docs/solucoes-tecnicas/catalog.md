@@ -27,3 +27,19 @@ Detalhes técnicos: `use-catalog-price-in-orders` (arquivada em `openspec/change
 **Situação:** em funcionamento. O cadastro do cliente e os pedidos também passam pelo ponto de entrada (veja [Cadastro do cliente](customers.md) e [Pedidos](orders.md)).
 
 Detalhes técnicos: `add-graphql-gateway` (arquivada em `openspec/changes/archive/`).
+
+## 12. Busca de produtos
+
+**Problema:** o cliente só encontrava um produto folheando as páginas da loja. O campo "Buscar produtos" do topo existia, mas não fazia nada, e não havia como ver só uma marca ou uma faixa de preço.
+
+**Solução:**
+- O campo de busca procura o produto pelo nome, pela marca e pela descrição, sem diferenciar maiúsculas, minúsculas e acentos, com as palavras em qualquer ordem: "tenis nike" encontra "Tênis Nike", e "caminhada" encontra os tênis que a citam na descrição.
+- Os resultados trazem primeiro quem tem o termo no nome, depois na marca e por último só na descrição, para que palavras comuns nas descrições, como "corrida", não escondam o que o cliente procurou.
+- Enquanto o cliente digita, aparecem as 5 primeiras sugestões da mesma busca, com foto, nome e preço, que levam direto ao produto, e a opção de ver todos os resultados.
+- A página de resultados tem a mesma grade e as mesmas páginas da loja e filtros por marca e faixa de preço, que se combinam entre si e com o termo. O endereço guarda a busca, então dá para voltar a ela ou compartilhá-la.
+- A marca passa a ser um dado próprio de cada produto, em vez de aparecer só no texto da descrição.
+- Sem resultado, a loja diz que nada foi encontrado e oferece limpar os filtros. Com o catálogo fora do ar, a página oferece tentar de novo, e as sugestões apenas não aparecem.
+
+**Situação:** em funcionamento.
+
+Detalhes técnicos: `add-product-search` (em `openspec/changes/`).

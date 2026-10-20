@@ -16,6 +16,11 @@
                 .IsRequired();
 
 
+            builder.Property(x => x.Brand)
+                .HasColumnName("Brand")
+                .HasMaxLength(60)
+                .IsRequired();
+
             builder.Property(x => x.Sku)
                 .HasColumnName("Sku")
                 .HasMaxLength(60)

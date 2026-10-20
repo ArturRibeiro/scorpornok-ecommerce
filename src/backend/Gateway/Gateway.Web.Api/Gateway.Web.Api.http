@@ -26,6 +26,27 @@ Content-Type: application/json
 
 ###
 
+# Busca de produtos: todas as palavras do termo no nome, na marca ou na descrição, sem diferenciar maiúsculas
+# e acentos, com os do nome primeiro; marcas e faixa de preço (limites incluídos) opcionais e combináveis;
+# mesmas páginas do products. As sugestões da loja são a mesma consulta com pageSize 5.
+POST {{Gateway.Web.Api_HostAddress}}/graphql
+Content-Type: application/json
+
+{
+  "query": "query($term: String, $brands: [String!], $minPrice: Decimal, $maxPrice: Decimal, $page: Int, $pageSize: Int) { searchProducts(term: $term, brands: $brands, minPrice: $minPrice, maxPrice: $maxPrice, page: $page, pageSize: $pageSize) { pageInfo { currentPage totalItems totalPages hasNextPage } items { id name pictureUri price } } }",
+  "variables": { "term": "caminhada", "brands": ["Asics", "Nike"], "minPrice": 300, "maxPrice": 900, "page": 1, "pageSize": 18 }
+}
+
+###
+
+# Marcas do catálogo, em ordem alfabética, para o filtro da busca.
+POST {{Gateway.Web.Api_HostAddress}}/graphql
+Content-Type: application/json
+
+{ "query": "{ productBrands }" }
+
+###
+
 # Cadastro do cliente do token (subgraph do Customers). Sem token: AUTH_NOT_AUTHENTICATED; token
 # inválido ou expirado: 401, sem chamar o Customers.
 POST {{Gateway.Web.Api_HostAddress}}/graphql

@@ -6,13 +6,13 @@ import { useCallback, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
 import { Button } from "../ui/button";
 import AccountMenu from "./AccountMenu";
+import SearchBox from "../search/SearchBox";
 
 export default function Header() {
   const { cart } = useCart();
   const cartCount =
     cart?.reduce((total, item) => total + item.quantity, 0) || 0;
   const [isScrolled, setIsScrolled] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { pathname } = useLocation();
   // Login e cadastro abrem num modal, sem sair da página.
@@ -84,17 +84,7 @@ export default function Header() {
           </div>
 
           <div className="hidden lg:flex flex-1 max-w-md mx-8">
-            <form className="relative w-full">
-              <input
-                type="search"
-                placeholder="Buscar produtos..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
-                aria-label="Buscar produtos"
-              />
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            </form>
+            <SearchBox variant="desktop" />
           </div>
 
           <div className="flex items-center space-x-2 sm:space-x-4">
@@ -154,18 +144,7 @@ export default function Header() {
 
         {isSearchOpen && (
           <div className="lg:hidden mt-4 animate-in slide-in-from-top duration-200">
-            <form className="relative">
-              <input
-                type="search"
-                placeholder="Buscar produtos..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                aria-label="Buscar produtos"
-                autoFocus
-              />
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            </form>
+            <SearchBox variant="mobile" autoFocus onNavigate={() => setIsSearchOpen(false)} />
           </div>
         )}
 
