@@ -54,7 +54,7 @@ app.MapGraphQL(schemaName: SubgraphName);
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false });
 app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = check => check.Tags.Contains("ready") });
 // ops: o que a operação precisa acompanhar (filas de erro e pedidos presos), fora do ready: o problema não
-// impede a API de atender, mas exige ação (docs/runbooks/filas-de-erro.md). Unhealthy responde 503.
+// impede a API de atender, mas exige ação. Unhealthy responde 503.
 app.MapHealthChecks("/health/ops", new HealthCheckOptions
 {
     Predicate = check => check.Tags.Contains("ops"),

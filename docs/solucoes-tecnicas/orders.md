@@ -1,6 +1,6 @@
 # Pedidos
 
-A parte da loja que registra o pedido, pede a cobrança, acompanha o resultado e avisa o cliente na tela e por e-mail. Cada item indica a sua situação. Visão geral em [README.md](README.md).
+A parte da loja que registra o pedido, pede a cobrança, acompanha o resultado e avisa o cliente na tela e por e-mail. Cada item indica a sua situação.
 
 ## 2. Pedido parado em "processando"
 
@@ -9,7 +9,7 @@ A parte da loja que registra o pedido, pede a cobrança, acompanha o resultado e
 **Solução:**
 - Depois de 15 minutos sem resposta, a loja pergunta à área de pagamentos o que aconteceu (veja [Pagamentos](payments.md)) e dá ao pedido uma situação definitiva: **confirmado**, **recusado** ou o novo **pagamento não processado**.
 - "Pagamento não processado" é diferente de "recusado": significa que houve um problema da loja, que nada foi cobrado e que o cliente pode refazer a compra. O cliente vê isso na tela e recebe por e-mail.
-- A equipe é avisada quando há pedidos parados além do esperado, e há um passo a passo para resolver.
+- A equipe é avisada quando há pedidos parados além do esperado.
 
 **Situação:** em funcionamento.
 

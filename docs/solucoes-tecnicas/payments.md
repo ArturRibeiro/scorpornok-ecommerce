@@ -1,6 +1,6 @@
 # Pagamentos
 
-A parte da loja que recebe o pedido de cobrança, fala com o meio de pagamento (a empresa que processa o cartão) e devolve o resultado (aprovado ou recusado). Cada item indica a sua situação. Visão geral em [README.md](README.md).
+A parte da loja que recebe o pedido de cobrança, fala com o meio de pagamento (a empresa que processa o cartão) e devolve o resultado (aprovado ou recusado). Cada item indica a sua situação.
 
 ## 1. Cobrança em dobro
 
@@ -23,7 +23,7 @@ Detalhes técnicos: `add-payment-idempotency` (arquivada em `openspec/changes/ar
 
 Se a área de pagamentos ficar fora do ar por mais tempo que o prazo, os pedidos feitos nesse período tendem a terminar como "pagamento não processado": nada é cobrado e o cliente é avisado para refazer a compra.
 
-A equipe também passa a ser avisada quando mensagens de pagamento ficam travadas, e há um passo a passo para destravá-las.
+A equipe também passa a ser avisada quando mensagens de pagamento ficam travadas, e elas podem ser devolvidas à fila com segurança: uma tentativa já cobrada não é cobrada de novo.
 
 **Situação:** em funcionamento.
 
@@ -70,4 +70,4 @@ Detalhes técnicos: `allow-payment-retry` (arquivada em `openspec/changes/archiv
 
 **Situação:** em funcionamento.
 
-Detalhes técnicos: `add-payments-subgraph` (em `openspec/changes/`).
+Detalhes técnicos: `add-payments-subgraph` (arquivada em `openspec/changes/archive/`).

@@ -1,6 +1,6 @@
 # Loja (site)
 
-O site onde o cliente navega, monta o carrinho, paga e acompanha o resultado. Cada item indica a sua situação. Visão geral em [README.md](README.md).
+O site onde o cliente navega, monta o carrinho, paga e acompanha o resultado. Cada item indica a sua situação.
 
 ## 4. Proteção dos dados do cartão
 

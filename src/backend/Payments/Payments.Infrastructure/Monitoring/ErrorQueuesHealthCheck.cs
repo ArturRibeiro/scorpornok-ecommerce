@@ -12,7 +12,6 @@ public record ErrorQueues(IReadOnlyList<string> Names);
 /// /health/ops: acusa mensagens paradas nas filas de erro, que ninguém lê. Consulta a API de
 /// gerenciamento do RabbitMQ (RabbitMq:ManagementUrl); fila inexistente conta como vazia, e a API
 /// de gerenciamento fora do ar deixa o check Degraded (não sabemos, mas não é falha do fluxo).
-/// O reprocessamento está em docs/runbooks/filas-de-erro.md.
 /// </summary>
 public class ErrorQueuesHealthCheck(HttpClient httpClient, ErrorQueues queues) : IHealthCheck
 {

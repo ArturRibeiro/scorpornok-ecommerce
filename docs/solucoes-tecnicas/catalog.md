@@ -1,6 +1,6 @@
 # Catálogo
 
-A parte da loja que guarda os produtos, com nome, foto, descrição e preço. Cada item indica a sua situação. Visão geral em [README.md](README.md).
+A parte da loja que guarda os produtos, com nome, foto, descrição e preço. Cada item indica a sua situação.
 
 ## 7. Preço conferido no momento da compra
 

@@ -41,7 +41,7 @@ O front-end (`src/frontend/`) é a loja: catálogo, carrinho, login e cadastro p
 
 O passo 3, dentro do contexto Payments:
 
-Diagrama: [`docs/diagrams/fluxo-pagamento.drawio`](docs/diagrams/fluxo-pagamento.drawio). As melhorias propostas para as falhas nesse fluxo estão em [`docs/solucoes-tecnicas/`](docs/solucoes-tecnicas/README.md).
+Diagrama: [`docs/diagrams/fluxo-pagamento.drawio`](docs/diagrams/fluxo-pagamento.drawio). As melhorias propostas para as falhas nesse fluxo estão em [`docs/solucoes-tecnicas/`](docs/solucoes-tecnicas/).
 
 ## Tecnologias
 

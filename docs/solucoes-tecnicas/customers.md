@@ -1,6 +1,6 @@
 # Cadastro do cliente
 
-A parte da loja que guarda os dados de quem compra: nome, telefone, CPF, o endereço de entrega e o histórico dos endereços usados nos pedidos. Cada item indica a sua situação. Visão geral em [README.md](README.md).
+A parte da loja que guarda os dados de quem compra: nome, telefone, CPF, o endereço de entrega e o histórico dos endereços usados nos pedidos. Cada item indica a sua situação.
 
 ## 9. Cliente sem cadastro
 
