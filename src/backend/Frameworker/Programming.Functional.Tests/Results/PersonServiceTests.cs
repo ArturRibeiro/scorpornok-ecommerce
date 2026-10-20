@@ -1,11 +1,3 @@
-using System;
-using FizzWare.NBuilder;
-using FluentAssertions;
-using Moq;
-using NUnit.Framework;
-using Programming.Functional.Results;
-using Programming.Functional.Tests.Results.Domains.Persons;
-
 namespace Programming.Functional.Tests.Results
 {
     [TestFixture]

@@ -1,6 +1,3 @@
-using System.Net;
-using Gateway.Web.Api.GraphQL;
-
 namespace Gateway.Tests;
 
 [TestFixture]

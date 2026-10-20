@@ -1,5 +1,3 @@
-using System;
-
 namespace Catalog.Queries;
 
 // Os dois parâmetros são opcionais na query string. Page() e Size()

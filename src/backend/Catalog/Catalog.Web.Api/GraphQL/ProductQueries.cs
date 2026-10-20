@@ -1,5 +1,3 @@
-using HotChocolate.Types.Composite;
-
 namespace Catalog.Web.Api.GraphQL;
 
 /// <summary>Produto do catálogo no GraphQL: os mesmos campos do REST (<see cref="ProductItemMessageResponse"/>).</summary>

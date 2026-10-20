@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace Gateway.Tests;
 
 // O cartão passa pelo gateway (tokenizeCard). Ele não pode aparecer em log nem na resposta, nem com erro.

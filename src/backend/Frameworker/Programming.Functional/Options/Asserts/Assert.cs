@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-
-namespace Programming.Functional.Options.Asserts
+﻿namespace Programming.Functional.Options.Asserts
 {
     public static class Asserts
     {

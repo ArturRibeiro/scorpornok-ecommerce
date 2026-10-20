@@ -1,7 +1,4 @@
-using Gateway.Web.Api.Authentication;
-using Gateway.Web.Api.GraphQL;
-using Gateway.Web.Api.Health;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Path = System.IO.Path;
 
 var builder = WebApplication.CreateBuilder(args);
 

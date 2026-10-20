@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace Gateway.Tests;
 
 // O cadastro vai ao subgraph do Customers com o token; quem aplica a regra de acesso é o subgraph.

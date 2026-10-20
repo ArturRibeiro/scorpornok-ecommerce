@@ -1,6 +1,4 @@
-﻿using Shared.Code.Models;
-
-namespace Catalog.Domain.Products
+﻿namespace Catalog.Domain.Products
 {
     public class Product : Entity<long>, IAggregateRoot
     {

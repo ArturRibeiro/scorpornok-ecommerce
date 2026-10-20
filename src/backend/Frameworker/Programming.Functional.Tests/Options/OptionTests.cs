@@ -1,9 +1,4 @@
-﻿using FluentAssertions;
-using NUnit.Framework;
-using Programming.Functional.Options;
-using Programming.Functional.Options.Asserts;
-
-namespace Programming.Functional.Tests.Options
+﻿namespace Programming.Functional.Tests.Options
 {
     [TestFixture, Category("Frameworker.Programming.Functional")]
     public class OptionTests

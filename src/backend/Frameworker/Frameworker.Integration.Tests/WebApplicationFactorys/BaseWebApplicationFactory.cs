@@ -1,14 +1,3 @@
-using System;
-using System.IO;
-using System.Net.Http;
-using DotNet.Testcontainers.Containers;
-using Frameworker.Integration.Tests.WebApplicationFactorys.Extensions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
 namespace Frameworker.Integration.Tests.WebApplicationFactorys
 {
     public abstract class BaseWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup>

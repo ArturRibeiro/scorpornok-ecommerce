@@ -1,5 +1,3 @@
-using MassTransit;
-
 namespace Payments.Infrastructure.Consumers;
 
 /// <summary>Recebe do Orders a consulta da situação do pagamento e a entrega ao handler pelo IMemoryBus.</summary>

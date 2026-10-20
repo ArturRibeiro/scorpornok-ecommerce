@@ -1,5 +1,3 @@
-using System.Security.Claims;
-using HotChocolate.Authorization;
 using AuthorizeAttribute = HotChocolate.Authorization.AuthorizeAttribute;
 
 namespace Customers.Web.Api.GraphQL;

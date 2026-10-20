@@ -1,7 +1,3 @@
-using HotChocolate;
-using HotChocolate.Language;
-using HotChocolate.Validation;
-
 namespace Gateway.Web.Api.GraphQL;
 
 /// <summary>

@@ -1,10 +1,3 @@
-using MassTransit;
-using MassTransit.Testing;
-using Microsoft.Extensions.DependencyInjection;
-using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Payments;
-using Orders.Infrastructure.Consumers;
-using Shared.Code;
-
 namespace Orders.Tests.Infrastructure;
 
 [TestFixture]

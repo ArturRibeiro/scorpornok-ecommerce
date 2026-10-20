@@ -1,9 +1,3 @@
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using Orders.CommandHandlers.Orders;
-using Orders.Infrastructure.Catalog;
-
 namespace Orders.Tests.Infrastructure;
 
 [TestFixture]

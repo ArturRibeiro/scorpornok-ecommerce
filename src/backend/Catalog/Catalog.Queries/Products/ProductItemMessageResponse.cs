@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-namespace Catalog.Queries.Products
+﻿namespace Catalog.Queries.Products
 {
     [Serializable]
     public class ProductItemMessageResponse

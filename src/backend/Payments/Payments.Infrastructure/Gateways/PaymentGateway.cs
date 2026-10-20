@@ -1,5 +1,3 @@
-using System.Collections.Concurrent;
-
 namespace Payments.Infrastructure.Gateways;
 
 /// <summary>

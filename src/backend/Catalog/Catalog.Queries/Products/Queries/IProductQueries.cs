@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Frameworker.EntityFrameworkCore;
-
-namespace Catalog.Queries.Products.Queries
+﻿namespace Catalog.Queries.Products.Queries
 {
     public interface IProductQueries
     {

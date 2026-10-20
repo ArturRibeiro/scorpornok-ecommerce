@@ -1,10 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-
-namespace Frameworker.Integration.Tests.WebApplicationFactorys.Extensions
+﻿namespace Frameworker.Integration.Tests.WebApplicationFactorys.Extensions
 {
     public static class IWebHostExtension
     {

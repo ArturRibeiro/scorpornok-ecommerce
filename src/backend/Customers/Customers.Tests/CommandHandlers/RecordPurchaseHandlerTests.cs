@@ -1,6 +1,3 @@
-using Customers.CommandHandlers.Purchases;
-using Microsoft.Extensions.Logging.Abstractions;
-
 namespace Customers.Tests.CommandHandlers;
 
 [TestFixture]

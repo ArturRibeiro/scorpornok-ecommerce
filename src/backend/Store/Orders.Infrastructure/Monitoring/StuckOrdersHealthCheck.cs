@@ -1,7 +1,3 @@
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Options;
-using Orders.Infrastructure.PaymentCheck;
-
 namespace Orders.Infrastructure.Monitoring;
 
 /// <summary>

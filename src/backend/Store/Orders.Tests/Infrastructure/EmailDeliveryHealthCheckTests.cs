@@ -1,6 +1,3 @@
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Orders.Infrastructure.Email;
-
 namespace Orders.Tests.Infrastructure;
 
 [TestFixture]

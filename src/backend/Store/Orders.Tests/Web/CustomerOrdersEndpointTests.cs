@@ -1,16 +1,3 @@
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
-using Orders.CommandHandlers.Orders.Imp.CommandHandlers.History;
-using Orders.Web.Api.Authentication;
-using Orders.Web.Api.WebApplicationExtensions;
-using Shared.Code;
-using static Orders.Web.Api.WebApplicationExtensions.WebApplicationExtensions;
-
 namespace Orders.Tests.Web;
 
 [TestFixture]

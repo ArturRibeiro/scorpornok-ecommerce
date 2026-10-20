@@ -1,10 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Catalog.Domain.Products;
-using Microsoft.EntityFrameworkCore;
-
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Catalog.Infrastructure.EntityConfigurations
+﻿namespace Catalog.Infrastructure.EntityConfigurations
 {
     [ExcludeFromCodeCoverage]
     class ProductConfigurations : IEntityTypeConfiguration<Product>

@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-
 namespace Customers.Web.Api.Authentication;
 
 // Cópia da autenticação do Orders, sem o access_token na query (aqui não há WebSocket).

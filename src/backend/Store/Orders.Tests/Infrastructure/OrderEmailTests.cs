@@ -1,7 +1,3 @@
-using MailKit.Security;
-using Orders.CommandHandlers.Orders;
-using Orders.Infrastructure.Email;
-
 namespace Orders.Tests.Infrastructure;
 
 [TestFixture]

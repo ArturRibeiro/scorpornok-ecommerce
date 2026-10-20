@@ -1,6 +1,3 @@
-using System;
-using Programming.Functional.Results;
-
 namespace Programming.Functional.Tests.Results.Domains.Persons
 {
     public interface IPersonRepository

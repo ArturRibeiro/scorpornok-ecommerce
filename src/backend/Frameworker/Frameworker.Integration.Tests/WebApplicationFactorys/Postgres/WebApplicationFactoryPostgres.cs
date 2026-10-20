@@ -1,9 +1,3 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-
 namespace Frameworker.Integration.Tests.WebApplicationFactorys.Postgres
 {
     public class WebApplicationFactoryPostgres<TStartup, TApplicationDbContext> : BaseWebApplicationFactory<TStartup>

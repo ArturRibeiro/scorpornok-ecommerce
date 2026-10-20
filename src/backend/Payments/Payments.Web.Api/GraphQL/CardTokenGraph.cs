@@ -1,6 +1,3 @@
-using Payments.CommandHandlers.CardTokens;
-using Shared.Code;
-
 namespace Payments.Web.Api.GraphQL;
 
 /// <summary>O cartão como o cliente digitou no checkout, como no <c>POST /card-tokens</c>.</summary>

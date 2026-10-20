@@ -1,6 +1,3 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace Catalog.Infrastructure.Extensions;
 
 // Registro da infraestrutura do Catalog, um arquivo por contexto (ServiceCollectionExtensions.<Contexto>.cs).

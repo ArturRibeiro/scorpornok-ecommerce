@@ -1,8 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Orders.CommandHandlers.Orders;
-using Orders.Infrastructure.Email;
-
 namespace Orders.Tests.Infrastructure;
 
 [TestFixture]

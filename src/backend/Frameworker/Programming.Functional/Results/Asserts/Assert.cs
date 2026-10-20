@@ -1,5 +1,3 @@
-using System;
-
 namespace Programming.Functional.Results.Asserts
 {
     public static class Assert2

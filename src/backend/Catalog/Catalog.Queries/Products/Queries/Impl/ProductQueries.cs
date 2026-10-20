@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using Catalog.Domain.Products;
-using Frameworker.EntityFrameworkCore;
-using Frameworker.EntityFrameworkCore.Extensions;
-using Microsoft.EntityFrameworkCore;
-
-namespace Catalog.Queries.Products.Queries.Impl
+﻿namespace Catalog.Queries.Products.Queries.Impl
 {
     public class ProductQueries : IProductQueries
     {

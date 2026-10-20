@@ -1,10 +1,3 @@
-using System.Reflection;
-using Microsoft.AspNetCore.Http;
-using Payments.CommandHandlers.CardTokens;
-using Shared.Code;
-using Shared.Code.Models;
-using static Payments.Web.Api.WebApplicationExtensions.WebApplicationExtensions;
-
 namespace Payments.Tests.CardTokens;
 
 [TestFixture]

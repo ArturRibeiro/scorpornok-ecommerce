@@ -1,7 +1,3 @@
-using Customers.CommandHandlers.Purchases;
-using MassTransit;
-using Shared.Code.IntegrationEvents;
-
 namespace Customers.Infrastructure.Consumers;
 
 // Consumidor fino: traduz a mensagem do Orders em comando e o entrega ao handler pelo IMemoryBus,

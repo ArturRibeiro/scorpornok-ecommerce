@@ -1,5 +1,3 @@
-using Catalog.Web.Api.WebApplicationExtensions;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Vem do appsettings.Development.json (dotnet run) ou do docker compose (variável de ambiente).

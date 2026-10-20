@@ -1,8 +1,3 @@
-using System.Security.Claims;
-using System.Text;
-using Microsoft.IdentityModel.JsonWebTokens;
-using Microsoft.IdentityModel.Tokens;
-
 namespace Gateway.Tests;
 
 /// <summary>Tokens assinados com uma chave de teste, no lugar dos do Keycloak (mesmo emissor e audience).</summary>

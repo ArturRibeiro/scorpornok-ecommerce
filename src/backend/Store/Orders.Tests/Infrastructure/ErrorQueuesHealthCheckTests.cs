@@ -1,9 +1,3 @@
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Orders.Infrastructure.Monitoring;
-
 namespace Orders.Tests.Infrastructure;
 
 [TestFixture]

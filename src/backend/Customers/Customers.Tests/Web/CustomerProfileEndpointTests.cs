@@ -1,11 +1,3 @@
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Shared.Code;
-using Shared.Code.Commands;
-using Customers.Web.Api.WebApplicationExtensions;
-using static Customers.Web.Api.WebApplicationExtensions.WebApplicationExtensions;
-
 namespace Customers.Tests.Web;
 
 [TestFixture]

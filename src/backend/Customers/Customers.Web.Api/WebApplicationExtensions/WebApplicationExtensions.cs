@@ -1,5 +1,3 @@
-using System.Security.Claims;
-
 namespace Customers.Web.Api.WebApplicationExtensions;
 
 /// <summary>Corpo do PUT /customers/me: o cadastro inteiro (o e-mail vem do token).</summary>

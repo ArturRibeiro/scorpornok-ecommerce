@@ -1,7 +1,3 @@
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-
 namespace Orders.Infrastructure.Email;
 
 /// <summary>Resultado de uma rodada: e-mails enviados e se a rodada parou com o servidor de e-mail fora.</summary>

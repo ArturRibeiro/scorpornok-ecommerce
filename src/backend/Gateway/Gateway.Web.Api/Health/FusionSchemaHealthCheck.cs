@@ -1,6 +1,3 @@
-using HotChocolate.Execution;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-
 namespace Gateway.Web.Api.Health;
 
 /// <summary>

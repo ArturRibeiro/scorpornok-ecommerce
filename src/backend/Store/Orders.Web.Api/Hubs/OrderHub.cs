@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.SignalR;
-using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Payments;
-using Orders.Domain.Order.Orders;
-
 namespace Orders.Web.Api.Hubs;
 
 /// <summary>

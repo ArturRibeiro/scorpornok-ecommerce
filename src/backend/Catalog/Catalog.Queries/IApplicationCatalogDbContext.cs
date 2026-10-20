@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace Catalog.Queries;
 
 public interface IApplicationCatalogDbContext

@@ -1,5 +1,3 @@
-using MassTransit;
-
 namespace Payments.Infrastructure.Messaging;
 
 /// <summary>

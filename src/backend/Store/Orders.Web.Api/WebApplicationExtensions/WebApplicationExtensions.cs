@@ -1,8 +1,3 @@
-using System.Security.Claims;
-using Orders.CommandHandlers.Orders.Imp.CommandHandlers.History;
-using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Payments;
-using Orders.Domain.Order.Orders;
-
 namespace Orders.Web.Api.WebApplicationExtensions;
 
 public static class WebApplicationExtensions

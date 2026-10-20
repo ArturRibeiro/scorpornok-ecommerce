@@ -1,6 +1,3 @@
-using Customers.CommandHandlers.Profiles;
-using Microsoft.Extensions.Logging;
-
 namespace Customers.CommandHandlers.Purchases;
 
 /// <summary>Pedido registrado no Orders (mensagem <c>OrderPlaced</c>): comprador e endereço de entrega.</summary>

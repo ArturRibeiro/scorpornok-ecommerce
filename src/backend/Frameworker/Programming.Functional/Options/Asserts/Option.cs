@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace Programming.Functional.Options.Asserts
+﻿namespace Programming.Functional.Options.Asserts
 {
     public struct Option : IOption
     {

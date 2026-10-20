@@ -1,12 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Catalog.Domain.Products;
-using Catalog.Infrastructure.EntityConfigurations;
-using Catalog.Queries;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-
-namespace Catalog.Infrastructure
+﻿namespace Catalog.Infrastructure
 {
     [ExcludeFromCodeCoverage]
     public class ApplicationCatalogDbContext : DbContext, IApplicationCatalogDbContext

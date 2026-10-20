@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-
 namespace Orders.Domain.Order.Orders;
 
 /// <summary>

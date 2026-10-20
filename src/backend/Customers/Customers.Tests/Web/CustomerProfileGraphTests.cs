@@ -1,12 +1,3 @@
-using System.Security.Claims;
-using System.Text.Json;
-using Customers.Web.Api.Authentication;
-using HotChocolate;
-using HotChocolate.Execution;
-using Microsoft.Extensions.DependencyInjection;
-using Shared.Code;
-using Shared.Code.Commands;
-
 namespace Customers.Tests.Web;
 
 // O cadastro no GraphQL (subgraph do gateway): mesma regra de acesso e mesmos erros por campo do REST.

@@ -1,10 +1,3 @@
-using System.Reflection;
-using Payments.CommandHandlers.Payments;
-using Payments.Infrastructure.Gateways;
-using Payments.Tests.Fakes;
-using Shared.Code.IntegrationEvents;
-using Shared.Code.Models;
-
 namespace Payments.Tests.CommandHandlers;
 
 [TestFixture]

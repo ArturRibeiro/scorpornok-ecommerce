@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Programming.Functional.Results
+﻿namespace Programming.Functional.Results
 {
     public static class ResultExtensions
     {

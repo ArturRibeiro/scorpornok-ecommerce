@@ -1,8 +1,3 @@
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Json;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-
 namespace Payments.Infrastructure.Monitoring;
 
 /// <summary>Filas de erro (<c>&lt;fila&gt;_error</c>) das filas que esta API consome.</summary>

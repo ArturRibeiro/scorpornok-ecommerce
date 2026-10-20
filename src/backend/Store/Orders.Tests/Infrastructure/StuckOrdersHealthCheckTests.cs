@@ -1,8 +1,3 @@
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Options;
-using Orders.Infrastructure.Monitoring;
-using Orders.Infrastructure.PaymentCheck;
-
 namespace Orders.Tests.Infrastructure;
 
 [TestFixture]

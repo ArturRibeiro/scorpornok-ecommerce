@@ -1,6 +1,3 @@
-using Payments.CommandHandlers.CardTokens;
-using Shared.Code;
-
 namespace Payments.Web.Api.WebApplicationExtensions;
 
 public static class WebApplicationExtensions

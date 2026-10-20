@@ -1,5 +1,3 @@
-using System;
-
 //using NullGuard;
 
 namespace Programming.Functional.Results

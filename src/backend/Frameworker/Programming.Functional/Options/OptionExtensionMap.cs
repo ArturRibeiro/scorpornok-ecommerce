@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Programming.Functional.Options
+﻿namespace Programming.Functional.Options
 {
     public static class OptionExtensionMap
     {

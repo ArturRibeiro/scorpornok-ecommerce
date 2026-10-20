@@ -1,10 +1,3 @@
-using System.Net.Sockets;
-using MailKit;
-using MailKit.Net.Smtp;
-using MailKit.Security;
-using Microsoft.Extensions.Options;
-using MimeKit;
-
 namespace Orders.Infrastructure.Email;
 
 /// <summary>

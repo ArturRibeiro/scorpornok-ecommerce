@@ -1,9 +1,3 @@
-using System.Security.Claims;
-using Microsoft.AspNetCore.SignalR;
-using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Payments;
-using Orders.Web.Api.Hubs;
-using Shared.Code;
-
 namespace Orders.Tests.Web;
 
 [TestFixture]

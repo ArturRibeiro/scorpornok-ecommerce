@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace Gateway.Tests;
 
 // O gateway valida o token (audience gateway-api) e o repassa; quem decide o acesso é o subgraph.

@@ -1,12 +1,3 @@
-using System.Text.Json;
-using HotChocolate;
-using HotChocolate.Execution;
-using Microsoft.Extensions.DependencyInjection;
-using Payments.CommandHandlers.CardTokens;
-using Payments.Web.Api.GraphQL;
-using Shared.Code;
-using Shared.Code.Commands;
-
 namespace Payments.Tests.CardTokens;
 
 // A tokenização no GraphQL (subgraph do gateway): o mesmo handler do POST /card-tokens, com os erros por campo.

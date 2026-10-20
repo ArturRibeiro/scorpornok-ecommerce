@@ -1,12 +1,3 @@
-using Customers.CommandHandlers.Purchases;
-using Customers.Infrastructure.Consumers;
-using Customers.Infrastructure.Messaging;
-using MassTransit;
-using MassTransit.Testing;
-using Microsoft.Extensions.DependencyInjection;
-using Shared.Code;
-using Shared.Code.IntegrationEvents;
-
 namespace Customers.Tests.Infrastructure;
 
 [TestFixture]

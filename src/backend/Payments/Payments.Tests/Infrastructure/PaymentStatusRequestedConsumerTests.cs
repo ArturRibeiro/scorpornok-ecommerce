@@ -1,11 +1,3 @@
-using Payments.CommandHandlers.Payments;
-using Payments.Infrastructure.Consumers;
-using MassTransit;
-using MassTransit.Testing;
-using Microsoft.Extensions.DependencyInjection;
-using Shared.Code;
-using Shared.Code.IntegrationEvents;
-
 namespace Payments.Tests.Infrastructure;
 
 [TestFixture]

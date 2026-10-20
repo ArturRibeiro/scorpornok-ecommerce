@@ -1,5 +1,31 @@
 // Global using directives
+
+global using System.Net;
+global using System.Net.Http;
+global using System.Reflection;
+global using System.Text;
+global using System.Text.Json;
 global using FluentAssertions;
-global using Payments.Domain;
+global using HotChocolate;
+global using HotChocolate.Execution;
+global using MassTransit;
+global using MassTransit.Testing;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Diagnostics.HealthChecks;
 global using Moq;
 global using NUnit.Framework;
+global using Payments.CommandHandlers.CardTokens;
+global using Payments.CommandHandlers.Payments;
+global using Payments.Domain;
+global using Payments.Infrastructure.Consumers;
+global using Payments.Infrastructure.Gateways;
+global using Payments.Infrastructure.Messaging;
+global using Payments.Infrastructure.Monitoring;
+global using Payments.Tests.Fakes;
+global using Payments.Web.Api.GraphQL;
+global using Shared.Code;
+global using Shared.Code.Commands;
+global using Shared.Code.IntegrationEvents;
+global using Shared.Code.Models;
+global using static Payments.Web.Api.WebApplicationExtensions.WebApplicationExtensions;

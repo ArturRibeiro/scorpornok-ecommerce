@@ -1,8 +1,3 @@
-using System;
-using Programming.Functional.Results;
-using Programming.Functional.Results.Asserts;
-using Programming.Functional.Tests.Results.Domains.Persons;
-
 namespace Programming.Functional.Tests.Results
 {
     public class PersonService

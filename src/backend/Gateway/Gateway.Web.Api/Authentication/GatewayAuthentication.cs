@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-
 namespace Gateway.Web.Api.Authentication;
 
 /// <summary>

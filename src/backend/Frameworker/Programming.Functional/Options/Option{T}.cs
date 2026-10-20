@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-
-namespace Programming.Functional.Options
+﻿namespace Programming.Functional.Options
 {
     public interface IOption
     {

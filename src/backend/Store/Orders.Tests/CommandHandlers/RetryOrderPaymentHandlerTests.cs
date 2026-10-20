@@ -1,5 +1,3 @@
-using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Payments;
-
 namespace Orders.Tests.CommandHandlers;
 
 [TestFixture]

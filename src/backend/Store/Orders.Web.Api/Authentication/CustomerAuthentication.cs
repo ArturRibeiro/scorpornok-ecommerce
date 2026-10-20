@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Orders.Web.Api.Hubs;
-
 namespace Orders.Web.Api.Authentication;
 
 public static class CustomerAuthentication

@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace Orders.CommandHandlers.Orders;
 
 /// <summary>Assunto e corpo (texto simples, em português como a loja) do e-mail do resultado do pagamento.</summary>

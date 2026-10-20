@@ -1,7 +1,3 @@
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text.Json;
-
 namespace Orders.Infrastructure.Catalog;
 
 /// <summary>

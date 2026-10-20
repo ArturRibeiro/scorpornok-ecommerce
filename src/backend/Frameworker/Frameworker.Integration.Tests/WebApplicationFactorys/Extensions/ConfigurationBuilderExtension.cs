@@ -1,6 +1,3 @@
-using System.IO;
-using Microsoft.Extensions.Configuration;
-
 namespace Frameworker.Integration.Tests.WebApplicationFactorys.Extensions
 {
     public static class ConfigurationBuilderExtension

@@ -1,5 +1,3 @@
-using Payments.Infrastructure.Gateways;
-
 namespace Payments.Tests.Infrastructure;
 
 [TestFixture]

@@ -1,12 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Catalog.Domain.Products;
-using Microsoft.EntityFrameworkCore;
-
 namespace Catalog.Infrastructure.Seeds;
 
 public static class CatalogDbContextSeed

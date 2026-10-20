@@ -1,6 +1,3 @@
-using System.Reflection;
-using Shared.Code.Models;
-
 namespace Payments.Tests.Fakes;
 
 // Repositório em memória que imita o banco: guarda cópias (alterar o objeto em memória não

@@ -1,4 +1,6 @@
-﻿namespace Payments.Infrastructure.EventSourcing
+﻿using Event = Shared.Code.Commands.Event;
+
+namespace Payments.Infrastructure.EventSourcing
 {
     public class SqlEventStore : IEventStore
     {

@@ -1,8 +1,3 @@
-using System;
-using Catalog.Queries;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace Catalog.Infrastructure.Extensions;
 
 public static partial class ServiceCollectionExtensions

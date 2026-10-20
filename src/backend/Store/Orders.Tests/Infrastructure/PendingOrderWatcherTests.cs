@@ -1,7 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Orders.Infrastructure.PaymentCheck;
-
 namespace Orders.Tests.Infrastructure;
 
 [TestFixture]

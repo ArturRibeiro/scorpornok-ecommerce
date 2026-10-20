@@ -1,5 +1,3 @@
-using Newtonsoft.Json.Linq;
-
 namespace Ecommerce.Scenarios.Integration.Spec.Tests.Steps;
 
 // O Catalog como subgraph do gateway: o /graphql segue as mesmas regras do REST (spec product-catalog).

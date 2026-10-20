@@ -1,10 +1,3 @@
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Payments;
-using Shared.Code;
-using static Orders.Web.Api.WebApplicationExtensions.WebApplicationExtensions;
-
 namespace Orders.Tests.Web;
 
 [TestFixture]

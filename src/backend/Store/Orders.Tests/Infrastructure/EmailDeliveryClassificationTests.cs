@@ -1,11 +1,3 @@
-using System.Net.Sockets;
-using MailKit;
-using MailKit.Net.Smtp;
-using MailKit.Security;
-using Microsoft.Extensions.Options;
-using Orders.CommandHandlers.Orders;
-using Orders.Infrastructure.Email;
-
 namespace Orders.Tests.Infrastructure;
 
 [TestFixture]

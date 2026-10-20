@@ -1,14 +1,3 @@
-using System.Security.Claims;
-using System.Text.Json;
-using HotChocolate;
-using HotChocolate.Execution;
-using Microsoft.Extensions.DependencyInjection;
-using Orders.CommandHandlers.Orders.Imp.CommandHandlers.History;
-using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Payments;
-using Orders.Web.Api.Authentication;
-using Orders.Web.Api.GraphQL;
-using Shared.Code;
-
 namespace Orders.Tests.Web;
 
 // Os pedidos no GraphQL (subgraph do gateway): mesmos handlers do REST, com cada desfecho no seu código.

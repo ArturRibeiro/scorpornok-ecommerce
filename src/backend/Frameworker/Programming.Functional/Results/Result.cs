@@ -1,5 +1,3 @@
-using System;
-
 namespace Programming.Functional.Results
 {
     public class Result

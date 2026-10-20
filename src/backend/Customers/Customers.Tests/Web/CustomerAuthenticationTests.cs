@@ -1,8 +1,3 @@
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.DependencyInjection;
-using Customers.Web.Api.Authentication;
-
 namespace Customers.Tests.Web;
 
 [TestFixture]
