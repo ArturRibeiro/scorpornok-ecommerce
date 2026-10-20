@@ -82,7 +82,7 @@ O checkout DEVE coletar nome completo, telefone e CPF, obrigatórios e validados
 - **THEN** nome, telefone e CPF vêm em branco e precisam ser preenchidos para enviar o pedido
 
 ### Requirement: Dados do cartão
-O checkout DEVE coletar nome do titular, número do cartão, mês e ano de validade, CVV e quantidade de parcelas (padrão 1), e DEVE enviar o titular, o número, a validade e o CVV só ao serviço de tokenização. Ele NÃO DEVE enviar o pedido com o número fora de 13 a 19 dígitos, o CVV fora de 3 ou 4 dígitos ou a validade no passado.
+O checkout DEVE coletar nome do titular, número do cartão, mês e ano de validade, CVV e quantidade de parcelas (padrão 1), e DEVE enviar o titular, o número, a validade e o CVV só ao serviço de tokenização, pelo ponto de entrada único, sem que esses dados fiquem registrados no caminho. Ele NÃO DEVE enviar o pedido com o número fora de 13 a 19 dígitos, o CVV fora de 3 ou 4 dígitos ou a validade no passado.
 
 #### Scenario: Cartão vencido
 - **GIVEN** a data atual é outubro de 2026
@@ -98,7 +98,7 @@ O checkout DEVE coletar nome do titular, número do cartão, mês e ano de valid
 #### Scenario: Cartão só na tokenização
 - **GIVEN** o cliente preencheu o cartão 4111111111111111 com CVV 123
 - **WHEN** ele confirma o pedido
-- **THEN** o número e o CVV são enviados só ao serviço de tokenização
+- **THEN** o número e o CVV são enviados só ao serviço de tokenização, pelo ponto de entrada
 - **AND** o pedido enviado ao serviço de pedidos leva o token, sem número nem CVV
 
 ### Requirement: Total exibido
