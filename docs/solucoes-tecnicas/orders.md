@@ -50,10 +50,11 @@ Detalhes técnicos: `allow-payment-retry` (arquivada em `openspec/changes/archiv
   - **servidor de e-mail fora do ar ou mal configurado** (inclusive senha errada): espera o servidor voltar, verificando com pausas cada vez maiores, sem dar o e-mail de nenhum cliente como perdido. Quando ele volta, os e-mails pendentes saem.
 - Um e-mail com problema não atrasa os e-mails dos outros clientes.
 - A equipe é avisada quando o servidor de e-mail está fora ou quando e-mails deixam de ser entregues.
+- Os e-mails de uma rodada saem por uma única conexão com o servidor, em vez de uma conexão por e-mail. Com um servidor real, cada e-mail a mais passou de cerca de 2,8 s para cerca de 1,2 s.
 
 **Situação:** em funcionamento.
 
-Detalhes técnicos: `limit-email-retries` (arquivada em `openspec/changes/archive/`).
+Detalhes técnicos: `limit-email-retries` e `improve-email-delivery-and-logs` (arquivadas em `openspec/changes/archive/`).
 
 ## 7. Preço do pedido
 

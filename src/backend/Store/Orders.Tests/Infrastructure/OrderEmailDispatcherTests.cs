@@ -6,6 +6,7 @@ public class OrderEmailDispatcherTests
     private Mock<IOrderRepository> _repository = null!;
     private Mock<IUnitOfWork> _unitOfWork = null!;
     private Mock<IOrderEmailSender> _sender = null!;
+    private Mock<IOrderEmailSession> _session = null!;
     private EmailDeliveryState _state = null!;
     private SmtpOptions _options = null!;
     private OrderEmailDispatcher _dispatcher = null!;
@@ -16,7 +17,9 @@ public class OrderEmailDispatcherTests
         _unitOfWork = new Mock<IUnitOfWork>();
         _repository = new Mock<IOrderRepository>();
         _repository.SetupGet(r => r.UnitOfWork).Returns(_unitOfWork.Object);
+        _session = new Mock<IOrderEmailSession>();
         _sender = new Mock<IOrderEmailSender>();
+        _sender.Setup(s => s.OpenSessionAsync(It.IsAny<CancellationToken>())).ReturnsAsync(_session.Object);
         _state = new EmailDeliveryState();
         _options = new SmtpOptions { PollSeconds = 5, MaxEmailAttempts = 3, RetryBaseSeconds = 60, RetryMaxSeconds = 600 };
         var provider = new ServiceCollection()
@@ -41,7 +44,7 @@ public class OrderEmailDispatcherTests
             .ReturnsAsync(orders);
 
     private void Fails(Order order, EmailDeliveryFailure kind, string reason = "falha")
-        => _sender.Setup(s => s.SendPaymentResultAsync(order, It.IsAny<CancellationToken>()))
+        => _session.Setup(s => s.SendPaymentResultAsync(order, It.IsAny<CancellationToken>()))
             .ThrowsAsync(new EmailDeliveryException(kind, reason));
 
     [Test]
@@ -77,6 +80,51 @@ public class OrderEmailDispatcherTests
         recorder.Started.Where(a => a.DisplayName == "Envio do e-mail de pagamento")
             .Select(a => (a.ParentSpanId, a.GetTagItem(OrderTelemetry.OrderNumberTag)))
             .Should().Equal((round.SpanId, first.OrderNumber), (round.SpanId, second.OrderNumber));
+    }
+
+    [Test]
+    public async Task Rodada_usa_uma_sessao_para_todos_os_pedidos_mesmo_com_recusa_no_meio()
+    {
+        var first = ConfirmedOrder();
+        var refused = ConfirmedOrder();
+        var third = ConfirmedOrder();
+        Returns(first, refused, third);
+        Fails(refused, EmailDeliveryFailure.Recipient);
+
+        var result = await _dispatcher.DispatchPendingAsync(CancellationToken.None);
+
+        result.Sent.Should().Be(2);
+        _sender.Verify(s => s.OpenSessionAsync(It.IsAny<CancellationToken>()), Times.Once);
+        _session.Verify(s => s.SendPaymentResultAsync(It.IsAny<Order>(), It.IsAny<CancellationToken>()), Times.Exactly(3));
+        _session.Verify(s => s.DisposeAsync(), Times.Once);
+    }
+
+    [Test]
+    public async Task Rodada_sem_pedidos_nao_abre_sessao()
+    {
+        Returns();
+
+        await _dispatcher.DispatchPendingAsync(CancellationToken.None);
+
+        _sender.Verify(s => s.OpenSessionAsync(It.IsAny<CancellationToken>()), Times.Never);
+    }
+
+    [Test]
+    public async Task Falha_ao_abrir_a_sessao_e_servidor_fora_sem_tocar_nos_pedidos()
+    {
+        var order = ConfirmedOrder();
+        Returns(order);
+        _sender.Setup(s => s.OpenSessionAsync(It.IsAny<CancellationToken>()))
+            .ThrowsAsync(new EmailDeliveryException(EmailDeliveryFailure.Server, "Connection refused"));
+
+        var result = await _dispatcher.DispatchPendingAsync(CancellationToken.None);
+
+        result.Should().Be(new EmailDispatchResult(0, ServerUnavailable: true));
+        order.Payment.EmailAttempts.Should().Be(0);
+        order.Payment.EmailSentAt.Should().BeNull();
+        _unitOfWork.Verify(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>()), Times.Never);
+        _state.ServerUnavailable.Should().BeTrue();
+        _dispatcher.NextWait.Should().Be(TimeSpan.FromSeconds(_options.PollSeconds * 2));
     }
 
     [Test]
@@ -154,7 +202,7 @@ public class OrderEmailDispatcherTests
         result.Should().Be(new EmailDispatchResult(0, ServerUnavailable: true));
         first.Payment.EmailAttempts.Should().Be(0);
         first.Payment.EmailFailedAt.Should().BeNull();
-        _sender.Verify(s => s.SendPaymentResultAsync(second, It.IsAny<CancellationToken>()), Times.Never);
+        _session.Verify(s => s.SendPaymentResultAsync(second, It.IsAny<CancellationToken>()), Times.Never);
         _unitOfWork.Verify(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>()), Times.Never);
         _state.ServerUnavailable.Should().BeTrue();
         waitAfterFirst.Should().Be(TimeSpan.FromSeconds(10));
@@ -181,7 +229,7 @@ public class OrderEmailDispatcherTests
         Returns(order);
         Fails(order, EmailDeliveryFailure.Server);
         await _dispatcher.DispatchPendingAsync(CancellationToken.None);
-        _sender.Reset();
+        _session.Reset();
 
         var result = await _dispatcher.DispatchPendingAsync(CancellationToken.None);
 
@@ -200,6 +248,6 @@ public class OrderEmailDispatcherTests
         var result = await _dispatcher.DispatchPendingAsync(CancellationToken.None);
 
         result.Sent.Should().Be(0);
-        _sender.Verify(s => s.SendPaymentResultAsync(It.IsAny<Order>(), It.IsAny<CancellationToken>()), Times.Never);
+        _session.Verify(s => s.SendPaymentResultAsync(It.IsAny<Order>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 }

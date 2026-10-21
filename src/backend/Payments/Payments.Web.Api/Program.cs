@@ -32,7 +32,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Sem UseHttpsRedirection: a API só é servida por HTTP (compose e perfil http), e redirecionar quebraria o CORS.
 app.UseCors();
 
 app.CreateCardToken();

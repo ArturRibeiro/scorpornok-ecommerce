@@ -5,11 +5,12 @@ public record EmailDispatchResult(int Sent, bool ServerUnavailable);
 
 /// <summary>
 /// Envia o e-mail do resultado do pagamento fora do consumidor: a cada rodada busca os pedidos com
-/// desfecho ainda sem e-mail, envia e marca um a um. Cada falha é tratada pelo seu tipo
+/// desfecho ainda sem e-mail, envia pela mesma conexão e marca um a um. Cada falha é tratada pelo seu tipo
 /// (<see cref="EmailDeliveryFailure"/>):
 /// - destinatário: falha definitiva do pedido, e a rodada segue;
 /// - mensagem: conta tentativa e agenda a próxima com intervalo crescente (falha definitiva no limite);
-/// - servidor: encerra a rodada sem tocar nos pedidos, e a espera entre rodadas dobra até o teto.
+/// - servidor (também ao abrir a conexão): encerra a rodada sem tocar nos pedidos, e a espera entre rodadas
+///   dobra até o teto.
 /// O status do pedido nunca espera o e-mail.
 /// </summary>
 public class OrderEmailDispatcher(
@@ -60,6 +61,20 @@ public class OrderEmailDispatcher(
         using var activity = OrdersTelemetry.Source.StartActivity("Envio dos e-mails de pagamento");
         activity?.SetTag("orders.count", awaiting.Count);
 
+        // Uma conexão com o servidor para a rodada inteira, aberta só agora que há e-mail a enviar. Não conseguir
+        // abrir (servidor fora, TLS, autenticação) vale para todos os pedidos, como uma falha de servidor no envio.
+        IOrderEmailSession session;
+        try
+        {
+            session = await sender.OpenSessionAsync(cancellationToken);
+        }
+        catch (EmailDeliveryException ex)
+        {
+            ServerUnavailable(ex);
+            return new EmailDispatchResult(0, ServerUnavailable: true);
+        }
+        await using var _ = session;
+
         var sent = 0;
         foreach (var order in awaiting)
         {
@@ -68,7 +83,7 @@ public class OrderEmailDispatcher(
             OrderTelemetry.Tag(order.OrderNumber);
             try
             {
-                await sender.SendPaymentResultAsync(order, cancellationToken);
+                await session.SendPaymentResultAsync(order, cancellationToken);
             }
             catch (EmailDeliveryException ex) when (ex.Kind == EmailDeliveryFailure.Server)
             {

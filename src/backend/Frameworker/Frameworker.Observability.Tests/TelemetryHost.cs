@@ -50,6 +50,23 @@ public sealed class TelemetryHost : IAsyncDisposable
             logger.LogInformation("Pedido {OrderNumber} registrado.", "A123");
             return "ok";
         });
+        // Imita o HttpClient (um log por etapa da chamada, e um aviso na falha) e o aviso de licença do MediatR.
+        app.MapGet("/http-and-license", (ILoggerFactory loggers) =>
+        {
+            var client = loggers.CreateLogger($"{ObservabilityExtensions.HttpClientCategory}.catalog.LogicalHandler");
+            client.LogInformation("Start processing HTTP request GET http://catalog-api/");
+            client.LogWarning("Falha na chamada HTTP");
+            loggers.CreateLogger(ObservabilityExtensions.MediatRLicenseCategory).LogWarning("You do not have a valid license key");
+            return "ok";
+        });
+        // Imita o EF Core: um log por consulta, e um aviso quando algo dá errado.
+        app.MapGet("/sql", (ILoggerFactory loggers) =>
+        {
+            var logger = loggers.CreateLogger(ObservabilityExtensions.DatabaseCommandCategory);
+            logger.LogInformation("Executed DbCommand (1ms) SELECT 1");
+            logger.LogWarning("Falha no DbCommand");
+            return "ok";
+        });
         app.MapGet("/hubs/orders/negotiate", () => "ok");
         // Imita o span da operação que o Hot Chocolate abre dentro da requisição.
         app.MapPost("/graphql", (HttpRequest request) =>

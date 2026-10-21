@@ -1,5 +1,6 @@
 // Global using directives
 
+global using System.Collections.Concurrent;
 global using System.Diagnostics;
 global using System.Net;
 global using System.Net.Http;
@@ -30,6 +31,7 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Diagnostics.HealthChecks;
 global using Microsoft.Extensions.Logging.Abstractions;
 global using Microsoft.Extensions.Options;
+global using MimeKit;
 global using Moq;
 global using NUnit.Framework;
 global using OpenTelemetry;

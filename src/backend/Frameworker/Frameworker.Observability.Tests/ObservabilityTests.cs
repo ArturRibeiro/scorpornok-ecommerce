@@ -66,6 +66,31 @@ public class ObservabilityTests
     }
 
     [Test]
+    public async Task Log_de_cada_consulta_ao_banco_nao_vai_para_o_coletor_mas_o_aviso_vai()
+    {
+        await using var host = await TelemetryHost.StartAsync();
+
+        await host.Client.GetStringAsync("/sql");
+        await host.FlushAsync("GET /sql");
+
+        host.Logs.Where(log => log.CategoryName == ObservabilityExtensions.DatabaseCommandCategory)
+            .Select(log => log.FormattedMessage).Should().Equal("Falha no DbCommand");
+    }
+
+    [Test]
+    public async Task Logs_de_cada_chamada_HTTP_e_aviso_de_licenca_nao_vao_para_o_coletor_mas_o_aviso_HTTP_vai()
+    {
+        await using var host = await TelemetryHost.StartAsync();
+
+        await host.Client.GetStringAsync("/http-and-license");
+        await host.FlushAsync("GET /http-and-license");
+
+        host.Logs.Where(log => log.CategoryName!.StartsWith(ObservabilityExtensions.HttpClientCategory)
+                               || log.CategoryName == ObservabilityExtensions.MediatRLicenseCategory)
+            .Select(log => log.FormattedMessage).Should().Equal("Falha na chamada HTTP");
+    }
+
+    [Test]
     public async Task Health_check_nao_gera_span()
     {
         await using var host = await TelemetryHost.StartAsync();

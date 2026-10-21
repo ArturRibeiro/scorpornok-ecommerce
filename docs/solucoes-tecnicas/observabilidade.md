@@ -10,7 +10,8 @@ Como acompanhar o que acontece dentro da loja, de uma ponta à outra. Cada item 
 - Cada parte registra o que fez numa compra (as requisições, as chamadas às outras partes, o banco e as mensagens) num formato aberto. Uma compra aparece inteira, da loja até o resultado do pagamento, com os logs de cada passo ao lado, num painel local, sem conta. O formato aberto permite trocar o painel por outro serviço sem mudar o código.
 - Cada compra é encontrada pelo número do pedido, e a lista mostra o que cada requisição fez (registrar o pedido, consultar, tokenizar o cartão), e não só o endereço chamado.
 - Nada do cartão, do CPF, do telefone, do e-mail ou do token de acesso sai da loja na telemetria. Do GraphQL, vai só o tipo e o nome da operação, porque o cartão está no próprio texto da tokenização. Testes conferem isso a cada build.
-- As verificações de saúde e as rodadas das tarefas em segundo plano sem trabalho não são enviadas, para não esconder as compras no meio do ruído.
+- As verificações de saúde, as rodadas das tarefas em segundo plano sem trabalho e os registros que só repetem o trace (cada consulta ao banco, cada chamada entre as partes) não são enviados, para não esconder as compras no meio do ruído. Os erros continuam.
+- O envio do e-mail aparece etapa por etapa (conexão com o servidor, autenticação e cada mensagem), o que mostrou que o tempo estava em abrir uma conexão por e-mail.
 - O painel é opcional: sem o endereço dele, nada é enviado, e com ele fora do ar a loja funciona igual.
 
 **Situação:** em funcionamento, com o painel local: a compra inteira num trace só, encontrada pelo número do pedido, sem dados sensíveis e sem ruído.

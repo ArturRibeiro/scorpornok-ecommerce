@@ -166,7 +166,7 @@ OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889 docker compose --profi
 
 A variável também pode ir no `.env`. Para achar uma compra, use *Traces* → filtro `order.number` = número do pedido (ou procure o número em *Structured logs* e abra o trace do log). Na lista, cada trace tem o nome da operação GraphQL (`mutation PlaceOrder`, `query MyOrder`), e os serviços aparecem como `gateway-api`, `catalog-api`, `orders-api`, `payment-api` e `customers-api`.
 
-O painel guarda tudo em memória: os dados somem quando ele reinicia. Ele não pede login, então use só na sua máquina. Os dados do cartão, o CPF, o telefone, o e-mail e o token de acesso nunca vão para a telemetria, e as verificações de saúde e as rodadas das tarefas em segundo plano sem trabalho ficam de fora. Como a telemetria sai por OTLP, outro destino (Grafana, Jaeger, um serviço pago) é só trocar o endereço.
+O painel guarda tudo em memória: os dados somem quando ele reinicia. Ele não pede login, então use só na sua máquina. Os dados do cartão, o CPF, o telefone, o e-mail e o token de acesso nunca vão para a telemetria, e as verificações de saúde, as rodadas das tarefas em segundo plano sem trabalho e os logs que só repetem o que o trace já mostra (cada consulta ao banco, cada chamada HTTP) ficam de fora. O envio do e-mail aparece no trace etapa por etapa: conexão, autenticação e cada mensagem. Como a telemetria sai por OTLP, outro destino (Grafana, Jaeger, um serviço pago) é só trocar o endereço.
 
 ## Health checks
 

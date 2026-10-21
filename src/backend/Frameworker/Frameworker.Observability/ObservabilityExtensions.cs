@@ -9,6 +9,18 @@ public static class ObservabilityExtensions
     // Health checks não geram traces (nem os spans das chamadas que eles fazem, filhos de um span descartado).
     private const string HealthPath = "/health";
 
+    // Um log por consulta ao banco: com o polling do e-mail (a cada 5 s), dos pedidos pendentes e do outbox, o
+    // painel se enchia de "Executed DbCommand" sem trace. O SQL de uma requisição já está no span do banco
+    // (db.query.text); erros (Warning e acima) continuam. O console não muda.
+    public const string DatabaseCommandCategory = "Microsoft.EntityFrameworkCore.Database.Command";
+
+    // Quatro logs por chamada HTTP (início, fim, envio e cabeçalhos recebidos), todos já no span do HttpClient. O
+    // filtro vale por prefixo: cobre todo cliente nomeado ou tipado. Avisos e erros continuam.
+    public const string HttpClientCategory = "System.Net.Http.HttpClient";
+
+    // Aviso de licença do MediatR no primeiro uso: não pede ação no ambiente de estudo; continua no console.
+    public const string MediatRLicenseCategory = "LuckyPennySoftware.MediatR.License";
+
     // tracing: fontes e instrumentações próprias da API (ex.: a do Hot Chocolate).
     public static WebApplicationBuilder AddObservability(this WebApplicationBuilder builder, string serviceName,
         Action<TracerProviderBuilder>? tracing = null)
@@ -48,6 +60,11 @@ public static class ObservabilityExtensions
                 options.IncludeFormattedMessage = true;
                 options.IncludeScopes = false;
             });
+
+        builder.Logging
+            .AddFilter<OpenTelemetryLoggerProvider>(DatabaseCommandCategory, LogLevel.Warning)
+            .AddFilter<OpenTelemetryLoggerProvider>(HttpClientCategory, LogLevel.Warning)
+            .AddFilter<OpenTelemetryLoggerProvider>(MediatRLicenseCategory, LogLevel.None);
 
         if (IsExportEnabled(builder.Configuration))
             telemetry.UseOtlpExporter();

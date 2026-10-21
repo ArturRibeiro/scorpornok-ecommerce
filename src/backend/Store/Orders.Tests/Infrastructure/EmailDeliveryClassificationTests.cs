@@ -55,31 +55,4 @@ public class EmailDeliveryClassificationTests
         result.Message.Should().StartWith("550 ");
         result.Message.Length.Should().BeLessThanOrEqualTo(250);
     }
-
-    [Test]
-    public async Task Endereco_do_pedido_invalido_e_falha_do_destinatario_sem_abrir_conexao()
-    {
-        var order = new Order(Guid.NewGuid());
-        order.AddEmail("cliente@");
-        order.ConfirmPayment(Guid.NewGuid(), 1);
-        // Host inexistente: se tentasse conectar, a falha seria do servidor.
-        var sender = new SmtpOrderEmailSender(Options.Create(new SmtpOptions { Host = "invalido.local", Port = 1 }));
-
-        var act = () => sender.SendPaymentResultAsync(order);
-
-        (await act.Should().ThrowAsync<EmailDeliveryException>()).Which.Kind.Should().Be(EmailDeliveryFailure.Recipient);
-    }
-
-    [Test]
-    public async Task Remetente_mal_configurado_e_falha_do_servidor()
-    {
-        var order = new Order(Guid.NewGuid());
-        order.AddEmail("cliente@exemplo.com");
-        order.ConfirmPayment(Guid.NewGuid(), 1);
-        var sender = new SmtpOrderEmailSender(Options.Create(new SmtpOptions { From = "sem-arroba" }));
-
-        var act = () => sender.SendPaymentResultAsync(order);
-
-        (await act.Should().ThrowAsync<EmailDeliveryException>()).Which.Kind.Should().Be(EmailDeliveryFailure.Server);
-    }
 }
