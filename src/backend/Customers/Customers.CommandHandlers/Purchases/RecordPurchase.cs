@@ -28,15 +28,17 @@ public class RecordPurchaseHandler(ICustomerRepository repository, ILogger<Recor
         if (await repository.HasDeliveryAddressAsync(command.OrderNumber, cancellationToken))
             return;
 
-        var address = command.ShippingAddress.ToAddress();
-        repository.AddDeliveryAddress(new DeliveryAddress(command.CustomerId, command.OrderNumber, address,
-            command.OrderDate));
+        repository.AddDeliveryAddress(new DeliveryAddress(command.CustomerId, command.OrderNumber,
+            command.ShippingAddress.ToAddress(), command.OrderDate));
 
         // Duas primeiras compras ao mesmo tempo esbarram na chave (sub); a retentativa encontra o cadastro.
         if (await repository.GetAsync(command.CustomerId, cancellationToken) is null)
         {
             var customer = new Customer(command.CustomerId, command.Email);
-            customer.Update(command.Email, command.FullName, command.Phone, command.Cpf, address);
+            // Um Address próprio: o endereço é owned no EF, e a mesma instância no histórico e no cadastro
+            // seria rastreada como uma só ("The same entity is being tracked as different entity types").
+            customer.Update(command.Email, command.FullName, command.Phone, command.Cpf,
+                command.ShippingAddress.ToAddress());
             // O Orders valida com as mesmas regras; se algo escapar, o histórico fica e o cadastro não nasce.
             if (customer.IsValid())
                 repository.Add(customer);

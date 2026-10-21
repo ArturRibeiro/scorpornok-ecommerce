@@ -59,6 +59,16 @@ public class RecordPurchaseHandlerTests
     }
 
     [Test]
+    public async Task Cadastro_e_historico_tem_cada_um_o_seu_endereco()
+    {
+        await _handler.Handle(Purchase(), CancellationToken.None);
+
+        // Mesmo endereço (value object), instâncias diferentes: o EF não aceita um owned com dois donos.
+        var delivery = _history.Single().Address;
+        _stored!.Address.Should().Be(delivery).And.NotBeSameAs(delivery);
+    }
+
+    [Test]
     public async Task Compra_leva_o_numero_do_pedido_ao_span_corrente()
     {
         using var span = new Activity("order-placed process").Start();
