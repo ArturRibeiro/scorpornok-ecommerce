@@ -1,5 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 
+// Traces, métricas e logs em OpenTelemetry; exportados só com OTEL_EXPORTER_OTLP_ENDPOINT (ex.: o painel local).
+builder.AddObservability(ServiceName, tracing => tracing.AddHotChocolateInstrumentation());
+
 // Vem do appsettings.Development.json (dotnet run) ou do docker compose (variável de ambiente).
 var connectionString = builder.Configuration.GetConnectionString("ConnectionString")
     ?? throw new InvalidOperationException("ConnectionStrings:ConnectionString não configurada.");
@@ -16,7 +19,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(connectionString, builder.Configuration);
 // Subgraph do gateway federado (Fusion): a tokenização do cartão em /graphql. O subgraph só tem mutation; sem
 // a validação estrita, o schema não precisa de um tipo Query (as consultas vêm dos outros subgraphs).
-builder.Services.AddGraphQLServer(SubgraphName).ModifyOptions(o => o.StrictValidation = false).AddApiTypes();
+builder.Services.AddGraphQLServer(SubgraphName).ModifyOptions(o => o.StrictValidation = false).AddApiTypes()
+    .AddInstrumentation(options => options.WithoutSensitiveData());
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<PaymentContext>(tags: ["ready"]);
 
@@ -66,6 +70,9 @@ app.Run();
 
 public partial class Program
 {
+    // Nome do serviço na telemetria (service.name), o mesmo do compose.
+    public const string ServiceName = "payment-api";
+
     // Nome do subgraph no gateway (name do schema-settings.json).
     public const string SubgraphName = "payments";
 }

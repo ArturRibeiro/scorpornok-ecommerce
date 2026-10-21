@@ -5,3 +5,4 @@ global using Customers.Domain.Customers;
 global using MediatR;
 global using Microsoft.Extensions.Logging;
 global using Shared.Code.Commands;
+global using Shared.Code.Telemetry;

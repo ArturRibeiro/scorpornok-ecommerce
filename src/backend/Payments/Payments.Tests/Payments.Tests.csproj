@@ -13,6 +13,8 @@
     <PackageReference Include="nunit" Version="$(nunit)" />
     <PackageReference Include="NUnit3TestAdapter" Version="$(NUnit3TestAdapter)" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdk)" />
+    <PackageReference Include="OpenTelemetry.Exporter.InMemory" Version="$(OpenTelemetry)" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreMvcTesting)" />
   </ItemGroup>
 
   <ItemGroup>

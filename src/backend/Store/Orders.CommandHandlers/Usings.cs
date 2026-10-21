@@ -9,3 +9,4 @@ global using Orders.CommandHandlers.Orders.Imp.CommandHandlers.Create;
 global using Orders.Domain.Order.Orders;
 global using Shared.Code.Commands;
 global using Shared.Code.IntegrationEvents;
+global using Shared.Code.Telemetry;

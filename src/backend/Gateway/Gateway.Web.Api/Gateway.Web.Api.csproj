@@ -9,12 +9,18 @@
     <ItemGroup>
         <!-- Gateway federado: junta os subgraphs (hoje, o Catalog) num único /graphql. -->
         <PackageReference Include="HotChocolate.Fusion.AspNetCore" Version="$(HotChocolate)" />
+        <!-- Spans do GraphQL (add-service-telemetry). -->
+        <PackageReference Include="HotChocolate.Fusion.Diagnostics" Version="$(HotChocolate)" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(AspNetCoreAuthenticationJwtBearer)" />
     </ItemGroup>
 
     <ItemGroup>
         <!-- Schemas compostos (scripts/compose-gateway.sh), carregados na partida. -->
         <None Update="gateway.*.far" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Frameworker\Frameworker.Observability\Frameworker.Observability.csproj" />
     </ItemGroup>
 
 </Project>

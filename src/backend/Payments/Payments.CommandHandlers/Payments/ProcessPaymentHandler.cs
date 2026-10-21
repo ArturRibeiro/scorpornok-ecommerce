@@ -11,6 +11,8 @@ public class ProcessPaymentHandler(
 
     public async Task Handle(ProcessPaymentCommand command, CancellationToken cancellationToken)
     {
+        OrderTelemetry.Tag(command.OrderNumber);
+
         // Entrega "pelo menos uma vez": a chave (pedido + tentativa) garante uma única cobrança por
         // tentativa. Uma nova tentativa do mesmo pedido (outro cartão) tem chave própria e novo pagamento.
         var key = Domain.Payment.KeyFor(command.OrderNumber, command.Attempt);

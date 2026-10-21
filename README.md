@@ -14,7 +14,7 @@ Diagrama: [`docs/diagrams/contexto.drawio`](docs/diagrams/contexto.drawio) (abre
 
 ## Arquitetura
 
-O que roda no compose e como as partes conversam: a loja, o gateway GraphQL e os subgraphs (Catalog, Customers e Orders), o Payments, os bancos, o RabbitMQ, o Keycloak e o servidor de e-mail, com as portas no host.
+O que roda no compose e como as partes conversam: a loja, o gateway GraphQL e os subgraphs (Catalog, Customers e Orders), o Payments, os bancos, o RabbitMQ, o Keycloak, o servidor de e-mail e o painel de telemetria (opcional), com as portas no host.
 
 Diagrama: [`docs/diagrams/arquitetura.drawio`](docs/diagrams/arquitetura.drawio).
 
@@ -53,6 +53,7 @@ Diagrama: [`docs/diagrams/fluxo-pagamento.drawio`](docs/diagrams/fluxo-pagamento
 - SignalR para avisar a loja do resultado do pagamento
 - MailKit para e-mail (Mailpit em desenvolvimento)
 - Keycloak 26 (OpenID Connect, JWT Bearer)
+- OpenTelemetry (traces, métricas e logs), visto no .NET Aspire Dashboard
 
 **Front-end**
 - React 19, TypeScript, Vite e React Router 7
@@ -66,7 +67,7 @@ Diagrama: [`docs/diagrams/fluxo-pagamento.drawio`](docs/diagrams/fluxo-pagamento
 - Test harness do MassTransit
 
 **Infraestrutura**
-- Docker Compose: uma API e um Postgres por contexto, mais RabbitMQ, Mailpit, Keycloak e o front-end
+- Docker Compose: uma API e um Postgres por contexto, mais RabbitMQ, Mailpit, Keycloak e o front-end, e, opcional, o painel de telemetria (.NET Aspire Dashboard)
 - GitHub Actions: build e testes a cada push e pull request no `master`
 
 ## Arquitetura e padrões
@@ -105,6 +106,7 @@ Isso sobe as quatro APIs, os bancos, o RabbitMQ, o Mailpit, o Keycloak e a loja.
 | Keycloak (console: `admin`/`admin`) | http://localhost:8080 |
 | Mailpit (caixa de entrada de desenvolvimento) | http://localhost:8025 |
 | RabbitMQ (painel: `guest`/`guest`) | http://localhost:15672 |
+| Painel de telemetria (só com o perfil `telemetry-local`; veja [Observabilidade](#observabilidade)) | http://localhost:18888 |
 
 Para comprar, crie uma conta na loja. O link de confirmação chega no Mailpit; depois de abri-lo, defina a senha.
 
@@ -151,6 +153,20 @@ SMTP_USE_STARTTLS=true
 O mesmo `.env` vale para os e-mails de pedido (Orders) e para os do Keycloak (confirmação de cadastro e troca de senha). O Keycloak só lê esses valores quando importa o realm. Se ele já estiver no ar, recrie o volume `keycloak_data` (isso apaga as contas) ou ajuste em *Realm settings* → *Email* no console.
 
 Nunca coloque senhas em arquivos versionados.
+
+## Observabilidade
+
+As APIs registram traces, métricas e logs com OpenTelemetry. Por padrão nada é enviado. Uma compra aparece como um trace só, do gateway ao resultado do pagamento (passando pelo outbox e pelo RabbitMQ), com os logs de cada passo.
+
+O [.NET Aspire Dashboard](https://aspire.dev/dashboard/standalone/) mostra tudo em http://localhost:18888, sem conta:
+
+```bash
+OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889 docker compose --profile telemetry-local up -d --build
+```
+
+A variável também pode ir no `.env`. Para achar uma compra, use *Traces* → filtro `order.number` = número do pedido (ou procure o número em *Structured logs* e abra o trace do log). Na lista, cada trace tem o nome da operação GraphQL (`mutation PlaceOrder`, `query MyOrder`), e os serviços aparecem como `gateway-api`, `catalog-api`, `orders-api`, `payment-api` e `customers-api`.
+
+O painel guarda tudo em memória: os dados somem quando ele reinicia. Ele não pede login, então use só na sua máquina. Os dados do cartão, o CPF, o telefone, o e-mail e o token de acesso nunca vão para a telemetria, e as verificações de saúde e as rodadas das tarefas em segundo plano sem trabalho ficam de fora. Como a telemetria sai por OTLP, outro destino (Grafana, Jaeger, um serviço pago) é só trocar o endereço.
 
 ## Health checks
 

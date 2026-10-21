@@ -2,6 +2,9 @@ using Path = System.IO.Path;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Traces, métricas e logs em OpenTelemetry; exportados só com OTEL_EXPORTER_OTLP_ENDPOINT (ex.: o painel local).
+builder.AddObservability(ServiceName, tracing => tracing.AddHotChocolateFusionInstrumentation());
+
 // O schema composto vem do .far gerado por scripts/compose-gateway.sh: gateway.local.far (dotnet run, Catalog
 // em localhost:5064) ou gateway.compose.far (compose, catalog-api:8080), escolhido em Fusion:Archive.
 var archive = Path.Combine(builder.Environment.ContentRootPath,
@@ -27,6 +30,8 @@ builder.AddGraphQLGateway()
     .AddFileSystemConfiguration(archive)
     .AddMaxExecutionDepthRule(limits.MaxDepth, skipIntrospectionFields: true)
     .AddValidationRule((_, _) => new MaxFieldsRule(limits.MaxFields))
+    // Nos spans, a operação só pelo tipo e pelo nome: o cartão está no documento e nas variáveis da tokenizeCard.
+    .AddInstrumentation(options => options.WithoutSensitiveData())
     // O cartão passa por aqui (tokenizeCard): nada da requisição vai para erros ou telemetria. Explícito, para
     // não depender dos padrões de uma versão futura (add-payments-subgraph; o Gateway.Tests confere).
     .ModifyRequestOptions(options =>
@@ -50,4 +55,8 @@ app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = check 
 
 app.Run();
 
-public partial class Program;
+public partial class Program
+{
+    // Nome do serviço na telemetria (service.name), o mesmo do compose.
+    public const string ServiceName = "gateway-api";
+}

@@ -1,0 +1,29 @@
+# Telemetria das APIs (OpenTelemetry, por OTLP): o .NET Aspire Dashboard, painel local com traces, métricas e logs
+# em http://localhost:18888, sem conta. Fica no perfil "telemetry-local": um "docker compose up" comum não o sobe,
+# e as APIs só exportam com OTEL_EXPORTER_OTLP_ENDPOINT definido. Para ligar:
+#   OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889 docker compose --profile telemetry-local up -d --build
+# (ou a mesma variável no .env). Os dados ficam em memória e somem ao reiniciá-lo. Outro coletor OTLP (Grafana,
+# Jaeger, um serviço pago) entra só trocando o endereço, sem mudar o código.
+services:
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:13.6.0
+    container_name: aspire_dashboard
+    profiles: ["telemetry-local"]
+    restart: unless-stopped
+    environment:
+      # Sem login na interface nem chave no OTLP: só para uso local.
+      DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS: "true"
+    ports:
+      - 18888:18888   # interface
+    # OTLP gRPC na 18889, só na rede interna (as APIs mandam para aspire-dashboard:18889).
+    networks:
+      - ecommerce-networks
+
+networks:
+  ecommerce-networks:
+    driver: bridge
+    # Mesma sub-rede de docker-compose.database.yml (veja o motivo lá),
+    # para o arquivo também funcionar sozinho.
+    ipam:
+      config:
+        - subnet: 192.168.100.0/24

@@ -51,6 +51,7 @@ public class RetryOrderPaymentHandler(
         var order = await orderRepository.GetByNumberAsync(command.OrderNumber, cancellationToken);
         if (order is null || order.CustomerId != command.CustomerId)
             return RetryOrderPaymentResult.NotFound;
+        OrderTelemetry.Tag(order.OrderNumber);
 
         // O cartão nunca chega ao Orders: o navegador o troca por um token novo a cada tentativa.
         if (command.Payment is not { CardToken: { Length: > 0 } cardToken } payment)

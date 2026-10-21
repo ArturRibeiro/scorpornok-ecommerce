@@ -91,6 +91,18 @@ public class CustomerOrdersHandlerTests
     }
 
     [Test]
+    public async Task Detalhe_leva_o_numero_do_pedido_ao_span_corrente()
+    {
+        var order = NewOrder();
+        DetailReturns(order);
+        using var span = new Activity("myOrder").Start();
+
+        await _handler.Handle(new GetCustomerOrderQuery(Owner, order.OrderNumber), CancellationToken.None);
+
+        span.GetTagItem(OrderTelemetry.OrderNumberTag).Should().Be(order.OrderNumber);
+    }
+
+    [Test]
     public async Task Detalhe_traz_itens_com_subtotal_e_endereco_da_compra()
     {
         var order = NewOrder();

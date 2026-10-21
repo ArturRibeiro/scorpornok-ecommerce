@@ -1,5 +1,6 @@
 // Global using directives
 
+global using System.Diagnostics;
 global using System.Security.Claims;
 global using System.Text.Json;
 global using Customers.CommandHandlers.Profiles;
@@ -25,5 +26,6 @@ global using Shared.Code;
 global using Shared.Code.Commands;
 global using Shared.Code.IntegrationEvents;
 global using Shared.Code.Models;
+global using Shared.Code.Telemetry;
 global using Shared.Code.Validation;
 global using static Customers.Web.Api.WebApplicationExtensions.WebApplicationExtensions;

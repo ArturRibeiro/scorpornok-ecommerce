@@ -5,7 +5,7 @@ namespace Gateway.Tests;
 /// que as conta e responde no lugar do Catalog (ou simula o Catalog fora do ar).
 /// </summary>
 public sealed class GatewayFactory(string environment = "Development", IDictionary<string, string?>? settings = null,
-    CapturedLogs? logs = null)
+    CapturedLogs? logs = null, CapturedTelemetry? telemetry = null)
     : WebApplicationFactory<Program>
 {
     public FakeSubgraphs Subgraphs { get; } = new();
@@ -20,8 +20,18 @@ public sealed class GatewayFactory(string environment = "Development", IDictiona
             // para a captura ver tudo o que qualquer categoria registraria.
             builder.ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Trace).AddProvider(logs)
                 .AddFilter<CapturedLogs>(category: null, level: LogLevel.Trace));
+        if (telemetry is not null)
+            // O provedor de logs do OpenTelemetry também vê todos os níveis, como o CapturedLogs.
+            builder.ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Trace)
+                .AddFilter<OpenTelemetryLoggerProvider>(category: null, level: LogLevel.Trace));
         builder.ConfigureTestServices(services =>
         {
+            if (telemetry is not null)
+            {
+                // Exportadores em memória: o que iria para o coletor.
+                services.ConfigureOpenTelemetryTracerProvider(tracing => tracing.AddInMemoryExporter(telemetry.Spans));
+                services.ConfigureOpenTelemetryLoggerProvider(logging => logging.AddInMemoryExporter(telemetry.Logs));
+            }
             services.AddHttpClient("fusion").ConfigurePrimaryHttpMessageHandler(() => Subgraphs);
             // Sem buscar as chaves no Keycloak: os tokens dos testes (TestTokens) são assinados com uma chave local.
             // Configure, e não PostConfigure: roda antes da validação do JwtBearer (HTTPS fora de Development).
@@ -34,12 +44,12 @@ public sealed class GatewayFactory(string environment = "Development", IDictiona
         });
     }
 
-    public async Task<GraphQLResponse> QueryAsync(string query, string? token = null)
+    public async Task<GraphQLResponse> QueryAsync(string query, string? token = null, object? variables = null)
     {
         using var client = CreateClient();
         if (token is not null)
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-        var response = await client.PostAsJsonAsync("/graphql", new { query });
+        var response = await client.PostAsJsonAsync("/graphql", new { query, variables });
         return new GraphQLResponse(response.StatusCode, await response.Content.ReadAsStringAsync());
     }
 }
@@ -72,6 +82,37 @@ public sealed class FakeSubgraphs : HttpMessageHandler
             Content = new StringContent(Respond, System.Text.Encoding.UTF8, "application/json")
         });
     }
+}
+
+/// <summary>Spans e logs que o gateway exportaria, com o texto de tudo o que vai para o exportador.</summary>
+public sealed class CapturedTelemetry
+{
+    public ExportedItems<Activity> Spans { get; } = new();
+    public ExportedItems<LogRecord> Logs { get; } = new();
+
+    /// <summary>
+    /// Espera o span da requisição HTTP (o ASP.NET Core o encerra logo depois de responder; é ele que levaria as
+    /// variáveis), esvazia os lotes pendentes e devolve o texto de tudo o que foi exportado (nomes, tags, eventos,
+    /// mensagens, atributos e exceções). Chamar com o gateway no ar: os registros de log são reaproveitados depois.
+    /// </summary>
+    public async Task<string> FlushAsync(IServiceProvider services)
+    {
+        var deadline = DateTime.UtcNow.AddSeconds(5);
+        while (!Spans.Any(span => span.Kind == ActivityKind.Server) && DateTime.UtcNow < deadline)
+            await Task.Delay(20);
+        services.GetRequiredService<TracerProvider>().ForceFlush();
+        services.GetRequiredService<LoggerProvider>().ForceFlush();
+        return string.Join('\n', Spans.Select(Describe).Concat(Logs.Select(Describe)));
+    }
+
+    private static string Describe(Activity span) => string.Join('|',
+        new[] { span.DisplayName, span.StatusDescription ?? "" }
+            .Concat(span.TagObjects.Select(tag => $"{tag.Key}={tag.Value}"))
+            .Concat(span.Events.SelectMany(e => e.Tags.Select(tag => $"{e.Name}:{tag.Key}={tag.Value}"))));
+
+    private static string Describe(LogRecord log) => string.Join('|',
+        new[] { log.FormattedMessage ?? "", log.Body ?? "", log.Exception?.ToString() ?? "" }
+            .Concat(log.Attributes?.Select(a => $"{a.Key}={a.Value}") ?? []));
 }
 
 /// <summary>Guarda tudo o que o gateway registra em log (mensagem e exceção), em qualquer nível.</summary>

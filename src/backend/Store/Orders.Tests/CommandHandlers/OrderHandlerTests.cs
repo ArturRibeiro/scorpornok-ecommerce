@@ -98,6 +98,16 @@ public class OrderHandlerTests
     }
 
     [Test]
+    public async Task Pedido_registrado_leva_o_numero_ao_span_corrente()
+    {
+        using var span = new Activity("placeOrder").Start();
+
+        var result = await _handler.Handle(Command(Guid.NewGuid(), items: [Item(42, 10m, 2)]), CancellationToken.None);
+
+        span.GetTagItem(OrderTelemetry.OrderNumberTag).Should().Be(result.OrderNumber);
+    }
+
+    [Test]
     public async Task Pedido_invalido_nao_deve_ser_salvo()
     {
         var result = await _handler.Handle(Command(Guid.NewGuid(), city: "", items: []), CancellationToken.None);

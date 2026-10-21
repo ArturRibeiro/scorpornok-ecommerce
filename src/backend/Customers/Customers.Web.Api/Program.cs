@@ -1,5 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 
+// Traces, métricas e logs em OpenTelemetry; exportados só com OTEL_EXPORTER_OTLP_ENDPOINT (ex.: o painel local).
+builder.AddObservability(ServiceName, tracing => tracing.AddHotChocolateInstrumentation());
+
 // Vem do appsettings.Development.json (dotnet run) ou do docker compose (variável de ambiente).
 var connectionString = builder.Configuration.GetConnectionString("ConnectionString")
     ?? throw new InvalidOperationException("ConnectionStrings:ConnectionString não configurada.");
@@ -16,7 +19,8 @@ builder.Services.AddInfrastructure(connectionString, builder.Configuration);
 // Clientes do Keycloak: o cadastro exige token com e-mail confirmado.
 builder.Services.AddCustomerAuthentication(builder.Configuration, builder.Environment);
 // Subgraph do gateway federado (Fusion): o cadastro em /graphql, com a mesma política do REST.
-builder.Services.AddGraphQLServer(SubgraphName).AddAuthorization().AddApiTypes();
+builder.Services.AddGraphQLServer(SubgraphName).AddAuthorization().AddApiTypes()
+    .AddInstrumentation(options => options.WithoutSensitiveData());
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<CustomerContext>(tags: ["ready"]);
 
@@ -66,6 +70,9 @@ app.Run();
 
 public partial class Program
 {
+    // Nome do serviço na telemetria (service.name), o mesmo do compose.
+    public const string ServiceName = "customers-api";
+
     // Nome do subgraph no gateway (name do schema-settings.json).
     public const string SubgraphName = "customers";
 }

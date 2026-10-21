@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(TargetFramework)</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="$(FluentAssertions)" />
+    <PackageReference Include="nunit" Version="$(nunit)" />
+    <PackageReference Include="NUnit3TestAdapter" Version="$(NUnit3TestAdapter)" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdk)" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreMvcTesting)" />
+    <PackageReference Include="OpenTelemetry.Exporter.InMemory" Version="$(OpenTelemetry)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Frameworker.Observability\Frameworker.Observability.csproj" />
+  </ItemGroup>
+
+</Project>

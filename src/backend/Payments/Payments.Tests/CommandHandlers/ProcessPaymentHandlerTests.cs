@@ -56,6 +56,16 @@ public class ProcessPaymentHandlerTests
     }
 
     [Test]
+    public async Task Cobranca_leva_o_numero_do_pedido_ao_span_corrente()
+    {
+        using var span = new Activity("payment-requested process").Start();
+
+        await _handler.Handle(Command(orderNumber: "A777"), CancellationToken.None);
+
+        span.GetTagItem(OrderTelemetry.OrderNumberTag).Should().Be("A777");
+    }
+
+    [Test]
     public async Task Cartao_aprovado_deve_gravar_e_publicar_PaymentApproved()
     {
         await _handler.Handle(Command("4111111111111111"), CancellationToken.None);

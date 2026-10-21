@@ -31,6 +31,9 @@
         <MassTransit>8.5.10</MassTransit>
         <!-- GraphQL: subgraphs (Hot Chocolate) e gateway federado (Fusion), sempre na mesma versão. -->
         <HotChocolate>16.6.9</HotChocolate>
+        <!-- Telemetria (add-service-telemetry): OpenTelemetry, exportada por OTLP (no compose, ao painel local). -->
+        <OpenTelemetry>1.20.1</OpenTelemetry>
+        <NpgsqlOpenTelemetry>10.0.3</NpgsqlOpenTelemetry>
         <MailKit>4.18.0</MailKit>
         <Scrutor>3.3.0</Scrutor>
         <DotNetTestcontainers>1.6.0</DotNetTestcontainers>

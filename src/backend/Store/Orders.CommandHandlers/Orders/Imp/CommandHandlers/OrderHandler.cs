@@ -65,6 +65,8 @@ public class OrderHandler
             await RequestPaymentAsync(order, command.Payment, cancellationToken);
             await orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         }, cancellationToken);
+        OrderTelemetry.Tag(order.OrderNumber);
+        logger.LogInformation("Pedido {OrderNumber} registrado.", order.OrderNumber);
         return CreateOrderResult.Created(order);
     }
 

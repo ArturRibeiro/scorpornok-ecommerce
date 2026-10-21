@@ -1,20 +1,28 @@
 // Global using directives
 
+global using System.Diagnostics;
 global using System.Net;
 global using System.Net.Http;
+global using System.Net.Http.Json;
 global using System.Reflection;
 global using System.Text;
 global using System.Text.Json;
 global using FluentAssertions;
+global using Frameworker.Observability;
 global using HotChocolate;
 global using HotChocolate.Execution;
 global using MassTransit;
 global using MassTransit.Testing;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.TestHost;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Diagnostics.HealthChecks;
 global using Moq;
 global using NUnit.Framework;
+global using OpenTelemetry;
+global using OpenTelemetry.Trace;
 global using Payments.CommandHandlers.CardTokens;
 global using Payments.CommandHandlers.Payments;
 global using Payments.Domain;
@@ -29,3 +37,4 @@ global using Shared.Code.Commands;
 global using Shared.Code.IntegrationEvents;
 global using Shared.Code.Models;
 global using static Payments.Web.Api.WebApplicationExtensions.WebApplicationExtensions;
+global using Shared.Code.Telemetry;

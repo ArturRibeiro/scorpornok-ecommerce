@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>$(TargetFramework)</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>Frameworker.Observability</AssemblyName>
+        <RootNamespace>Frameworker.Observability</RootNamespace>
+    </PropertyGroup>
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="$(OpenTelemetry)"/>
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="$(OpenTelemetry)"/>
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="$(OpenTelemetry)"/>
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="$(OpenTelemetry)"/>
+        <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="$(OpenTelemetry)"/>
+        <PackageReference Include="Npgsql.OpenTelemetry" Version="$(NpgsqlOpenTelemetry)"/>
+        <!-- Opções comuns da instrumentação do Hot Chocolate e do Fusion (GraphQLInstrumentation). -->
+        <PackageReference Include="HotChocolate.Diagnostics.Core" Version="$(HotChocolate)"/>
+    </ItemGroup>
+</Project>

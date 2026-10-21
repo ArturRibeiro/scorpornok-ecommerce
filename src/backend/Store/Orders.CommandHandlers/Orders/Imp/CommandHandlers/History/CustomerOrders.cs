@@ -58,11 +58,14 @@ public class CustomerOrdersHandler(IOrderRepository orderRepository)
     }
 
     public async Task<CustomerOrderDetail?> Handle(GetCustomerOrderQuery query, CancellationToken cancellationToken)
-        => await orderRepository.GetCustomerOrderAsync(query.CustomerId, query.OrderNumber, cancellationToken) is { } order
-           // O repositório já filtra pelo cliente; a conferência aqui não deixa passar um pedido de outro.
-           && order.CustomerId == query.CustomerId
-            ? Detail(order)
-            : null;
+    {
+        // O repositório já filtra pelo cliente; a conferência aqui não deixa passar um pedido de outro.
+        if (await orderRepository.GetCustomerOrderAsync(query.CustomerId, query.OrderNumber, cancellationToken) is not { } order
+            || order.CustomerId != query.CustomerId)
+            return null;
+        OrderTelemetry.Tag(order.OrderNumber);
+        return Detail(order);
+    }
 
     private static CustomerOrderSummary Summary(Order order)
         => new(order.OrderNumber, order.OrderDate, order.Status.Name, order.Total,

@@ -2,6 +2,7 @@
 
 global using System;
 global using System.Collections.Generic;
+global using System.Diagnostics;
 global using System.Diagnostics.CodeAnalysis;
 global using System.IO;
 global using System.Linq;
@@ -46,3 +47,4 @@ global using Shared.Code.Imp.Bus;
 global using Shared.Code.IntegrationEvents;
 global using Shared.Code.Models;
 global using Shared.Code.Notifications;
+global using Shared.Code.Telemetry;

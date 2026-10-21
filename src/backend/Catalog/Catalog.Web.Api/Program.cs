@@ -1,5 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 
+// Traces, métricas e logs em OpenTelemetry; exportados só com OTEL_EXPORTER_OTLP_ENDPOINT (ex.: o painel local).
+builder.AddObservability(ServiceName, tracing => tracing.AddHotChocolateInstrumentation());
+
 // Vem do appsettings.Development.json (dotnet run) ou do docker compose (variável de ambiente).
 var connectionString = builder.Configuration.GetConnectionString("ConnectionString")
     ?? throw new InvalidOperationException("ConnectionStrings:ConnectionString não configurada.");
@@ -14,7 +17,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(connectionString);
 // Subgraph do gateway federado (Fusion): as mesmas consultas do REST, em /graphql.
-builder.Services.AddGraphQLServer(SubgraphName).AddApiTypes();
+builder.Services.AddGraphQLServer(SubgraphName).AddApiTypes()
+    .AddInstrumentation(options => options.WithoutSensitiveData());
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<ApplicationCatalogDbContext>(tags: ["ready"]);
 
@@ -54,6 +58,9 @@ app.Run();
 
 public partial class Program
 {
+    // Nome do serviço na telemetria (service.name), o mesmo do compose.
+    public const string ServiceName = "catalog-api";
+
     // Nome do subgraph no gateway (name do schema-settings.json).
     public const string SubgraphName = "catalog";
 }

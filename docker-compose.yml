@@ -1,6 +1,7 @@
 # Aplicação: sobe as APIs (Catalog, Orders, Payments e Customers) e o gateway GraphQL junto com os bancos de docker-compose.database.yml,
 # o RabbitMQ de docker-compose.messaging.yml, o Mailpit de docker-compose.mail.yml,
-# o Keycloak de docker-compose.identity.yml e o front-end de docker-compose.frontend.yml.
+# o Keycloak de docker-compose.identity.yml, o front-end de docker-compose.frontend.yml e, no perfil
+# "telemetry-local", o painel de telemetria de docker-compose.observability.yml (veja lá como ligar).
 #   docker compose up -d --build
 include:
   - docker-compose.database.yml
@@ -8,6 +9,7 @@ include:
   - docker-compose.mail.yml
   - docker-compose.identity.yml
   - docker-compose.frontend.yml
+  - docker-compose.observability.yml
 
 services:
   catalog-api:
@@ -19,6 +21,9 @@ services:
     container_name: catalog_api
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      # Telemetria (OpenTelemetry): exportada só com o endereço de um coletor no .env (o painel local,
+      # http://aspire-dashboard:18889); vazio, nada é exportado. Veja docker-compose.observability.yml.
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
       ConnectionStrings__ConnectionString: Host=catalog-db;Port=5432;Database=catalog;Username=sa;Password=sa
     ports:
       - 5064:8080
@@ -40,6 +45,7 @@ services:
     container_name: gateway_api
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
       Fusion__Archive: gateway.compose.far
       # Mesmo emissor público dos tokens; a descoberta e as chaves vêm de keycloak:8080.
       Keycloak__MetadataAddress: http://keycloak:8080/realms/scorponok/.well-known/openid-configuration
@@ -68,6 +74,7 @@ services:
     container_name: orders_api
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
       ConnectionStrings__ConnectionString: Host=orders-db;Port=5432;Database=orders;Username=sa;Password=sa
       # Preço, nome e foto dos itens do pedido vêm do Catalog, pela rede interna.
       Catalog__BaseAddress: http://catalog-api:8080
@@ -119,6 +126,7 @@ services:
     container_name: payment_api
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
       ConnectionStrings__ConnectionString: Host=payment-db;Port=5432;Database=payment;Username=sa;Password=sa
       RabbitMq__Host: rabbitmq
       # API de gerenciamento do RabbitMQ, usada pelo /health/ops para olhar as filas de erro.
@@ -142,6 +150,7 @@ services:
     container_name: customers_api
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
       ConnectionStrings__ConnectionString: Host=customers-db;Port=5432;Database=customers;Username=sa;Password=sa
       # Consome o OrderPlaced do Orders (histórico de endereços e cadastro da primeira compra).
       RabbitMq__Host: rabbitmq

@@ -7,6 +7,7 @@ Testes manuais do fluxo do pedido e do pagamento, de ponta a ponta, com o ambien
 - Suba tudo: `docker compose up -d --build` (loja em http://localhost:3000, painel do RabbitMQ em http://localhost:15672, guest/guest).
 - Os e-mails saem por um SMTP de verdade (ex.: Gmail): configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_FROM`, `SMTP_USERNAME`, `SMTP_PASSWORD` e `SMTP_USE_STARTTLS=true` no `.env` da raiz. Os e-mails do pedido chegam na caixa de `arturrj@gmail.com` (confira também o spam).
 - Confira o status em "Meus pedidos" na loja (menu da conta), pelo e-mail recebido, pelo `myOrder` no gateway (ou o `GET /orders/{orderNumber}` do REST) ou na tabela do `orders-db`.
+- Para seguir um pedido por dentro (gateway, Orders, Payments, Customers e RabbitMQ), suba com o painel de telemetria: `OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889 docker compose --profile telemetry-local up -d --build` (painel em http://localhost:18888). Em *Traces*, filtre por `order.number` com o número do pedido (cenário 34).
 - Anote o número de cada pedido (tela de confirmação da loja ou `orderNumber` da resposta do `POST /createOrder`): os cenários seguintes usam os pedidos pelos apelidos abaixo (P1, P2, ...).
 - As chamadas diretas à API estão em `src/backend/Store/Orders.Web.Api/PaymentRetry.http` (nova tentativa), `src/backend/Store/Orders.Web.Api/Orders.Web.Api.http` (pedido e histórico), `src/backend/Gateway/Gateway.Web.Api/Gateway.Web.Api.http` (catálogo, cadastro, pedidos e tokenização pelo gateway GraphQL) e `src/backend/Customers/Customers.Web.Api/Customers.Web.Api.http` (cadastro). Os cenários marcados com **API** não dão para fazer pela loja.
 
@@ -413,3 +414,19 @@ Antes, com o código da busca, recrie o banco do Catalog (a coluna da marca e a 
 14. **Esperado:** as mesmas sugestões no painel, que fecha ao escolher; os filtros aparecem só ao tocar em "Filtros".
 15. `docker compose stop catalog-api`, busque "nike" e digite no campo.
 16. **Esperado:** a página de resultados mostra que não foi possível carregar os produtos, com "Tentar de novo"; as sugestões não aparecem, sem mensagem de erro. `docker compose start catalog-api`.
+
+### 34. Telemetria no painel local
+
+Antes, suba com o painel: `OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889 docker compose --profile telemetry-local up -d --build`.
+
+1. Faça uma compra aprovada (cenário 1) e abra http://localhost:18888, em *Traces*.
+2. **Esperado:** um trace `gateway-api: mutation PlaceOrder` com os cinco serviços: o `placeOrder` no `orders-api`, o `GET /GetProductsByIds` no `catalog-api`, o `outbox send`/`outbox process`, o `payment-requested` no `payment-api`, o `order-placed` no `customers-api` e o `payment-approved` de volta no `orders-api`. Em *Structured logs*, os logs do pedido levam ao mesmo trace.
+3. Em *Traces*, filtre por `order.number` igual ao número do pedido; em *Structured logs*, procure o número.
+4. **Esperado:** o trace da compra (spans do `orders-api`, do `payment-api` e do `customers-api` com o número), os da consulta do pedido e o do e-mail; nos logs, `Pedido … registrado.` e `Pedido …: pagamento Confirmed (tentativa 1).`, cada um com o link para o trace.
+5. Em *Traces* e *Structured logs*, procure `4111` e o CPF do comprador.
+6. **Esperado:** nada encontrado.
+7. Deixe a loja parada por um minuto.
+8. **Esperado:** nenhum trace novo (nem dos health checks, nem das rodadas sem trabalho); depois da compra, aparece um `orders-api: Envio dos e-mails de pagamento`, com um span por pedido.
+9. `docker compose --profile telemetry-local stop aspire-dashboard` e faça outra compra.
+10. **Esperado:** a compra segue normalmente. `docker compose --profile telemetry-local start aspire-dashboard`.
+

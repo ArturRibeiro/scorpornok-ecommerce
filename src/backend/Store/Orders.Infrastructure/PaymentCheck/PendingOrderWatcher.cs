@@ -49,9 +49,15 @@ public class PendingOrderWatcher(
         if (due.Count == 0)
             return 0;
 
+        using var activity = OrdersTelemetry.Source.StartActivity("Consulta de pedidos pendentes");
+        activity?.SetTag("orders.count", due.Count);
+
         // O publicador grava no outbox; as mensagens e o StatusCheckedAt vão no mesmo SaveChanges.
         foreach (var order in due)
         {
+            // Um span por pedido, com o número; a mensagem publicada (outbox) leva o contexto dele ao Payments.
+            using var orderActivity = OrdersTelemetry.Source.StartActivity("Consulta do pagamento");
+            OrderTelemetry.Tag(order.OrderNumber);
             await publisher.PublishAsync(new PaymentStatusRequested(order.OrderNumber, order.Payment.Attempt), cancellationToken);
             order.MarkPaymentStatusChecked(now);
             logger.LogInformation("Pedido {OrderNumber} pendente desde {StartedAt} (tentativa {Attempt}); consultando o Payments.",

@@ -16,11 +16,14 @@
         <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="$(HotChocolate)" />
         <PackageReference Include="HotChocolate.AspNetCore.CommandLine" Version="$(HotChocolate)" />
         <PackageReference Include="HotChocolate.Types.Analyzers" Version="$(HotChocolate)" />
+        <!-- Spans do GraphQL (add-service-telemetry). -->
+        <PackageReference Include="HotChocolate.Diagnostics" Version="$(HotChocolate)" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\Shared\Shared.Code\Shared.Code.csproj" />
       <ProjectReference Include="..\Customers.Infrastructure\Customers.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\Frameworker\Frameworker.Observability\Frameworker.Observability.csproj" />
     </ItemGroup>
 
 </Project>

@@ -37,6 +37,8 @@
   <Folder Name="/backend/4 - Shared/">
     <Project Path="src/backend/Frameworker/Frameworker.EntityFrameworkCore/Frameworker.EntityFrameworkCore.csproj" />
     <Project Path="src/backend/Frameworker/Frameworker.Integration.Tests/Frameworker.Integration.Tests.csproj" />
+    <Project Path="src/backend/Frameworker/Frameworker.Observability/Frameworker.Observability.csproj" />
+    <Project Path="src/backend/Frameworker/Frameworker.Observability.Tests/Frameworker.Observability.Tests.csproj" />
     <Project Path="src/backend/Frameworker/Programming.Functional.Tests/Programming.Functional.Tests.csproj" />
     <Project Path="src/backend/Frameworker/Programming.Functional/Programming.Functional.csproj" />
     <Project Path="src/backend/Shared/Shared.Code/Shared.Code.csproj" />

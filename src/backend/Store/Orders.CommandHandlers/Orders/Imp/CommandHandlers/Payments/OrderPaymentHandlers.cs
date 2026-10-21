@@ -27,6 +27,7 @@ public class OrderPaymentHandlers(
     // Salva antes de avisar: a loja nunca recebe um resultado que o pedido ainda não reflete.
     private async Task ApplyAsync(string orderNumber, Func<Order, bool> apply, CancellationToken cancellationToken)
     {
+        OrderTelemetry.Tag(orderNumber);
         var order = await orderRepository.GetByNumberAsync(orderNumber, cancellationToken);
         if (order is null)
         {
@@ -39,6 +40,8 @@ public class OrderPaymentHandlers(
             return; // já não estava Pending, ou é de outra tentativa: resultado repetido ou atrasado
 
         await orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+        logger.LogInformation("Pedido {OrderNumber}: pagamento {Status} (tentativa {Attempt}).",
+            orderNumber, order.Status.Name, order.Payment.Attempt);
         await notifier.NotifyAsync(orderNumber, order.Status, order.Payment.Attempt, cancellationToken);
     }
 }

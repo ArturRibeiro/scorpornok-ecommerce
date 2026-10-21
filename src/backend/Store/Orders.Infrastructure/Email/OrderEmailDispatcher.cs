@@ -51,12 +51,21 @@ public class OrderEmailDispatcher(
         // Mesmo relógio de Order.OrderDate e do EmailSentAt (DateTime.Now).
         var now = DateTime.Now;
 
-        var sent = 0;
-        foreach (var order in await repository.GetAwaitingPaymentEmailAsync(now, BatchSize, cancellationToken))
-        {
-            if (!order.IsAwaitingPaymentEmailAt(now))
-                continue;
+        var awaiting = (await repository.GetAwaitingPaymentEmailAsync(now, BatchSize, cancellationToken))
+            .Where(order => order.IsAwaitingPaymentEmailAt(now))
+            .ToList();
+        if (awaiting.Count == 0)
+            return new EmailDispatchResult(0, ServerUnavailable: false);
 
+        using var activity = OrdersTelemetry.Source.StartActivity("Envio dos e-mails de pagamento");
+        activity?.SetTag("orders.count", awaiting.Count);
+
+        var sent = 0;
+        foreach (var order in awaiting)
+        {
+            // Um span por pedido, com o número: a rodada inteira aparece ao procurar qualquer um deles.
+            using var orderActivity = OrdersTelemetry.Source.StartActivity("Envio do e-mail de pagamento");
+            OrderTelemetry.Tag(order.OrderNumber);
             try
             {
                 await sender.SendPaymentResultAsync(order, cancellationToken);

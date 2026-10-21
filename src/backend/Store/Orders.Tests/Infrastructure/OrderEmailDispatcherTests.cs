@@ -60,6 +60,26 @@ public class OrderEmailDispatcherTests
     }
 
     [Test]
+    public async Task Rodada_com_pedidos_abre_um_span_por_pedido_e_rodada_vazia_nao()
+    {
+        using var recorder = new OrdersActivityRecorder();
+        Returns();
+        await _dispatcher.DispatchPendingAsync(CancellationToken.None);
+        recorder.Started.Should().BeEmpty();
+
+        var first = ConfirmedOrder();
+        var second = ConfirmedOrder();
+        Returns(first, second);
+        await _dispatcher.DispatchPendingAsync(CancellationToken.None);
+
+        var round = recorder.Started.Should().ContainSingle(a => a.DisplayName == "Envio dos e-mails de pagamento").Subject;
+        round.GetTagItem("orders.count").Should().Be(2);
+        recorder.Started.Where(a => a.DisplayName == "Envio do e-mail de pagamento")
+            .Select(a => (a.ParentSpanId, a.GetTagItem(OrderTelemetry.OrderNumberTag)))
+            .Should().Equal((round.SpanId, first.OrderNumber), (round.SpanId, second.OrderNumber));
+    }
+
+    [Test]
     public async Task Destinatario_recusado_fica_em_falha_definitiva_e_nao_bloqueia_o_seguinte()
     {
         var refused = ConfirmedOrder();

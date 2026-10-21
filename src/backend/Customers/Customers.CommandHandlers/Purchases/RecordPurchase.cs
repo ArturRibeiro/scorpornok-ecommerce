@@ -21,6 +21,8 @@ public class RecordPurchaseHandler(ICustomerRepository repository, ILogger<Recor
 {
     public async Task Handle(RecordPurchaseCommand command, CancellationToken cancellationToken)
     {
+        OrderTelemetry.Tag(command.OrderNumber);
+
         // Mensagem repetida: o pedido já foi registrado (histórico e cadastro saem na mesma gravação).
         // Entregas simultâneas esbarram no índice único do pedido, e a retentativa cai aqui.
         if (await repository.HasDeliveryAddressAsync(command.OrderNumber, cancellationToken))

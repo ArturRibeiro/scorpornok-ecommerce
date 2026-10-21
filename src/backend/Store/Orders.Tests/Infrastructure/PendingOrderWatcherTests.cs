@@ -76,6 +76,26 @@ public class PendingOrderWatcherTests
     }
 
     [Test]
+    public async Task Rodada_com_pedidos_abre_um_span_por_pedido_e_rodada_vazia_nao()
+    {
+        using var recorder = new OrdersActivityRecorder();
+        Returns();
+        await _watcher.CheckDueOrdersAsync(DateTime.Now.AddMinutes(16), CancellationToken.None);
+        recorder.Started.Should().BeEmpty();
+
+        var first = new Order(Guid.NewGuid());
+        var second = new Order(Guid.NewGuid());
+        Returns(first, second);
+        await _watcher.CheckDueOrdersAsync(DateTime.Now.AddMinutes(16), CancellationToken.None);
+
+        var round = recorder.Started.Should().ContainSingle(a => a.DisplayName == "Consulta de pedidos pendentes").Subject;
+        round.GetTagItem("orders.count").Should().Be(2);
+        recorder.Started.Where(a => a.DisplayName == "Consulta do pagamento")
+            .Select(a => (a.ParentSpanId, a.GetTagItem(OrderTelemetry.OrderNumberTag)))
+            .Should().Equal((round.SpanId, first.OrderNumber), (round.SpanId, second.OrderNumber));
+    }
+
+    [Test]
     public async Task Nova_consulta_so_depois_do_intervalo()
     {
         var order = new Order(Guid.NewGuid());

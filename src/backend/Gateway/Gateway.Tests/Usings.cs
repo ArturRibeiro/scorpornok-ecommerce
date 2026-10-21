@@ -1,5 +1,6 @@
 // Global using directives
 
+global using System.Diagnostics;
 global using System.IO.Compression;
 global using System.Net;
 global using System.Net.Http.Json;
@@ -20,3 +21,6 @@ global using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 global using Microsoft.IdentityModel.Tokens;
 global using Moq;
 global using NUnit.Framework;
+global using OpenTelemetry;
+global using OpenTelemetry.Logs;
+global using OpenTelemetry.Trace;

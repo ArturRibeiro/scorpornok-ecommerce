@@ -10,6 +10,8 @@ public class CheckPaymentStatusHandler(IPaymentRepository paymentRepository, IIn
 {
     public async Task Handle(CheckPaymentStatusCommand command, CancellationToken cancellationToken)
     {
+        OrderTelemetry.Tag(command.OrderNumber);
+
         var key = Domain.Payment.KeyFor(command.OrderNumber, command.Attempt);
         var payment = await paymentRepository.GetByIdempotencyKeyAsync(key, cancellationToken);
 

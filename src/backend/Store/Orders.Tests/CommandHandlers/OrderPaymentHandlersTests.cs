@@ -35,6 +35,16 @@ public class OrderPaymentHandlersTests
     }
 
     [Test]
+    public async Task Resultado_leva_o_numero_do_pedido_ao_span_corrente()
+    {
+        using var span = new Activity("payment-approved process").Start();
+
+        await _handlers.Handle(new ConfirmOrderPaymentCommand(_order.OrderNumber, Guid.NewGuid()), CancellationToken.None);
+
+        span.GetTagItem(OrderTelemetry.OrderNumberTag).Should().Be(_order.OrderNumber);
+    }
+
+    [Test]
     public async Task Recusado_deve_marcar_falha_salvar_e_notificar()
     {
         await _handlers.Handle(new FailOrderPaymentCommand(_order.OrderNumber, "recusado"), CancellationToken.None);

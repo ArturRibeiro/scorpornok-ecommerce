@@ -59,6 +59,16 @@ public class RecordPurchaseHandlerTests
     }
 
     [Test]
+    public async Task Compra_leva_o_numero_do_pedido_ao_span_corrente()
+    {
+        using var span = new Activity("order-placed process").Start();
+
+        await _handler.Handle(Purchase(), CancellationToken.None);
+
+        span.GetTagItem(OrderTelemetry.OrderNumberTag).Should().Be("A123");
+    }
+
+    [Test]
     public async Task Cadastro_existente_nao_muda_e_o_endereco_entra_no_historico()
     {
         _stored = Existing();

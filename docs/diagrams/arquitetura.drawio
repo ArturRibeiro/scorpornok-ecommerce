@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="arquitetura" name="Arquitetura">
-        <mxGraphModel dx="1506" dy="551" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1720" pageHeight="1200" math="0" shadow="0">
+        <mxGraphModel dx="1879" dy="794" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1720" pageHeight="1200" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -10,7 +10,7 @@
                 <mxCell id="titulo" parent="6LpmRujnPsGpBRfCby3h-1" style="text;html=1;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=#1A1A1A;" value="Loja Scorponok: arquitetura (containers)" vertex="1">
                     <mxGeometry height="30" width="700" x="15" as="geometry"/>
                 </mxCell>
-                <mxCell id="sub" parent="6LpmRujnPsGpBRfCby3h-1" style="text;html=1;align=left;fontSize=11;fontColor=#404040;" value="O que roda no docker compose, as portas no host e como as partes conversam. Os ícones são os serviços AWS equivalentes (Fargate, AppSync, CloudFront, RDS, Amazon MQ, Cognito, SES); os rótulos dizem o que roda hoje. Fonte: docker-compose*.yml e CLAUDE.md." vertex="1">
+                <mxCell id="sub" parent="6LpmRujnPsGpBRfCby3h-1" style="text;html=1;align=left;fontSize=11;fontColor=#404040;" value="O que roda no docker compose, as portas no host e como as partes conversam. Os ícones são os serviços AWS equivalentes (Fargate, AppSync, CloudFront, RDS, Amazon MQ, Cognito, SES, CloudWatch); os rótulos dizem o que roda hoje. Fonte: docker-compose*.yml e CLAUDE.md." vertex="1">
                     <mxGeometry height="20" width="1250" x="15" y="32" as="geometry"/>
                 </mxCell>
                 <mxCell id="cliente" parent="6LpmRujnPsGpBRfCby3h-1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;html=1;fontStyle=0;aspect=fixed;pointerEvents=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;spacingRight=8;fontSize=12;shape=mxgraph.aws4.user;" value="&lt;b&gt;Cliente&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Pessoa]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Navega, compra e acompanha os pedidos&lt;/font&gt;" vertex="1">
@@ -124,7 +124,7 @@
                 <mxCell id="leg5" parent="6LpmRujnPsGpBRfCby3h-1" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;html=1;fontStyle=0;aspect=fixed;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;spacingLeft=4;fontSize=10;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.mq;" value="Fila (RabbitMQ)" vertex="1">
                     <mxGeometry height="30" width="30" x="1355" y="1046" as="geometry"/>
                 </mxCell>
-                <mxCell id="nota" parent="6LpmRujnPsGpBRfCby3h-1" style="text;html=1;align=left;whiteSpace=wrap;fontSize=10;fontColor=#404040;" value="O gateway valida o token no Keycloak (chaves JWKS) e o repassa aos subgraphs, que validam de novo com o seu audience; catálogo e tokenização não exigem login. O cartão passa pelo gateway sem ser registrado. O REST das APIs continua no ar." vertex="1">
+                <mxCell id="nota" parent="6LpmRujnPsGpBRfCby3h-1" style="text;html=1;align=left;whiteSpace=wrap;fontSize=10;fontColor=#404040;" value="O gateway valida o token no Keycloak (chaves JWKS) e o repassa aos subgraphs, que validam de novo com o seu audience; catálogo e tokenização não exigem login. O cartão passa pelo gateway sem ser registrado, nem na telemetria. O REST das APIs continua no ar." vertex="1">
                     <mxGeometry height="60" width="300" x="1355" y="1088" as="geometry"/>
                 </mxCell>
                 <mxCell id="e1" edge="1" parent="6LpmRujnPsGpBRfCby3h-1" source="cliente" style="edgeStyle=orthogonalEdgeStyle;endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=10;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="front" value="Navega e compra [HTTPS]">
@@ -201,6 +201,17 @@
                 </mxCell>
                 <mxCell id="e20" edge="1" parent="6LpmRujnPsGpBRfCby3h-1" source="keycloak" style="edgeStyle=orthogonalEdgeStyle;endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=10;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="kcdb" value="">
                     <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="telemetria" parent="6LpmRujnPsGpBRfCby3h-1" style="rounded=1;arcSize=6;html=1;whiteSpace=wrap;fontSize=12;fontColor=#232F3E;align=center;fillColor=#ffffff;strokeColor=#8C8496;strokeWidth=1.5;spacingLeft=56;spacingRight=6;dashed=1;" value="&lt;b&gt;Painel de telemetria&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[.NET Aspire Dashboard, porta 18888]&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Traces, métricas e logs (OpenTelemetry); opcional, perfil telemetry-local&lt;/font&gt;" vertex="1">
+                    <mxGeometry height="110" width="230" x="1460" y="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="telemetria-aws" parent="telemetria" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;html=1;fontStyle=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;align=center;labelBackgroundColor=#ffffff;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch_2;connectable=0;" value="" vertex="1">
+                    <mxGeometry height="40" width="40" x="12" y="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-otlp" edge="1" parent="6LpmRujnPsGpBRfCby3h-1" source="fronteira" style="edgeStyle=orthogonalEdgeStyle;endArrow=blockThin;endFill=1;endSize=10;html=1;fontSize=10;fontColor=#404040;strokeColor=#828282;labelBackgroundColor=#ffffff;rounded=1;dashed=1;exitX=1;exitY=0.2345;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="telemetria" value="Telemetria das cinco APIs&lt;br&gt;[OTLP gRPC 18889, opcional]">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
                 </mxCell>
             </root>
         </mxGraphModel>
