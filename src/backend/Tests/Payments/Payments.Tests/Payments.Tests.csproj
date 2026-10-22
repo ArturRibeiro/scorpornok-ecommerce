@@ -13,17 +13,14 @@
     <PackageReference Include="nunit" Version="$(nunit)" />
     <PackageReference Include="NUnit3TestAdapter" Version="$(NUnit3TestAdapter)" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdk)" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreMvcTesting)" />
     <PackageReference Include="OpenTelemetry.Exporter.InMemory" Version="$(OpenTelemetry)" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreMvcTesting)" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gateway.Web.Api\Gateway.Web.Api.csproj" />
-    <!-- Os subgraphs também declaram um Program global: os aliases separam todos. -->
-    <ProjectReference Include="..\..\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj" Aliases="catalog" />
-    <ProjectReference Include="..\..\Customers\Customers.Web.Api\Customers.Web.Api.csproj" Aliases="customers" />
-    <ProjectReference Include="..\..\Store\Orders.Web.Api\Orders.Web.Api.csproj" Aliases="orders" />
-    <ProjectReference Include="..\..\Payments\Payments.Web.Api\Payments.Web.Api.csproj" Aliases="payments" />
+    <ProjectReference Include="..\..\..\Payments\Payments.Infrastructure\Payments.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\Payments\Payments.CommandHandlers\Payments.CommandHandlers.csproj" />
+    <ProjectReference Include="..\..\..\Payments\Payments.Web.Api\Payments.Web.Api.csproj" />
   </ItemGroup>
 
 </Project>

@@ -27,25 +27,36 @@
     <Project Path="src/backend/Customers/Customers.CommandHandlers/Customers.CommandHandlers.csproj" />
     <Project Path="src/backend/Customers/Customers.Domain/Customers.Domain.csproj" />
     <Project Path="src/backend/Customers/Customers.Infrastructure/Customers.Infrastructure.csproj" />
-    <Project Path="src/backend/Customers/Customers.Tests/Customers.Tests.csproj" />
     <Project Path="src/backend/Customers/Customers.Web.Api/Customers.Web.Api.csproj" />
   </Folder>
   <Folder Name="/backend/7 - Gateway/">
-    <Project Path="src/backend/Gateway/Gateway.Tests/Gateway.Tests.csproj" />
     <Project Path="src/backend/Gateway/Gateway.Web.Api/Gateway.Web.Api.csproj" />
   </Folder>
   <Folder Name="/backend/4 - Shared/">
     <Project Path="src/backend/Frameworker/Frameworker.EntityFrameworkCore/Frameworker.EntityFrameworkCore.csproj" />
-    <Project Path="src/backend/Frameworker/Frameworker.Integration.Tests/Frameworker.Integration.Tests.csproj" />
     <Project Path="src/backend/Frameworker/Frameworker.Observability/Frameworker.Observability.csproj" />
-    <Project Path="src/backend/Frameworker/Frameworker.Observability.Tests/Frameworker.Observability.Tests.csproj" />
-    <Project Path="src/backend/Frameworker/Programming.Functional.Tests/Programming.Functional.Tests.csproj" />
     <Project Path="src/backend/Frameworker/Programming.Functional/Programming.Functional.csproj" />
     <Project Path="src/backend/Shared/Shared.Code/Shared.Code.csproj" />
   </Folder>
-  <Folder Name="/backend/5 - Scenarios/">
-    <Project Path="src/backend/Payments/Payments.Tests/Payments.Tests.csproj" />
-    <Project Path="src/backend/Store/Orders.Tests/Orders.Tests.csproj" />
-    <Project Path="src/backend/Tests/Ecommerce.Scenarios.Integration.Spec.Tests/Ecommerce.Scenarios.Integration.Spec.Tests.csproj" />
+  <Folder Name="/Tests/" />
+  <Folder Name="/Tests/Catalogs/">
+    <Project Path="src/backend/Tests/Catalogs/Ecommerce.Scenarios.Integration.Spec.Tests/Ecommerce.Scenarios.Integration.Spec.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Tests/Customers/">
+    <Project Path="src/backend/Tests/Customers/Customers.Tests/Customers.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Tests/Frameworkers/">
+    <Project Path="src/backend/Tests/Frameworkers/Frameworker.Integration.Tests/Frameworker.Integration.Tests.csproj" />
+    <Project Path="src/backend/Tests/Frameworkers/Frameworker.Observability.Tests/Frameworker.Observability.Tests.csproj" />
+    <Project Path="src/backend/Tests/Frameworkers/Programming.Functional.Tests/Programming.Functional.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Tests/Gateways/">
+    <Project Path="src/backend/Tests/Gateways/Gateway.Tests/Gateway.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Tests/Payments/">
+    <Project Path="src/backend/Tests/Payments/Payments.Tests/Payments.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Tests/Stores/">
+    <Project Path="src/backend/Tests/Stores/Orders.Tests/Orders.Tests.csproj" />
   </Folder>
 </Solution>

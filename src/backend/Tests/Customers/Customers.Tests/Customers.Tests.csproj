@@ -13,14 +13,11 @@
     <PackageReference Include="nunit" Version="$(nunit)" />
     <PackageReference Include="NUnit3TestAdapter" Version="$(NUnit3TestAdapter)" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdk)" />
-    <PackageReference Include="OpenTelemetry.Exporter.InMemory" Version="$(OpenTelemetry)" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreMvcTesting)" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Payments.Infrastructure\Payments.Infrastructure.csproj" />
-    <ProjectReference Include="..\Payments.CommandHandlers\Payments.CommandHandlers.csproj" />
-    <ProjectReference Include="..\Payments.Web.Api\Payments.Web.Api.csproj" />
+    <ProjectReference Include="..\..\..\Customers\Customers.Infrastructure\Customers.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\Customers\Customers.Web.Api\Customers.Web.Api.csproj" />
   </ItemGroup>
 
 </Project>

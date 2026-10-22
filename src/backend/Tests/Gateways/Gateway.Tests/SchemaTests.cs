@@ -17,7 +17,7 @@ namespace Gateway.Tests;
 public class SchemaTests
 {
     private static string Root([System.Runtime.CompilerServices.CallerFilePath] string path = "")
-        => Path.GetFullPath(Path.Combine(Path.GetDirectoryName(path)!, "..", "..", "..", ".."));
+        => Path.GetFullPath(Path.Combine(Path.GetDirectoryName(path)!, "..", "..", "..", "..", ".."));
 
     private static string Archive(string env) => Path.Combine(Root(), $"src/backend/Gateway/Gateway.Web.Api/gateway.{env}.far");
 

@@ -28,8 +28,8 @@
     </ItemGroup>
 
     <ItemGroup Label="NET">
-        <ProjectReference Include="..\..\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj" />
-        <ProjectReference Include="..\..\Frameworker\Frameworker.Integration.Tests\Frameworker.Integration.Tests.csproj"/>
+        <ProjectReference Include="..\..\..\Catalog\Catalog.Web.Api\Catalog.Web.Api.csproj" />
+        <ProjectReference Include="..\..\Frameworkers\Frameworker.Integration.Tests\Frameworker.Integration.Tests.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

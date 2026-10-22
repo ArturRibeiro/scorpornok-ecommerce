@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Orders.Infrastructure\Orders.Infrastructure.csproj" />
-    <ProjectReference Include="..\Orders.Web.Api\Orders.Web.Api.csproj" />
+    <ProjectReference Include="..\..\..\Store\Orders.Infrastructure\Orders.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\Store\Orders.Web.Api\Orders.Web.Api.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,22 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>$(TargetFramework)</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="$(coverletmsbuild)" />
     <PackageReference Include="FluentAssertions" Version="$(FluentAssertions)" />
-    <PackageReference Include="Moq" Version="$(Moq)" />
-    <PackageReference Include="NBuilder" Version="$(NBuilder)" />
     <PackageReference Include="nunit" Version="$(nunit)" />
     <PackageReference Include="NUnit3TestAdapter" Version="$(NUnit3TestAdapter)" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdk)" />
-    <PackageReference Include="ReportGenerator" Version="$(ReportGenerator)" />
-    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreMvcTesting)" />
+    <PackageReference Include="OpenTelemetry.Exporter.InMemory" Version="$(OpenTelemetry)" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Programming.Functional\Programming.Functional.csproj" />
+    <ProjectReference Include="..\..\..\Frameworker\Frameworker.Observability\Frameworker.Observability.csproj" />
   </ItemGroup>
 
 </Project>
